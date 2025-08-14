@@ -69,11 +69,9 @@
   const btn     = $('#submitBtn');
   const file    = $('#payment');
 
-  // autollenar si hay uno guardado
   const last = localStorage.getItem('konamiId');
   if (last) konami.value = last;
 
-  // vista previa
   file.addEventListener('change', () => {
     const f = file.files?.[0];
     if (!f) { preview.style.display='none'; preview.src=''; return; }
@@ -96,49 +94,41 @@
     e.preventDefault();
     msg.textContent = "";
 
-    const payload = {
-      konamiId:  pad10(konami.value),
-      firstName: $('#firstName').value.trim(),
-      lastName:  $('#lastName').value.trim(),
-      email:     $('#email').value.trim(),
-      phone:     $('#phone').value.trim(),
-      paymentBase64: await fileToBase64(file.files?.[0])
-    };
+    const paymentBase64 = await fileToBase64(file.files?.[0]);
+    const data = new FormData();
+    data.append('konamiId',  pad10(konami.value));
+    data.append('firstName', $('#firstName').value.trim());
+    data.append('lastName',  $('#lastName').value.trim());
+    data.append('email',     $('#email').value.trim());
+    data.append('phone',     $('#phone').value.trim());
+    if (paymentBase64) data.append('paymentBase64', paymentBase64);
 
-    if (!/^\d{10}$/.test(payload.konamiId)) {
+    if (!/^\d{10}$/.test(data.get('konamiId'))) {
       msg.textContent = "Konami ID debe tener 10 dígitos.";
       return;
     }
-    if (!payload.firstName || !payload.lastName) {
+    if (!data.get('firstName') || !data.get('lastName')) {
       msg.textContent = "Nombre y apellidos son obligatorios.";
       return;
     }
 
     btn.disabled = true;
     try {
-      const res = await fetch(API_BASE, {
-        method: 'POST',
-        // Clave: evitar preflight de CORS
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload)
-      });
+      // OJO: NO ponemos Content-Type; el navegador la pone (multipart/form-data)
+      const r = await fetch(API_BASE, { method:'POST', body: data });
+      const j = await r.json();
+      if (!j.ok) throw new Error(j.message || "Error al enviar");
 
-      // Si el proyecto no está bien implementado, res.json() podría fallar.
-      let data;
-      try { data = await res.json(); }
-      catch { throw new Error('No se pudo leer la respuesta del servidor'); }
-
-      if (!data.ok) throw new Error(data.message || "Error al enviar");
-
-      localStorage.setItem('konamiId', payload.konamiId);
-      msg.innerHTML = `✅ ${data.mode === 'insert' ? 'Registro creado' : 'Datos actualizados'}.<br>
-                       ${data.paymentUrl ? '<span class="help">Comprobante subido correctamente.</span>' : ''}`;
+      localStorage.setItem('konamiId', data.get('konamiId'));
+      msg.innerHTML = `✅ ${j.mode === 'insert' ? 'Registro creado' : 'Datos actualizados'}.<br>
+                       ${j.paymentUrl ? '<span class="help">Comprobante subido correctamente.</span>' : ''}`;
     } catch(err){
       msg.textContent = '❌ ' + err.message;
     } finally {
       btn.disabled = false;
     }
   });
-  </script>
+</script>
 </body>
 </html>
+
