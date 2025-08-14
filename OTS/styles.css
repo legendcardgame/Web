@@ -1,0 +1,243 @@
+body {
+  background: #181818;
+  color: #fff;
+  font-family: 'Montserrat', Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
+.logo-fondo {
+  background: url('LCG.png') center center no-repeat;
+  background-size: 70vw;
+  opacity: 0.08;
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 18px 8px 50px 8px;
+  text-align: center;
+}
+h1 {
+  color: #e53935;
+  font-size: 2.3rem;
+  font-weight: 900;
+  margin: 32px 0 18px 0;
+  letter-spacing: 1px;
+}
+#rondaInfo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 14px;
+  margin-top: 10px;
+}
+.input-buscar-wrap {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+#konamiId {
+  width: 70%;
+  background: #222;
+  color: #fff;
+  font-size: 2rem;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 9px;
+  text-align: center;
+  letter-spacing: 2px;
+  font-weight: 700;
+  outline: none;
+}
+.btn {
+  background: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 9px 24px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn:hover, .tab-btn.active {
+  background: #d32f2f;
+}
+.botones-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 10px 0 20px 0;
+}
+.tab-btn {
+  font-size: 1.2rem;
+  padding: 9px 32px;
+  border-radius: 13px;
+  border: none;
+  background: #232323;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.2s;
+}
+.tab-btn.active {
+  background: #e53935;
+  color: #fff;
+}
+#tableContainer, #historyContainer {
+  margin-top: 16px;
+  text-align: center;
+}
+.mesa {
+  font-size: 2rem;
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+  margin-top: 4px;
+  text-align: center;
+}
+.card {
+  background: #202020;
+  border-radius: 18px;
+  margin: 0 auto 18px auto;
+  max-width: 99%;
+  padding: 0 0 0 0;
+  box-shadow: 0 3px 20px #0007;
+  position: relative;
+  overflow: hidden;
+}
+.linea-roja, .linea-azul {
+  height: 8px;
+  border-radius: 12px;
+}
+.linea-roja {
+  background: #e53935;
+  width: 100%;
+  margin-bottom: 0;
+}
+.linea-azul {
+  background: #1976d2;
+  width: 100%;
+  margin-top: 0;
+}
+.jugador, .oponente {
+  font-size: 2rem;
+  color: #fff;
+  font-weight: 900;
+  margin-top: 14px;
+  margin-bottom: 0;
+}
+.konami, .konami-opo {
+  font-size: 1.1rem;
+  color: #cfcfcf;
+  margin-bottom: 5px;
+}
+.vs-label {
+  font-size: 2.3rem;
+  font-weight: 700;
+  margin: 12px 0 8px 0;
+  color: #fff;
+}
+.standing-box {
+  background: #232323;
+  color: #fff;
+  border-radius: 15px;
+  padding: 10px 0 2px 0;
+  margin: 0 auto 10px auto;
+  font-size: 2rem;
+  font-weight: 700;
+  max-width: 96vw;
+  letter-spacing: 2px;
+}
+.standing-box .medal {
+  display: block;
+  font-size: 2.2rem;
+  margin: 0 auto;
+}
+#historyContainer .jugador {
+  margin-bottom: 16px;
+  margin-top: 0;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+}
+.historial-caja {
+  background: #222;
+  border-radius: 14px;
+  margin: 12px 0;
+  display: flex;
+  align-items: stretch;
+  box-shadow: 0 2px 10px #0004;
+}
+
+.historial-barra {
+  width: 8px;
+  border-radius: 12px 0 0 12px;
+  margin-right: 8px;
+  margin-top: 0;
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.result-win {
+  background: #39d353;
+}
+.result-loss {
+  background: #e44;
+}
+.result-draw {
+  background: #adb6bd;
+}
+
+.contenido-historial {
+  flex: 1;
+  padding: 10px 16px 10px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ronda-resultado {
+  font-weight: bold;
+  margin-bottom: 4px;
+  font-size: 1.18rem;
+}
+
+.vs-nombre {
+  color: #fff;
+  font-size: 1rem;
+}
+
+#mensajePersonalizado {
+  color: #fff;
+  background: #222e;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border-radius: 20px;
+  padding: 32px 16px;
+  margin: 30px auto 20px auto;
+  max-width: 500px;
+  box-shadow: 0 2px 14px #0007;
+}
+@media (max-width: 600px) {
+  .container { padding: 10px 0 60px 0; }
+  h1 { font-size: 1.38rem; }
+  #rondaInfo { font-size: 1.25rem;}
+  .input-buscar-wrap { flex-direction: column; gap: 7px;}
+  #konamiId { font-size: 1.25rem; width: 98%; }
+  .btn { font-size: 1.2rem; width: 99%; }
+  .botones-tabs { flex-direction: row; gap: 7px;}
+  .tab-btn { font-size: 1.1rem; width: 49vw;}
+  .mesa { font-size: 1.35rem;}
+  .card .jugador, .card .oponente, #historyContainer .jugador { font-size: 1.2rem;}
+  .card { padding: 0;}
+  .ronda-resultado { font-size: 1rem;}
+}

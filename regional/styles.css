@@ -1,0 +1,222 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  color: #fff;
+  margin: 0;
+  padding-bottom: 80px;
+  user-select: none;
+}
+header {
+  text-align: center;
+  padding: 28px 12px 14px 12px;
+  background-color: #161616;
+}
+h1 {
+  color: #d32d2d;
+  font-size: 2.4em;
+  margin-bottom: 8px;
+}
+#rondaInfo {
+  color: #fff;
+  font-size: 2em;
+  margin-top: 0;
+  font-weight: bold;
+  text-align: center;
+}
+.container {
+  padding: 22px 10px 0 10px;
+  background: linear-gradient(rgba(18, 18, 18, 0.97), rgba(18, 18, 18, 0.97)), url('LCG.png') no-repeat center 60%;
+  background-size: 320px;
+  background-attachment: local;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+input[type="text"] {
+  margin: 14px 0 20px 0;
+  padding: 12px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 440px;
+  font-size: 20px;
+  text-align: center;
+  border: none;
+  background: #fff;
+  color: #222;
+  font-weight: 500;
+  box-shadow: 0 2px 6px #0004;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  background-color: #171717;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  padding: 12px 0;
+  z-index: 30;
+}
+footer button {
+  background-color: #232323;
+  color: white;
+  border: none;
+  padding: 11px 32px;
+  border-radius: 9px;
+  font-weight: bold;
+  font-size: 1.13em;
+  cursor: pointer;
+  box-shadow: 0 1px 4px #0002;
+}
+footer button.active {
+  background-color: #d32d2d;
+  color: #fff;
+}
+.card-mesa {
+  background: #1E1E1E;
+  border-radius: 14px;
+  padding: 20px 14px 14px 14px;
+  width: 99%;
+  max-width: 390px;
+  text-align: center;
+  margin: 0 auto 18px auto;
+  margin-bottom: 22px;
+  box-shadow: 0 2px 8px #0003;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mesa-label {
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.38em;
+  padding: 12px 0 6px 0;
+  margin-bottom: 0;
+  width: 100%;
+  background: transparent;
+  border-radius: 0;
+  text-align: center;
+}
+.nombre-carta {
+  background: #232323;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 10px 10px 0 0;
+  padding: 12px 8px 0 8px;
+  margin-bottom: 0;
+  font-size: 1.15em;
+  text-align: center;
+  border-top: 4px solid #d32d2d;
+  width: 95%;
+}
+.nombre-carta.abajo {
+  border-top: none;
+  border-bottom: 4px solid #2196f3;
+  border-radius: 0 0 10px 10px;
+  padding-bottom: 12px;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.konami-id {
+  color: #bababa;
+  font-size: 0.97em;
+  font-weight: normal;
+  display: block;
+  margin-top: 2px;
+}
+.vs-label {
+  color: #fff;
+  font-size: 1.45em;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 0 0 0;
+  padding: 7px 0 7px 0;
+  letter-spacing: 1px;
+}
+.standing-container {
+  font-size: 1.26em;
+  font-weight: bold;
+  margin: 15px auto 10px auto;
+  color: #fff;
+  text-align: center;
+}
+
+.historial-card {
+  background: #232323;
+  border-radius: 12px;
+  margin: 12px auto;
+  padding: 8px 20px 10px 18px;
+  max-width: 420px;
+  min-width: 240px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.20);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  font-size: 1.12em;
+}
+.historial-card .historial-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  border-radius: 12px 0 0 12px;
+  background: #444;
+}
+.historial-card.win .historial-bar { background: #23c552;}
+.historial-card.loss .historial-bar { background: #d32d2d;}
+.historial-card.draw .historial-bar { background: #bababa;}
+
+.historial-title {
+  margin-left: 18px;
+  font-weight: bold;
+  margin-bottom: 2px;
+  font-size: 1.08em;
+  text-align: left;
+  display: block;
+}
+.historial-title.win   { color: #23c552;}
+.historial-title.loss  { color: #d32d2d;}
+.historial-title.draw  { color: #bababa;}
+
+.historial-vs {
+  margin-left: 18px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1em;
+  text-align: left;
+  margin-bottom: 2px;
+}
+
+/* Responsive styles */
+@media (max-width: 540px) {
+  .container {
+    background-size: 150px;
+    padding: 12px 3vw 0 3vw;
+  }
+  .card-mesa, .historial-card {
+    max-width: 99vw;
+    min-width: 0;
+    font-size: 1em;
+    padding-left: 13px;
+    padding-right: 13px;
+  }
+  input[type="text"] {
+    max-width: 96vw;
+    font-size: 18px;
+    padding: 10px;
+  }
+}
+.aviso-previo {
+  color: #fff;
+  font-size: 1.4rem;
+  text-align: center;
+  margin-top: 60px;
+  background: rgba(0,0,0,0.70);
+  padding: 30px 20px;
+  border-radius: 16px;
+  box-shadow: 0 0 16px #0008;
+}

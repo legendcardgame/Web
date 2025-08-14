@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yu-Gi-Oh! Regional Qualifier 2025</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="app-tournament.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1 class="rojo">Yu-Gi-Oh! Regional Qualifier 2025</h1>
+    <h2 id="rondaInfo">Cargando ronda...</h2>
+  </header>
+
+  <div class="container">
+    <input type="text" id="searchID" placeholder="Ingresa tu Konami ID" maxlength="10" inputmode="numeric" />
+    <div id="tableContainer"></div>
+    <div id="historyContainer" style="display:none;"></div>
+  </div>
+
+  <footer>
+    <button id="btnRonda" class="active">Ronda</button>
+    <button id="btnHistorial">Historial</button>
+  </footer>
+</body>
+</html>
