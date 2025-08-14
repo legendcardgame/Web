@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>LCG · Panel de Preregistros</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Ajustes ligeros para el panel */
+    .panel-wrap{max-width:1000px;margin:0 auto;padding:16px}
+    .card{background:#1f1f1f;border-radius:16px;padding:16px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+    .controls{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+    .controls > *{flex:1 1 150px}
+    .controls .actions{display:flex;gap:8px}
+    .table-wrap{overflow:auto;border-radius:12px;border:1px solid rgba(255,255,255,.08)}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);font-size:.95rem}
+    th{position:sticky;top:0;background:#242424;text-align:left}
+    .pill{display:inline-block;padding:.2rem .55rem;border-radius:999px;font-weight:700;font-size:.8rem}
+    .pill.pending{background:#3a2a00;color:#ffcd4d}
+    .pill.ok{background:#0f2a15;color:#67e08a}
+    .pill.reject{background:#2a0f0f;color:#ff7b7b}
+    .muted{opacity:.7}
+    .brandbar{display:flex;align-items:center;gap:10px;margin:10px 0 18px}
+    .brandbar img{width:36px;height:36px;object-fit:contain}
+    .brandbar h1{font-size:1.3rem;margin:0}
+    .right{margin-left:auto}
+    .btn{background:#e23b35;color:#fff;border:none;border-radius:12px;padding:10px 14px;font-weight:700}
+    .btn.secondary{background:#343434}
+    .btn.small{padding:6px 10px;font-size:.9rem}
+    input,select{background:#2a2a2a;color:#fff;border:1px solid #3b3b3b;border-radius:12px;padding:10px 12px}
+    a.link{color:#7dd3fc;text-decoration:underline}
+  </style>
+</head>
+<body>
+  <div class="panel-wrap">
+    <div class="brandbar">
+      <img src="../assets/logo-lcg.png" alt="LCG" />
+      <h1>Panel de Preregistros</h1>
+      <div class="right">
+        <button id="btnLogout" class="btn secondary small">Salir</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <!-- Login (se oculta al entrar) -->
+      <div id="loginBox">
+        <p class="muted">Ingresa la clave de administrador para ver los registros.</p>
+        <div class="controls">
+          <input id="adminKey" type="password" placeholder="Admin key" />
+          <button id="btnLogin" class="btn">Entrar</button>
+        </div>
+      </div>
+
+      <!-- Controles (se muestran tras login) -->
+      <div id="controlsBox" style="display:none">
+        <div class="controls">
+          <input id="q" type="search" placeholder="Buscar (nombre, correo, Konami ID…)" />
+          <select id="statusFilter">
+            <option value="">Todos los estados</option>
+            <option value="Pendiente">Pendiente</option>
+            <option value="Aprobado">Aprobado</option>
+            <option value="Rechazado">Rechazado</option>
+          </select>
+          <div class="actions">
+            <button id="btnRefresh" class="btn secondary">Actualizar</button>
+            <button id="btnExport" class="btn">Exportar CSV</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table id="tbl">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Konami ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Estatus</th>
+                <th>Comprobante</th>
+                <th>Token</th>
+              </tr>
+            </thead>
+            <tbody id="tbody">
+              <!-- filas dinámicas -->
+            </tbody>
+          </table>
+        </div>
+        <p id="count" class="muted" style="margin-top:8px">0 registros</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trae la URL del Apps Script desde aquí -->
+  <script type="module" src="./js/config.js"></script>
+  <script type="module" src="./admin.js"></script>
+</body>
+</html>
