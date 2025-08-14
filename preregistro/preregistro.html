@@ -54,9 +54,11 @@
       </div>
 
       <div id="msg" class="notice"></div>
+
+      <!-- Loader: 4 puntos -->
       <div id="loader" class="loader" style="display:none;">
-  <span></span><span></span><span></span><span></span>
-</div>
+        <span></span><span></span><span></span><span></span>
+      </div>
     </form>
   </div>
 
@@ -116,6 +118,8 @@
     }
 
     btn.disabled = true;
+    document.getElementById('loader').style.display = 'flex'; // ⬅️ mostrar loader
+
     try {
       // OJO: NO ponemos Content-Type; el navegador la pone (multipart/form-data)
       const r = await fetch(API_BASE, { method:'POST', body: data });
@@ -129,10 +133,9 @@
       msg.textContent = '❌ ' + err.message;
     } finally {
       btn.disabled = false;
+      document.getElementById('loader').style.display = 'none'; // ⬅️ ocultar loader
     }
   });
-</script>
+  </script>
 </body>
 </html>
-
-
