@@ -46,74 +46,53 @@
     </div>
   </div>
 
-<script>
-const API = 'TU_URL_DE_APPS_SCRIPT_AQUI';
+<script type="module">
+import { API_BASE } from './js/config.js';
 
-const $ = s => document.querySelector(s);
-const msg = $('#msg');
-const payment = $('#payment');
-const preview = $('#preview');
+const form = document.getElementById('preForm');
+const imgInput = document.getElementById('payment');
 
-payment.addEventListener('change', () => {
-  const file = payment.files?.[0];
-  if (!file) { preview.style.display='none'; return; }
-  const r = new FileReader();
-  r.onload = e => { preview.src = e.target.result; preview.style.display='block'; };
-  r.readAsDataURL(file);
-});
-
-function show(type, text){
-  msg.className = type === 'ok' ? 'ok' : 'err';
-  msg.textContent = text;
-  msg.style.display = 'block';
+function fileToBase64(file){
+  return new Promise((res, rej) => {
+    if(!file) return res("");
+    const r = new FileReader();
+    r.onload = () => res(r.result);   // data:image/...;base64,....
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
 }
 
-$('#sendBtn').addEventListener('click', async () => {
-  msg.style.display='none';
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const konamiId  = document.getElementById('konamiId').value.trim();
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName  = document.getElementById('lastName').value.trim();
+  const email     = document.getElementById('email').value.trim();
+  const phone     = document.getElementById('phone').value.trim();
+  const paymentBase64 = await fileToBase64(imgInput.files[0]);
 
-  const konamiId = ($('#konamiId').value || '').trim().padStart(10,'0');
-  const firstName = ($('#firstName').value || '').trim();
-  const lastName  = ($('#lastName').value || '').trim();
-  const email     = ($('#email').value || '').trim();
-  const phone     = ($('#phone').value || '').trim();
+  const payload = { konamiId, firstName, lastName, email, phone, paymentBase64 };
 
-  if (!konamiId || !firstName || !lastName) {
-    return show('err', 'Konami ID, nombres y apellidos son obligatorios.');
-  }
-
-  let paymentBase64 = '';
-  const file = payment.files?.[0];
-  if (file) {
-    paymentBase64 = await new Promise(res=>{
-      const r = new FileReader();
-      r.onload = e => res(e.target.result);
-      r.readAsDataURL(file);
-    });
-  }
-
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
   try {
-    const resp = await fetch(API, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({konamiId, firstName, lastName, email, phone, paymentBase64})
+    const r = await fetch(API_BASE, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
     });
-    const data = await resp.json();
-    if (data.ok) {
-      localStorage.setItem('prereg_konami', konamiId);
-      show('ok', data.mode === 'insert'
-        ? '¡Preregistro enviado! Revisaremos tu pago.'
-        : 'Datos actualizados correctamente.');
-    } else {
-      show('err', data.message || 'Error al enviar.');
-    }
-  } catch(err) {
-    show('err', String(err));
+    const j = await r.json();
+    if (!j.ok) throw new Error(j.message || 'Error al enviar');
+    alert(`Listo: ${j.mode === 'insert' ? 'registrado' : 'actualizado'}`);
+    // Guarda el KonamiId para reusar
+    localStorage.setItem('konamiId', konamiId);
+  } catch (err) {
+    alert('Error: ' + err.message);
+  } finally {
+    btn.disabled = false;
   }
 });
-
-// Autorrellenar Konami ID anterior
-const last = localStorage.getItem('prereg_konami');
-if (last) $('#konamiId').value = last;
 </script>
 </body>
 </html>
+
