@@ -24,25 +24,39 @@
     </div>
   </div>
 
-<script>
-const API='TU_URL_DE_APPS_SCRIPT_AQUI';
-const $=s=>document.querySelector(s);
+<script type="module">
+import { API_BASE } from './js/config.js';
 
-$('#check').addEventListener('click', async ()=>{
-  const konamiId = ($('#konami').value||'').trim().padStart(10,'0');
-  if (!konamiId) return;
-  const r = await fetch(`${API}?konamiId=${encodeURIComponent(konamiId)}`);
-  const j = await r.json();
-  const out=$('#out'); out.style.display='block';
-  if (!j.ok) { out.textContent = 'No encontrado.'; return; }
-  const d = j.data;
-  out.innerHTML = `
-    <div><b>Nombre:</b> ${d.firstName||''} ${d.lastName||''}</div>
-    <div><b>Estado:</b> ${d.status||'Pendiente'}</div>
-    ${d.paymentUrl ? `<div><b>Comprobante:</b> <a class="link" href="${d.paymentUrl}" target="_blank">Ver archivo</a></div>`:''}
-    <div style="opacity:.7;font-size:.9rem;margin-top:6px"><b>Última actualización:</b> ${d.timestamp||''}</div>
-  `;
+const form = document.getElementById('findForm');
+const out  = document.getElementById('result');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const konamiId = document.getElementById('konamiId').value.trim();
+  try {
+    const r = await fetch(`${API_BASE}?konamiId=${encodeURIComponent(konamiId)}`);
+    const j = await r.json();
+    if (!j.ok) throw new Error(j.message || 'No encontrado');
+    const d = j.data;
+    out.innerHTML = `
+      <div class="card">
+        <h3>${d.firstName} ${d.lastName}</h3>
+        <p><b>Konami ID:</b> ${d.konamiId}</p>
+        <p><b>Email:</b> ${d.email || '-'}</p>
+        <p><b>Tel:</b> ${d.phone || '-'}</p>
+        <p><b>Status:</b> ${d.status || 'Pendiente'}</p>
+        ${d.paymentUrl ? `<p><a href="${d.paymentUrl}" target="_blank">Ver comprobante</a></p>` : ''}
+      </div>
+    `;
+  } catch (err) {
+    out.textContent = 'Error: ' + err.message;
+  }
 });
+
+// autollenado si hay uno guardado
+const last = localStorage.getItem('konamiId');
+if (last) document.getElementById('konamiId').value = last;
 </script>
 </body>
 </html>
+
