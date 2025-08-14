@@ -3,97 +3,77 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>LCG · Panel de Preregistros</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Admin · Preregistro</title>
+  <link rel="stylesheet" href="../styles.css" />
   <style>
-    /* Ajustes ligeros para el panel */
-    .panel-wrap{max-width:1000px;margin:0 auto;padding:16px}
-    .card{background:#1f1f1f;border-radius:16px;padding:16px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
-    .controls{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
-    .controls > *{flex:1 1 150px}
-    .controls .actions{display:flex;gap:8px}
-    .table-wrap{overflow:auto;border-radius:12px;border:1px solid rgba(255,255,255,.08)}
-    table{width:100%;border-collapse:collapse}
-    th,td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);font-size:.95rem}
-    th{position:sticky;top:0;background:#242424;text-align:left}
-    .pill{display:inline-block;padding:.2rem .55rem;border-radius:999px;font-weight:700;font-size:.8rem}
-    .pill.pending{background:#3a2a00;color:#ffcd4d}
-    .pill.ok{background:#0f2a15;color:#67e08a}
-    .pill.reject{background:#2a0f0f;color:#ff7b7b}
-    .muted{opacity:.7}
-    .brandbar{display:flex;align-items:center;gap:10px;margin:10px 0 18px}
-    .brandbar img{width:36px;height:36px;object-fit:contain}
-    .brandbar h1{font-size:1.3rem;margin:0}
-    .right{margin-left:auto}
-    .btn{background:#e23b35;color:#fff;border:none;border-radius:12px;padding:10px 14px;font-weight:700}
-    .btn.secondary{background:#343434}
-    .btn.small{padding:6px 10px;font-size:.9rem}
-    input,select{background:#2a2a2a;color:#fff;border:1px solid #3b3b3b;border-radius:12px;padding:10px 12px}
-    a.link{color:#7dd3fc;text-decoration:underline}
+    .admin-wrap { max-width: 920px; margin: 24px auto; padding: 16px; }
+    .admin-card { background:#1f1f1f; border-radius:12px; padding:16px; }
+    .row { display:flex; gap:12px; flex-wrap:wrap; }
+    .field { flex:1 1 220px; display:flex; flex-direction:column; }
+    .field input { padding:10px; border-radius:8px; border:1px solid #333; background:#111; color:#fff; }
+    .btn { background:#D62828; border:none; border-radius:10px; padding:10px 16px; color:#fff; font-weight:700; cursor:pointer; }
+    .btn:disabled { opacity:.6; cursor:not-allowed; }
+    .notice { margin-top:10px; min-height:24px; }
+    table { width:100%; border-collapse:collapse; margin-top:16px; }
+    th, td { border-bottom:1px solid #333; padding:8px; text-align:left; font-size:14px; }
+    th { color:#bbb; }
+    .toolbar { display:flex; gap:8px; align-items:center; margin-top:10px; }
+    .pager { display:flex; gap:8px; align-items:center; }
+    .pill { background:#2a2a2a; border-radius:999px; padding:6px 10px; font-size:12px; color:#ddd; }
   </style>
 </head>
 <body>
-  <div class="panel-wrap">
-    <div class="brandbar">
-      <img src="../assets/logo-lcg.png" alt="LCG" />
-      <h1>Panel de Preregistros</h1>
-      <div class="right">
-        <button id="btnLogout" class="btn secondary small">Salir</button>
+  <div class="admin-wrap">
+    <h1>Panel de Administración</h1>
+    <div class="admin-card">
+      <div class="row">
+        <div class="field" style="max-width:320px">
+          <label for="adminKey">Clave de administrador</label>
+          <input id="adminKey" type="password" placeholder="Ingresa tu clave" />
+        </div>
+        <div class="field" style="flex:0 0 auto; align-self:flex-end;">
+          <button id="btnEntrar" class="btn">Entrar</button>
+        </div>
+        <div class="field" style="flex:0 0 auto; align-self:flex-end;">
+          <button id="btnPing" class="btn" style="background:#444;">Ping</button>
+        </div>
       </div>
-    </div>
+      <div id="msg" class="notice"></div>
 
-    <div class="card">
-      <!-- Login (se oculta al entrar) -->
-      <div id="loginBox">
-        <p class="muted">Ingresa la clave de administrador para ver los registros.</p>
-        <div class="controls">
-          <input id="adminKey" type="password" placeholder="Admin key" />
-          <button id="btnLogin" class="btn">Entrar</button>
+      <div class="toolbar" id="barListado" style="display:none;">
+        <span class="pill" id="totalPill">Total: 0</span>
+        <div class="pager">
+          <button class="btn" id="prevPage" style="background:#444;">«</button>
+          <span class="pill" id="pageInfo">1 / 1</span>
+          <button class="btn" id="nextPage" style="background:#444;">»</button>
+        </div>
+        <div style="margin-left:auto;">
+          <label style="color:#bbb; font-size:12px;">
+            Tamaño página
+            <select id="pageSize" style="background:#111;color:#fff;border:1px solid #333;border-radius:8px;padding:6px;">
+              <option>25</option><option selected>50</option><option>100</option><option>150</option><option>200</option>
+            </select>
+          </label>
         </div>
       </div>
 
-      <!-- Controles (se muestran tras login) -->
-      <div id="controlsBox" style="display:none">
-        <div class="controls">
-          <input id="q" type="search" placeholder="Buscar (nombre, correo, Konami ID…)" />
-          <select id="statusFilter">
-            <option value="">Todos los estados</option>
-            <option value="Pendiente">Pendiente</option>
-            <option value="Aprobado">Aprobado</option>
-            <option value="Rechazado">Rechazado</option>
-          </select>
-          <div class="actions">
-            <button id="btnRefresh" class="btn secondary">Actualizar</button>
-            <button id="btnExport" class="btn">Exportar CSV</button>
-          </div>
-        </div>
-
-        <div class="table-wrap">
-          <table id="tbl">
-            <thead>
-              <tr>
-                <th>Fecha</th>
-                <th>Konami ID</th>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Teléfono</th>
-                <th>Estatus</th>
-                <th>Comprobante</th>
-                <th>Token</th>
-              </tr>
-            </thead>
-            <tbody id="tbody">
-              <!-- filas dinámicas -->
-            </tbody>
-          </table>
-        </div>
-        <p id="count" class="muted" style="margin-top:8px">0 registros</p>
-      </div>
+      <table id="tbl" style="display:none;">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Konami ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Tel</th>
+            <th>Status</th>
+            <th>Comprobante</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
     </div>
   </div>
 
-  <!-- Trae la URL del Apps Script desde aquí -->
-  <script type="module" src="./js/config.js"></script>
-  <script type="module" src="./admin.js"></script>
+  <script src="admin.js" type="module"></script>
 </body>
 </html>
