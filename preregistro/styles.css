@@ -80,3 +80,34 @@ a.btn-link:hover{filter:brightness(1.05)}
     transform: translateY(-6px);
   }
 }
+/* Modal de login */
+.login-modal{
+  position: fixed; inset: 0; background: rgba(0,0,0,.55);
+  display: flex; align-items: center; justify-content: center; z-index: 9999;
+  backdrop-filter: blur(2px);
+}
+.login-card{
+  width: 90%; max-width: 420px; background: #191919; color:#fff;
+  border-radius: 16px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.4);
+}
+.login-card h2{ margin: 0 0 8px 0; }
+.login-card p{ margin: 0 0 12px 0; opacity: .85; }
+.login-card input{
+  width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid #333;
+  background:#101010; color:#fff; outline: none; margin-bottom: 12px;
+}
+.login-card .btn{
+  width: 100%; padding: 12px; border:0; border-radius: 10px; cursor:pointer;
+  background:#e54545; color:#fff; font-weight:600;
+}
+.notice{ margin-top:10px; font-size:.95rem; color:#ffb4b4; }
+
+/* pequeños utilitarios ya usados por admin.js */
+.pill{ background:#2a2a2a; color:#ddd; padding:6px 10px; border-radius:999px; }
+.table-wrap{ overflow-x:auto; }
+.table{ width:100%; border-collapse: collapse; }
+.table th, .table td{ padding:10px 12px; border-bottom:1px solid #2a2a2a; }
+.tag{ background:#262626; padding:4px 8px; border-radius:8px; font-variant-numeric: tabular-nums; }
+.status{ background:#1b1b1b; color:#fff; border:1px solid #333; border-radius:8px; padding:6px 10px; }
+.hide-sm{ display:table-cell; }
+@media (max-width:720px){ .hide-sm{ display:none; } }
