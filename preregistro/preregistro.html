@@ -1,98 +1,138 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Preregistro OTS</title>
-<link rel="stylesheet" href="../styles.css">
-<style>
-  .card{max-width:700px;margin:20px auto;padding:16px;background:#1b1b1e;border-radius:16px;box-shadow:0 10px 24px rgba(0,0,0,.35)}
-  .row{display:grid;gap:10px}
-  label{font-size:.9rem;color:#cfcfd4}
-  input,button,textarea{width:100%;padding:14px;border-radius:12px;border:1px solid #2a2a2f;background:#232327;color:#fff}
-  button{background:#e53935;border:none;font-weight:800;cursor:pointer}
-  .hint{font-size:.85rem;color:#babac0}
-  .ok{background:#173c1d;border:1px solid #2d6a32;color:#dfe}
-  .err{background:#3c1717;border:1px solid #6a2d2d;color:#fee}
-  .preview{display:block;margin-top:8px;max-height:140px;border-radius:10px}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Preregistro · Registrar</title>
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <div class="card">
-    <h2 style="margin:0 0 6px;color:#fff">Preregistro</h2>
-    <p class="hint">Llena tus datos y sube el comprobante de pago (imagen).</p>
-    <div class="row">
-      <label>Konami ID
-        <input id="konamiId" placeholder="0400xxxxxxxx" maxlength="10">
-      </label>
-      <label>Nombres
-        <input id="firstName" placeholder="Ej. Juan Carlos">
-      </label>
-      <label>Apellidos
-        <input id="lastName" placeholder="Ej. Pérez Ruiz">
-      </label>
-      <label>Email
-        <input id="email" type="email" placeholder="correo@dominio.com">
-      </label>
-      <label>Teléfono (opcional)
-        <input id="phone" placeholder="">
-      </label>
-      <label>Comprobante de pago (imagen)
-        <input id="payment" type="file" accept="image/*">
-        <img id="preview" class="preview" style="display:none">
-      </label>
-      <button id="sendBtn">Enviar / Actualizar</button>
-      <div id="msg" style="display:none;padding:12px;border-radius:10px"></div>
-    </div>
+  <div class="container">
+    <h1>Preregistro</h1>
+    <h2>Completa tus datos</h2>
+
+    <form id="preForm" class="card">
+      <div class="row">
+        <div class="field">
+          <label for="konamiId">Konami ID (10 dígitos)</label>
+          <input id="konamiId" name="konamiId" type="text" inputmode="numeric" placeholder="0400XXXXXX" maxlength="10" required>
+          <div class="help">Usa 10 dígitos (se rellena con ceros si hace falta).</div>
+        </div>
+        <div class="field">
+          <label for="firstName">Nombre(s)</label>
+          <input id="firstName" name="firstName" type="text" placeholder="Ej. Juan Carlos" required>
+        </div>
+        <div class="field">
+          <label for="lastName">Apellidos</label>
+          <input id="lastName" name="lastName" type="text" placeholder="Ej. Pérez López" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="email">Correo</label>
+          <input id="email" name="email" type="email" placeholder="tucorreo@ejemplo.com">
+        </div>
+        <div class="field">
+          <label for="phone">Teléfono</label>
+          <input id="phone" name="phone" type="tel" placeholder="555-123-4567">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field" style="flex:1 1 100%">
+          <label for="payment">Comprobante de pago (imagen)</label>
+          <input id="payment" name="payment" type="file" accept="image/*">
+          <img id="preview" class="preview" alt="Vista previa">
+          <div class="help">Formatos aceptados: JPG/PNG. Tamaño sugerido &lt; 8MB.</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="submitBtn" class="btn" type="submit">Enviar</button>
+        <a class="btn-link" href="./index.html">⬅ Volver al menú</a>
+      </div>
+
+      <div id="msg" class="notice"></div>
+    </form>
   </div>
 
-<script type="module">
-import { API_BASE } from './js/config.js';
+  <script type="module">
+  import { API_BASE } from './js/config.js';
 
-const form = document.getElementById('preForm');
-const imgInput = document.getElementById('payment');
+  const $ = s => document.querySelector(s);
+  const pad10 = id => String(id || "").replace(/\D/g,'').padStart(10,'0');
 
-function fileToBase64(file){
-  return new Promise((res, rej) => {
-    if(!file) return res("");
+  const konami = $('#konamiId');
+  const preview = $('#preview');
+  const msg = $('#msg');
+  const btn = $('#submitBtn');
+  const file = $('#payment');
+
+  // autollenar si hay uno guardado
+  const last = localStorage.getItem('konamiId');
+  if (last) konami.value = last;
+
+  // vista previa
+  file.addEventListener('change', () => {
+    const f = file.files?.[0];
+    if (!f) { preview.style.display='none'; preview.src=''; return; }
     const r = new FileReader();
-    r.onload = () => res(r.result);   // data:image/...;base64,....
-    r.onerror = rej;
-    r.readAsDataURL(file);
+    r.onload = () => { preview.src = r.result; preview.style.display='block'; };
+    r.readAsDataURL(f);
   });
-}
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const konamiId  = document.getElementById('konamiId').value.trim();
-  const firstName = document.getElementById('firstName').value.trim();
-  const lastName  = document.getElementById('lastName').value.trim();
-  const email     = document.getElementById('email').value.trim();
-  const phone     = document.getElementById('phone').value.trim();
-  const paymentBase64 = await fileToBase64(imgInput.files[0]);
-
-  const payload = { konamiId, firstName, lastName, email, phone, paymentBase64 };
-
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-  try {
-    const r = await fetch(API_BASE, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(payload)
+  function fileToBase64(f){
+    return new Promise((res, rej) => {
+      if (!f) return res("");
+      const r = new FileReader();
+      r.onload = () => res(r.result);
+      r.onerror = rej;
+      r.readAsDataURL(f);
     });
-    const j = await r.json();
-    if (!j.ok) throw new Error(j.message || 'Error al enviar');
-    alert(`Listo: ${j.mode === 'insert' ? 'registrado' : 'actualizado'}`);
-    // Guarda el KonamiId para reusar
-    localStorage.setItem('konamiId', konamiId);
-  } catch (err) {
-    alert('Error: ' + err.message);
-  } finally {
-    btn.disabled = false;
   }
-});
-</script>
+
+  $('#preForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    msg.textContent = "";
+
+    const payload = {
+      konamiId: pad10(konami.value),
+      firstName: $('#firstName').value.trim(),
+      lastName:  $('#lastName').value.trim(),
+      email:     $('#email').value.trim(),
+      phone:     $('#phone').value.trim(),
+      paymentBase64: await fileToBase64(file.files?.[0])
+    };
+
+    if (!/^\d{10}$/.test(payload.konamiId)) {
+      msg.textContent = "Konami ID debe tener 10 dígitos.";
+      return;
+    }
+    if (!payload.firstName || !payload.lastName) {
+      msg.textContent = "Nombre y apellidos son obligatorios.";
+      return;
+    }
+
+    btn.disabled = true;
+    try {
+      const r = await fetch(API_BASE, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      });
+      const j = await r.json();
+      if (!j.ok) throw new Error(j.message || "Error al enviar");
+
+      localStorage.setItem('konamiId', payload.konamiId);
+      msg.innerHTML = `✅ ${j.mode === 'insert' ? 'Registro creado' : 'Datos actualizados'}.<br>
+                       ${j.paymentUrl ? '<span class="help">Comprobante subido correctamente.</span>' : ''}`;
+    } catch(err){
+      msg.textContent = '❌ ' + err.message;
+    } finally {
+      btn.disabled = false;
+    }
+  });
+  </script>
 </body>
 </html>
-
