@@ -63,11 +63,11 @@
   const $ = s => document.querySelector(s);
   const pad10 = id => String(id || "").replace(/\D/g,'').padStart(10,'0');
 
-  const konami = $('#konamiId');
+  const konami  = $('#konamiId');
   const preview = $('#preview');
-  const msg = $('#msg');
-  const btn = $('#submitBtn');
-  const file = $('#payment');
+  const msg     = $('#msg');
+  const btn     = $('#submitBtn');
+  const file    = $('#payment');
 
   // autollenar si hay uno guardado
   const last = localStorage.getItem('konamiId');
@@ -97,7 +97,7 @@
     msg.textContent = "";
 
     const payload = {
-      konamiId: pad10(konami.value),
+      konamiId:  pad10(konami.value),
       firstName: $('#firstName').value.trim(),
       lastName:  $('#lastName').value.trim(),
       email:     $('#email').value.trim(),
@@ -116,17 +116,23 @@
 
     btn.disabled = true;
     try {
-      const r = await fetch(API_BASE, {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
+      const res = await fetch(API_BASE, {
+        method: 'POST',
+        // Clave: evitar preflight de CORS
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(payload)
       });
-      const j = await r.json();
-      if (!j.ok) throw new Error(j.message || "Error al enviar");
+
+      // Si el proyecto no está bien implementado, res.json() podría fallar.
+      let data;
+      try { data = await res.json(); }
+      catch { throw new Error('No se pudo leer la respuesta del servidor'); }
+
+      if (!data.ok) throw new Error(data.message || "Error al enviar");
 
       localStorage.setItem('konamiId', payload.konamiId);
-      msg.innerHTML = `✅ ${j.mode === 'insert' ? 'Registro creado' : 'Datos actualizados'}.<br>
-                       ${j.paymentUrl ? '<span class="help">Comprobante subido correctamente.</span>' : ''}`;
+      msg.innerHTML = `✅ ${data.mode === 'insert' ? 'Registro creado' : 'Datos actualizados'}.<br>
+                       ${data.paymentUrl ? '<span class="help">Comprobante subido correctamente.</span>' : ''}`;
     } catch(err){
       msg.textContent = '❌ ' + err.message;
     } finally {
