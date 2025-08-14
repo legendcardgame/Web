@@ -3,49 +3,34 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Admin · Preregistro</title>
+  <title>Panel Admin</title>
+  <link rel="icon" href="/assets/favicon.png">
   <link rel="stylesheet" href="./styles.css">
   <style>
-    .bar { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:10px 0 16px; }
-    input { padding:8px 10px; border-radius:8px; border:1px solid #444; background:#111; color:#fff; }
-    button { padding:10px 14px; border:0; border-radius:10px; background:#e74c3c; color:#fff; font-weight:700; cursor:pointer; }
-    button.secondary { background:#333; }
-    .status { margin-left:10px; font-weight:600; }
-    .ok { color:#7CFC8A; } .bad{ color:#ff7676; }
-    table { width:100%; border-collapse:separate; border-spacing:0 8px; }
-    th, td { text-align:left; padding:10px 12px; background:#1f1f1f; color:#fff; }
-    th { background:#2a2a2a; }
-    .wrap { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:280px; }
-    a { color:#5dade2; }
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px;border-bottom:1px solid #333}
+    .toolbar{display:flex;gap:10px;margin:12px 0}
+    #out{margin:10px 0;color:#f66}
   </style>
 </head>
 <body>
   <h1>Panel Admin</h1>
-
-  <div class="bar">
-    <button id="btnList">Listar todo</button>
-    <input id="kId" placeholder="Konami ID (10 dígitos)" />
-    <button id="btnFind" class="secondary">Buscar</button>
-    <span id="status" class="status"></span>
+  <div class="toolbar">
+    <button id="btnListAll" class="btn">Listar todo</button>
+    <input id="searchKonami" placeholder="Konami ID (10 dígitos)" />
+    <button id="btnSearch" class="btn">Buscar</button>
   </div>
-
-  <table id="tbl">
+  <div id="out"></div>
+  <table>
     <thead>
       <tr>
-        <th>Fecha</th>
-        <th>Konami ID</th>
-        <th>Nombre</th>
-        <th>Correo</th>
-        <th>Teléfono</th>
-        <th>Comprobante</th>
-        <th>Estatus</th>
+        <th>Fecha</th><th>Konami ID</th><th>Nombre</th><th>Correo</th>
+        <th>Teléfono</th><th>Comprobante</th><th>Estatus</th>
       </tr>
     </thead>
-    <tbody></tbody>
+    <tbody id="tbody"></tbody>
   </table>
 
-  <pre id="raw" style="background:#111;color:#aaa;padding:10px;border-radius:10px; margin-top:16px;"></pre>
-
-<script type="module" src="./js/admin.js?v=3"></script>
+  <script type="module" src="./js/admin.js?v=3"></script>
 </body>
 </html>
