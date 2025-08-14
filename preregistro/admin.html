@@ -3,43 +3,49 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Panel de Administración · Preregistro</title>
+  <title>Admin · Preregistro</title>
   <link rel="stylesheet" href="./styles.css">
   <style>
-    .admin-wrap{max-width:980px;margin:24px auto;padding:0 16px}
-    .row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
-    .card{background:#1d1d1f;border-radius:16px;padding:16px}
-    .btn{background:#e53935;color:#fff;border:none;border-radius:12px;padding:10px 16px;font-weight:700}
-    .btn:disabled{opacity:.6}
-    .input, input[type="password"]{background:#2a2a2d;color:#fff;border:none;border-radius:12px;padding:10px 14px}
-    table{width:100%;border-collapse:separate;border-spacing:0 8px}
-    th,td{padding:10px 12px;background:#222;border-top-left-radius:8px;border-bottom-left-radius:8px}
-    td:last-child,th:last-child{border-top-right-radius:8px;border-bottom-right-radius:8px}
-    .ok{color:#7CFC8A}.bad{color:#ff7676}
-    .muted{opacity:.8}
-    .toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .bar { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:10px 0 16px; }
+    input { padding:8px 10px; border-radius:8px; border:1px solid #444; background:#111; color:#fff; }
+    button { padding:10px 14px; border:0; border-radius:10px; background:#e74c3c; color:#fff; font-weight:700; cursor:pointer; }
+    button.secondary { background:#333; }
+    .status { margin-left:10px; font-weight:600; }
+    .ok { color:#7CFC8A; } .bad{ color:#ff7676; }
+    table { width:100%; border-collapse:separate; border-spacing:0 8px; }
+    th, td { text-align:left; padding:10px 12px; background:#1f1f1f; color:#fff; }
+    th { background:#2a2a2a; }
+    .wrap { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:280px; }
+    a { color:#5dade2; }
   </style>
 </head>
 <body>
-  <div class="admin-wrap">
-    <h1>Admin · Preregistro</h1>
+  <h1>Panel Admin</h1>
 
-    <div class="card">
-      <div class="toolbar">
-        <input id="adminKey" type="password" class="input" placeholder="Clave de admin" />
-        <button id="btnPing" class="btn">Ping</button>
-        <button id="btnList" class="btn">Listar registros</button>
-        <button id="btnExport" class="btn">Exportar CSV</button>
-        <span id="status" class="muted"></span>
-      </div>
-    </div>
-
-    <div id="results" class="card" style="margin-top:12px;overflow:auto">
-      <table id="tbl"><thead></thead><tbody></tbody></table>
-    </div>
+  <div class="bar">
+    <button id="btnList">Listar todo</button>
+    <input id="kId" placeholder="Konami ID (10 dígitos)" />
+    <button id="btnFind" class="secondary">Buscar</button>
+    <span id="status" class="status"></span>
   </div>
 
-  <!-- OJO: el script está a la par de este HTML -->
-  <script type="module" src="./admin.js?v=1"></script>
+  <table id="tbl">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Konami ID</th>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Teléfono</th>
+        <th>Comprobante</th>
+        <th>Estatus</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <pre id="raw" style="background:#111;color:#aaa;padding:10px;border-radius:10px; margin-top:16px;"></pre>
+
+  <script type="module" src="./js/admin.js?v=20250814"></script>
 </body>
 </html>
