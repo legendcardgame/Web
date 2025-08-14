@@ -4,3 +4,4 @@ window.LCG = {
 
   ADMIN_KEY: "FFG-201"
 };
+
