@@ -1,62 +1,78 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Consulta Preregistro</title>
-<link rel="stylesheet" href="../styles.css">
-<style>
-  .card{max-width:700px;margin:20px auto;padding:16px;background:#1b1b1e;border-radius:16px;box-shadow:0 10px 24px rgba(0,0,0,.35)}
-  input,button{width:100%;padding:14px;border-radius:12px;border:1px solid #2a2a2f;background:#232327;color:#fff}
-  button{background:#e53935;border:none;font-weight:800;cursor:pointer;margin-top:8px}
-  .row{display:grid;gap:10px}
-  .status{margin-top:12px;padding:12px;border-radius:12px;background:#232327}
-  a.link{color:#8ec7ff}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Preregistro · Consulta</title>
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <div class="card">
-    <h2 style="margin:0 0 6px">Consulta tu preregistro</h2>
-    <div class="row">
-      <input id="konami" placeholder="Konami ID">
-      <button id="check">Buscar</button>
-      <div id="out" class="status" style="display:none"></div>
-    </div>
+  <div class="container">
+    <h1>Consulta tu preregistro</h1>
+    <h2>Ingresa tu Konami ID</h2>
+
+    <form id="findForm" class="card">
+      <div class="row">
+        <div class="field">
+          <label for="konamiId">Konami ID (10 dígitos)</label>
+          <input id="konamiId" type="text" inputmode="numeric" maxlength="10" placeholder="0400XXXXXX" required>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn" type="submit">Buscar</button>
+        <a class="btn-link" href="./index.html">⬅ Volver al menú</a>
+      </div>
+    </form>
+
+    <div id="result" class="card" style="margin-top:16px"></div>
   </div>
 
-<script type="module">
-import { API_BASE } from './js/config.js';
+  <script type="module">
+  import { API_BASE } from './js/config.js';
+  const $ = s => document.querySelector(s);
+  const pad10 = id => String(id || "").replace(/\D/g,'').padStart(10,'0');
 
-const form = document.getElementById('findForm');
-const out  = document.getElementById('result');
+  const form = $('#findForm');
+  const out  = $('#result');
+  const kon  = $('#konamiId');
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const konamiId = document.getElementById('konamiId').value.trim();
-  try {
-    const r = await fetch(`${API_BASE}?konamiId=${encodeURIComponent(konamiId)}`);
-    const j = await r.json();
-    if (!j.ok) throw new Error(j.message || 'No encontrado');
-    const d = j.data;
-    out.innerHTML = `
-      <div class="card">
-        <h3>${d.firstName} ${d.lastName}</h3>
-        <p><b>Konami ID:</b> ${d.konamiId}</p>
+  // auto cargar si hay guardado
+  const last = localStorage.getItem('konamiId');
+  if (last) kon.value = last;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    out.textContent = "Buscando...";
+    const konamiId = pad10(kon.value);
+
+    if (!/^\d{10}$/.test(konamiId)) {
+      out.textContent = "Konami ID debe tener 10 dígitos.";
+      return;
+    }
+
+    try {
+      const r = await fetch(`${API_BASE}?konamiId=${encodeURIComponent(konamiId)}&t=${Date.now()}`);
+      const j = await r.json();
+      if (!j.ok) throw new Error(j.message || 'No encontrado');
+
+      const d = j.data;
+      const fullName = [d.firstName, d.lastName].filter(Boolean).join(' ');
+      const statusClass = (d.status || 'Pendiente') === 'Pendiente' ? 'status-warn' : 'status-ok';
+
+      out.innerHTML = `
+        <h2>Resultado</h2>
+        <p><b>Nombre:</b> ${fullName || '-'}</p>
+        <p><b>Konami ID:</b> ${d.konamiId || '-'}</p>
         <p><b>Email:</b> ${d.email || '-'}</p>
-        <p><b>Tel:</b> ${d.phone || '-'}</p>
-        <p><b>Status:</b> ${d.status || 'Pendiente'}</p>
-        ${d.paymentUrl ? `<p><a href="${d.paymentUrl}" target="_blank">Ver comprobante</a></p>` : ''}
-      </div>
-    `;
-  } catch (err) {
-    out.textContent = 'Error: ' + err.message;
-  }
-});
-
-// autollenado si hay uno guardado
-const last = localStorage.getItem('konamiId');
-if (last) document.getElementById('konamiId').value = last;
-</script>
+        <p><b>Teléfono:</b> ${d.phone || '-'}</p>
+        <p><b>Status:</b> <span class="${statusClass}">${d.status || 'Pendiente'}</span></p>
+        ${d.paymentUrl ? `<p><a class="btn-link" href="${d.paymentUrl}" target="_blank" rel="noopener">Ver comprobante</a></p>` : '<p class="help">Sin comprobante registrado.</p>'}
+      `;
+      localStorage.setItem('konamiId', konamiId);
+    } catch(err){
+      out.textContent = '❌ ' + err.message;
+    }
+  });
+  </script>
 </body>
 </html>
-
