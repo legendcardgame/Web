@@ -2,35 +2,59 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Preregistros · Admin</title>
-  <link rel="stylesheet" href="./styles.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Preregistros</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="icon" href="../assets/favicon.png" />
+  <style>
+    /* Overlay de login */
+    .login-overlay{
+      position: fixed; inset:0; display:none; align-items:center; justify-content:center;
+      background: rgba(0,0,0,.55); backdrop-filter: blur(2px); z-index: 1000;
+    }
+    .login-card{
+      width:min(520px, 92vw); background:#141414; border:1px solid #2a2a2a;
+      border-radius:16px; padding:20px; box-shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    .login-card h2{ margin:0 0 8px 0; }
+    .login-row{ display:flex; gap:10px; margin-top:12px; }
+    .login-row input{ flex:1 1 auto; }
+    .login-hint{ font-size:.9rem; opacity:.8; margin-top:6px; }
+    .login-error{ color:#ff6b6b; margin-top:8px; min-height:1.2em; }
+    /* Utilidades pequeñas */
+    .toolbar{ display:flex; align-items:center; gap:10px; margin:12px 0; }
+    .badge{ background:#222; border:1px solid #2a2a2a; border-radius:999px; padding:6px 10px; font-size:.9rem; }
+    .tag{ background:#222; border:1px solid #2a2a2a; padding:.1rem .45rem; border-radius:8px; }
+    .tag.ok{ border-color:#2e7d32; color:#a5e6a8; }
+    .tag.err{ border-color:#b71c1c; color:#ffb2b2; }
+    .tag.warn{ border-color:#9e6b00; color:#ffd787; }
+    .status{ background:#111; border:1px solid #333; border-radius:8px; padding:.35rem .5rem; }
+    table{ width:100%; border-collapse:separate; border-spacing:0 8px; }
+    thead th{ text-align:left; font-weight:700; }
+    tbody td{ background:#0e0e0f; border:1px solid #1f1f22; padding:.65rem .75rem; }
+    tbody tr.updating td{ opacity:.65; }
+    .hide-sm{ display:none; }
+    @media (min-width:720px){ .hide-sm{ display:table-cell; } }
+    .notice{ margin:8px 0; min-height:1.2em; }
+    .input{ background:#101011; border:1px solid #2a2a30; border-radius:12px; padding:.55rem .7rem; color:#fff; width:100%; }
+    .btn{ background:#e8453c; border:none; color:#fff; padding:.6rem 1rem; border-radius:12px; cursor:pointer; }
+    .btn:disabled{ opacity:.6; cursor:not-allowed; }
+  </style>
 </head>
 <body>
-  <!-- Login modal (se muestra si no hay clave válida) -->
-  <div id="login" class="login-modal" style="display:none;">
-    <div class="login-card">
-      <h2>Acceso</h2>
-      <p>Ingresa la clave de administrador:</p>
-      <input id="adminKeyInput" type="password" placeholder="Clave de acceso" autofocus>
-      <button id="btnLogin" class="btn">Entrar</button>
-      <div id="loginMsg" class="notice"></div>
-    </div>
-  </div>
-
   <main class="container">
     <h1>Preregistros</h1>
 
+    <!-- Barra de búsqueda + contador -->
     <div class="toolbar">
-      <input id="search" class="search" type="search"
-             placeholder="Filtrar por Konami ID, nombre, correo, teléfono...">
-      <span id="counter" class="pill">0 registros</span>
+      <input id="search" class="input" placeholder="Filtrar por Konami ID, nombre, correo, teléfono…" />
+      <span id="counter" class="badge">0 registros</span>
     </div>
 
     <div id="out" class="notice"></div>
 
-    <div class="table-wrap">
-      <table class="table">
+    <div class="table-wrapper">
+      <table>
         <thead>
           <tr>
             <th class="hide-sm">Fecha</th>
@@ -47,8 +71,22 @@
     </div>
   </main>
 
-  <!-- Config global y lógica (sin modules) -->
-  <script src="./js/config.js"></script>
-  <script src="./js/admin.js?v=9"></script>
+  <!-- Overlay de login -->
+  <div id="login" class="login-overlay" aria-hidden="true">
+    <div class="login-card">
+      <h2>Acceso administrador</h2>
+      <div class="login-hint">Ingresa la clave para ver y administrar los preregistros.</div>
+      <div class="login-row">
+        <input id="adminKeyInput" class="input" type="password" placeholder="Clave de acceso" autocomplete="current-password">
+        <button id="btnLogin" class="btn">Entrar</button>
+      </div>
+      <div id="loginMsg" class="login-error"></div>
+    </div>
+  </div>
+
+  <!-- Config debe cargarse primero -->
+  <script src="./js/config.js" defer></script>
+  <!-- Lógica del panel -->
+  <script src="./js/admin.js" defer></script>
 </body>
 </html>
