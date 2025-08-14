@@ -6,74 +6,58 @@
   <title>Admin · Preregistro</title>
   <link rel="stylesheet" href="../styles.css" />
   <style>
-    .admin-wrap { max-width: 920px; margin: 24px auto; padding: 16px; }
-    .admin-card { background:#1f1f1f; border-radius:12px; padding:16px; }
-    .row { display:flex; gap:12px; flex-wrap:wrap; }
-    .field { flex:1 1 220px; display:flex; flex-direction:column; }
-    .field input { padding:10px; border-radius:8px; border:1px solid #333; background:#111; color:#fff; }
-    .btn { background:#D62828; border:none; border-radius:10px; padding:10px 16px; color:#fff; font-weight:700; cursor:pointer; }
-    .btn:disabled { opacity:.6; cursor:not-allowed; }
-    .notice { margin-top:10px; min-height:24px; }
-    table { width:100%; border-collapse:collapse; margin-top:16px; }
-    th, td { border-bottom:1px solid #333; padding:8px; text-align:left; font-size:14px; }
-    th { color:#bbb; }
-    .toolbar { display:flex; gap:8px; align-items:center; margin-top:10px; }
-    .pager { display:flex; gap:8px; align-items:center; }
-    .pill { background:#2a2a2a; border-radius:999px; padding:6px 10px; font-size:12px; color:#ddd; }
+    .admin-wrap { max-width: 960px; margin: 0 auto; padding: 16px; }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .card { background:#1E1E1E; border-radius:12px; padding:16px; }
+    .log { white-space: pre-wrap; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:#111; color:#ddd; padding:12px; border-radius:8px; max-height: 260px; overflow:auto; }
+    table { width:100%; border-collapse: collapse; }
+    th, td { padding:8px 10px; border-bottom:1px solid #333; }
+    th { text-align:left; color:#bbb; }
+    .actions { display:flex; gap:10px; align-items:center; }
+    .btn { background:#D62828; border:none; color:#fff; padding:10px 14px; border-radius:8px; font-weight:700; cursor:pointer; }
+    .btn.secondary { background:#333; }
+    .status-ok { color:#4CAF50; font-weight:700; }
+    .status-bad { color:#F44336; font-weight:700; }
   </style>
 </head>
 <body>
   <div class="admin-wrap">
-    <h1>Panel de Administración</h1>
-    <div class="admin-card">
-      <div class="row">
-        <div class="field" style="max-width:320px">
-          <label for="adminKey">Clave de administrador</label>
-          <input id="adminKey" type="password" placeholder="Ingresa tu clave" />
-        </div>
-        <div class="field" style="flex:0 0 auto; align-self:flex-end;">
-          <button id="btnEntrar" class="btn">Entrar</button>
-        </div>
-        <div class="field" style="flex:0 0 auto; align-self:flex-end;">
-          <button id="btnPing" class="btn" style="background:#444;">Ping</button>
-        </div>
-      </div>
-      <div id="msg" class="notice"></div>
+    <h1>Panel de Admin · Preregistro</h1>
 
-      <div class="toolbar" id="barListado" style="display:none;">
-        <span class="pill" id="totalPill">Total: 0</span>
-        <div class="pager">
-          <button class="btn" id="prevPage" style="background:#444;">«</button>
-          <span class="pill" id="pageInfo">1 / 1</span>
-          <button class="btn" id="nextPage" style="background:#444;">»</button>
-        </div>
-        <div style="margin-left:auto;">
-          <label style="color:#bbb; font-size:12px;">
-            Tamaño página
-            <select id="pageSize" style="background:#111;color:#fff;border:1px solid #333;border-radius:8px;padding:6px;">
-              <option>25</option><option selected>50</option><option>100</option><option>150</option><option>200</option>
-            </select>
-          </label>
-        </div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="actions">
+        <button id="btnPing" class="btn">Probar API (ping)</button>
+        <button id="btnList" class="btn secondary">Listar registros</button>
+        <input id="adminKey" type="password" placeholder="ADMIN_KEY" style="flex:1; padding:10px; border-radius:8px; border:1px solid #333; background:#121212; color:#fff;">
       </div>
+      <div id="diag" class="log" style="margin-top:10px;"></div>
+    </div>
 
-      <table id="tbl" style="display:none;">
-        <thead>
-          <tr>
-            <th>Fecha</th>
-            <th>Konami ID</th>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Tel</th>
-            <th>Status</th>
-            <th>Comprobante</th>
-          </tr>
-        </thead>
-        <tbody id="tbody"></tbody>
-      </table>
+    <div class="card">
+      <h2>Registros</h2>
+      <div class="row" style="margin-bottom:8px;">
+        <input id="filterKonami" type="text" placeholder="Filtrar por Konami ID" style="flex:1; padding:10px; border-radius:8px; border:1px solid #333; background:#121212; color:#fff;">
+      </div>
+      <div style="overflow:auto;">
+        <table id="tbl">
+          <thead>
+            <tr>
+              <th>timestamp</th>
+              <th>konamiId</th>
+              <th>firstName</th>
+              <th>lastName</th>
+              <th>email</th>
+              <th>phone</th>
+              <th>status</th>
+              <th>paymentUrl</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 
-  <script src="admin.js" type="module"></script>
+  <script type="module" src="./js/admin.js?v=4"></script>
 </body>
 </html>
