@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Diagnóstico · Preregistro</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .diag-card{max-width:720px;margin:20px auto;background:#1e1e1e;border-radius:12px;padding:16px}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    .field{flex:1 1 280px}
+    input,button{width:100%}
+    pre{background:#111;border-radius:8px;padding:12px;overflow:auto}
+    .ok{color:#8BC34A}.bad{color:#FF5252}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Autodiagnóstico</h1>
+    <div class="diag-card">
+      <div class="row">
+        <div class="field">
+          <label for="adminKey">Admin Key</label>
+          <input id="adminKey" type="password" placeholder="Ingresa ADMIN_KEY">
+        </div>
+      </div>
+      <div class="row">
+        <div class="field"><button id="btnPing" class="btn">Ping</button></div>
+        <div class="field"><button id="btnSelf" class="btn">Self-Test Completo</button></div>
+      </div>
+      <div id="out" style="margin-top:12px">
+        <pre id="log">Listo…</pre>
+      </div>
+      <div style="margin-top:12px">
+        <a class="btn-link" href="../index.html">⬅ Volver</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { API_BASE } from './js/config.js';
+
+    const $ = s => document.querySelector(s);
+    const log = $('#log');
+
+    $('#btnPing').addEventListener('click', async ()=>{
+      log.textContent = 'Ejecutando ping…';
+      try{
+        const r = await fetch(`${API_BASE}?action=ping`);
+        const j = await r.json();
+        log.textContent = JSON.stringify(j, null, 2);
+      }catch(e){
+        log.textContent = 'Error: '+e.message;
+      }
+    });
+
+    $('#btnSelf').addEventListener('click', async ()=>{
+      const key = $('#adminKey').value.trim();
+      if (!key) { log.textContent='Ingresa Admin Key'; return; }
+      log.textContent = 'Ejecutando selfTest…';
+      try{
+        const url = `${API_BASE}?action=selfTest&adminKey=${encodeURIComponent(key)}`;
+        const r = await fetch(url);
+        const j = await r.json();
+        log.textContent = JSON.stringify(j, null, 2);
+      }catch(e){
+        log.textContent = 'Error: '+e.message;
+      }
+    });
+  </script>
+</body>
+</html>
