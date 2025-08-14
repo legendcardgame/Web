@@ -1,136 +1,94 @@
-// Ajusta a tu deployment actual:
-const API_BASE = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+import { API_BASE, ADMIN_KEY as ADMIN_DEFAULT } from './js/config.js';
 
 const $ = s => document.querySelector(s);
-const msg = $('#msg');
-const btnEntrar = $('#btnEntrar');
-const btnPing = $('#btnPing');
-const inputKey = $('#adminKey');
-const tbl = $('#tbl');
-const tbody = $('#tbody');
-const barListado = $('#barListado');
-const totalPill = $('#totalPill');
-const pageInfo = $('#pageInfo');
-const prevPage = $('#prevPage');
-const nextPage = $('#nextPage');
-const pageSizeSel = $('#pageSize');
 
-let currentPage = 1;
-let totalPages = 1;
-let currentKey = '';
+const elKey   = $('#adminKey');
+const elPing  = $('#btnPing');
+const elList  = $('#btnList');
+const elExp   = $('#btnExport');
+const elStat  = $('#status');
+const tblHead = document.querySelector('#tbl thead');
+const tblBody = document.querySelector('#tbl tbody');
 
-function setMsg(text, ok=true){
-  msg.textContent = text || '';
-  msg.style.color = ok ? '#9fdf9f' : '#ff9f9f';
+function setStatus(msg, ok=true){
+  elStat.textContent = msg || '';
+  elStat.className = ok ? 'ok' : 'bad';
 }
 
-// fetch con timeout y 1 reintento
-async function fetchWithTimeout(url, opts={}, timeoutMs=12000) {
-  const ctrl = new AbortController();
-  const to = setTimeout(()=>ctrl.abort(), timeoutMs);
-  try {
-    return await fetch(url, {signal:ctrl.signal, cache:'no-store', ...opts});
-  } finally {
-    clearTimeout(to);
-  }
-}
-async function safeGet(url, timeoutMs=12000){
-  try {
-    const r = await fetchWithTimeout(url, {}, timeoutMs);
-    return await r.json();
-  } catch (e) {
-    // 1 reintento rápido
-    try {
-      const r2 = await fetchWithTimeout(url, {}, timeoutMs);
-      return await r2.json();
-    } catch (e2) {
-      throw e2;
-    }
-  }
+function getAdminKey(){
+  return (elKey.value || ADMIN_DEFAULT || '').trim();
 }
 
-async function doPing(){
-  setMsg('Haciendo ping…');
-  try {
-    const j = await safeGet(`${API_BASE}?action=ping&t=${Date.now()}`, 8000);
+async function ping(){
+  setStatus('Probando…', true);
+  try{
+    const url = `${API_BASE}?action=ping&t=${Date.now()}`;
+    const r = await fetch(url, { cache:'no-store' });
+    const j = await r.json();
     if (!j.ok) throw new Error(j.message || 'Ping falló');
-    setMsg(`Ping OK · ${j.time}`, true);
-  } catch(err) {
-    setMsg(`Ping falló: ${err.message}`, false);
+    setStatus(`Ping OK · ${j.time}`, true);
+  }catch(err){
+    setStatus(`Error/red: ${err.message}`, false);
   }
 }
 
-async function cargarPagina(p){
-  const pageSize = parseInt(pageSizeSel.value,10) || 50;
-  setMsg('Cargando listado…');
-  try {
-    const url = `${API_BASE}?adminKey=${encodeURIComponent(currentKey)}&page=${p}&pageSize=${pageSize}&t=${Date.now()}`;
-    const j = await safeGet(url, 15000);
-    if (!j.ok) {
-      if (j.code === 403) {
-        setMsg('Contraseña incorrecta.', false);
-      } else {
-        setMsg(j.message || 'Error al cargar', false);
-      }
-      return;
-    }
-    renderTabla(j.data || []);
-    totalPages = j.pages || 1;
-    currentPage = j.page || 1;
-    totalPill.textContent = `Total: ${j.total || 0}`;
-    pageInfo.textContent = `${currentPage} / ${totalPages}`;
-    setMsg('Listado cargado.', true);
-  } catch(err) {
-    setMsg(`Error/red: ${err.message}`, false);
-  }
-}
-
-function renderTabla(rows){
-  if (!rows.length) {
-    tbl.style.display = 'none';
-    tbody.innerHTML = '';
+function renderTable(rows){
+  tblHead.innerHTML = '';
+  tblBody.innerHTML = '';
+  if (!rows || !rows.length){
+    tblHead.innerHTML = '<tr><th>No hay datos</th></tr>';
     return;
   }
-  const html = rows.map(r => {
-    const ts = r.timestamp || '';
-    const kid = r.konamiId || '';
-    const name = `${r.firstName||''} ${r.lastName||''}`.trim();
-    const mail = r.email || '';
-    const phone = r.phone || '';
-    const st = r.status || 'Pendiente';
-    const link = r.paymentUrl ? `<a href="${r.paymentUrl}" target="_blank">Ver</a>` : '';
-    return `<tr>
-      <td>${ts}</td>
-      <td>${kid}</td>
-      <td>${name}</td>
-      <td>${mail}</td>
-      <td>${phone}</td>
-      <td>${st}</td>
-      <td>${link}</td>
-    </tr>`;
-  }).join('');
-  tbody.innerHTML = html;
-  tbl.style.display = '';
-  barListado.style.display = '';
+  const headers = Object.keys(rows[0]);
+  tblHead.innerHTML = `<tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr>`;
+  for(const r of rows){
+    const tr = document.createElement('tr');
+    tr.innerHTML = headers.map(h=>`<td>${r[h] ?? ''}</td>`).join('');
+    tblBody.appendChild(tr);
+  }
 }
 
-// Eventos
-btnPing.addEventListener('click', doPing);
+async function list(){
+  const key = getAdminKey();
+  if (!key){ setStatus('Ingresa la clave de admin.', false); return; }
+  setStatus('Cargando lista…', true);
+  try{
+    const url = `${API_BASE}?adminKey=${encodeURIComponent(key)}&t=${Date.now()}`;
+    const r = await fetch(url, { cache:'no-store' });
+    // Si el endpoint devolviera HTML por error, r.json() lanzará:
+    const j = await r.json();
+    if (!j.ok) throw new Error(j.message || 'No autorizado');
+    renderTable(j.data || []);
+    setStatus(`OK · ${j.data?.length ?? 0} registros`, true);
+  }catch(err){
+    setStatus(`Contraseña incorrecta o error en la carga · ${err.message}`, false);
+  }
+}
 
-btnEntrar.addEventListener('click', async () => {
-  const key = inputKey.value.trim();
-  if (!key) { setMsg('Ingresa tu clave de admin.'); return; }
-  currentKey = key;
-  await cargarPagina(1);
-});
+function exportCSV(){
+  // Exporta lo que esté en la tabla (lo simple)
+  const rows = [...tblBody.querySelectorAll('tr')].map(tr =>
+    [...tr.children].map(td => `"${String(td.textContent).replace(/"/g,'""')}"`).join(',')
+  );
+  if (!rows.length){ setStatus('No hay datos para exportar.', false); return; }
 
-prevPage.addEventListener('click', () => {
-  if (currentPage > 1) cargarPagina(currentPage - 1);
-});
-nextPage.addEventListener('click', () => {
-  if (currentPage < totalPages) cargarPagina(currentPage + 1);
-});
-pageSizeSel.addEventListener('change', () => cargarPagina(1));
+  // Encabezados
+  const heads = [...tblHead.querySelectorAll('th')].map(th => `"${String(th.textContent).replace(/"/g,'""')}"`).join(',');
+  const csv = [heads, ...rows].join('\n');
+  const blob = new Blob([csv], { type:'text/csv;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url;
+  a.download = `preregistro_${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  setStatus('CSV generado.', true);
+}
 
-// Warm-up automático al abrir
-doPing();
+elPing.addEventListener('click', ping);
+elList.addEventListener('click', list);
+elExp.addEventListener('click', exportCSV);
+
+// Mejorar UX: recuerda la clave en esta sesión (opcional)
+elKey.value = sessionStorage.getItem('adminKey') || '';
+elKey.addEventListener('input', ()=>sessionStorage.setItem('adminKey', elKey.value));
