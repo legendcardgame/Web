@@ -2,84 +2,25 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Diagnóstico · Preregistro</title>
-  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="./styles.css">
   <style>
-    .diag-wrap{max-width:900px;margin:20px auto}
-    .diag-card{background:#1e1e1e;border-radius:12px;padding:16px}
-    .row{display:flex;gap:12px;flex-wrap:wrap}
-    .field{flex:1 1 280px}
-    input,button{width:100%}
-    .btn{cursor:pointer}
-
-    /* Resumen */
-    .summary{
-      margin:16px 0;
-      padding:16px;
-      border-radius:12px;
-      text-align:center;
-      font-weight:bold;
-      font-size:1.1rem;
-    }
-    .summary.ok{background:#143314;color:#9BE49B;border:1px solid #2e7d32}
-    .summary.bad{background:#3a1717;color:#FF9E9E;border:1px solid #c62828}
-
-    /* Grid de checks */
-    .checks{
-      display:grid;
-      grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
-      gap:12px;
-      margin-top:12px;
-    }
-    .check{
-      padding:12px;border-radius:10px;background:#121212;border:1px solid #2a2a2a
-    }
-    .check h4{margin:0 0 8px 0;font-size:0.95rem}
-    .check .status{font-weight:bold;margin-bottom:6px}
-    .check.ok .status{color:#8BC34A}
-    .check.bad .status{color:#FF5252}
-    .check .details{color:#c9c9c9;font-size:0.9rem;white-space:pre-wrap;word-break:break-word}
-
-    /* Log crudo opcional (plegable) */
-    details.log {margin-top:16px}
-    details.log summary {cursor:pointer}
-    pre{background:#0d0d0d;border-radius:8px;padding:12px;overflow:auto}
+    .ok { color: #7CFC8A; }
+    .bad { color: #ff7676; }
+    pre { background: #222; padding: 10px; border-radius: 8px; color: #fff; overflow-x: auto; }
   </style>
 </head>
 <body>
-  <div class="container diag-wrap">
-    <h1>Autodiagnóstico</h1>
-
-    <div class="diag-card">
-      <div class="row">
-        <div class="field">
-          <label for="adminKey">Admin Key</label>
-          <input id="adminKey" type="password" placeholder="Ingresa ADMIN_KEY">
-        </div>
-      </div>
-
-      <div class="row" style="margin-top:8px">
-        <div class="field"><button id="btnPing" class="btn">Ping</button></div>
-        <div class="field"><button id="btnSelf" class="btn">Self-Test Completo</button></div>
-      </div>
-
-      <!-- Resumen + tarjetas -->
-      <div id="summary" class="summary" style="display:none"></div>
-      <div id="checks" class="checks"></div>
-
-      <!-- Log crudo opcional -->
-      <details class="log">
-        <summary>Ver respuesta cruda</summary>
-        <pre id="log">Listo…</pre>
-      </details>
-
-      <div style="margin-top:12px">
-        <a class="btn-link" href="../index.html">⬅ Volver</a>
-      </div>
-    </div>
+  <h1>Diagnóstico</h1>
+  <div>
+    <button id="btnPing">Ping</button>
+    <button id="btnList">Listar Registros (Admin)</button>
+    <span id="status"></span>
   </div>
+  <pre id="output"></pre>
 
+  <!-- Script -->
   <script type="module" src="./js/diagnostico.js?v=1"></script>
 </body>
 </html>
