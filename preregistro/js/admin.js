@@ -1,173 +1,196 @@
+// Usa window.LCG definido en js/config.js
 (function(){
-  // ---- helpers de DOM ----
-  function $(s){ return document.querySelector(s); }
-  const out     = $('#out');
-  const tbody   = $('#tbody');
-  const counter = $('#counter');
+  'use strict';
 
-  // cache datos y login
-  let DATA = [];
-  let logged = false;
+  // --- Helpers DOM y estado ---
+  const $      = s => document.querySelector(s);
+  const out    = $('#out');
+  const tbody  = $('#tbody');
+  const search = $('#search');
+  const counter= $('#counter');
+  const login  = $('#login');
+  const keyInp = $('#adminKeyInput');
+  const btnLog = $('#btnLogin');
+  const loginMsg = $('#loginMsg');
 
-  // ---- utilidades ----
-  function stripLeadingApostrophe(s){ return String(s||'').replace(/^'/,''); }
-  function pad10(s){ return stripLeadingApostrophe(s).replace(/\D/g,'').padStart(10,'0'); }
-  function fullName(r){ return [r.firstName, r.lastName].filter(Boolean).join(' ').trim(); }
-  function safe(v){ return String(v ?? '').trim(); }
-  function debounce(fn,ms){ var t; return function(){ clearTimeout(t); t=setTimeout(fn.bind(null, ...arguments), ms); }; }
+  let DATA   = [];      // cache de registros
+  let LOGGED = false;   // estado de sesión simple
 
-  // ---- login front ----
+  // --- Utilidades ---
+  const stripLeadingApostrophe = s => String(s||'').replace(/^'/,'');
+  const safe   = v => String(v ?? '').trim();
+  const pad10  = s => stripLeadingApostrophe(s).replace(/\D/g,'').padStart(10,'0');
+  const fullName = r => [r.firstName, r.lastName].filter(Boolean).join(' ').trim();
+
+  function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); }; }
+
+  // --- Login simple en front (clave fija en config) ---
   function showLogin(){
-    try{
-      const keyOk = localStorage.getItem('adminAuthKey') === (window.LCG && window.LCG.ADMIN_KEY);
-      if (keyOk){ 
-        logged = true; 
-        $('#login').style.display = 'none'; 
-        initAfterLogin(); 
-        return; 
-      }
-    }catch(_){}
-    $('#login').style.display = 'flex';
-    $('#adminKeyInput').focus();
+    const k = localStorage.getItem('adminAuthKey');
+    if (k && window.LCG && k === window.LCG.ADMIN_KEY){
+      LOGGED = true;
+      login.style.display = 'none';
+      initAfterLogin();
+      return;
+    }
+    login.style.display = 'flex';
+    login.setAttribute('aria-hidden','false');
+    keyInp.value = '';
+    loginMsg.textContent = '';
+    setTimeout(()=> keyInp.focus(), 0);
   }
 
-  document.addEventListener('DOMContentLoaded', function(){
-    // botones login
-    $('#btnLogin').addEventListener('click', function(){
-      const k = $('#adminKeyInput').value.trim();
-      if (k === (window.LCG && window.LCG.ADMIN_KEY)){
-        try{ localStorage.setItem('adminAuthKey', k); }catch(_){}
-        logged = true;
-        $('#login').style.display = 'none';
-        initAfterLogin();
-      } else {
-        $('#loginMsg').textContent = 'Clave incorrecta.';
-      }
-    });
-    $('#adminKeyInput').addEventListener('keydown', function(e){
-      if (e.key === 'Enter') $('#btnLogin').click();
-    });
-
-    // búsqueda
-    $('#search').addEventListener('input', debounce(applyFilter, 120));
-
-    // arranca
-    showLogin();
-  });
-
-  // ---- render de tabla ----
-  function render(list){
-    tbody.innerHTML = '';
-    list.forEach(function(r){
-      var tr = document.createElement('tr');
-
-      // selector de estado
-      var statusSelect = document.createElement('select');
-      statusSelect.className = 'status';
-      ['Pendiente','Aceptado','Rechazado'].forEach(function(opt){
-        var o = document.createElement('option');
-        o.value = opt; o.textContent = opt;
-        if ((String(r.status||'')).toLowerCase() === opt.toLowerCase()) o.selected = true;
-        statusSelect.appendChild(o);
-      });
-      statusSelect.addEventListener('change', function(){
-        updateStatus(r.konamiId, statusSelect.value, tr);
-      });
-
-      tr.innerHTML =
-        '<td class="hide-sm">'+ safe(r.timestamp) +'</td>'+
-        '<td><span class="tag">'+ safe(r.konamiId) +'</span></td>'+
-        '<td>'+ (fullName(r)||'') +'</td>'+
-        '<td class="hide-sm">'+ safe(r.email) +'</td>'+
-        '<td class="hide-sm">'+ safe(r.phone) +'</td>'+
-        '<td>'+ (r.paymentUrl ? '<a href="'+ r.paymentUrl +'" target="_blank">Ver</a>' : '') +'</td>'+
-        '<td></td>';
-
-      tr.lastElementChild.appendChild(statusSelect);
-      tbody.appendChild(tr);
-    });
-    counter.textContent = list.length + ' registro' + (list.length===1?'':'s');
-  }
-
-  // ---- filtro local ----
-  function applyFilter(){
-    var q = $('#search').value.toLowerCase().trim();
-    if (!q){ render(DATA); return; }
-    var filtered = DATA.filter(function(r){
-      var blob = [
-        safe(r.konamiId),
-        fullName(r),
-        safe(r.email),
-        safe(r.phone),
-        safe(r.status)
-      ].join(' ').toLowerCase();
-      return blob.indexOf(q) !== -1;
-    });
-    render(filtered);
-  }
-
-  // ---- carga desde backend ----
-  async function loadAll(){
-    out.textContent = '';
-    try{
-      var url = (window.LCG && window.LCG.API_BASE) + '?adminKey=' + encodeURIComponent(window.LCG.ADMIN_KEY);
-      var r = await fetch(url);
-      var j = await r.json();
-      if (!j.ok) throw new Error(j.message || 'Error al listar');
-      // normaliza konamiId
-      DATA = (j.data || []).map(function(row){
-        row.konamiId = pad10(row.konamiId);
-        return row;
-      });
-      render(DATA);
-    }catch(e){
-      out.textContent = 'Error: ' + e.message;
+  async function doLogin(){
+    const val = keyInp.value.trim();
+    if (!window.LCG){
+      loginMsg.textContent = 'Config no cargó (window.LCG).';
+      return;
+    }
+    if (val === window.LCG.ADMIN_KEY){
+      localStorage.setItem('adminAuthKey', val);
+      LOGGED = true;
+      login.style.display = 'none';
+      login.setAttribute('aria-hidden','true');
+      initAfterLogin();
+    }else{
+      loginMsg.textContent = 'Clave incorrecta.';
     }
   }
 
-  // ---- actualiza estatus ----
+  btnLog.addEventListener('click', doLogin);
+  keyInp.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+  // --- Render tabla ---
+  function render(list){
+    tbody.innerHTML = '';
+    list.forEach(r => {
+      const tr = document.createElement('tr');
+
+      // Select de estatus
+      const statusSelect = document.createElement('select');
+      statusSelect.className = 'status';
+      ['Pendiente','Aceptado','Rechazado'].forEach(opt => {
+        const o = document.createElement('option');
+        o.value = opt; o.textContent = opt;
+        if ((r.status||'').toLowerCase() === opt.toLowerCase()) o.selected = true;
+        statusSelect.appendChild(o);
+      });
+      statusSelect.addEventListener('change', () => {
+        updateStatus(r.konamiId, statusSelect.value, tr);
+      });
+
+      tr.innerHTML = `
+        <td class="hide-sm">${safe(r.timestamp)}</td>
+        <td><span class="tag">${safe(pad10(r.konamiId))}</span></td>
+        <td>${fullName(r) || ''}</td>
+        <td class="hide-sm">${safe(r.email)}</td>
+        <td class="hide-sm">${safe(r.phone)}</td>
+        <td>${r.paymentUrl ? `<a href="${r.paymentUrl}" target="_blank" rel="noopener">Ver</a>` : ''}</td>
+        <td></td>
+      `;
+      tr.lastElementChild.appendChild(statusSelect);
+      tbody.appendChild(tr);
+    });
+    counter.textContent = `${list.length} registro${list.length===1?'':'s'}`;
+  }
+
+  // --- Filtro local ---
+  function applyFilter(){
+    const q = search.value.toLowerCase().trim();
+    if (!q){ render(DATA); return; }
+    const filtered = DATA.filter(r => {
+      const blob = [
+        pad10(r.konamiId),
+        fullName(r),
+        safe(r.email),
+        safe(r.phone),
+        safe(r.status),
+        safe(r.timestamp)
+      ].join(' ').toLowerCase();
+      return blob.includes(q);
+    });
+    render(filtered);
+  }
+  search.addEventListener('input', debounce(applyFilter, 120));
+
+  // --- Cargar listado completo del backend ---
+  async function loadAll(){
+    out.textContent = '';
+    try{
+      if (!window.LCG) throw new Error('Config no cargó (window.LCG).');
+      const url = `${window.LCG.API_BASE}?adminKey=${encodeURIComponent(window.LCG.ADMIN_KEY)}&_t=${Date.now()}`;
+      const r   = await fetch(url);
+      const raw = await r.text();         // evita errores si la respuesta no es JSON válido
+      // console.log('[ADMIN] RAW RESPONSE:', raw);
+      const j   = JSON.parse(raw);
+      if (!j.ok) throw new Error(j.message || 'Error al listar');
+
+      // normalizamos konamiId con cero inicial si hace falta
+      DATA = (j.data || []).map(row => ({ ...row, konamiId: pad10(row.konamiId) }));
+      render(DATA);
+    }catch(e){
+      console.error(e);
+      out.textContent = 'Error: ' + e.message;
+      DATA = [];
+      render(DATA);
+    }
+  }
+
+  // --- Cambiar estatus (POST al Apps Script) ---
   async function updateStatus(konamiId, newStatus, rowEl){
     try{
+      if (!window.LCG) throw new Error('Config no cargó.');
       rowEl.classList.add('updating');
-      var fd = new FormData();
+      const fd = new FormData();
       fd.append('konamiId', pad10(konamiId));
       fd.append('status', newStatus);
 
-      var r = await fetch((window.LCG && window.LCG.API_BASE), { method:'POST', body: fd });
-      var j = await r.json();
+      const r = await fetch(window.LCG.API_BASE, { method:'POST', body: fd });
+      const raw = await r.text();
+      const j = JSON.parse(raw);
       if (!j.ok) throw new Error(j.message || 'No se pudo actualizar');
 
-      // refleja en cache y re-filtra
-      var k10 = pad10(konamiId);
-      DATA = DATA.map(function(x){ return x.konamiId === k10 ? Object.assign({}, x, {status:newStatus}) : x; });
+      // Actualiza cache y mantiene filtro aplicado
+      DATA = DATA.map(x => pad10(x.konamiId) === pad10(konamiId) ? {...x, status:newStatus} : x);
       applyFilter();
 
+      // Feedback visual
       flashRow(rowEl, newStatus);
     }catch(e){
+      console.error(e);
       out.textContent = 'Error al cambiar estatus: ' + e.message;
     }finally{
       rowEl.classList.remove('updating');
     }
   }
+
   function flashRow(rowEl, status){
-    var cls = (status === 'Aceptado') ? 'ok' : ((status === 'Rechazado') ? 'err' : 'warn');
+    const cls = status === 'Aceptado' ? 'ok' : (status === 'Rechazado' ? 'err' : 'warn');
     rowEl.style.transition = 'background 400ms';
     rowEl.style.background = 'rgba(255,255,255,.02)';
-    var tag = document.createElement('span');
-    tag.className = 'tag ' + cls;
-    tag.textContent = 'Guardado: ' + status;
+    const tag = document.createElement('span');
+    tag.className = `tag ${cls}`;
+    tag.textContent = `Guardado: ${status}`;
     rowEl.cells[rowEl.cells.length-1].appendChild(tag);
-    setTimeout(function(){ if (tag && tag.parentNode) tag.parentNode.removeChild(tag); rowEl.style.background='transparent'; }, 1300);
+    setTimeout(()=>{ tag.remove(); rowEl.style.background='transparent'; }, 1300);
   }
 
-  // ---- post-login ----
+  // --- Inicio tras login ---
   function initAfterLogin(){
     loadAll();
-    // opcional: precargar filtro ?q=...
-    try{
-      var params = new URLSearchParams(location.search);
-      var q = params.get('q');
-      if (q){ $('#search').value = q; applyFilter(); }
-    }catch(_){}
+    // si llega ?q=foo en la URL, aplicar filtro inicial
+    const params = new URLSearchParams(location.search);
+    const q = params.get('q');
+    if (q){
+      search.value = q;
+      applyFilter();
+    }
   }
+
+  // --- Boot ---
+  window.addEventListener('DOMContentLoaded', () => {
+    // seguridad básica: exige que exista window.LCG
+    if (!window.LCG){ out.textContent = 'No se encontró configuración (js/config.js).'; return; }
+    showLogin();
+  });
 })();
