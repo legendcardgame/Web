@@ -1,4 +1,5 @@
 // /preregistro/js/config.js
 export const API_BASE =
 
-  "https://script.google.com/macros/s/AKfycbyiv5_1-nQCH1JSDDvjtm3t7B-TawbPIp0wpssvz16baeqWjdzVc6CcziPN2WQQuK8L/exec";
+  "https://script.google.com/macros/s/AKfycbyX4HxJZWfGUy9d3hi-F3yDWKxecszqj9E360WLaFW9SOEfF0ouERCEKSEyguMu2thN6g/exec";
+
