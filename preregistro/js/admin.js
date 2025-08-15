@@ -26,7 +26,7 @@
   const debounce = (fn, ms) => { let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); }; };
   const fullName = r => [r.firstName, r.lastName].filter(Boolean).join(' ').trim();
 
-  // Loader helpers
+  // Loader helpers (tabla)
   function showLoader(){ centerLoader.style.display = 'flex'; }
   function hideLoader(){ centerLoader.style.display = 'none'; }
 
@@ -123,7 +123,6 @@
       const url = `${window.LCG.API_BASE}?adminKey=${encodeURIComponent(window.LCG.ADMIN_KEY)}&_t=${Date.now()}`;
       const r   = await fetch(url);
       const raw = await r.text();           // tolerante a respuestas no-JSON limpias
-      // console.log('[ADMIN] RAW:', raw);
       const j   = JSON.parse(raw);
       if (!j.ok) throw new Error(j.message || 'Error al listar');
 
@@ -139,11 +138,19 @@
     }
   }
 
-  // Cambiar estatus
+  // Cambiar estatus (con loader en el select)
   async function updateStatus(konamiId, newStatus, rowEl){
+    // Obtiene el select de esta fila
+    const sel = rowEl.querySelector('select.status');
     try{
       if (!window.LCG) throw new Error('Config no cargó.');
       rowEl.classList.add('updating');
+
+      // Activa efecto de “iluminado”
+      if (sel){
+        sel.classList.add('loading');
+        sel.disabled = true;
+      }
 
       const fd = new FormData();
       fd.append('konamiId', konamiId);
@@ -154,14 +161,21 @@
       const j = JSON.parse(raw);
       if (!j.ok) throw new Error(j.message || 'No se pudo actualizar');
 
+      // Actualiza cache y re-render con el filtro aplicado
       DATA = DATA.map(x => pad10(x.konamiId) === konamiId ? {...x, status:newStatus} : x);
       applyFilter();
+
+      // feedback visual
       flashRow(rowEl, newStatus);
     }catch(e){
       console.error(e);
       out.textContent = 'Error al cambiar estatus: ' + e.message;
     }finally{
       rowEl.classList.remove('updating');
+      if (sel){
+        sel.classList.remove('loading');
+        sel.disabled = false;
+      }
     }
   }
 
