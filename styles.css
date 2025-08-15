@@ -101,33 +101,34 @@ body{
 .topbar .brand {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Wordmark a la izq, LCG a la der */
-  gap: 10px;
+  justify-content: center; /* centra el bloque completo */
+  gap: 12px; /* espacio entre logo y nombre */
+  width: 100%;
+  position: relative;
 }
 
-/* Wordmark: que escale bien en móvil */
+/* Logo LCG a la izquierda */
+.brand-lcg {
+  height: clamp(34px, 7vw, 50px); /* más grande que antes */
+  width: auto;
+  flex-shrink: 0;
+  filter: drop-shadow(0 1px 0 rgba(0,0,0,.35));
+}
+
+/* Wordmark centrado */
 .brand-wordmark {
-  height: clamp(22px, 5.5vw, 34px);
-  max-width: 70vw;        /* que no coma todo el ancho */
+  height: clamp(28px, 6vw, 44px);
+  max-width: 70%;
   object-fit: contain;
   filter: drop-shadow(0 1px 0 rgba(0,0,0,.35));
 }
 
-/* Logo LCG pequeño, a la derecha */
-.brand-lcg {
-  height: clamp(22px, 5.5vw, 34px);
-  width: auto;
-  flex: 0 0 auto;
-  filter: drop-shadow(0 1px 0 rgba(0,0,0,.35));
-  border-radius: 8px;
-}
-
-/* Si tu header antes tenía H1 visible, opcional: ocultarlo */
-.topbar .brand h1 { 
-  display: none; 
-}
-
-/* Opcional: ajustar separación con el carrusel */
-.carousel {
-  margin-top: 8px;
+/* Ajuste visual en pantallas pequeñas */
+@media (max-width: 480px) {
+  .brand-lcg {
+    height: clamp(30px, 8vw, 42px);
+  }
+  .brand-wordmark {
+    max-width: 65%;
+  }
 }
