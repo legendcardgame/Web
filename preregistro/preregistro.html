@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Preregistro · Registrar</title>
   <link rel="stylesheet" href="./styles.css">
+  <!-- Cargar config global (define window.LCG.API_BASE / ADMIN_KEY) -->
+  <script src="./js/config.js"></script>
 </head>
 <body>
   <div class="container">
@@ -62,121 +64,122 @@
     </form>
   </div>
 
- <script type="module">
-import { API_BASE } from './js/config.js';
+  <!-- Script principal SIN módulos -->
+  <script>
+  const API_BASE = window.LCG && window.LCG.API_BASE;
 
-const $ = s => document.querySelector(s);
-const pad10 = id => String(id || "").replace(/\D/g,'').padStart(10,'0');
+  const $ = s => document.querySelector(s);
+  const pad10 = id => String(id || "").replace(/\D/g,'').padStart(10,'0');
 
-const form   = $('#preForm');
-const btn    = $('#submitBtn');
-const msg    = $('#msg');
-const file   = $('#payment');
+  const form   = $('#preForm');
+  const btn    = $('#submitBtn');
+  const msg    = $('#msg');
+  const file   = $('#payment');
+  const preview= $('#preview');
 
-const fields = {
-  konamiId:  $('#konamiId'),
-  firstName: $('#firstName'),
-  lastName:  $('#lastName'),
-  email:     $('#email'),
-  phone:     $('#phone'),
-};
-
-// Rellena desde localStorage (por si hubo un intento previo)
-Object.entries(fields).forEach(([k, el]) => {
-  const v = localStorage.getItem('pre_' + k);
-  if (v) el.value = v;
-});
-
-// Evita submit nativo (+ respaldo)
-form.addEventListener('submit', (e) => { e.preventDefault(); e.stopPropagation(); });
-
-// Click en Enviar = nuestro flujo
-btn.addEventListener('click', onSubmit);
-
-async function fileToBase64(f){
-  if (!f) return "";
-  const r = new FileReader();
-  return await new Promise((res, rej) => {
-    r.onload = () => res(r.result);
-    r.onerror = rej;
-    r.readAsDataURL(f);
-  });
-}
-
-async function onSubmit(e){
-  e?.preventDefault?.();
-  e?.stopPropagation?.();
-
-  msg.textContent = "";
-
-  // Guarda valores antes de llamar a la API (por si hay error)
-  Object.entries(fields).forEach(([k, el]) => {
-    localStorage.setItem('pre_' + k, el.value.trim());
-  });
-
-  const payload = {
-    konamiId:  pad10(fields.konamiId.value),
-    firstName: fields.firstName.value.trim(),
-    lastName:  fields.lastName.value.trim(),
-    email:     fields.email.value.trim(),
-    phone:     fields.phone.value.trim(),
-    paymentBase64: await fileToBase64(file.files?.[0])
+  const fields = {
+    konamiId:  $('#konamiId'),
+    firstName: $('#firstName'),
+    lastName:  $('#lastName'),
+    email:     $('#email'),
+    phone:     $('#phone'),
   };
 
-  if (!/^\d{10}$/.test(payload.konamiId)) {
-    msg.textContent = "Konami ID debe tener 10 dígitos.";
-    return;
-  }
-  if (!payload.firstName || !payload.lastName) {
-    msg.textContent = "Nombre y apellidos son obligatorios.";
-    return;
+  // Rellena desde localStorage (por si hubo un intento previo)
+  Object.entries(fields).forEach(([k, el]) => {
+    const v = localStorage.getItem('pre_' + k);
+    if (v) el.value = v;
+  });
+
+  // Vista previa de imagen
+  file.addEventListener('change', () => {
+    const f = file.files?.[0];
+    if (!f) { preview.style.display='none'; preview.src=''; return; }
+    const r = new FileReader();
+    r.onload = () => { preview.src = r.result; preview.style.display='block'; };
+    r.readAsDataURL(f);
+  });
+
+  // Evita submit nativo (+ respaldo)
+  form.addEventListener('submit', (e) => { e.preventDefault(); e.stopPropagation(); });
+
+  // Click en Enviar = nuestro flujo
+  btn.addEventListener('click', onSubmit);
+
+  async function fileToBase64(f){
+    if (!f) return "";
+    const r = new FileReader();
+    return await new Promise((res, rej) => {
+      r.onload = () => res(r.result);
+      r.onerror = rej;
+      r.readAsDataURL(f);
+    });
   }
 
-  btn.disabled = true;
-  const oldBtn = btn.textContent;
-  btn.textContent = 'Enviando';
-  btn.classList.add('dots');      // si ya usas el loader de puntos
+  async function onSubmit(e){
+    e?.preventDefault?.();
+    e?.stopPropagation?.();
 
-  try {
-    const r = await fetch(API_BASE, {
-      method:'POST',
-      // IMPORTANTE: para enviar archivos usa FormData y NO pongas content-type manual
-      body: (() => {
-        const fd = new FormData();
-        Object.entries(payload).forEach(([k,v]) => v && fd.append(k, v));
-        return fd;
-      })(),
-      // aseguramos que no haya redirects “raros”
-      redirect: 'follow',
+    msg.textContent = "";
+
+    // Guarda valores antes de llamar a la API (por si hay error)
+    Object.entries(fields).forEach(([k, el]) => {
+      localStorage.setItem('pre_' + k, el.value.trim());
     });
 
-    const text = await r.text();
-    let j;
-    try { j = JSON.parse(text); } catch { throw new Error('Respuesta inválida del servidor'); }
+    const payload = {
+      konamiId:  pad10(fields.konamiId.value),
+      firstName: fields.firstName.value.trim(),
+      lastName:  fields.lastName.value.trim(),
+      email:     fields.email.value.trim(),
+      phone:     fields.phone.value.trim(),
+      paymentBase64: await fileToBase64(file.files?.[0])
+    };
 
-    if (!j.ok) throw new Error(j.message || "Error al enviar");
+    if (!/^\d{10}$/.test(payload.konamiId)) {
+      msg.textContent = "Konami ID debe tener 10 dígitos.";
+      return;
+    }
+    if (!payload.firstName || !payload.lastName) {
+      msg.textContent = "Nombre y apellidos son obligatorios.";
+      return;
+    }
 
-    // Persistimos el Konami ID “bueno”
-    localStorage.setItem('konamiId', payload.konamiId);
+    btn.disabled = true;
+    const oldBtn = btn.textContent;
+    btn.textContent = 'Enviando';
+    btn.classList.add('dots'); // si ya tienes animación de puntos
 
-    msg.innerHTML = `✅ ${j.mode === 'insert' ? 'Registro creado' : 'Datos actualizados'}.${
-      j.paymentUrl ? '<br><span class="help">Comprobante subido correctamente.</span>' : ''
-    }`;
+    try {
+      // Enviar con FormData (incluye imagen)
+      const fd = new FormData();
+      Object.entries(payload).forEach(([k,v]) => { if (v) fd.append(k, v); });
 
-    // Si quieres dejar los campos, no hagas reset. Si prefieres limpiarlos:
-    // form.reset();  // (el archivo SIEMPRE se limpia por seguridad del navegador)
+      const r = await fetch(API_BASE, { method:'POST', body: fd, redirect:'follow' });
+      const text = await r.text();
+      let j;
+      try { j = JSON.parse(text); } catch { throw new Error('Respuesta inválida del servidor'); }
 
-  } catch(err){
-    msg.textContent = '❌ ' + err.message;
-    // Los campos siguen ahí gracias a localStorage y a que no recargamos
-  } finally {
-    btn.disabled = false;
-    btn.textContent = oldBtn;
-    btn.classList.remove('dots');
+      if (!j.ok) throw new Error(j.message || "Error al enviar");
+
+      localStorage.setItem('konamiId', payload.konamiId);
+
+      msg.innerHTML = `✅ ${j.mode === 'insert' ? 'Registro creado' : 'Datos actualizados'}.${
+        j.paymentUrl ? '<br><span class="help">Comprobante subido correctamente.</span>' : ''
+      }`;
+
+      // Si prefieres limpiar:
+      // form.reset();
+      // preview.style.display='none'; preview.src='';
+
+    } catch(err){
+      msg.textContent = '❌ ' + err.message;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = oldBtn;
+      btn.classList.remove('dots');
+    }
   }
-}
-</script>
+  </script>
 </body>
 </html>
-
-
