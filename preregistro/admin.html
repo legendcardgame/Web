@@ -43,7 +43,11 @@
     .tag.ok{ border-color:#2e7d32; color:#a5e6a8; }
     .tag.err{ border-color:#b71c1c; color:#ffb2b2; }
     .tag.warn{ border-color:#9e6b00; color:#ffd787; }
-    .status{ background:#111; border:1px solid #333; border-radius:8px; padding:.35rem .5rem; color:#fff; }
+
+    .status{
+      background:#111; border:1px solid #333; border-radius:8px; padding:.35rem .5rem; color:#fff;
+      transition: box-shadow .2s, border-color .2s, background .2s;
+    }
 
     .table-wrapper{ position:relative; min-height:40dvh; }
     table{ width:100%; border-collapse:separate; border-spacing:0 8px; }
@@ -75,9 +79,21 @@
     .loader .dots span:nth-child(4){ animation-delay: 360ms; }
     @keyframes b { to{ transform: translateY(-6px); opacity:1; } }
 
-    /* accesibilidad menor en móviles */
-    @media (max-width:480px){
-      .below-bar{ justify-content:flex-start; }
+    /* ===== Efecto de "iluminado" en el select de estatus ===== */
+    .status.loading{
+      color:#fff;
+      background:
+        linear-gradient(120deg, rgba(255,255,255,0.05), rgba(255,255,255,0.18), rgba(255,255,255,0.05)) 0/200% 100%,
+        #111;
+      border-color:#555;
+      box-shadow:0 0 0 2px rgba(232,69,60,.25);
+      animation: shimmer 1.2s linear infinite;
+      pointer-events:none; /* evita click durante actualización */
+      opacity:.9;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 0% 0; }
+      100% { background-position: 200% 0; }
     }
   </style>
 </head>
