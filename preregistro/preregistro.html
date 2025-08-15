@@ -155,7 +155,10 @@
     const oldBtn = btn.textContent;
     btn.textContent = 'Enviando';
     btn.classList.add('dots'); // si ya tienes animación de puntos
-
+    msg.innerHTML = `✅ ${j.mode === 'insert' ? 'Registro creado' : 'Datos actualizados'}.${
+    j.paymentUrl ? '<br><span class="help">Comprobante subido correctamente.</span>' : ''
+    }`;
+    
     try {
       // Enviar con FormData (incluye imagen)
       const fd = new FormData();
@@ -189,4 +192,5 @@
   </script>
 </body>
 </html>
+
 
