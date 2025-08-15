@@ -8,8 +8,8 @@
 </head>
 <body>
   <div class="container">
-    <h1>Consulta tu preregistro</h1>
-    <h2>Ingresa tu Konami ID</h2>
+  <h1 class="hero-title">Consulta tu preregistro</h1>
+  <p class="hero-sub">Ingresa tu Konami ID para ver el estado de tu registro</p>
 
     <form id="formConsulta" class="card" autocomplete="off">
       <div class="row">
@@ -19,7 +19,10 @@
                  placeholder="0400XXXXXX" maxlength="10" required>
         </div>
       </div>
-
+      <div class="field">
+  <label>Estatus</label>
+  <div id="r-status" class="badge">—</div>
+</div>
       <div class="actions">
         <button id="btnBuscar" class="btn" type="submit">Buscar</button>
         <a class="btn-link" href="./index.html">← Volver al menú</a>
@@ -71,3 +74,4 @@
   <script src="./js/consulta.js" defer></script>
 </body>
 </html>
+
