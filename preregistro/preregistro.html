@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Preregistro · Registrar</title>
   <link rel="stylesheet" href="./styles.css">
-  <!-- Cargar config global (define window.LCG.API_BASE / ADMIN_KEY) -->
-  <script src="./js/config.js"></script>
 </head>
 <body>
   <div class="container">
@@ -57,22 +55,22 @@
 
       <div id="msg" class="notice"></div>
 
-      <!-- Loader: 4 puntos -->
+      <!-- Loader: 4 puntos (ya lo tenías) -->
       <div id="loader" class="loader" style="display:none;">
         <span></span><span></span><span></span><span></span>
       </div>
-      <!-- Overlay centrado -->
-<div id="overlaySuccess" class="overlay" style="display:none;">
-  <div class="overlay-content">
-    <h1>✅ Registro enviado</h1>
-  </div>
-</div>
     </form>
   </div>
 
-  <!-- Script principal SIN módulos -->
-  <script>
-  const API_BASE = window.LCG && window.LCG.API_BASE;
+  <!-- Overlay centrado de éxito -->
+  <div id="overlaySuccess" class="overlay" style="display:none;">
+    <div class="overlay-content">
+      <h1>✅ Registro enviado</h1>
+    </div>
+  </div>
+
+  <script type="module">
+  import { API_BASE } from './js/config.js';
 
   const $ = s => document.querySelector(s);
   const pad10 = id => String(id || "").replace(/\D/g,'').padStart(10,'0');
@@ -81,7 +79,7 @@
   const btn    = $('#submitBtn');
   const msg    = $('#msg');
   const file   = $('#payment');
-  const preview= $('#preview');
+  const overlaySuccess = $('#overlaySuccess');
 
   const fields = {
     konamiId:  $('#konamiId'),
@@ -91,7 +89,7 @@
     phone:     $('#phone'),
   };
 
-  // Rellena desde localStorage (por si hubo un intento previo)
+  // Rellena desde localStorage por si hubo intento previo
   Object.entries(fields).forEach(([k, el]) => {
     const v = localStorage.getItem('pre_' + k);
     if (v) el.value = v;
@@ -100,22 +98,23 @@
   // Vista previa de imagen
   file.addEventListener('change', () => {
     const f = file.files?.[0];
-    if (!f) { preview.style.display='none'; preview.src=''; return; }
+    const prev = $('#preview');
+    if (!f) { prev.style.display='none'; prev.src=''; return; }
     const r = new FileReader();
-    r.onload = () => { preview.src = r.result; preview.style.display='block'; };
+    r.onload = () => { prev.src = r.result; prev.style.display='block'; };
     r.readAsDataURL(f);
   });
 
-  // Evita submit nativo (+ respaldo)
+  // Evita submit nativo
   form.addEventListener('submit', (e) => { e.preventDefault(); e.stopPropagation(); });
 
-  // Click en Enviar = nuestro flujo
+  // Click en Enviar
   btn.addEventListener('click', onSubmit);
 
   async function fileToBase64(f){
     if (!f) return "";
-    const r = new FileReader();
     return await new Promise((res, rej) => {
+      const r = new FileReader();
       r.onload = () => res(r.result);
       r.onerror = rej;
       r.readAsDataURL(f);
@@ -128,7 +127,7 @@
 
     msg.textContent = "";
 
-    // Guarda valores antes de llamar a la API (por si hay error)
+    // Guarda valores por si falla
     Object.entries(fields).forEach(([k, el]) => {
       localStorage.setItem('pre_' + k, el.value.trim());
     });
@@ -151,35 +150,30 @@
       return;
     }
 
+    // --- Cambios menores: botón "Enviando…" con puntos ---
     btn.disabled = true;
     const oldBtn = btn.textContent;
     btn.textContent = 'Enviando';
-    btn.classList.add('dots'); // si ya tienes animación de puntos
-    msg.innerHTML = `✅ ${j.mode === 'insert' ? 'Registro creado' : 'Datos actualizados'}.${
-    j.paymentUrl ? '<br><span class="help">Comprobante subido correctamente.</span>' : ''
-    }`;
-    
+    btn.classList.add('dots'); // usa la animación de puntos definida en CSS
+
     try {
-      // Enviar con FormData (incluye imagen)
+      // Enviar con FormData (incluye la imagen)
       const fd = new FormData();
       Object.entries(payload).forEach(([k,v]) => { if (v) fd.append(k, v); });
 
       const r = await fetch(API_BASE, { method:'POST', body: fd, redirect:'follow' });
       const text = await r.text();
-      let j;
-      try { j = JSON.parse(text); } catch { throw new Error('Respuesta inválida del servidor'); }
-
+      let j; try { j = JSON.parse(text); } catch { throw new Error('Respuesta inválida del servidor'); }
       if (!j.ok) throw new Error(j.message || "Error al enviar");
 
       localStorage.setItem('konamiId', payload.konamiId);
-
       msg.innerHTML = `✅ ${j.mode === 'insert' ? 'Registro creado' : 'Datos actualizados'}.${
         j.paymentUrl ? '<br><span class="help">Comprobante subido correctamente.</span>' : ''
       }`;
 
-      // Si prefieres limpiar:
-      // form.reset();
-      // preview.style.display='none'; preview.src='';
+      // --- Cambios menores: overlay centrado de éxito ---
+      overlaySuccess.style.display = 'flex';
+      setTimeout(() => { overlaySuccess.style.display = 'none'; }, 3000);
 
     } catch(err){
       msg.textContent = '❌ ' + err.message;
@@ -192,5 +186,3 @@
   </script>
 </body>
 </html>
-
-
