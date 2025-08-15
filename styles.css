@@ -119,7 +119,7 @@ body{
   width: auto;
   flex: 0 0 auto;
   filter: drop-shadow(0 1px 0 rgba(0,0,0,.35));
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 /* Si tu header antes tenía H1 visible, opcional: ocultarlo */
