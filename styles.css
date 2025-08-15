@@ -88,3 +88,46 @@ body{
 .qa-btn.primary{background:var(--accent); color:#fff}
 .qa-btn.ghost{background:var(--panel); color:#fff; border:1px solid #2a2a2f}
 .qa-btn:active{transform:translateY(1px)}
+/* Topbar */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: linear-gradient(180deg, #161616 0%, #111 100%);
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.topbar .brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Wordmark a la izq, LCG a la der */
+  gap: 10px;
+}
+
+/* Wordmark: que escale bien en móvil */
+.brand-wordmark {
+  height: clamp(22px, 5.5vw, 34px);
+  max-width: 70vw;        /* que no coma todo el ancho */
+  object-fit: contain;
+  filter: drop-shadow(0 1px 0 rgba(0,0,0,.35));
+}
+
+/* Logo LCG pequeño, a la derecha */
+.brand-lcg {
+  height: clamp(22px, 5.5vw, 34px);
+  width: auto;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 1px 0 rgba(0,0,0,.35));
+  border-radius: 6px;
+}
+
+/* Si tu header antes tenía H1 visible, opcional: ocultarlo */
+.topbar .brand h1 { 
+  display: none; 
+}
+
+/* Opcional: ajustar separación con el carrusel */
+.carousel {
+  margin-top: 8px;
+}
