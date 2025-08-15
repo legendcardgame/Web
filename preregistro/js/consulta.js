@@ -47,6 +47,10 @@ async function buscar(konamiId){
     re.textContent = d.email || '—';
     rp.textContent = d.phone || '—';
     rs.textContent = d.status || 'Pendiente';
+    rs.classList.remove('is-ok','is-err');
+const st = (d.status || 'Pendiente').toLowerCase();
+if (st.startsWith('acept')) rs.classList.add('is-ok');
+if (st.startsWith('rechaz')) rs.classList.add('is-err');
 
     if (d.paymentUrl) {
       rc.innerHTML = `<a href="${d.paymentUrl}" target="_blank" rel="noopener">Ver comprobante</a>`;
