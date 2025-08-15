@@ -1,66 +1,63 @@
-// Usa window.LCG definido en js/config.js
-(function(){
+// Admin panel sin módulos. Requiere window.LCG (API_BASE, ADMIN_KEY) desde js/config.js
+(function () {
   'use strict';
 
-  // --- Helpers DOM y estado ---
-  const $      = s => document.querySelector(s);
-  const out    = $('#out');
-  const tbody  = $('#tbody');
-  const search = $('#search');
-  const counter= $('#counter');
-  const login  = $('#login');
-  const keyInp = $('#adminKeyInput');
-  const btnLog = $('#btnLogin');
-  const loginMsg = $('#loginMsg');
+  // DOM
+  const $ = s => document.querySelector(s);
+  const loginScreen = $('#loginScreen');
+  const appSection  = $('#app');
+  const keyInp      = $('#adminKeyInput');
+  const btnLog      = $('#btnLogin');
+  const loginMsg    = $('#loginMsg');
 
-  let DATA   = [];      // cache de registros
-  let LOGGED = false;   // estado de sesión simple
+  const out     = $('#out');
+  const tbody   = $('#tbody');
+  const search  = $('#search');
+  const counter = $('#counter');
+  const centerLoader = $('#centerLoader');
 
-  // --- Utilidades ---
+  // Estado
+  let DATA = [];
+
+  // Utils
   const stripLeadingApostrophe = s => String(s||'').replace(/^'/,'');
   const safe   = v => String(v ?? '').trim();
   const pad10  = s => stripLeadingApostrophe(s).replace(/\D/g,'').padStart(10,'0');
+  const debounce = (fn, ms) => { let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); }; };
   const fullName = r => [r.firstName, r.lastName].filter(Boolean).join(' ').trim();
 
-  function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); }; }
+  // Loader helpers
+  function showLoader(){ centerLoader.style.display = 'flex'; }
+  function hideLoader(){ centerLoader.style.display = 'none'; }
 
-  // --- Login simple en front (clave fija en config) ---
+  // Login
   function showLogin(){
-    const k = localStorage.getItem('adminAuthKey');
-    if (k && window.LCG && k === window.LCG.ADMIN_KEY){
-      LOGGED = true;
-      login.style.display = 'none';
-      initAfterLogin();
-      return;
-    }
-    login.style.display = 'flex';
-    login.setAttribute('aria-hidden','false');
-    keyInp.value = '';
+    loginScreen.style.display = 'flex';
+    appSection.style.display = 'none';
     loginMsg.textContent = '';
+    keyInp.value = '';
     setTimeout(()=> keyInp.focus(), 0);
   }
+  function enterApp(){
+    loginScreen.style.display = 'none';
+    appSection.style.display = 'block';
+    loadAll();
+  }
+  btnLog.addEventListener('click', doLogin);
+  keyInp.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 
-  async function doLogin(){
+  function doLogin(){
+    if (!window.LCG){ loginMsg.textContent = 'Config no cargó (js/config.js).'; return; }
     const val = keyInp.value.trim();
-    if (!window.LCG){
-      loginMsg.textContent = 'Config no cargó (window.LCG).';
-      return;
-    }
     if (val === window.LCG.ADMIN_KEY){
       localStorage.setItem('adminAuthKey', val);
-      LOGGED = true;
-      login.style.display = 'none';
-      login.setAttribute('aria-hidden','true');
-      initAfterLogin();
-    }else{
+      enterApp();
+    } else {
       loginMsg.textContent = 'Clave incorrecta.';
     }
   }
 
-  btnLog.addEventListener('click', doLogin);
-  keyInp.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
-
-  // --- Render tabla ---
+  // Tabla
   function render(list){
     tbody.innerHTML = '';
     list.forEach(r => {
@@ -76,13 +73,15 @@
         statusSelect.appendChild(o);
       });
       statusSelect.addEventListener('change', () => {
-        updateStatus(r.konamiId, statusSelect.value, tr);
+        updateStatus(pad10(r.konamiId), statusSelect.value, tr);
       });
 
+      // Fila
       tr.innerHTML = `
         <td class="hide-sm">${safe(r.timestamp)}</td>
         <td><span class="tag">${safe(pad10(r.konamiId))}</span></td>
-        <td>${fullName(r) || ''}</td>
+        <td>${safe(r.firstName)}</td>
+        <td>${safe(r.lastName)}</td>
         <td class="hide-sm">${safe(r.email)}</td>
         <td class="hide-sm">${safe(r.phone)}</td>
         <td>${r.paymentUrl ? `<a href="${r.paymentUrl}" target="_blank" rel="noopener">Ver</a>` : ''}</td>
@@ -91,16 +90,18 @@
       tr.lastElementChild.appendChild(statusSelect);
       tbody.appendChild(tr);
     });
-    counter.textContent = `${list.length} registro${list.length===1?'':'s'}`;
+    counter.textContent = String(list.length);
   }
 
-  // --- Filtro local ---
+  // Filtro
   function applyFilter(){
     const q = search.value.toLowerCase().trim();
     if (!q){ render(DATA); return; }
     const filtered = DATA.filter(r => {
       const blob = [
         pad10(r.konamiId),
+        safe(r.firstName),
+        safe(r.lastName),
         fullName(r),
         safe(r.email),
         safe(r.phone),
@@ -113,19 +114,19 @@
   }
   search.addEventListener('input', debounce(applyFilter, 120));
 
-  // --- Cargar listado completo del backend ---
+  // Cargar todos
   async function loadAll(){
     out.textContent = '';
+    showLoader();
     try{
       if (!window.LCG) throw new Error('Config no cargó (window.LCG).');
       const url = `${window.LCG.API_BASE}?adminKey=${encodeURIComponent(window.LCG.ADMIN_KEY)}&_t=${Date.now()}`;
       const r   = await fetch(url);
-      const raw = await r.text();         // evita errores si la respuesta no es JSON válido
-      // console.log('[ADMIN] RAW RESPONSE:', raw);
+      const raw = await r.text();           // tolerante a respuestas no-JSON limpias
+      // console.log('[ADMIN] RAW:', raw);
       const j   = JSON.parse(raw);
       if (!j.ok) throw new Error(j.message || 'Error al listar');
 
-      // normalizamos konamiId con cero inicial si hace falta
       DATA = (j.data || []).map(row => ({ ...row, konamiId: pad10(row.konamiId) }));
       render(DATA);
     }catch(e){
@@ -133,16 +134,19 @@
       out.textContent = 'Error: ' + e.message;
       DATA = [];
       render(DATA);
+    }finally{
+      hideLoader();
     }
   }
 
-  // --- Cambiar estatus (POST al Apps Script) ---
+  // Cambiar estatus
   async function updateStatus(konamiId, newStatus, rowEl){
     try{
       if (!window.LCG) throw new Error('Config no cargó.');
       rowEl.classList.add('updating');
+
       const fd = new FormData();
-      fd.append('konamiId', pad10(konamiId));
+      fd.append('konamiId', konamiId);
       fd.append('status', newStatus);
 
       const r = await fetch(window.LCG.API_BASE, { method:'POST', body: fd });
@@ -150,11 +154,8 @@
       const j = JSON.parse(raw);
       if (!j.ok) throw new Error(j.message || 'No se pudo actualizar');
 
-      // Actualiza cache y mantiene filtro aplicado
-      DATA = DATA.map(x => pad10(x.konamiId) === pad10(konamiId) ? {...x, status:newStatus} : x);
+      DATA = DATA.map(x => pad10(x.konamiId) === konamiId ? {...x, status:newStatus} : x);
       applyFilter();
-
-      // Feedback visual
       flashRow(rowEl, newStatus);
     }catch(e){
       console.error(e);
@@ -175,22 +176,20 @@
     setTimeout(()=>{ tag.remove(); rowEl.style.background='transparent'; }, 1300);
   }
 
-  // --- Inicio tras login ---
-  function initAfterLogin(){
-    loadAll();
-    // si llega ?q=foo en la URL, aplicar filtro inicial
-    const params = new URLSearchParams(location.search);
-    const q = params.get('q');
-    if (q){
-      search.value = q;
-      applyFilter();
-    }
-  }
-
-  // --- Boot ---
+  // Boot
   window.addEventListener('DOMContentLoaded', () => {
-    // seguridad básica: exige que exista window.LCG
-    if (!window.LCG){ out.textContent = 'No se encontró configuración (js/config.js).'; return; }
-    showLogin();
+    if (!window.LCG){ 
+      // Si no existe config, mostramos login igual para no dejar pantalla en blanco
+      showLogin();
+      return;
+    }
+    // Autologin si la clave ya está guardada
+    const saved = localStorage.getItem('adminAuthKey');
+    if (saved && saved === window.LCG.ADMIN_KEY){
+      enterApp();
+    } else {
+      showLogin();
+    }
   });
+
 })();
