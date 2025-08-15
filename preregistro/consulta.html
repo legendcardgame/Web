@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Preregistro · Consulta</title>
+  <title>Consulta tu preregistro</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
@@ -11,68 +11,63 @@
     <h1>Consulta tu preregistro</h1>
     <h2>Ingresa tu Konami ID</h2>
 
-    <form id="findForm" class="card">
+    <form id="formConsulta" class="card" autocomplete="off">
       <div class="row">
-        <div class="field">
+        <div class="field" style="flex:1 1 100%">
           <label for="konamiId">Konami ID (10 dígitos)</label>
-          <input id="konamiId" type="text" inputmode="numeric" maxlength="10" placeholder="0400XXXXXX" required>
+          <input id="konamiId" name="konamiId" type="text" inputmode="numeric"
+                 placeholder="0400XXXXXX" maxlength="10" required>
         </div>
       </div>
+
       <div class="actions">
-        <button class="btn" type="submit">Buscar</button>
-        <a class="btn-link" href="./index.html">⬅ Volver al menú</a>
+        <button id="btnBuscar" class="btn" type="submit">Buscar</button>
+        <a class="btn-link" href="./index.html">← Volver al menú</a>
       </div>
+
+      <div id="msg" class="notice"></div>
     </form>
 
-    <div id="result" class="card" style="margin-top:16px"></div>
+    <!-- Resultado -->
+    <div id="resultado" class="card" style="display:none">
+      <div class="row">
+        <div class="field">
+          <label>Konami ID</label>
+          <div id="r-kid" class="readonly"></div>
+        </div>
+        <div class="field">
+          <label>Nombre</label>
+          <div id="r-nombre" class="readonly"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>Correo</label>
+          <div id="r-email" class="readonly"></div>
+        </div>
+        <div class="field">
+          <label>Teléfono</label>
+          <div id="r-phone" class="readonly"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>Comprobante</label>
+          <div id="r-comp" class="readonly"></div>
+        </div>
+        <div class="field">
+          <label>Estatus</label>
+          <div id="r-status" class="readonly"></div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <script type="module">
-  import { API_BASE } from './js/config.js';
-  const $ = s => document.querySelector(s);
-  const pad10 = id => String(id || "").replace(/\D/g,'').padStart(10,'0');
-
-  const form = $('#findForm');
-  const out  = $('#result');
-  const kon  = $('#konamiId');
-
-  // auto cargar si hay guardado
-  const last = localStorage.getItem('konamiId');
-  if (last) kon.value = last;
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    out.textContent = "Buscando...";
-    const konamiId = pad10(kon.value);
-
-    if (!/^\d{10}$/.test(konamiId)) {
-      out.textContent = "Konami ID debe tener 10 dígitos.";
-      return;
-    }
-
-    try {
-      const r = await fetch(`${API_BASE}?konamiId=${encodeURIComponent(konamiId)}&t=${Date.now()}`);
-      const j = await r.json();
-      if (!j.ok) throw new Error(j.message || 'No encontrado');
-
-      const d = j.data;
-      const fullName = [d.firstName, d.lastName].filter(Boolean).join(' ');
-      const statusClass = (d.status || 'Pendiente') === 'Pendiente' ? 'status-warn' : 'status-ok';
-
-      out.innerHTML = `
-        <h2>Resultado</h2>
-        <p><b>Nombre:</b> ${fullName || '-'}</p>
-        <p><b>Konami ID:</b> ${d.konamiId || '-'}</p>
-        <p><b>Email:</b> ${d.email || '-'}</p>
-        <p><b>Teléfono:</b> ${d.phone || '-'}</p>
-        <p><b>Status:</b> <span class="${statusClass}">${d.status || 'Pendiente'}</span></p>
-        ${d.paymentUrl ? `<p><a class="btn-link" href="${d.paymentUrl}" target="_blank" rel="noopener">Ver comprobante</a></p>` : '<p class="help">Sin comprobante registrado.</p>'}
-      `;
-      localStorage.setItem('konamiId', konamiId);
-    } catch(err){
-      out.textContent = '❌ ' + err.message;
-    }
-  });
-  </script>
+  <!-- Carga la config en modo NO módulo -->
+  <script src="./js/config.js"></script>
+  <!-- Lógica de consulta (no módulo) -->
+  <script src="./js/consulta.js" defer></script>
 </body>
 </html>
