@@ -139,40 +139,30 @@ body {
   position: fixed;
   bottom: 0;
   left: 0;
-  width: 100%;
+  right: 0;
   background: #111;
   display: flex;
   justify-content: space-around;
-  align-items: center;
-  padding: 0.5rem 0;
-  border-top: 2px solid #222;
-  z-index: 1000;
+  padding: 8px 0;
+  border-top: 1px solid #333;
 }
 
-.bottom-nav .nav-item {
+.nav-item {
   flex: 1;
   text-align: center;
-  color: #ccc;
-  font-size: 0.8rem;
+  color: #e63946; /* inactivo = rojo */
+  font-size: 12px;
   text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: color 0.3s ease;
 }
 
-.bottom-nav .nav-item img {
+.nav-item svg {
   width: 24px;
   height: 24px;
-  margin-bottom: 3px;
+  fill: currentColor; /* usa el color del padre */
+  display: block;
+  margin: 0 auto 4px;
 }
 
-.bottom-nav .nav-item.active,
-.bottom-nav .nav-item:hover {
-  color: #e63946; /* rojo principal */
-}
-
-.bottom-nav .nav-item.active img,
-.bottom-nav .nav-item:hover img {
-  filter: brightness(1.2) saturate(1.5);
+.nav-item.active {
+  color: #ccc; /* activo = gris */
 }
