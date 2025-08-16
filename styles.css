@@ -135,34 +135,44 @@ body {
     max-width: 65%;
   }
 }
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #111;
-  display: flex;
-  justify-content: space-around;
-  padding: 8px 0;
-  border-top: 1px solid #333;
+/* Evitar que el nav tape contenido */
+body { padding-bottom: 76px; } /* ajusta según alto del nav */
+
+/* Barra inferior */
+.bottom-nav{
+  position: fixed; left:0; right:0; bottom:0;
+  display:flex; justify-content:space-around; gap:4px;
+  background:#101114; border-top:1px solid #27282c;
+  padding:8px 6px; z-index:1000;
 }
 
-.nav-item {
-  flex: 1;
-  text-align: center;
-  color: #e63946; /* inactivo = rojo */
-  font-size: 12px;
-  text-decoration: none;
+.bottom-nav .nav-item{
+  flex:1; display:flex; flex-direction:column; align-items:center; gap:4px;
+  text-decoration:none; user-select:none;
+  color:#e63946;                 /* INACTIVO = ROJO */
+  font-size:11px; line-height:1.1;
+  padding:6px 0; border-radius:10px; transition:color .2s, background .2s, transform .1s;
 }
 
-.nav-item svg {
-  width: 24px;
-  height: 24px;
-  fill: currentColor; /* usa el color del padre */
-  display: block;
-  margin: 0 auto 4px;
+.bottom-nav .nav-item:active{ transform:scale(.98); }
+
+/* Icono usando tu SVG como máscara, así se pinta con currentColor */
+.bottom-nav .icon{
+  width:24px; height:24px;
+  background-color: currentColor;               /* color del icono */
+  -webkit-mask: var(--src) no-repeat center / contain;
+  mask: var(--src) no-repeat center / contain;
+  display:block;
 }
 
-.nav-item.active {
-  color: #ccc; /* activo = gris */
+/* ACTIVO = GRIS */
+.bottom-nav .nav-item.active{
+  color:#cfcfcf;                                /* texto + icono pasan a gris */
+  background: rgba(255,255,255,0.04);
+}
+
+/* Mejor legibilidad en pantallas chicas */
+@media (min-width:420px){
+  .bottom-nav .nav-item { font-size:12px; }
+  .bottom-nav .icon{ width:26px; height:26px; }
 }
