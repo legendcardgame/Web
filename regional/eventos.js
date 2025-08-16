@@ -5,7 +5,7 @@
 window.LCG_EVENTS = {
   principal: {
     title:  'Evento Principal',
-    banner: '../assets/banners/events/principal.jpg',
+    banner: '../assets/banners/events/principal.png',
     mode:   'Presencial',
     format: 'TCG Estándar',
     schedule: 'Sáb. 13 de septiembre, 09:00–20:00',
@@ -19,7 +19,7 @@ window.LCG_EVENTS = {
 
   edison: {
     title:  'Edison Formato',
-    banner: '../assets/banners/events/edison.jpg',
+    banner: '../assets/banners/events/edison.png',
     mode:   'Presencial',
     format: 'Formato Edison',
     schedule: 'Dom. 14 de septiembre, 10:00–18:00',
@@ -33,7 +33,7 @@ window.LCG_EVENTS = {
 
   dragon_duel: {
     title:  'Dragon Duel',
-    banner: '../assets/banners/events/dragon-duel.jpg',
+    banner: '../assets/banners/events/dragon-duel.png',
     mode:   'Presencial',
     format: 'U13',
     schedule: 'Sáb. 13 de septiembre, 12:00–16:00',
@@ -47,7 +47,7 @@ window.LCG_EVENTS = {
 
   speed_duel: {
     title:  'Speed Duel',
-    banner: '../assets/banners/events/speed-duel.jpg',
+    banner: '../assets/banners/events/speed-duel.png',
     mode:   'Presencial',
     format: 'Speed Duel',
     schedule: 'Dom. 14 de septiembre, 12:00–17:00',
@@ -61,7 +61,7 @@ window.LCG_EVENTS = {
 
 structure_deck: {
   title:    'Structure Deck',
-  banner:   '../assets/banners/events/structure-deck.jpg',
+  banner:   '../assets/banners/events/structure-deck.png',
   mode:     'Presencial',
   format:   'Structure Deck',
   schedule: 'Consulta la convocatoria',
@@ -75,7 +75,7 @@ structure_deck: {
 
   master_duel: {
     title:  'Master Duel',
-    banner: '../assets/banners/events/master-duel.jpg',
+    banner: '../assets/banners/events/master-duel.png',
     mode:   'Online/Presencial',
     format: 'Master Duel',
     schedule: 'Calendario por anunciar',
@@ -89,7 +89,7 @@ structure_deck: {
 
   win_a_mat: {
     title:  'Win a Mat',
-    banner: '../assets/banners/events/win-a-mat.jpg',
+    banner: '../assets/banners/events/win-a-mat.png',
     mode:   'Presencial',
     format: 'Side Event',
     schedule: 'Durante el fin de semana',
