@@ -3,175 +3,90 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Evento · Regional</title>
-  <link rel="stylesheet" href="../styles.css"><!-- tu estilo global -->
-
+  <title>Evento · Legend Card Game</title>
+  <link rel="stylesheet" href="../styles.css">
   <style>
-    /* —— Estilos mínimos específicos de esta vista —— */
-
-    .hero {
-      position: relative;
-      border-radius: 16px;
-      overflow: hidden;
-      background: #111;
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      margin-bottom: 1rem;
-    }
-    .hero img {
-      display:block; width:100%; height: clamp(180px, 32vw, 360px); object-fit: cover;
-      filter: saturate(1.05) contrast(1.02);
-    }
-    .hero::after {
-      content:""; position:absolute; inset:0;
-      background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,.65) 100%);
-      pointer-events:none;
-    }
-    .hero-title {
-      position:absolute; left:1rem; right:1rem; bottom:0.85rem; z-index:2;
-      font-size: clamp(1.3rem, 3.2vw, 2rem); font-weight: 900; color:#fff;
-      text-shadow: 0 8px 24px rgba(0,0,0,.55);
-    }
-
-    .card {
-      background: rgba(255,255,255,.02);
-      border: 1px solid rgba(255,255,255,.06);
-      border-radius: 16px;
-      padding: 1rem;
-      box-shadow: 0 6px 20px rgba(0,0,0,.25);
-    }
-    .row { display:grid; grid-template-columns: 1fr 1fr; gap:.8rem 1rem; }
-    @media (max-width:720px){ .row{ grid-template-columns: 1fr; } }
-
-    .label { display:block; font-size:.8rem; opacity:.7; margin-bottom:.25rem; }
-    .val { font-weight:700; font-size:1rem; }
-
-    .price-badge{
-      display:inline-flex;align-items:center;gap:.4rem;
-      background:rgba(230,59,53,.12);
-      color:#ffb3b0;
-      border:1px solid rgba(230,59,53,.35);
-      padding:.35rem .6rem;border-radius:.6rem;font-weight:700
-    }
-
-    .btn {
-      display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-      background:#e63b35;border:none;color:#fff;font-weight:800;
-      padding:.8rem 1rem;border-radius:12px; text-decoration:none;
-      box-shadow:0 8px 24px rgba(230,59,53,.35);
-    }
-
-    /* CTA fijo inferior */
-    .cta-fixed{
-      position:fixed;left:0;right:0;bottom:0;z-index:50;
-      background:linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0));
-      padding:1rem .85rem 1.1rem;
-    }
-    .cta-fixed .btn-cta{
-      width:100%;display:flex;justify-content:center;align-items:center;
-      background:#e63b35;color:#fff;border:none;border-radius:16px;
-      font-weight:800;font-size:1.08rem;padding:1rem 1.25rem;
-      box-shadow:0 8px 30px rgba(230,59,53,.35)
-    }
-    /* para que no lo tape el CTA */
-    body{ padding-bottom: 90px; }
+    /* Estilos básicos del detalle de evento (puedes mover a tu CSS global si prefieres) */
+    .ev-wrap{max-width:960px;margin:0 auto;padding:20px}
+    .ev-hero{position:relative;border-radius:18px;overflow:hidden;background:#111;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+    .ev-hero img{width:100%;height:auto;display:block}
+    .ev-head{display:flex;align-items:center;gap:12px;margin:20px 4px 10px}
+    .ev-title{font-size:clamp(22px,3.6vw,34px);font-weight:800;letter-spacing:.3px}
+    .ev-chip{font-size:.8rem;background:rgba(255,255,255,.06);padding:.25rem .6rem;border-radius:999px;border:1px solid rgba(255,255,255,.08)}
+    .ev-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:16px 4px}
+    @media(min-width:860px){.ev-grid{grid-template-columns:2fr 1fr}}
+    .ev-card{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px}
+    .ev-card h3{margin:.2rem 0 0.6rem;font-size:1rem;opacity:.9}
+    .ev-desc{line-height:1.6;opacity:.95}
+    .ev-price{font-size:1.15rem;font-weight:700}
+    .ev-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .btnPrimary{background:#e94b4b;color:#fff;border:none;border-radius:12px;padding:.9rem 1.1rem;font-weight:800;box-shadow:0 12px 30px rgba(233,75,75,.25);cursor:pointer}
+    .btnGhost{background:transparent;border:1px solid rgba(255,255,255,.16);color:#fff;border-radius:12px;padding:.9rem 1.1rem;font-weight:700}
+    .muted{opacity:.65}
+    .ev-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .ev-meta div{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:10px}
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Banner -->
-    <section class="hero">
-      <img id="ev-banner" alt="Banner del evento" src="" />
-      <div class="hero-title" id="ev-title">Evento</div>
-    </section>
+  <div class="ev-wrap">
+    <!-- Cabecera mínima (si ya tienes header global, puedes quitar esta fila) -->
+    <div class="ev-head">
+      <span class="ev-chip" id="evChip">Evento</span>
+      <div class="ev-title" id="evTitle">Cargando…</div>
+    </div>
 
-    <!-- Datos -->
-    <section class="card" style="margin-top:1rem">
-      <div class="row">
-        <div>
-          <span class="label">Modalidad</span>
-          <div class="val" id="ev-mode">—</div>
+    <div class="ev-hero">
+      <img id="evBanner" alt="Banner del evento">
+    </div>
+
+    <div class="ev-grid">
+      <section class="ev-card">
+        <h3>Descripción</h3>
+        <div class="ev-desc" id="evDesc">—</div>
+        <div class="ev-cta">
+          <a id="evBtnPrereg" class="btnPrimary" href="#" target="_self">Preregistrarme</a>
+          <a href="../index.html" class="btnGhost">Volver al inicio</a>
         </div>
-        <div>
-          <span class="label">Formato</span>
-          <div class="val" id="ev-format">—</div>
+      </section>
+
+      <aside class="ev-card">
+        <h3>Información</h3>
+        <div class="ev-meta">
+          <div><div class="muted">Costo</div><div class="ev-price" id="evCost">—</div></div>
+          <div><div class="muted">Modalidad</div><div id="evMode">Presencial</div></div>
+          <div><div class="muted">Fecha</div><div id="evDate">13 de septiembre, 2025</div></div>
+          <div><div class="muted">Sede</div><div id="evVenue">Por confirmar</div></div>
         </div>
-        <div>
-          <span class="label">Horario</span>
-          <div class="val" id="ev-schedule">—</div>
-        </div>
-        <div>
-          <span class="label">Sede</span>
-          <div class="val" id="ev-venue">—</div>
-        </div>
-      </div>
-
-      <div style="margin-top:.75rem">
-        <span class="label">Costo</span>
-        <div id="ev-price" class="price-badge">—</div>
-      </div>
-
-      <p id="ev-desc" style="margin:.9rem 0 0 0; line-height:1.55">—</p>
-
-      <div id="ev-rules-wrap" style="margin-top:.9rem; display:none">
-        <a id="ev-rules" class="btn" target="_blank" rel="noopener">Reglamento</a>
-      </div>
-
-      <div style="margin-top:1rem">
-        <a id="ev-register" class="btn" href="../preregistro/index.html">Preregistro</a>
-      </div>
-    </section>
+      </aside>
+    </div>
   </div>
 
-  <!-- CTA fijo inferior -->
-  <div class="cta-fixed">
-    <a id="ev-cta-fixed" class="btn-cta" href="../preregistro/index.html">Preregistro</a>
-  </div>
-
-  <!-- Datos -->
   <script src="./eventos.js"></script>
   <script>
-    (function(){
-      // Lee ?id=xxxx
-      const params = new URLSearchParams(location.search);
-      const id = (params.get('id') || 'principal').trim();
+    // Lee ?id=slug
+    const params = new URLSearchParams(location.search);
+    const id = (params.get('id') || '').toLowerCase();
 
-      if (!window.LCG_EVENTS || !window.LCG_EVENTS[id]) {
-        document.title = 'Evento no encontrado';
-        document.querySelector('.container').innerHTML =
-          '<div class="card"><strong>No se encontró este evento.</strong></div>';
-        return;
-      }
+    // Busca el evento
+    const ev = (window.LCG_EVENTS || []).find(e => e.id === id);
 
-      const ev = window.LCG_EVENTS[id];
+    if (!ev) {
+      document.getElementById('evTitle').textContent = 'Evento no encontrado';
+      document.getElementById('evDesc').textContent  = 'Verifica el enlace o regresa al inicio.';
+    } else {
+      document.title = ev.nombre + ' · Legend Card Game';
+      document.getElementById('evChip').textContent  = ev.corto || 'Evento';
+      document.getElementById('evTitle').textContent = ev.nombre;
+      document.getElementById('evDesc').textContent  = ev.descripcion;
+      document.getElementById('evBanner').src        = ev.banner;
+      document.getElementById('evBanner').alt        = 'Banner ' + ev.nombre;
+      document.getElementById('evCost').textContent  = ev.costo || '—';
+      document.getElementById('evDate').textContent  = ev.fecha || 'Por confirmar';
+      document.getElementById('evVenue').textContent = ev.sede  || 'Por confirmar';
 
-      // Pinta datos
-      document.title = ev.title + ' · Regional';
-      const $ = sel => document.querySelector(sel);
-
-      $('#ev-title').textContent     = ev.title || 'Evento';
-      $('#ev-banner').src           = ev.banner || '';
-      $('#ev-banner').alt           = ev.title ? ('Banner: ' + ev.title) : 'Banner del evento';
-      $('#ev-mode').textContent     = ev.mode || '—';
-      $('#ev-format').textContent   = ev.format || '—';
-      $('#ev-schedule').textContent = ev.schedule || '—';
-      $('#ev-venue').textContent    = ev.venue || '—';
-      $('#ev-desc').textContent     = ev.desc || '—';
-      $('#ev-price').textContent    = ev.price || '—';
-
-      // Link reglamento si existe
-      if (ev.rules) {
-        $('#ev-rules-wrap').style.display = 'block';
-        $('#ev-rules').href = ev.rules;
-      }
-
-      // Botones de preregistro (arriba y fijo)
-      const ctaHref = ev.register || '../preregistro/index.html';
-      const ctaText = ev.ctaText  || 'Preregistro';
-      $('#ev-register').href   = ctaHref;
-      $('#ev-register').textContent = ctaText;
-      $('#ev-cta-fixed').href  = ctaHref;
-      $('#ev-cta-fixed').textContent = ctaText;
-    })();
+      const link = ev.preregistro || '../preregistro/index.html';
+      document.getElementById('evBtnPrereg').href = link + (link.includes('?') ? '&' : '?') + 'evento=' + encodeURIComponent(ev.id);
+    }
   </script>
 </body>
 </html>
