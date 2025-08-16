@@ -1,103 +1,86 @@
-// regional/eventos.js
-// Catálogo de eventos para la página dinámica regional/evento.html
-// Puedes cambiar títulos, banners, costos, descripciones y el link del botón.
-
-window.LCG_EVENTS = {
-  principal: {
-    title:  'Evento Principal',
-    banner: '../assets/banners/events/principal.png',
-    mode:   'Presencial',
-    format: 'TCG Estándar',
-    schedule: 'Sáb. 13 de septiembre, 09:00–20:00',
-    venue:  'Sede oficial · Puebla',
-    desc:   'Main Event oficial clasificatorio. Asegura tu lugar con preregistro.',
-    rules:  'https://www.yugioh-card.com/lat-am/rulebook/',
-    price:  '$300 MXN',
-    register: '../preregistro/index.html',
-    ctaText: 'Preregistro'
+window.LCG_EVENTS = [
+  {
+    id: "principal",
+    nombre: "Evento Principal",
+    corto: "Principal",
+    banner: "../assets/banners/events/principal.png",
+    descripcion:
+      "Evento principal del Regional. Estructura competitiva con rondas suizas y corte a eliminación, siguiendo la lista vigente.",
+    costo: "$350",
+    fecha: "13 de septiembre, 2025",
+    sede: "Puebla, MX",
+    preregistro: "../preregistro/index.html"
   },
-
-  edison: {
-    title:  'Edison Formato',
-    banner: '../assets/banners/events/edison.png',
-    mode:   'Presencial',
-    format: 'Formato Edison',
-    schedule: 'Dom. 14 de septiembre, 10:00–18:00',
-    venue:  'Sede oficial · Puebla',
-    desc:   'Torneo en el histórico formato Edison.',
-    rules:  'https://yugipedia.com/wiki/Edison_Format',
-    price:  '$200 MXN',
-    register: '../preregistro/index.html',
-    ctaText: 'Preregistro'
+  {
+    id: "edison",
+    nombre: "Edison Formato",
+    corto: "Edison",
+    banner: "../assets/banners/events/edison.png",
+    descripcion:
+      "Formato Edison con reglas históricas. Ideal para quienes disfrutan del metajuego clásico.",
+    costo: "$200",
+    fecha: "13 de septiembre, 2025",
+    sede: "Puebla, MX",
+    preregistro: "../preregistro/index.html"
   },
-
-  dragon_duel: {
-    title:  'Dragon Duel',
-    banner: '../assets/banners/events/dragon-duel.png',
-    mode:   'Presencial',
-    format: 'U13',
-    schedule: 'Sáb. 13 de septiembre, 12:00–16:00',
-    venue:  'Sede oficial · Puebla',
-    desc:   'Torneo para duelistas jóvenes.',
-    rules:  'https://www.yugioh-card.com/lat-am/dragon-duel/',
-    price:  '$150 MXN',
-    register: '../preregistro/index.html',
-    ctaText: 'Preregistro'
+  {
+    id: "dragon-duel",
+    nombre: "Dragon Duel",
+    corto: "Dragon Duel",
+    banner: "../assets/banners/events/dragon-duel.png",
+    descripcion:
+      "Categoría para jugadores más jóvenes. Ambiente guiado y enfoque en aprendizaje competitivo.",
+    costo: "$150",
+    fecha: "13 de septiembre, 2025",
+    sede: "Puebla, MX",
+    preregistro: "../preregistro/index.html"
   },
-
-  speed_duel: {
-    title:  'Speed Duel',
-    banner: '../assets/banners/events/speed-duel.png',
-    mode:   'Presencial',
-    format: 'Speed Duel',
-    schedule: 'Dom. 14 de septiembre, 12:00–17:00',
-    venue:  'Sede oficial · Puebla',
-    desc:   'Partidas rápidas con habilidades.',
-    rules:  'https://www.yugioh-card.com/speedduel/',
-    price:  '$150 MXN',
-    register: '../preregistro/index.html',
-    ctaText: 'Preregistro'
+  {
+    id: "speed-duel",
+    nombre: "Speed Duel",
+    corto: "Speed Duel",
+    banner: "../assets/banners/events/speed-duel.png",
+    descripcion:
+      "Partidas rápidas con reglas de Speed Duel. Trae tu deck optimizado y compite en rondas ágiles.",
+    costo: "$120",
+    fecha: "13 de septiembre, 2025",
+    sede: "Puebla, MX",
+    preregistro: "../preregistro/index.html"
   },
-
-structure_deck: {
-  title:    'Structure Deck',
-  banner:   '../assets/banners/events/structure-deck.png',
-  mode:     'Presencial',
-  format:   'Structure Deck',
-  schedule: 'Consulta la convocatoria',
-  venue:    'Puebla',
-  desc:     'Evento especial donde solo se compite con mazos de Structure Deck.',
-  rules:    '#', // TODO: coloca aquí el enlace oficial a reglas/convocatoria
-  price:    '$150 MXN',
-  register: '../preregistro/index.html',
-  ctaText:  'Preregistro'
+  {
+    id: "structure-deck",
+    nombre: "Structure Deck",
+    corto: "Structure Deck",
+    banner: "../assets/banners/events/structure-deck.png",
+    descripcion:
+      "Torneo especial donde sólo se permiten mazos de Structure Deck. Ideal para entrar al competitivo.",
+    costo: "$150",
+    fecha: "13 de septiembre, 2025",
+    sede: "Puebla, MX",
+    preregistro: "../preregistro/index.html"
   },
-
-  master_duel: {
-    title:  'Master Duel',
-    banner: '../assets/banners/events/master-duel.png',
-    mode:   'Online/Presencial',
-    format: 'Master Duel',
-    schedule: 'Calendario por anunciar',
-    venue:  'Puebla',
-    desc:   'Competencia en la plataforma Master Duel.',
-    rules:  'https://www.konami.com/yugioh/masterduel/',
-    price:  '$120 MXN',
-    register: '../preregistro/index.html',
-    ctaText: 'Preregistro'
+  {
+    id: "master-duel",
+    nombre: "Master Duel",
+    corto: "Master Duel",
+    banner: "../assets/banners/events/master-duel.png",
+    descripcion:
+      "Competencia en la plataforma Master Duel. Consulta las reglas y sincroniza tu deck.",
+    costo: "$100",
+    fecha: "13 de septiembre, 2025",
+    sede: "Online",
+    preregistro: "../preregistro/index.html"
   },
-
-  win_a_mat: {
-    title:  'Win a Mat',
-    banner: '../assets/banners/events/win-a-mat.png',
-    mode:   'Presencial',
-    format: 'Side Event',
-    schedule: 'Durante el fin de semana',
-    venue:  'Sede oficial · Puebla',
-    desc:   '¡Gana tu tapete exclusivo!',
-    rules:  '',
-    price:  '$200 MXN',
-    register: '../preregistro/index.html',
-    ctaText: 'Preregistro'
+  {
+    id: "win-a-mat",
+    nombre: "Win a Mat",
+    corto: "Win a Mat",
+    banner: "../assets/banners/events/win-a-mat.png",
+    descripcion:
+      "¡Gana un tapete exclusivo! Evento paralelo con rondas cortas y premios inmediatos.",
+    costo: "$120",
+    fecha: "13 de septiembre, 2025",
+    sede: "Puebla, MX",
+    preregistro: "../preregistro/index.html"
   }
-};
+];
