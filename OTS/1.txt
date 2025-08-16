@@ -1,2 +1,369 @@
-¡Bienvenidos! El torneo comenzará a las 5:00 pm.
-Por favor, espera el anuncio del staff
+<?xml version="1.0" encoding="utf-8"?>
+<Tournament>
+	<Name>Local - TCG - Legend Card Game Agosto 16 2025</Name>
+	<ID>E25-191742</ID>
+	<TournamentStyleCode>01</TournamentStyleCode>
+	<StructureCode>01</StructureCode>
+	<EventTypeCode>1</EventTypeCode>
+	<PlayerStructure>01</PlayerStructure>
+	<ReferenceDateTime>2003-01-02</ReferenceDateTime>
+	<Date>2025-08-16</Date>
+	<Time>17:30</Time>
+	<CurrentRound>1</CurrentRound>
+	<TableOffset>0</TableOffset>
+	<PlayoffRound>0</PlayoffRound>
+	<SoftwareVersion>3.0.0.0</SoftwareVersion>
+	<Finalized>False</Finalized>
+	<Staff>
+		<XmlStaffArray />
+	</Staff>
+	<PenaltyList />
+	<TournamentPlayers>
+		<TournPlayer>
+			<Player>
+				<ID>0400116129</ID>
+				<FirstName>Marco Antonio</FirstName>
+				<LastName>Viveros Vazquez</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
+				<ID>0404634329</ID>
+				<FirstName>Luis Carlos</FirstName>
+				<LastName>Nicolas Castillo</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
+				<ID>0404900205</ID>
+				<FirstName>Antuar</FirstName>
+				<LastName>Yañez</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
+				<ID>0405069155</ID>
+				<FirstName>Migel Ramses</FirstName>
+				<LastName>Jaimes Flandez</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
+				<ID>0409222745</ID>
+				<FirstName>German</FirstName>
+				<LastName>Suarez Ramos</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
+				<ID>0410169322</ID>
+				<FirstName>Manuel</FirstName>
+				<LastName>Maximo Santiago</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
+				<ID>0410479288</ID>
+				<FirstName>Ruben</FirstName>
+				<LastName>Tello Vincent</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
+				<ID>0411046278</ID>
+				<FirstName>Ramirez Sánchez</FirstName>
+				<LastName>Francisco Aurelio</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
+				<ID>0411062454</ID>
+				<FirstName>Esteban</FirstName>
+				<LastName>Ramirez</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
+				<ID>0411227421</ID>
+				<FirstName>Jose Gabriel</FirstName>
+				<LastName>Ramirez</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
+				<ID>0411359198</ID>
+				<FirstName>Gabriel</FirstName>
+				<LastName>Juarez</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
+				<ID>0412578138</ID>
+				<FirstName>Ricardo</FirstName>
+				<LastName>Gonzalez Cruz</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
+				<ID>0413003820</ID>
+				<FirstName>Angel</FirstName>
+				<LastName>Herrera</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
+				<ID>0413123376</ID>
+				<FirstName>José Miguel</FirstName>
+				<LastName>Lara Sánchez</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
+				<ID>0413167467</ID>
+				<FirstName>Jael </FirstName>
+				<LastName>Bonilla </LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
+				<ID>0413171521</ID>
+				<FirstName>César ivan</FirstName>
+				<LastName>Ramirez Velasco </LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+	</TournamentPlayers>
+	<Matches>
+	<TournMatch>
+		<Player>0404634329</Player>
+		<Player>0410169322</Player>
+		<Round>1</Round>
+		<Status>Incomplete</Status>
+		<Table>1</Table>
+		<Winner>0</Winner>
+		<PlayoffMatch>False</PlayoffMatch>
+	</TournMatch>
+	<TournMatch>
+		<Player>0413123376</Player>
+		<Player>0404900205</Player>
+		<Round>1</Round>
+		<Status>Incomplete</Status>
+		<Table>2</Table>
+		<Winner>0</Winner>
+		<PlayoffMatch>False</PlayoffMatch>
+	</TournMatch>
+	<TournMatch>
+		<Player>0411062454</Player>
+		<Player>0405069155</Player>
+		<Round>1</Round>
+		<Status>Incomplete</Status>
+		<Table>3</Table>
+		<Winner>0</Winner>
+		<PlayoffMatch>False</PlayoffMatch>
+	</TournMatch>
+	<TournMatch>
+		<Player>0411046278</Player>
+		<Player>0411359198</Player>
+		<Round>1</Round>
+		<Status>Incomplete</Status>
+		<Table>4</Table>
+		<Winner>0</Winner>
+		<PlayoffMatch>False</PlayoffMatch>
+	</TournMatch>
+	<TournMatch>
+		<Player>0409222745</Player>
+		<Player>0410479288</Player>
+		<Round>1</Round>
+		<Status>Incomplete</Status>
+		<Table>5</Table>
+		<Winner>0</Winner>
+		<PlayoffMatch>False</PlayoffMatch>
+	</TournMatch>
+	<TournMatch>
+		<Player>0413003820</Player>
+		<Player>0400116129</Player>
+		<Round>1</Round>
+		<Status>Incomplete</Status>
+		<Table>6</Table>
+		<Winner>0</Winner>
+		<PlayoffMatch>False</PlayoffMatch>
+	</TournMatch>
+	<TournMatch>
+		<Player>0413167467</Player>
+		<Player>0413171521</Player>
+		<Round>1</Round>
+		<Status>Incomplete</Status>
+		<Table>7</Table>
+		<Winner>0</Winner>
+		<PlayoffMatch>False</PlayoffMatch>
+	</TournMatch>
+	<TournMatch>
+		<Player>0411227421</Player>
+		<Player>0412578138</Player>
+		<Round>1</Round>
+		<Status>Incomplete</Status>
+		<Table>8</Table>
+		<Winner>0</Winner>
+		<PlayoffMatch>False</PlayoffMatch>
+	</TournMatch>
+	</Matches>
+</Tournament>
