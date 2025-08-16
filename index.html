@@ -83,6 +83,45 @@
     <span class="label">Novedades</span>
   </a>
 </nav>
+
+  <script>
+  (function(){
+    const nav   = document.getElementById('bottomNav');
+    if(!nav) return;
+
+    // 1) Definir la clave activa por URL (simple heurística)
+    const path = location.pathname.toLowerCase();
+    let current = 'home';
+    if (path.includes('/preregistro/consulta')) current = 'consulta';
+    else if (path.includes('/preregistro/'))   current = 'preregistro';
+    else if (path.includes('/regional/'))      current = 'pareos';
+    else if (path.includes('/novedades/'))     current = 'novedades';
+
+    // Si guardamos una última selección, úsala si coincide con la página actual
+    const saved = localStorage.getItem('lcg-tab');
+    if (saved && [...nav.querySelectorAll('[data-key]')].some(a => a.dataset.key===saved)) {
+      current = saved;
+    }
+
+    // 2) Marcar activo
+    setActive(current);
+
+    // 3) Al hacer clic, guardar y marcar activo
+    nav.addEventListener('click', (e)=>{
+      const a = e.target.closest('a[data-key]');
+      if(!a) return;
+      localStorage.setItem('lcg-tab', a.dataset.key);
+      setActive(a.dataset.key);
+      // no prevenimos navegación: el href se seguirá
+    });
+
+    function setActive(key){
+      nav.querySelectorAll('.nav-item').forEach(a=>{
+        a.classList.toggle('active', a.dataset.key === key);
+      });
+    }
+  })();
+</script>
   
 </body>
 </html>
