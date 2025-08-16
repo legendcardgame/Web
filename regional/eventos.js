@@ -59,18 +59,18 @@ window.LCG_EVENTS = {
     ctaText: 'Preregistro'
   },
 
-  duel_links: {
-    title:  'Duel Links',
-    banner: '../assets/banners/events/duel-links.jpg',
-    mode:   'Online/Presencial',
-    format: 'Duel Links',
-    schedule: 'Fase online + finales presenciales',
-    venue:  'Puebla',
-    desc:   'Clasifica online, define en sede.',
-    rules:  'https://www.konami.com/yugioh/duel_links/',
-    price:  '$100 MXN',
-    register: '../preregistro/index.html',
-    ctaText: 'Preregistro'
+structure_deck: {
+  title:    'Structure Deck',
+  banner:   '../assets/banners/events/structure-deck.jpg',
+  mode:     'Presencial',
+  format:   'Structure Deck',
+  schedule: 'Consulta la convocatoria',
+  venue:    'Puebla',
+  desc:     'Evento especial donde solo se compite con mazos de Structure Deck.',
+  rules:    '#', // TODO: coloca aquí el enlace oficial a reglas/convocatoria
+  price:    '$150 MXN',
+  register: '../preregistro/index.html',
+  ctaText:  'Preregistro'
   },
 
   master_duel: {
