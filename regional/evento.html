@@ -25,6 +25,16 @@
     .muted{opacity:.65}
     .ev-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .ev-meta div{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:10px}
+
+    /* Mapa */
+    .map-wrap{
+      position:relative; padding-bottom:56.25%; height:0; overflow:hidden;
+      border-radius:12px; border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    .map-wrap iframe{
+      position:absolute; inset:0; width:100%; height:100%; border:0;
+    }
   </style>
 </head>
 <body>
@@ -46,6 +56,7 @@
         <div class="ev-cta">
           <a id="evBtnPrereg" class="btnPrimary" href="#" target="_self">Preregistrarme</a>
           <a href="../index.html" class="btnGhost">Volver al inicio</a>
+          <a href="#sede" class="btnGhost">Sede</a><!-- nuevo botón -->
         </div>
       </section>
 
@@ -53,12 +64,27 @@
         <h3>Información</h3>
         <div class="ev-meta">
           <div><div class="muted">Costo</div><div class="ev-price" id="evCost">—</div></div>
-          <div><div class="muted">Modalidad</div><div id="evMode">Presencial</div></div>
+          <div><div class="muted">Incluye</div><div id="evIncluye">2 booster pack</div></div>
           <div><div class="muted">Fecha</div><div id="evDate">13 de septiembre, 2025</div></div>
-          <div><div class="muted">Sede</div><div id="evVenue">Por confirmar</div></div>
+          <div><div class="muted">Formato</div><div id="evFormato">Avanzado</div></div>
         </div>
       </aside>
     </div>
+
+    <!-- Sección de Sede con mapa -->
+    <section id="sede" class="ev-card" style="margin-top:16px;">
+      <h3>Sede</h3>
+      <div class="map-wrap">
+        <iframe
+          src="https://www.google.com/maps?q=Puebla%20MX&output=embed"
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <p style="margin:.75rem 0 0;">
+        <a class="btnGhost" target="_blank" href="https://maps.app.goo.gl/9QF6yTtPtDuUg3MQA">Abrir en Google Maps</a>
+      </p>
+    </section>
   </div>
 
   <script src="./eventos.js"></script>
@@ -82,7 +108,10 @@
       document.getElementById('evBanner').alt        = 'Banner ' + ev.nombre;
       document.getElementById('evCost').textContent  = ev.costo || '—';
       document.getElementById('evDate').textContent  = ev.fecha || 'Por confirmar';
-      document.getElementById('evVenue').textContent = ev.sede  || 'Por confirmar';
+
+      // Valores que pediste fijos por ahora:
+      document.getElementById('evIncluye').textContent = '2 booster pack';
+      document.getElementById('evFormato').textContent = 'Avanzado';
 
       const link = ev.preregistro || '../preregistro/index.html';
       document.getElementById('evBtnPrereg').href = link + (link.includes('?') ? '&' : '?') + 'evento=' + encodeURIComponent(ev.id);
