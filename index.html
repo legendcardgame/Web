@@ -31,10 +31,6 @@
         class="brand-wordmark"
         loading="eager"
         decoding="async"
-        .brand-wordmark {
-  display: block;
-  margin: 0 auto; /* Esto centra la imagen dentro de su contenedor */
-}
       />
     </a>
   </div>
@@ -154,6 +150,24 @@
     }
   })();
 </script>
-  
+  <script>
+  // Elimina cualquier banda/gradiente que algún layout pudiera inyectar
+  (function cleanupColorBands() {
+    const killers = [
+      '.footer-gradient', '.color-band', '#footer-gradient', '#color-band',
+      '.site-footer .gradient', '.gradient-band', '.nav-gradient'
+    ];
+    killers.forEach(sel => {
+      document.querySelectorAll(sel).forEach(n => n.remove());
+    });
+
+    // Si algo llegara tarde (p. ej., layout-loader), reintenta una vez
+    setTimeout(() => {
+      killers.forEach(sel => {
+        document.querySelectorAll(sel).forEach(n => n.remove());
+      });
+    }, 250);
+  })();
+</script>
 </body>
 </html>
