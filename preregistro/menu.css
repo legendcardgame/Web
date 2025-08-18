@@ -1,85 +1,46 @@
-/* Layout básico (hereda variables de tu styles.css) */
-.menu-wrap { padding-bottom: 80px; }
-.menu-title { font-size: 2rem; margin: 0 0 6px; }
-.menu-sub { color: var(--muted); margin: 0 0 14px; }
+// /preregistro/menu.js
 
-/* ---------- Hero (evento principal, solo imagen) ---------- */
-.hero-card{
-  position:relative; border-radius:18px; overflow:hidden;
-  background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
-  box-shadow:0 14px 40px rgba(0,0,0,.35); margin:10px 0 18px;
-}
-.hero-card a{ display:block; text-decoration:none; color:inherit; }
-.hero-img{
-  width:100%; display:block; aspect-ratio:16/9; object-fit:cover; background:#0e1116;
-  transition: filter .25s ease, transform .25s ease, box-shadow .25s ease;
-}
-.hero-card:hover .hero-img,
-.hero-card:focus-within .hero-img{
-  filter: brightness(.75) saturate(.95);
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 24px 60px rgba(0,0,0,.55);
-}
+// Imágenes locales en /preregistro/images/ con los mismos nombres
+const IMG = (slug) => `./images/${slug}.png`; // usa .jpg si tus archivos son .jpg
 
-/* ---------- Botón HEX rojo: “Status De Registro” ---------- */
-/* Hex con pseudo-elementos para puntas en diagonal */
-.btn-hex{
-  --hex-bg1:#e00019;      /* rojo superior */
-  --hex-bg2:#a80012;      /* rojo inferior */
-  --hex-shadow:#002f5a;   /* azul tenue para glow */
-  position: relative;
-  display: inline-flex; align-items: center; justify-content:center;
-  padding: 12px 28px; min-width: 200px;
-  color:#fff; font-weight:800; text-decoration:none; letter-spacing:.2px;
-  background: linear-gradient(180deg, var(--hex-bg1), var(--hex-bg2));
-  filter: drop-shadow(0 6px 16px rgba(0,0,0,.35)) drop-shadow(0 0 10px var(--hex-shadow));
-  transition: transform .15s ease, filter .2s ease;
-  clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%); /* forma “hex” */
-}
-.btn-hex:hover, .btn-hex:focus{
-  transform: translateY(-1px);
-  filter: drop-shadow(0 10px 24px rgba(0,0,0,.5)) drop-shadow(0 0 14px var(--hex-shadow));
+// Hero: Evento principal (linkea a la página de info)
+const HERO = {
+  slug: "principal",
+  img: IMG("principal"),
+  href: "../regional/evento.html?id=principal" // ← aquí el cambio
+};
+
+// Side events (6 botones)
+const SIDE_EVENTS = [
+  { slug: "edison",         img: IMG("edison") },
+  { slug: "win-a-mat",      img: IMG("win-a-mat") },
+  { slug: "master-duel",    img: IMG("master-duel") },
+  { slug: "speed-duel",     img: IMG("speed-duel") },
+  { slug: "structure-deck", img: IMG("structure-deck") },
+  { slug: "dragon-duel",    img: IMG("dragon-duel") },
+];
+
+function renderHero() {
+  const el = document.getElementById('heroSlot');
+  el.innerHTML = `
+    <article class="hero-card">
+      <a href="${HERO.href}">
+        <img class="hero-img" src="${HERO.img}" alt="Evento Principal">
+      </a>
+    </article>
+  `;
 }
 
-/* Contenedor para centrar el botón Status */
-.status-container {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
+function renderGrid() {
+  const grid = document.getElementById('gridSlot');
+  grid.innerHTML = SIDE_EVENTS.map(ev => `
+    <article class="img-card">
+      <a href="../regional/evento.html?id=${encodeURIComponent(ev.slug)}" aria-label="${ev.slug}">
+        <img src="${ev.img}" alt="${ev.slug}">
+      </a>
+    </article>
+  `).join('');
 }
 
-/* ---------- Grid de side events (6) ---------- */
-.grid-cards{
-  display:grid;
-  grid-template-columns: repeat(2, minmax(140px, 1fr));
-  gap:14px;
-}
-@media (min-width:780px){
-  .grid-cards{ grid-template-columns: repeat(3, 1fr); }
-}
-
-/* Tarjeta imagen SIN título visible, con animación oscurecer + sombra */
-.img-card{
-  position:relative; border-radius:16px; overflow:hidden;
-  border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.04);
-  box-shadow:0 12px 32px rgba(0,0,0,.28);
-  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
-}
-.img-card a{ display:block; text-decoration:none; }
-.img-card img{
-  width:100%; display:block; aspect-ratio: 16/10; object-fit:cover;
-  transition: filter .25s ease, transform .25s ease;
-  background:#0e1116;
-}
-.img-card::after{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  background: linear-gradient(0deg, rgba(0,0,0,.35), rgba(0,0,0,0) 60%);
-  opacity:0; transition: opacity .25s ease;
-}
-.img-card:hover, .img-card:focus-within{
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 22px 60px rgba(0,0,0,.5);
-}
-.img-card:hover img, .img-card:focus-within img{ filter: brightness(.78); }
-.img-card:hover::after, .img-card:focus-within::after{ opacity:1; }
-
+renderHero();
+renderGrid();
