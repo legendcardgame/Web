@@ -4,17 +4,75 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Preregistro · Registrar</title>
+
+  <!-- Estilos locales -->
   <link rel="stylesheet" href="./styles.css">
-  <script src="./js/config.js"></script> <!-- Ahora cargamos la config como script normal -->
+
+  <!-- Estilos globales -->
+  <link rel="stylesheet" href="/Web/main.css">
+  <link rel="stylesheet" href="/Web/styles.css?v=2">
+
+  <script src="./js/config.js"></script>
+  <style>
+    .hero-title{
+      font-size: clamp(1.6rem, 3.8vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: .5px;
+      margin: 8px 0 2px;
+      text-align: center;
+    }
+    .hero-sub{
+      color:#cfcfcf;
+      margin: 0 0 18px;
+      text-align: center;
+      line-height:1.45;
+    }
+    .hero-sub strong{color:#fff;}
+
+    /* Botón hex rojo igual al de Status */
+    .btn-hex {
+      --hex-bg1: #e00119;
+      --hex-bg2: #a80012;
+      --hex-shadow: #002f5a;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 28px;
+      min-width: 200px;
+      color: #fff;
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: 0.2px;
+      background: linear-gradient(180deg, var(--hex-bg1), var(--hex-bg2));
+      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.35)) drop-shadow(0 0 10px var(--hex-shadow));
+      transition: transform 0.15s ease, filter 0.25s ease;
+      clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
+      border: 0;
+      cursor: pointer;
+    }
+    .btn-hex:hover,
+    .btn-hex:focus { transform: translateY(-2px); filter: drop-shadow(0 10px 24px rgba(0,0,0,.5)) drop-shadow(0 0 14px var(--hex-shadow)); }
+    .btn-hex:disabled { opacity:.7; cursor:not-allowed; filter:saturate(.8); }
+    .dots::after { content:''; animation:dots 1.4s steps(4,end) infinite; }
+    @keyframes dots { 0%{content:''} 25%{content:'.'} 50%{content:'..'} 75%{content:'...'} 100%{content:'....'} }
+  </style>
 </head>
 <body>
+  <!-- Header reutilizable -->
+  <div id="site-header"></div>
+  <div class="watermark"></div>
+
   <div class="container">
-    <h1>Preregistro</h1>
-    <h2>Completa tus datos</h2>
-    <h5>El costo es de $330 MXN y deberán ser depositados a la siguiente cuenta</h5>
-    <h5>Banco: Azteca</h5>
-    <h5>Nombre: Luis Enrique Rodriguez Huerta</h5>
-    <h5>Clave Interbancaria: 127670013727315857</h5>
+    <h1 class="hero-title">Preregistro</h1>
+    <h2 class="hero-title">Completa tus datos</h2>
+    <p class="hero-sub">
+      El costo es de <strong>$330 MXN</strong> y deberán ser depositados a la siguiente cuenta:<br>
+      Banco: <strong>Azteca</strong><br>
+      Nombre: <strong>Luis Enrique Rodriguez Huerta</strong><br>
+      Clave Interbancaria: <strong>127670013727315857</strong>
+    </p>
+
     <form id="preForm" class="card">
       <div class="row">
         <div class="field">
@@ -53,25 +111,24 @@
       </div>
 
       <div class="actions">
-        <button id="submitBtn" class="btn" type="button">Enviar</button>
-        <a class="btn-link" href="./index.html">⬅ Volver al menú</a>
+        <button id="submitBtn" class="btn-hex" type="button">Enviar</button>
       </div>
 
       <div id="msg" class="notice"></div>
-
-      <!-- Loader: 4 puntos -->
       <div id="loader" class="loader" style="display:none;">
         <span></span><span></span><span></span><span></span>
       </div>
     </form>
   </div>
 
-  <!-- Overlay centrado -->
   <div id="overlaySuccess" class="overlay" style="display:none;">
     <div class="overlay-content">
       <h1>✅ Registro enviado</h1>
     </div>
   </div>
+
+  <!-- Footer reutilizable -->
+  <div id="site-footer"></div>
 
 <script>
 const $ = s => document.querySelector(s);
@@ -176,10 +233,19 @@ async function onSubmit(e){
     btn.classList.remove('dots');
   }
 }
+
+// --- Marca activo el botón "Preregistro" en el bottom-nav ---
+window.addEventListener('DOMContentLoaded', () => {
+  const nav = document.querySelector('#site-footer nav');
+  if (!nav) return;
+  nav.querySelectorAll('a').forEach(a => {
+    if (a.href.includes('preregistro')) {
+      a.classList.add('active');
+    } else {
+      a.classList.remove('active');
+    }
+  });
+});
 </script>
 </body>
 </html>
-
-
-
-
