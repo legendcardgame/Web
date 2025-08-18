@@ -195,8 +195,8 @@ body {
 /* 1) Asegura un fondo uniforme (sin gradientes en la parte baja) */
 body {
   background:
-    radial-gradient(1200px 600px at 10% -10%, rgba(231,75,75,.20), transparent 60%),
-    radial-gradient(1200px 600px at 90% -10%, rgba(59,130,246,.22), transparent 60%),
+radial-gradient(circle at top left, rgba(255, 0, 0, 0.45), transparent 30%),
+    radial-gradient(circle at top right, rgba(0, 0, 255, 0.45), transparent 30%),
     var(--bg, #0c0f14) !important;
 }
 
@@ -246,4 +246,5 @@ body::after {
   padding-bottom: calc(76px + 24px) !important;
 }
 }
+
 
