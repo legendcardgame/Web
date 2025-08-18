@@ -4,22 +4,33 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Preregistro · Legend Card Game</title>
-  <!-- Si ya tienes un styles.css aquí, mantenlo -->
+
+  <!-- Estilos locales -->
   <link rel="stylesheet" href="./styles.css">
-  <!-- Estilos del nuevo menú -->
   <link rel="stylesheet" href="./menu.css">
+
+  <!-- Estilos globales (debe ir al final para que tenga prioridad) -->
+  <link rel="stylesheet" href="/Web/main.css">
+  <link rel="stylesheet" href="/Web/styles.css?v=2">
 </head>
 <body>
+  <!-- Header reutilizable -->
+  <div id="site-header"></div>
+
+  <!-- Marca de agua global -->
+  <div class="watermark"></div>
+
+  <!-- Contenido del menú -->
   <div class="menu-wrap container">
-    <!-- Hero: Evento principal (solo imagen, sin texto) -->
+    <!-- Hero: Evento principal -->
     <section id="heroSlot"></section>
 
-<!-- Botón de Status -->
-<section class="status-container">
-  <a class="btn-hex" href="./utilities/consulta.html" aria-label="Status De Registro">
-    <span>Status De Registro</span>
-  </a>
-</section>
+    <!-- Botón de Status -->
+    <section class="status-container">
+      <a class="btn-hex" href="./utilities/consulta.html" aria-label="Status De Registro">
+        <span>Status De Registro</span>
+      </a>
+    </section>
 
     <!-- Grid de side events (6 botones-imagen) -->
     <section>
@@ -27,8 +38,13 @@
     </section>
   </div>
 
+  <!-- Footer reutilizable -->
+  <div id="site-footer"></div>
+
+  <!-- Loader para header/footer -->
+  <script src="/Web/assets/js/layout-loader.js"></script>
+
+  <!-- JS del menú -->
   <script type="module" src="./menu.js"></script>
 </body>
 </html>
-
-
