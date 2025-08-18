@@ -7,45 +7,46 @@
   <link rel="stylesheet" href="../styles.css">
   <style>
     /* ===== Base ===== */
+    :root{
+      --card-bg:#111;                 /* coincide con tarjetas de la home */
+      --card-border:rgba(255,255,255,.08);
+    }
     body{ background:#000; }
     .ev-wrap{max-width:960px;margin:0 auto;padding:20px}
 
-    /* ===== Encabezado con gradiente rojo/azul ===== */
-    .ev-header{
-      margin:0 -12px 14px;
-      border-radius:16px;
-      padding:18px 12px;
-      background:
-        linear-gradient(90deg, rgba(231,75,75,.75) 0%, rgba(59,130,246,.75) 100%);
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow:0 10px 30px rgba(0,0,0,.35);
-    }
+    /* ===== Encabezado limpio (sin color/gradiente) ===== */
     .ev-title{
-      margin:0;
-      text-align:center;
-      font-size:clamp(22px,3.8vw,36px);
+      margin:12px 0 14px;
+      text-align:left;                /* título sin centrar ni fondo */
+      font-size:clamp(22px,3.6vw,34px);
       font-weight:900;
-      letter-spacing:.3px;
+      letter-spacing:.2px;
     }
 
     /* ===== Hero ===== */
     .ev-hero{position:relative;border-radius:18px;overflow:hidden;background:#111;box-shadow:0 10px 40px rgba(0,0,0,.4)}
     .ev-hero img{width:100%;height:auto;display:block}
 
-    /* ===== Cards neutrales ===== */
+    /* ===== Cards estilo home (oscuro, sutil) ===== */
     .ev-card{
-      background:#111;
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:16px; padding:16px;
-      box-shadow:none;
+      background:var(--card-bg);
+      border:1px solid var(--card-border);
+      border-radius:16px; padding:14px;
+      box-shadow:0 10px 30px rgba(0,0,0,.25);
+      margin-top:16px;
     }
-    .ev-card h3{margin:.2rem 0 .8rem;font-size:1.05rem;opacity:.95;text-align:center}
+    .ev-card h3{
+      margin:.2rem 0 .7rem;
+      font-size:1.05rem;
+      opacity:.95;
+      text-align:left;               /* encabezados de sección alineados a la izq */
+    }
 
-    /* Descripción centrada */
-    .ev-desc{line-height:1.65;opacity:.97;text-align:center}
+    /* Descripción a la izquierda */
+    .ev-desc{line-height:1.65;opacity:.97;text-align:left}
 
     /* CTA hex rojo centrado */
-    .cta-center{display:flex;justify-content:center;margin-top:14px}
+    .cta-center{display:flex;justify-content:center;margin-top:12px}
     .btn-hex{
       --hex-bg1:#e00119; --hex-bg2:#a80012; --hex-shadow:#002f5a;
       position:relative; display:inline-flex; align-items:center; justify-content:center;
@@ -57,21 +58,26 @@
     }
     .btn-hex:hover{transform:translateY(-2px); filter:drop-shadow(0 10px 24px rgba(0,0,0,.5)) drop-shadow(0 0 14px var(--hex-shadow));}
 
-    /* ===== Información: grid 2×2 simétrico y centrado ===== */
-    .ev-info{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;justify-items:center}
+    /* ===== Información: más compacto, simétrico y centrado ===== */
+    .ev-info{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+      justify-items:center;
+    }
     .info-cell{
       width:100%;
-      max-width:420px;
+      max-width:360px;               /* más angosto */
       background:rgba(255,255,255,.05);
       border:1px solid rgba(255,255,255,.1);
-      border-radius:14px;
-      padding:12px;
+      border-radius:12px;
+      padding:10px;                  /* menos padding */
       display:flex; flex-direction:column; align-items:center; justify-content:center;
-      min-height:110px;           /* misma altura */
+      min-height:88px;               /* menor altura */
       text-align:center;
     }
     .muted{opacity:.68}
-    .ev-price{font-size:1.2rem;font-weight:800}
+    .ev-price{font-size:1.15rem;font-weight:800}
 
     @media (max-width:700px){
       .ev-info{grid-template-columns:1fr}
@@ -93,16 +99,15 @@
 </head>
 <body>
   <div class="ev-wrap">
-    <!-- Encabezado con gradiente -->
-    <header class="ev-header">
-      <h1 class="ev-title" id="evTitle">Cargando…</h1>
-    </header>
 
     <!-- Banner -->
     <div class="ev-hero"><img id="evBanner" alt="Banner del evento"></div>
 
+    <!-- Título limpio (sin color) -->
+    <h1 class="ev-title" id="evTitle">Cargando…</h1>
+
     <!-- Descripción + CTA -->
-    <section class="ev-card" style="margin-top:16px;">
+    <section class="ev-card">
       <h3>Descripción</h3>
       <div class="ev-desc" id="evDesc">—</div>
       <div class="cta-center">
@@ -110,8 +115,8 @@
       </div>
     </section>
 
-    <!-- Información (simétrica y centrada) -->
-    <section class="ev-card" style="margin-top:16px;">
+    <!-- Información (compacta) -->
+    <section class="ev-card">
       <h3>Información</h3>
       <div class="ev-info">
         <div class="info-cell">
@@ -134,10 +139,10 @@
     </section>
 
     <!-- Sede (mapa centrado) -->
-    <section class="ev-card" style="margin-top:16px; text-align:center;">
+    <section class="ev-card" style="text-align:center;">
       <h3>Sede</h3>
       <div class="map-wrap">
-        <!-- Hotel Plaza Poblana (coords fijas) -->
+        <!-- Hotel Plaza Poblana (coords exactas) -->
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.210823486798!2d-98.203949!3d19.073506!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc0aeb8a57c33%3A0x1c5679dd7b98c1d2!2sHotel%20Plaza%20Poblana!5e0!3m2!1ses-419!2smx!4v1734567890123"
           loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
