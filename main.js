@@ -1,99 +1,123 @@
-/* ===== Carrusel con autoplay 5s ===== */
-const track = document.getElementById('carouselTrack');
-const dots  = document.getElementById('carouselDots');
-const slides = Array.from(track.children);
-let idx = 0;
-let timer = null;
+/* ===== Carrusel con autoplay (5s), dots, flechas, swipe y enlaces ===== */
+(() => {
+  const carousel = document.querySelector('.carousel');
+  if (!carousel) return;
 
-function goTo(i){
-  idx = (i + slides.length) % slides.length;
-  const w = slides[0].getBoundingClientRect().width + 10; // +gap
-  track.scrollTo({ left: idx * w, behavior: 'smooth' });
-  [...dots.children].forEach((d,j) => d.classList.toggle('active', j===idx));
-  resetAutoplay();
-}
-function next(){ goTo(idx+1); }
-function prev(){ goTo(idx-1); }
+  // Usa el PRIMER track dentro del carrusel (evita conflictos si hay duplicados)
+  const track   = carousel.querySelector('.track');
+  const nextBtn = carousel.querySelector('.next');
+  const prevBtn = carousel.querySelector('.prev');
+  const dots    = document.getElementById('carouselDots') || carousel.querySelector('.dots');
+  if (!track) return;
 
-document.querySelector('.carousel .next').addEventListener('click', next);
-document.querySelector('.carousel .prev').addEventListener('click', prev);
+  const slides = Array.from(track.querySelectorAll('.slide'));
+  if (!slides.length) return;
 
-/* Dots */
-slides.forEach((_,i)=>{
-  const b = document.createElement('button');
-  if(i===0) b.classList.add('active');
-  b.addEventListener('click', ()=>goTo(i));
-  dots.appendChild(b);
-});
+  // gap definido en CSS (fallback a 10)
+  const cs  = getComputedStyle(track);
+  const gap = parseFloat(cs.gap || cs.columnGap || 10);
 
-/* Autoplay 5s */
-function resetAutoplay(){
-  if (timer) clearInterval(timer);
-  timer = setInterval(next, 5000);
-}
-resetAutoplay();
+  let idx = 0;
+  let timer = null;
 
-/* Swipe táctil */
-let sx=0, dx=0;
-track.addEventListener('touchstart', e=>{ sx = e.touches[0].clientX; }, {passive:true});
-track.addEventListener('touchmove',  e=>{ dx = e.touches[0].clientX - sx; }, {passive:true});
-track.addEventListener('touchend',   ()=>{
-  if (dx > 40) prev();
-  else if (dx < -40) next();
-  sx=dx=0;
-});
+  const slideWidth = () => slides[0].getBoundingClientRect().width + (Number.isFinite(gap) ? gap : 0);
 
-/* Sincroniza índice al hacer scroll manual */
-track.addEventListener('scroll', ()=>{
-  const w = slides[0].getBoundingClientRect().width + 10;
-  const n = Math.round(track.scrollLeft / w);
-  if (n !== idx) {
-    idx = n;
-    [...dots.children].forEach((d,j)=>d.classList.toggle('active', j===idx));
+  function setActiveDot(i) {
+    if (!dots) return;
+    Array.from(dots.children).forEach((d, j) => d.classList.toggle('active', j === i));
   }
-}, {passive:true});
 
-// --- Accesos directos desde los banners del carrusel (usa ?id=) ---
-(function attachCarouselLinks() {
-  // Si el nombre del archivo ya coincide con el id del evento,
-  // no necesitas mapa. Lo dejo por si en algún caso no coinciden.
+  function goTo(i, smooth = true) {
+    idx = (i + slides.length) % slides.length;
+    track.scrollTo({ left: idx * slideWidth(), behavior: smooth ? 'smooth' : 'auto' });
+    setActiveDot(idx);
+    restart();
+  }
+
+  const next = () => goTo(idx + 1);
+  const prev = () => goTo(idx - 1);
+
+  // Flechas
+  nextBtn && nextBtn.addEventListener('click', next);
+  prevBtn && prevBtn.addEventListener('click', prev);
+
+  // Dots
+  if (dots && !dots.children.length) {
+    slides.forEach((_, i) => {
+      const b = document.createElement('button');
+      if (i === 0) b.classList.add('active');
+      b.addEventListener('click', () => goTo(i));
+      dots.appendChild(b);
+    });
+  }
+
+  // Autoplay
+  function restart() { stop(); timer = setInterval(next, 5000); }
+  function stop()    { if (timer) { clearInterval(timer); timer = null; } }
+  restart();
+
+  // Pausa al interactuar / pestaña oculta
+  carousel.addEventListener('mouseenter', stop);
+  carousel.addEventListener('mouseleave', restart);
+  document.addEventListener('visibilitychange', () => (document.hidden ? stop() : restart()));
+
+  // Swipe táctil
+  let sx = 0, dx = 0;
+  track.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchmove',  e => { dx = e.touches[0].clientX - sx; }, { passive: true });
+  track.addEventListener('touchend',   () => {
+    if (dx > 40) prev(); else if (dx < -40) next();
+    sx = dx = 0;
+  }, { passive: true });
+
+  // Sincroniza índice al hacer scroll manual
+  let raf = null;
+  track.addEventListener('scroll', () => {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      const n = Math.round(track.scrollLeft / slideWidth());
+      if (n !== idx) { idx = n; setActiveDot(idx); }
+      raf = null;
+    });
+  }, { passive: true });
+
+  // Enlaces desde banners a /regional/evento.html?id=...
   const slugMap = {
-    'principal':       'principal',
-    'dragon-duel':     'dragon-duel',
-    'edison':          'edison',
-    'win-a-mat':       'win-a-mat',
-    'master-duel':     'master-duel',
-    'structure-deck':  'structure-deck',
-    'speed-duel':      'speed-duel'
+    'principal':      'principal',
+    'dragon-duel':    'dragon-duel',
+    'edison':         'edison',
+    'win-a-mat':      'win-a-mat',
+    'master-duel':    'master-duel',
+    'structure-deck': 'structure-deck',
+    'speed-duel':     'speed-duel'
   };
 
-  document.querySelectorAll('.carousel .slide img').forEach(img => {
+  slides.forEach(slide => {
+    const img = slide.querySelector('img');
+    if (!img) return;
+
+    // Si ya es <a class="slide">, solo aseguramos el href; si es <div>, lo hacemos clickable
+    let linkEl = slide.tagName.toLowerCase() === 'a' ? slide : slide.querySelector('a');
+
     const src  = img.getAttribute('src') || '';
-    const file = src.split('/').pop().split('.')[0].toLowerCase(); // p.ej. "edison"
-    const id   = slugMap[file] || file;  // por si coincide exacto
+    const file = src.split('/').pop().split('.')[0].toLowerCase();
+    const id   = slugMap[file] || file;
+    const href = `regional/evento.html?id=${encodeURIComponent(id)}`;
 
-    // arma la URL correcta para tu página dinámica
-    const target = `regional/evento.html?id=${encodeURIComponent(id)}`;
-
-    // si ya está envuelto en <a>, actualiza su href; si no, navega por JS
-    const wrapper = img.closest('a.slide');
-    if (wrapper) {
-      wrapper.href = target;
-      return;
+    if (linkEl) {
+      // No pisamos si ya está correcto
+      if (!/regional\/evento\.html/i.test(linkEl.getAttribute('href') || '')) {
+        linkEl.href = href;
+      }
+    } else {
+      slide.style.cursor = 'pointer';
+      slide.setAttribute('role', 'link');
+      slide.setAttribute('tabindex', '0');
+      const go = () => { window.location.href = href; };
+      slide.addEventListener('click', go);
+      slide.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
+      });
     }
-
-    // si no hay <a>, convierte la imagen en enlace clickable y accesible
-    img.style.cursor = 'pointer';
-    img.setAttribute('role', 'link');
-    img.setAttribute('tabindex', '0');
-
-    const go = () => window.location.href = target;
-    img.addEventListener('click', go);
-    img.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
-    });
-  });
-})();
-    });
   });
 })();
