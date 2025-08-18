@@ -8,6 +8,8 @@ window.LCG_EVENTS = [
       "Evento principal del Regional. Estructura competitiva con rondas suizas y corte a eliminación, siguiendo la lista vigente.",
     costo: "$350",
     fecha: "13 de septiembre, 2025",
+    incluye: "2 booster pack",
+    formato: "Avanzado",
     sede: "Puebla, MX",
     preregistro: "../preregistro/index.html"
   },
@@ -20,6 +22,8 @@ window.LCG_EVENTS = [
       "Formato Edison con reglas históricas. Ideal para quienes disfrutan del metajuego clásico.",
     costo: "$200",
     fecha: "13 de septiembre, 2025",
+    incluye: "2 booster pack",
+    formato: "Avanzado",
     sede: "Puebla, MX",
     preregistro: "../preregistro/index.html"
   },
@@ -32,6 +36,8 @@ window.LCG_EVENTS = [
       "Categoría para jugadores más jóvenes. Ambiente guiado y enfoque en aprendizaje competitivo.",
     costo: "$150",
     fecha: "13 de septiembre, 2025",
+    incluye: "2 booster pack",
+    formato: "Avanzado",
     sede: "Puebla, MX",
     preregistro: "../preregistro/index.html"
   },
@@ -44,6 +50,8 @@ window.LCG_EVENTS = [
       "Partidas rápidas con reglas de Speed Duel. Trae tu deck optimizado y compite en rondas ágiles.",
     costo: "$120",
     fecha: "13 de septiembre, 2025",
+    incluye: "2 booster pack",
+    formato: "Avanzado",
     sede: "Puebla, MX",
     preregistro: "../preregistro/index.html"
   },
@@ -56,6 +64,8 @@ window.LCG_EVENTS = [
       "Torneo especial donde sólo se permiten mazos de Structure Deck. Ideal para entrar al competitivo.",
     costo: "$150",
     fecha: "13 de septiembre, 2025",
+    incluye: "2 booster pack",
+    formato: "Avanzado",
     sede: "Puebla, MX",
     preregistro: "../preregistro/index.html"
   },
@@ -68,6 +78,8 @@ window.LCG_EVENTS = [
       "Competencia en la plataforma Master Duel. Consulta las reglas y sincroniza tu deck.",
     costo: "$100",
     fecha: "13 de septiembre, 2025",
+    incluye: "2 booster pack",
+    formato: "Avanzado",
     sede: "Online",
     preregistro: "../preregistro/index.html"
   },
@@ -80,6 +92,8 @@ window.LCG_EVENTS = [
       "¡Gana un tapete exclusivo! Evento paralelo con rondas cortas y premios inmediatos.",
     costo: "$120",
     fecha: "13 de septiembre, 2025",
+    incluye: "2 booster pack",
+    formato: "Avanzado",
     sede: "Puebla, MX",
     preregistro: "../preregistro/index.html"
   }
