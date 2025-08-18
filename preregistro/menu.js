@@ -1,16 +1,16 @@
 // /preregistro/menu.js
 
-// Usa /preregistro/images/ y los mismos nombres que ya manejas
-const IMG = (slug) => `./images/${slug}.png`;  // cambia a .jpg si tus archivos son .jpg
+// Usa /preregistro/images/ con los mismos nombres que tus banners
+const IMG = (slug) => `./images/${slug}.png`; // cambia a .jpg si tus archivos son .jpg
 
-// Hero: Evento principal (solo imagen, sin texto)
+// Hero: Evento principal -> página de info
 const HERO = {
   slug: "principal",
   img: IMG("principal"),
-  href: "./utilities/preregistro.html?event=principal"
+  href: "../regional/evento.html?id=principal"
 };
 
-// Side events: ahora 6 botones
+// Side events (6 botones) -> páginas de info
 const SIDE_EVENTS = [
   { slug: "edison",         img: IMG("edison") },
   { slug: "win-a-mat",      img: IMG("win-a-mat") },
@@ -35,7 +35,7 @@ function renderGrid() {
   const grid = document.getElementById('gridSlot');
   grid.innerHTML = SIDE_EVENTS.map(ev => `
     <article class="img-card">
-      <a href="./utilities/preregistro.html?event=${encodeURIComponent(ev.slug)}" aria-label="${ev.slug}">
+      <a href="../regional/evento.html?id=${encodeURIComponent(ev.slug)}" aria-label="${ev.slug}">
         <img src="${ev.img}" alt="${ev.slug}">
       </a>
     </article>
