@@ -291,3 +291,149 @@ body{
   from { opacity: 0; transform: scale(0.9); }
   to   { opacity: 1; transform: scale(1); }
 }
+/* ===== LCG · Tema de formulario (solo estética) ===== */
+
+/* Tarjeta contenedora (si tu formulario está dentro de un card/div) */
+#preFormCard, .pre-card, .form-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.35);
+  padding: 18px;
+}
+
+/* Layout base del formulario */
+#preForm, form.preregistro, form#preForm {
+  display: grid;
+  gap: 14px;
+}
+
+/* Etiquetas */
+#preForm label,
+form.preregistro label {
+  font-weight: 700;
+  letter-spacing: .2px;
+  color: #e8e8ea;
+  display: block;
+  margin: 2px 0 6px;
+}
+
+/* Inputs/Select/Textarea */
+#preForm input,
+#preForm select,
+#preForm textarea,
+form.preregistro input,
+form.preregistro select,
+form.preregistro textarea {
+  width: 100%;
+  background: #121316;
+  border: 1px solid rgba(255,255,255,.14);
+  color: #fff;
+  padding: 12px 14px;
+  border-radius: 12px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.15);
+  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+}
+
+#preForm input::placeholder,
+#preForm textarea::placeholder {
+  color: #a0a4ad;
+}
+
+#preForm input:focus,
+#preForm select:focus,
+#preForm textarea:focus {
+  border-color: #e53935;
+  box-shadow: 0 0 0 3px rgba(229,57,53,.25);
+}
+
+/* File input moderno (sin cambiar HTML) */
+#preForm input[type="file"] {
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+#preForm input[type="file"]::file-selector-button {
+  background: linear-gradient(180deg, #e00119, #a80012);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 800;
+  margin-right: 10px;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0,0,0,.35);
+  transition: transform .15s ease, filter .2s ease;
+}
+
+#preForm input[type="file"]::file-selector-button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+/* Mensajes de ayuda / tips bajo campos */
+#preForm .help, .form-help, .hint {
+  font-size: .9rem;
+  color: #9aa0a6;
+  margin-top: 6px;
+}
+
+/* Vista previa de imagen de pago */
+#preForm .img-preview, .preview, #imgPreview {
+  display: block;
+  width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  background: #0d0e11;
+  border: 1px dashed rgba(255,255,255,.18);
+  border-radius: 12px;
+  padding: 8px;
+}
+
+/* Botón enviar con estilo LCG */
+#preForm button[type="submit"],
+form.preregistro button[type="submit"] {
+  background: linear-gradient(180deg, #e00119, #a80012);
+  color: #fff;
+  border: 0;
+  border-radius: 14px;
+  padding: 12px 18px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(224,1,25,.28);
+  transition: transform .15s ease, filter .2s ease;
+}
+
+#preForm button[type="submit"]:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+/* Agrupaciones en tarjeta (si usas “fieldset” o bloques) */
+#preForm fieldset {
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 14px;
+  padding: 12px;
+  background: rgba(255,255,255,.03);
+}
+#preForm fieldset legend {
+  padding: 0 6px;
+  font-weight: 800;
+  color: #e8e8ea;
+}
+
+/* Responsive: 2 columnas en pantallas medianas si usas contenedores .field */
+@media (min-width: 760px) {
+  #preForm {
+    grid-template-columns: 1fr 1fr;
+  }
+  /* Los bloques que deban ocupar todo el ancho (por ej. file/preview) */
+  #preForm .full,
+  #preForm .row-full,
+  #preForm .preview,
+  #preForm .img-preview,
+  #preForm .actions {
+    grid-column: 1 / -1;
+  }
+}
