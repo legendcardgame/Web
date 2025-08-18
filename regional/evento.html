@@ -200,15 +200,15 @@
     evIncluye.textContent  = ev.incluye  || '—';
     evFormato.textContent  = ev.formato  || '—';
 
-    // Eventos que NO llevan preregistro
-    const NO_PREREG = ["dragon-duel", "win-a-mat", "master-duel"];
+// Eventos que NO llevan preregistro
+const NO_PREREG = ["dragon-duel", "win-a-mat", "master-duel"];
 
-    if (NO_PREREG.includes(ev.id)) {
-      // Ocultamos el botón rojo
-      document.querySelector(".cta-center").style.display = "none";
-    } else {
-      // Configuramos el botón
-      const link = ev.preregistro || '../preregistro/utilities/preregistro.html';
+if (NO_PREREG.includes(ev.id)) {
+  // Ocultamos el botón rojo
+  document.querySelector(".cta-center").style.display = "none";
+} else {
+  // Siempre manda al preregistro fijo
+  evBtnPrereg.href = '/preregistro/utilities/preregistro.html';
       evBtnPrereg.href = link + (link.includes('?') ? '&' : '?') + 'evento=' + encodeURIComponent(ev.id);
     }
   } else {
