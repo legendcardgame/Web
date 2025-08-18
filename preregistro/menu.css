@@ -1,13 +1,15 @@
 /* ===== Estilos generales del menú de Preregistro ===== */
+*{box-sizing:border-box}
 html,body{height:100%}
-body{
-  margin:0; color:var(--text);
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+body {
+  margin: 0;
   background:
-    radial-gradient(1200px 600px at 10% -10%, rgba(231,75,75,.20), transparent 60%),
-    radial-gradient(1200px 600px at 90% -10%, rgba(59,130,246,.22), transparent 60%),
-    var(--bg);
-  }
+    radial-gradient(circle at top left, rgba(255, 0, 0, 0.45), transparent 30%),
+    radial-gradient(circle at top right, rgba(0, 0, 255, 0.45), transparent 30%),
+    #0a0a0a;
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+}
 
   margin: 0;
   font-family: Arial, sans-serif;
@@ -192,4 +194,5 @@ body {
     radial-gradient(1200px 600px at 90% -10%, rgba(0,0,0,.22), transparent 60%),
     var(--bg) !important;
 }
+
 
