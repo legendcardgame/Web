@@ -115,3 +115,38 @@ body {
   border: 1px solid #2a2a2f !important;
   opacity: 1 !important;
 }
+
+/* ====== Fix de espaciados para el menú de preregistro ====== */
+
+/* 1) Reduce el respiro superior (el header fijo ya empuja 60px) */
+.menu-wrap {
+  padding-top: 8px !important;     /* antes 20+ / elimina hueco grande */
+  margin-top: 0 !important;
+  padding-bottom: calc(76px + 24px) !important; /* 76px bottom-nav + extra */
+}
+
+/* 2) Asegura que el banner principal quede pegado sin huecos raros */
+#heroSlot img {
+  display: block;
+  margin: 0 !important;
+}
+
+/* 3) Un poco menos de respiro entre el botón y el banner */
+.status-container { 
+  margin-top: 12px !important;
+}
+
+/* 4) Que el grid no quede oculto bajo la barra inferior */
+#gridSlot {
+  margin-bottom: 24px !important;
+}
+
+/* 5) Botón rojo sólido (por si alguna regla global le baja opacidad) */
+.btn-hex {
+  opacity: 1 !important;
+  filter: none; /* se mantiene hover en tu regla :hover */
+}
+
+/* 6) Si usas botones .qa-btn en esta página, manténlos sólidos también */
+.qa-btn.primary { background:#e53935 !important; color:#fff !important; opacity:1 !important; }
+.qa-btn.ghost   { background:#1b1b1e !important; color:#fff !important; border:1px solid #2a2a2f !important; opacity:1 !important; }
