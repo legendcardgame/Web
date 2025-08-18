@@ -169,21 +169,6 @@ body {
   height: 0 !important;
   background: transparent !important;
 }
-
-/* Forzamos el fondo del nav inferior a sólido oscuro */
-.bottom-nav {
-  background: #101114 !important;
-  border-top: 1px solid #27282c !important;
-  box-shadow: 0 -4px 12px rgba(0,0,0,.35);
-}
-/* Quitar bandas de color en la parte inferior del body en esta página */
-body {
-  background:
-    radial-gradient(circle at top left, rgba(255, 0, 0, 0.45), transparent 30%),
-    radial-gradient(circle at top right, rgba(0, 0, 255, 0.45), transparent 30%),
-    var(--bg) !important;
-}
-
 /* === TAPA la franja rojo/azul sobre el nav fijo === */
 .bottom-nav {
   position: fixed;           /* aseguramos que sea fixed aquí también */
