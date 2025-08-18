@@ -184,4 +184,36 @@ body {
     var(--bg) !important;
 }
 
+/* === TAPA la franja rojo/azul sobre el nav fijo === */
+.bottom-nav {
+  position: fixed;           /* aseguramos que sea fixed aquí también */
+  left: 0; right: 0; bottom: 0;
+  z-index: 1000;
+  background: #101114 !important;           /* fondo sólido oscuro del nav */
+  border-top: 1px solid #27282c !important; /* línea sutil */
+  box-shadow: 0 -4px 12px rgba(0,0,0,.35);
+}
 
+/* “Tapón” sólido por si algún gradiente se asoma encima del nav */
+.bottom-nav::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: -16px;               /* altura del tapón */
+  height: 16px;
+  background: var(--bg, #0c0f14);  /* mismo fondo de la página */
+  pointer-events: none;
+}
+
+/* Si algún footer/gradiente se inyecta, lo desactivamos aquí también */
+#site-footer,
+.site-footer,
+.footer,
+.footer-gradient,
+.color-band {
+  display: none !important;
+  background: transparent !important;
+  height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
