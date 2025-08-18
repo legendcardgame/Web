@@ -17,14 +17,14 @@
   <style>
     /* ===== Titulares (centrados) ===== */
     .hero-title{
-      font-size: clamp(1.8rem, 4.4vw, 2.6rem); /* Preregistro más grande */
+      font-size: clamp(1.8rem, 4.4vw, 2.6rem);
       font-weight: 900;
       letter-spacing: .4px;
       margin: 10px 0 4px;
       text-align: center;
     }
     .hero-subtitle{
-      font-size: clamp(1.1rem, 2.8vw, 1.4rem); /* Completa tus datos más pequeño */
+      font-size: clamp(1.1rem, 2.8vw, 1.4rem);
       font-weight: 800;
       margin: 0 0 10px;
       text-align: center;
@@ -41,39 +41,10 @@
     }
     .hero-help strong{ color:#fff; }
 
-    /* Bloque de costos (alineado a la izquierda) */
-    .costs{
-      max-width: 820px;
-      margin: 8px auto 16px;
-      color:#e8e8ea;
-    }
-    .costs h3{
-      margin: 0 0 8px;
-      font-size: 1.05rem;
-      font-weight: 800;
-    }
-    .costs .cost-table{
-      width: 100%;
-      border-collapse: collapse;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    .costs .cost-table th,
-    .costs .cost-table td{
-      padding: 10px 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      width: 50%;
-    }
-    .costs .cost-table tr:last-child td{ border-bottom: 0; }
-    .costs .event{ font-weight: 700; }
-    .costs .price{ text-align: right; font-weight: 800; }
-
-    /* Datos bancarios (alineados a la izquierda) */
+    /* Datos bancarios (arriba, alineados a la izquierda) */
     .bank{
       max-width: 820px;
-      margin: 10px auto 18px;
+      margin: 12px auto 18px;
       color:#e8e8ea;
       line-height: 1.6;
     }
@@ -81,7 +52,62 @@
       font-weight: 800; margin-bottom: 6px;
     }
 
-    /* Botón hex rojo (igual que Status) */
+    /* Bloque de costos (texto + grid botones 2×2) */
+    .costs{
+      max-width: 820px;
+      margin: 8px auto 16px;
+      color:#e8e8ea;
+    }
+    .costs h3{
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      text-align: left;
+    }
+
+    .option-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    /* Botón hex (como Status) para opciones */
+    .opt-btn{
+      --hex-bg1: #1b1b1e;         /* inactivo: oscuro */
+      --hex-bg2: #111215;
+      --hex-shadow: rgba(0,0,0,.35);
+
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 12px 16px;
+      color: #fff;
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: 0.2px;
+      background: linear-gradient(180deg, var(--hex-bg1), var(--hex-bg2));
+      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.35));
+      transition: transform 0.15s ease, filter 0.25s ease, background .2s ease;
+      clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
+      border: 1px solid rgba(255,255,255,.06);
+      cursor: pointer;
+      user-select: none;
+    }
+    .opt-btn .label{ font-weight: 800; }
+    .opt-btn .price{ font-weight: 900; opacity: .95; }
+
+    .opt-btn:hover{ transform: translateY(-1px); }
+    .opt-btn.active{
+      --hex-bg1: #e00119;         /* activo: rojo como Enviar */
+      --hex-bg2: #a80012;
+      --hex-shadow: #002f5a;
+      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.35)) drop-shadow(0 0 10px var(--hex-shadow));
+      border-color: transparent;
+    }
+
+    /* Botón Enviar (hex rojo) */
     .actions{
       display:flex; justify-content:center; align-items:center;
       margin-top:14px;
@@ -113,6 +139,28 @@
 
     .dots::after { content:''; animation:dots 1.4s steps(4,end) infinite; }
     @keyframes dots { 0%{content:''} 25%{content:'.'} 50%{content:'..'} 75%{content:'...'} 100%{content:'....'} }
+
+    /* Que no lo tape el bottom-nav en móviles */
+    .page-pad-bottom { padding-bottom: 110px; } /* ~76px nav + extra respiro */
+
+    /* Overlays */
+    .overlay{
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.6);
+      display: none;
+      align-items: center; justify-content: center;
+      z-index: 2000;
+    }
+    .overlay-content{
+      background: #111; color:#fff;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 14px;
+      padding: 22px 20px;
+      min-width: 260px; text-align: center;
+      box-shadow: 0 14px 40px rgba(0,0,0,.45);
+      font-weight: 800;
+    }
+    .overlay-content.error{ border-color: rgba(255,80,80,.35); color:#ff9a9a; }
   </style>
 </head>
 <body>
@@ -120,7 +168,7 @@
   <div id="site-header"></div>
   <div class="watermark"></div>
 
-  <div class="container">
+  <div class="container page-pad-bottom">
     <h1 class="hero-title">Preregistro</h1>
     <h2 class="hero-subtitle">Completa tus datos</h2>
 
@@ -129,35 +177,39 @@
       Sube tus datos y comprobante. Podrás consultar el estado de tu inscripción desde el menú.
     </p>
 
-    <!-- Costos (alineado a la izquierda) -->
-    <section class="costs">
-      <h3>El costo de cada evento será:</h3>
-      <table class="cost-table">
-        <tr>
-          <td class="event">Evento Principal</td>
-          <td class="price">$100</td>
-        </tr>
-        <tr>
-          <td class="event">Edison Format</td>
-          <td class="price">$100</td>
-        </tr>
-        <tr>
-          <td class="event">Structure Deck</td>
-          <td class="price">$100</td>
-        </tr>
-        <tr>
-          <td class="event">Speed Duel</td>
-          <td class="price">$100</td>
-        </tr>
-      </table>
-    </section>
-
-    <!-- Datos bancarios (alineado a la izquierda) -->
+    <!-- Datos bancarios (arriba) -->
     <section class="bank">
       <div class="bank-title">Datos bancarios:</div>
       <div>Banco: <strong>Azteca</strong></div>
       <div>Nombre: <strong>Luis Enrique Rodriguez Huerta</strong></div>
       <div>Clave Interbancaria: <strong>127670013727315857</strong></div>
+    </section>
+
+    <!-- Costos (texto + grid botones 2×2) -->
+    <section class="costs">
+      <h3>El costo de cada evento será:</h3>
+
+      <!-- input oculto para guardar selección (por si luego lo mandamos al backend) -->
+      <input type="hidden" id="eventType" name="eventType" value="">
+
+      <div class="option-grid" id="eventOptions">
+        <button type="button" class="opt-btn" data-id="principal">
+          <span class="label">Evento Principal</span>
+          <span class="price">$100</span>
+        </button>
+        <button type="button" class="opt-btn" data-id="edison">
+          <span class="label">Edison Format</span>
+          <span class="price">$100</span>
+        </button>
+        <button type="button" class="opt-btn" data-id="structure-deck">
+          <span class="label">Structure Deck</span>
+          <span class="price">$100</span>
+        </button>
+        <button type="button" class="opt-btn" data-id="speed-duel">
+          <span class="label">Speed Duel</span>
+          <span class="price">$100</span>
+        </button>
+      </div>
     </section>
 
     <!-- Formulario -->
@@ -211,10 +263,15 @@
     </form>
   </div>
 
-  <!-- Overlay centrado -->
-  <div id="overlaySuccess" class="overlay" style="display:none;">
+  <!-- Overlays -->
+  <div id="overlaySuccess" class="overlay">
     <div class="overlay-content">
       <h1>✅ Registro enviado</h1>
+    </div>
+  </div>
+  <div id="overlayError" class="overlay">
+    <div class="overlay-content error">
+      <h1>❌ Ocurrió un error</h1>
     </div>
   </div>
 
@@ -232,7 +289,8 @@
   const btn    = $('#submitBtn');
   const msg    = $('#msg');
   const file   = $('#payment');
-  const overlay = $('#overlaySuccess');
+  const overlayOk  = $('#overlaySuccess');
+  const overlayErr = $('#overlayError');
 
   const fields = {
     konamiId:  $('#konamiId'),
@@ -241,6 +299,26 @@
     email:     $('#email'),
     phone:     $('#phone'),
   };
+
+  /* ===== Selector de evento (2×2 botones) ===== */
+  const eventHidden = $('#eventType');
+  const optionGrid  = $('#eventOptions');
+
+  optionGrid.addEventListener('click', (e) => {
+    const btn = e.target.closest('.opt-btn');
+    if (!btn) return;
+    const id = btn.dataset.id || '';
+    optionGrid.querySelectorAll('.opt-btn').forEach(b => b.classList.toggle('active', b === btn));
+    eventHidden.value = id;               // guardamos selección (lo usaremos después)
+    localStorage.setItem('pre_event', id);
+  });
+
+  // Restaura selección previa (si hubiera)
+  const prevSel = localStorage.getItem('pre_event');
+  if (prevSel) {
+    const selBtn = optionGrid.querySelector(`.opt-btn[data-id="${prevSel}"]`);
+    if (selBtn) selBtn.click();
+  }
 
   // Rellena desde localStorage
   Object.entries(fields).forEach(([k, el]) => {
@@ -261,11 +339,17 @@
     });
   }
 
+  function showOverlay(el, ms=2500){
+    el.style.display = 'flex';
+    setTimeout(() => { el.style.display = 'none'; }, ms);
+  }
+
   async function onSubmit(e){
     e?.preventDefault?.();
     e?.stopPropagation?.();
     msg.textContent = "";
 
+    // Guarda cache local
     Object.entries(fields).forEach(([k, el]) => {
       localStorage.setItem('pre_' + k, el.value.trim());
     });
@@ -276,15 +360,24 @@
       lastName:  fields.lastName.value.trim(),
       email:     fields.email.value.trim(),
       phone:     fields.phone.value.trim(),
-      paymentBase64: await fileToBase64(file.files?.[0])
+      paymentBase64: await fileToBase64(file.files?.[0]),
+      eventType: eventHidden.value || ''   // por ahora solo informativo; luego definimos su uso
     };
 
+    // Validaciones
+    if (!payload.eventType) {
+      msg.textContent = "Selecciona un evento.";
+      showOverlay(overlayErr, 2200);
+      return;
+    }
     if (!/^\d{10}$/.test(payload.konamiId)) {
       msg.textContent = "Konami ID debe tener 10 dígitos.";
+      showOverlay(overlayErr, 2200);
       return;
     }
     if (!payload.firstName || !payload.lastName) {
       msg.textContent = "Nombre y apellidos son obligatorios.";
+      showOverlay(overlayErr, 2200);
       return;
     }
 
@@ -307,7 +400,6 @@
       const text = await r.text();
       let j;
       try { j = JSON.parse(text); } catch { throw new Error('Respuesta inválida del servidor'); }
-
       if (!j.ok) throw new Error(j.message || "Error al enviar");
 
       localStorage.setItem('konamiId', payload.konamiId);
@@ -316,11 +408,11 @@
         j.paymentUrl ? '<br><span class="help">Comprobante subido correctamente.</span>' : ''
       }`;
 
-      overlay.style.display = 'flex';
-      setTimeout(() => { overlay.style.display = 'none'; }, 2500);
+      showOverlay(overlayOk, 2500);
 
     } catch(err){
       msg.textContent = '❌ ' + err.message;
+      showOverlay(overlayErr, 2500);
     } finally {
       btn.disabled = false;
       btn.textContent = oldBtn;
