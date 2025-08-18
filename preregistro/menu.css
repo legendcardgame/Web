@@ -190,15 +190,60 @@ body {
   pointer-events: none;
 }
 
-/* Si algún footer/gradiente se inyecta, lo desactivamos aquí también */
-#site-footer,
-.site-footer,
-.footer,
-.footer-gradient,
-.color-band {
-  display: none !important;
+/* ===== FIX FINAL MENÚ PREREGISTRO ===== */
+
+/* 1) Asegura un fondo uniforme (sin gradientes en la parte baja) */
+body {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(231,75,75,.20), transparent 60%),
+    radial-gradient(1200px 600px at 90% -10%, rgba(59,130,246,.22), transparent 60%),
+    var(--bg, #0c0f14) !important;
+}
+
+/* 2) Forzar que el bottom-nav exista y tape cualquier banda */
+.bottom-nav {
+  position: fixed !important;
+  left: 0; right: 0; bottom: 0;
+  z-index: 1000;
+  background: #101114 !important;
+  border-top: 1px solid #27282c !important;
+  box-shadow: 0 -4px 12px rgba(0,0,0,.35);
+}
+
+/* 3) “Tapón” sólido por si algo se asoma encima del nav */
+.bottom-nav::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: -18px;
+  height: 18px;
+  background: var(--bg, #0c0f14);
+  pointer-events: none;
+}
+
+/* 4) Desactiva cualquier footer/gradiente inyectado */
+#site-footer, .site-footer, .footer, .footer-gradient, .color-band {
+  display: block !important;  /* el #site-footer queda como contenedor del nav */
   background: transparent !important;
-  height: 0 !important;
+  height: auto !important;
   padding: 0 !important;
   border: 0 !important;
 }
+#site-footer::before,
+#site-footer::after,
+.footer-gradient::before,
+.footer-gradient::after,
+.color-band::before,
+.color-band::after,
+body::after {
+  content: none !important;
+  display: none !important;
+  background: transparent !important;
+}
+
+/* 5) Deja margen al final para que los botones no queden bajo el nav */
+.menu-wrap {
+  padding-bottom: calc(76px + 24px) !important;
+}
+}
+
