@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Preregistro · Legend Card Game</title>
-  <!-- Base UI (si ya tienes un styles.css aquí, puedes mantener el tuyo) -->
+  <!-- Si ya tienes un styles.css aquí, mantenlo -->
   <link rel="stylesheet" href="./styles.css">
-  <!-- Estilos específicos del menú -->
+  <!-- Estilos del nuevo menú -->
   <link rel="stylesheet" href="./menu.css">
 </head>
 <body>
@@ -14,28 +14,22 @@
     <h1 class="menu-title">Preregistro</h1>
     <p class="menu-sub">Elige una opción</p>
 
-    <!-- Hero: Evento principal -->
+    <!-- Hero: Evento principal (solo imagen, sin texto) -->
     <section id="heroSlot"></section>
 
-    <!-- Botón de consulta -->
+    <!-- Botón de Status -->
     <section class="consult-slot">
-      <a class="pill consult-btn" href="./utilities/consulta.html">
-        <span class="icon">🔎</span>
-        <span>Consultar estatus</span>
+      <a class="btn-hex" href="./utilities/consulta.html" aria-label="Status De Registro">
+        <span>Status De Registro</span>
       </a>
-      <p class="hint">Necesitarás tu <strong>Konami ID</strong> y una imagen del comprobante de pago.</p>
     </section>
 
-    <!-- Grid de side events -->
+    <!-- Grid de side events (6 botones-imagen) -->
     <section>
       <div id="gridSlot" class="grid-cards"></div>
     </section>
   </div>
 
-  <!-- JS del menú -->
   <script type="module" src="./menu.js"></script>
 </body>
 </html>
-
-
-
