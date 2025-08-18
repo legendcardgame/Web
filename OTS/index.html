@@ -5,16 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Torneo semanal</title>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="/Web/styles.css">
-  <link rel="stylesheet" href="/Web/main.css">
+
+  <!-- 1) Tu CSS local primero -->
   <link rel="stylesheet" href="styles.css"/>
+
+  <!-- 2) CSS globales y que gane el último -->
+  <link rel="stylesheet" href="/Web/main.css">
+  <link rel="stylesheet" href="/Web/styles.css?v=2">
 </head>
 <body>
   <!-- Header reutilizable -->
   <div id="site-header"></div>
 
-  <!-- Marca de agua / fondo -->
-  <div class="logo-fondo"></div>
+  <!-- Marca de agua / fondo (usa la clase que existe en el CSS global) -->
+  <div class="watermark"></div>
 
   <!-- Contenido -->
   <div class="container">
@@ -37,10 +41,10 @@
     <div id="historyContainer" style="display:none"></div>
   </div>
 
-  <!-- Footer reutilizable -->
+  <!-- Footer reutilizable (contiene el bottom-nav estilizado por /Web/styles.css) -->
   <div id="site-footer"></div>
 
-  <!-- Loader de layout (header/footer) -->
+  <!-- Loader de layout (inyecta header/footer con <header class="topbar"> y el nav inferior) -->
   <script src="/Web/assets/js/layout-loader.js"></script>
 
   <!-- Lógica de la página -->
