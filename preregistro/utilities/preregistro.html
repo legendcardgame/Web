@@ -320,7 +320,7 @@
     const prevSel = localStorage.getItem('pre_event');
     const target = fromUrl || prevSel || '';
     if (target) {
-      const selBtn = optionGrid.querySelector(\`.opt-btn[data-id="\${target}"]\`);
+      const selBtn = optionGrid.querySelector(`.opt-btn[data-id="${target}"]`);
       if (selBtn) selBtn.click();
     }
   })();
@@ -446,4 +446,5 @@
   </script>
 </body>
 </html>
+
 
