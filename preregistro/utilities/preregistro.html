@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Preregistro · Registrar</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./js/config.js"></script> <!-- Ahora cargamos la config como script normal -->
+</head>
+<body>
+  <div class="container">
+    <h1>Preregistro</h1>
+    <h2>Completa tus datos</h2>
+    <h5>El costo es de $330 MXN y deberán ser depositados a la siguiente cuenta</h5>
+    <h5>Banco: Azteca</h5>
+    <h5>Nombre: Luis Enrique Rodriguez Huerta</h5>
+    <h5>Clave Interbancaria: 127670013727315857</h5>
+    <form id="preForm" class="card">
+      <div class="row">
+        <div class="field">
+          <label for="konamiId">Konami ID (10 dígitos)</label>
+          <input id="konamiId" name="konamiId" type="text" inputmode="numeric" placeholder="0400XXXXXX" maxlength="10" required>
+          <div class="help">Usa 10 dígitos.</div>
+        </div>
+        <div class="field">
+          <label for="firstName">Nombre(s)</label>
+          <input id="firstName" name="firstName" type="text" placeholder="Ej. Juan Carlos" required>
+        </div>
+        <div class="field">
+          <label for="lastName">Apellidos</label>
+          <input id="lastName" name="lastName" type="text" placeholder="Ej. Pérez López" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="email">Correo</label>
+          <input id="email" name="email" type="email" placeholder="tucorreo@ejemplo.com">
+        </div>
+        <div class="field">
+          <label for="phone">Teléfono</label>
+          <input id="phone" name="phone" type="tel" placeholder="555-123-4567">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field" style="flex:1 1 100%">
+          <label for="payment">Comprobante de pago (imagen)</label>
+          <input id="payment" name="payment" type="file" accept="image/*">
+          <img id="preview" class="preview" alt="Vista previa">
+          <div class="help">Formatos aceptados: JPG/PNG. Tamaño sugerido &lt; 8MB.</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="submitBtn" class="btn" type="button">Enviar</button>
+        <a class="btn-link" href="./index.html">⬅ Volver al menú</a>
+      </div>
+
+      <div id="msg" class="notice"></div>
+
+      <!-- Loader: 4 puntos -->
+      <div id="loader" class="loader" style="display:none;">
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </form>
+  </div>
+
+  <!-- Overlay centrado -->
+  <div id="overlaySuccess" class="overlay" style="display:none;">
+    <div class="overlay-content">
+      <h1>✅ Registro enviado</h1>
+    </div>
+  </div>
+
+<script>
+const $ = s => document.querySelector(s);
+const pad10 = id => String(id || "").replace(/\D/g,'').padStart(10,'0');
+
+const form   = $('#preForm');
+const btn    = $('#submitBtn');
+const msg    = $('#msg');
+const file   = $('#payment');
+const overlay = $('#overlaySuccess');
+
+const fields = {
+  konamiId:  $('#konamiId'),
+  firstName: $('#firstName'),
+  lastName:  $('#lastName'),
+  email:     $('#email'),
+  phone:     $('#phone'),
+};
+
+// Rellena desde localStorage
+Object.entries(fields).forEach(([k, el]) => {
+  const v = localStorage.getItem('pre_' + k);
+  if (v) el.value = v;
+});
+
+form.addEventListener('submit', (e) => { e.preventDefault(); e.stopPropagation(); });
+btn.addEventListener('click', onSubmit);
+
+async function fileToBase64(f){
+  if (!f) return "";
+  const r = new FileReader();
+  return await new Promise((res, rej) => {
+    r.onload = () => res(r.result);
+    r.onerror = rej;
+    r.readAsDataURL(f);
+  });
+}
+
+async function onSubmit(e){
+  e?.preventDefault?.();
+  e?.stopPropagation?.();
+  msg.textContent = "";
+
+  Object.entries(fields).forEach(([k, el]) => {
+    localStorage.setItem('pre_' + k, el.value.trim());
+  });
+
+  const payload = {
+    konamiId:  pad10(fields.konamiId.value),
+    firstName: fields.firstName.value.trim(),
+    lastName:  fields.lastName.value.trim(),
+    email:     fields.email.value.trim(),
+    phone:     fields.phone.value.trim(),
+    paymentBase64: await fileToBase64(file.files?.[0])
+  };
+
+  if (!/^\d{10}$/.test(payload.konamiId)) {
+    msg.textContent = "Konami ID debe tener 10 dígitos.";
+    return;
+  }
+  if (!payload.firstName || !payload.lastName) {
+    msg.textContent = "Nombre y apellidos son obligatorios.";
+    return;
+  }
+
+  btn.disabled = true;
+  const oldBtn = btn.textContent;
+  btn.textContent = 'Enviando';
+  btn.classList.add('dots');
+
+  try {
+    const r = await fetch(window.LCG.API_BASE, {
+      method:'POST',
+      body: (() => {
+        const fd = new FormData();
+        Object.entries(payload).forEach(([k,v]) => v && fd.append(k, v));
+        return fd;
+      })(),
+      redirect: 'follow',
+    });
+
+    const text = await r.text();
+    let j;
+    try { j = JSON.parse(text); } catch { throw new Error('Respuesta inválida del servidor'); }
+
+    if (!j.ok) throw new Error(j.message || "Error al enviar");
+
+    localStorage.setItem('konamiId', payload.konamiId);
+
+    msg.innerHTML = `✅ ${j.mode === 'insert' ? 'Registro creado' : 'Datos actualizados'}.${
+      j.paymentUrl ? '<br><span class="help">Comprobante subido correctamente.</span>' : ''
+    }`;
+
+    overlay.style.display = 'flex';
+    setTimeout(() => { overlay.style.display = 'none'; }, 2500);
+
+  } catch(err){
+    msg.textContent = '❌ ' + err.message;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = oldBtn;
+    btn.classList.remove('dots');
+  }
+}
+</script>
+</body>
+</html>
+
+
+
+

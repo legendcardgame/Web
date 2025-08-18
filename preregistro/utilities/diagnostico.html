@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Diagnóstico · Preregistro</title>
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    .status { display:inline-block; margin-left:10px; font-weight:600; }
+    .ok  { color:#7CFC8A; }
+    .bad { color:#ff7676; }
+    pre  { background:#1f1f1f; color:#fff; padding:12px; border-radius:10px; overflow:auto; }
+    .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin:10px 0; }
+    input { padding:8px 10px; border-radius:8px; border:1px solid #444; background:#111; color:#fff; }
+    button { padding:10px 14px; border:0; border-radius:10px; background:#e74c3c; color:#fff; font-weight:700; cursor:pointer; }
+    button.secondary { background:#333; }
+  </style>
+</head>
+<body>
+  <h1>Diagnóstico</h1>
+
+  <div class="row">
+    <button id="btnPing">Ping</button>
+    <button id="btnList">Listar (admin)</button>
+    <span id="status" class="status"></span>
+  </div>
+
+  <pre id="output">Listo.</pre>
+
+<script type="module" src="./js/diagnostico.js?v=2"></script>
+</body>
+</html>

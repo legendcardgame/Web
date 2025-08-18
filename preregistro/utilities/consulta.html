@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Consulta tu preregistro</title>
+
+  <!-- Tus estilos base -->
+  <link rel="stylesheet" href="./styles.css">
+
+  <!-- Estilos específicos de esta vista (no rompen los existentes) -->
+  <style>
+    /* Cabecera */
+    .hero-title{
+      font-size: clamp(1.6rem, 3.8vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: .5px;
+      margin: 8px 0 2px;
+    }
+    .hero-sub{
+      color:#bfbfbf;
+      margin: 0 0 18px;
+    }
+
+    /* Card y layout */
+    .card{
+      background:#121212;
+      border-radius:14px;
+      padding:16px;
+      box-shadow: 0 6px 28px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.02);
+      border:1px solid rgba(255,255,255,.06);
+    }
+    .row{display:flex; gap:12px; flex-wrap:wrap;}
+    .field{flex:1 1 100%;}
+    .field label{display:block; font-size:.95rem; color:#cfcfcf; margin-bottom:6px;}
+    .field input{
+      width:100%; background:#1a1a1a; color:#eee; border:1px solid rgba(255,255,255,.08);
+      border-radius:10px; padding:12px 14px; font-size:1rem; outline:none;
+    }
+    .actions{display:flex; gap:12px; align-items:center; margin-top:14px;}
+
+    /* Botón con loader de puntos */
+    .btn-primary{
+      background:#e53935; color:#fff; border:none; border-radius:12px; padding:12px 18px;
+      font-weight:700; cursor:pointer; transition:transform .08s ease, filter .18s ease;
+      box-shadow: 0 10px 24px rgba(229,57,53,.25);
+    }
+    .btn-primary:active{ transform: translateY(1px) scale(.99); }
+    .btn-primary:disabled{ opacity:.7; cursor:not-allowed; filter:saturate(.7); }
+
+    .dots::after { content:''; animation:dots 1.4s steps(4,end) infinite; }
+    @keyframes dots { 0%{content:''} 25%{content:'.'} 50%{content:'..'} 75%{content:'...'} 100%{content:'....'} }
+
+    /* Resultado elegante */
+    .result-card{
+      margin-top:16px; background:#0f0f0f; border:1px solid rgba(255,255,255,.06);
+      border-radius:14px; padding:16px; color:#eee;
+      box-shadow: 0 10px 26px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.03);
+    }
+    .grid{
+      display:grid; gap:10px; grid-template-columns: 1fr; 
+    }
+    @media (min-width:700px){ .grid{ grid-template-columns: 1fr 1fr; } }
+
+    .kv{display:flex; flex-direction:column; gap:2px;}
+    .kv .k{font-size:.85rem; color:#a6a6a6;}
+    .kv .v{font-weight:700;}
+
+    .status-pill{
+      display:inline-block; padding:6px 10px; border-radius:999px; font-weight:800; letter-spacing:.3px;
+      box-shadow: inset 0 -1px 0 rgba(255,255,255,.12);
+    }
+    .pill-aceptado{ background:rgba(76,175,80,.16); color:#7ee28a; border:1px solid rgba(76,175,80,.35); }
+    .pill-rechazado{ background:rgba(244,67,54,.14); color:#ff9e99; border:1px solid rgba(244,67,54,.35); }
+    .pill-pendiente{ background:rgba(255,193,7,.12); color:#ffd86b; border:1px solid rgba(255,193,7,.36); }
+
+    .status-msg{
+      margin-top:12px; padding:12px; border-radius:12px; line-height:1.45;
+      background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06);
+    }
+    .status-msg strong{ font-weight:900; }
+
+    /* Mensajito superior */
+    .notice{margin-top:10px; color:#9ad0ff;}
+    .notice.err{color:#ff9a9a;}
+    .notice.ok{color:#99f5b2;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="hero-title">Consulta tu preregistro</h1>
+    <p class="hero-sub">Ingresa tu Konami ID para ver el estado de tu registro.</p>
+
+    <!-- Formulario -->
+    <form id="formConsulta" class="card" autocomplete="off">
+      <div class="row">
+        <div class="field" style="flex:1 1 100%">
+          <label for="konamiId">Konami ID (10 dígitos)</label>
+          <input id="konamiId" name="konamiId" type="text" inputmode="numeric"
+                 placeholder="0400XXXXXX" maxlength="10" required>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="btnBuscar" class="btn-primary" type="submit">Buscar</button>
+        <a class="btn-link" href="./index.html">⬅ Volver al menú</a>
+      </div>
+
+      <div id="msg" class="notice"></div>
+    </form>
+
+    <!-- Aquí se monta el resultado -->
+    <div id="resultado"></div>
+  </div>
+
+  <!-- Config global (API_BASE) -->
+  <script src="./js/config.js"></script>
+  <script>
+    // Helpers
+    const $ = s => document.querySelector(s);
+    const pad10 = s => String(s||'').replace(/\D/g,'').padStart(10,'0');
+
+    const form = $('#formConsulta');
+    const btn  = $('#btnBuscar');
+    const msg  = $('#msg');
+    const out  = $('#resultado');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = '';
+      out.innerHTML = '';
+
+      const konami = pad10( $('#konamiId').value );
+      if (!/^\d{10}$/.test(konami)){
+        msg.textContent = 'Ingresa un Konami ID válido de 10 dígitos.';
+        msg.className = 'notice err';
+        return;
+      }
+
+      // Loader en botón
+      btn.disabled = true;
+      btn.textContent = 'Buscando';
+      btn.classList.add('dots');
+
+      try{
+        const url = `${window.LCG.API_BASE}?konamiId=${encodeURIComponent(konami)}&_t=${Date.now()}`;
+        const r = await fetch(url);
+        const j = await r.json();
+
+        if (!j.ok) {
+          msg.textContent = 'No encontrado';
+          msg.className = 'notice err';
+          out.innerHTML = '';
+          return;
+        }
+
+        const d = j.data || {};
+        const est = String(d.status || '').toLowerCase();
+
+        // Píldora de estado
+        const pillCls =
+          est === 'aceptado' ? 'pill-aceptado' :
+          est === 'rechazado' ? 'pill-rechazado' : 'pill-pendiente';
+        const pillTxt = (d.status || 'Pendiente');
+
+        // Mensaje por estado (con negritas)
+        let msgHtml = '';
+        if (est === 'aceptado') {
+          msgHtml = `
+            <div class="status-msg">
+              <strong>Solicitud Aceptada</strong><br><br>
+              Tu solicitud para el <strong>Yu-Gi-Oh! Regional Qualifier</strong> en Puebla ha sido
+              <strong>aprobada</strong>. Te esperamos el <strong>13 de septiembre</strong> en la sede del evento.
+              <strong>Recuerda</strong>: Debes presentarte con tu <i>Decklist</i> ya elaborada y lista para entregar.
+            </div>`;
+        } else if (est === 'rechazado') {
+          msgHtml = `
+            <div class="status-msg">
+              <strong>Solicitud Rechazada</strong><br><br>
+              Lo sentimos, tu solicitud para el <strong>Yu-Gi-Oh! Regional Qualifier</strong> en Puebla
+              <strong>no ha sido aprobada</strong>. Para cualquier aclaración o información adicional, por favor
+              comunícate al número <strong>+52 222 541 5059</strong>.
+            </div>`;
+        } else {
+          msgHtml = `
+            <div class="status-msg">
+              <strong>Solicitud Pendiente</strong><br><br>
+              Tu solicitud para el <strong>Yu-Gi-Oh! Regional Qualifier</strong> en Puebla está
+              <strong>en revisión</strong>. Te pedimos un poco de paciencia mientras confirmamos tu inscripción.
+              Verifica más tarde.
+            </div>`;
+        }
+
+        out.innerHTML = `
+          <div class="result-card">
+            <div class="grid">
+              <div class="kv">
+                <div class="k">Konami ID</div>
+                <div class="v">${d.konamiId || konami}</div>
+              </div>
+              <div class="kv">
+                <div class="k">Nombre</div>
+                <div class="v">${[d.firstName, d.lastName].filter(Boolean).join(' ')}</div>
+              </div>
+              <div class="kv">
+                <div class="k">Correo</div>
+                <div class="v">${d.email || '—'}</div>
+              </div>
+              <div class="kv">
+                <div class="k">Teléfono</div>
+                <div class="v">${d.phone || '—'}</div>
+              </div>
+              <div class="kv">
+                <div class="k">Comprobante</div>
+                <div class="v">${d.paymentUrl ? `<a href="${d.paymentUrl}" target="_blank">Ver comprobante</a>` : '—'}</div>
+              </div>
+              <div class="kv">
+                <div class="k">Estatus</div>
+                <div class="v"><span class="status-pill ${pillCls}">${pillTxt}</span></div>
+              </div>
+            </div>
+            ${msgHtml}
+          </div>
+        `;
+
+        msg.textContent = 'Listo.';
+        msg.className = 'notice ok';
+
+      }catch(err){
+        msg.textContent = 'Error: ' + err.message;
+        msg.className = 'notice err';
+        out.innerHTML = '';
+      }finally{
+        btn.disabled = false;
+        btn.textContent = 'Buscar';
+        btn.classList.remove('dots');
+      }
+    });
+  </script>
+</body>
+</html>

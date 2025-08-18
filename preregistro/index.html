@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Preregistro · Legend Card Game</title>
+  <!-- Reutiliza tu tema actual -->
+  <link rel="stylesheet" href="./styles.css">
+  <!-- Estilos específicos del menú -->
+  <link rel="stylesheet" href="./menu.css">
+</head>
+<body>
+  <div class="menu-wrap container">
+    <h1 class="menu-title">Preregistro</h1>
+    <p class="menu-sub">Elige una opción</p>
+
+    <!-- Hero: Evento principal -->
+    <section id="heroSlot"></section>
+
+    <!-- Botón de consulta -->
+    <section class="consult-slot">
+      <a class="pill consult-btn" href="./utilities/consulta.html">
+        <span class="icon">🔎</span>
+        <span>Consultar estatus</span>
+      </a>
+      <p class="hint">Necesitarás tu <strong>Konami ID</strong> y una imagen del comprobante de pago.</p>
+    </section>
+
+    <!-- Grid de side events -->
+    <section>
+      <div id="gridSlot" class="grid-cards"></div>
+    </section>
+  </div>
+
+  <!-- Render del menú -->
+  <script type="module" src="./menu.js"></script>
+</body>
+</html>
