@@ -53,9 +53,10 @@ track.addEventListener('scroll', ()=>{
   }
 }, {passive:true});
 
-// --- Accesos directos desde los banners del carrusel ---
+// --- Accesos directos desde los banners del carrusel (usa ?id=) ---
 (function attachCarouselLinks() {
-  // Mapea nombres de archivo -> slug del evento
+  // Si el nombre del archivo ya coincide con el id del evento,
+  // no necesitas mapa. Lo dejo por si en algún caso no coinciden.
   const slugMap = {
     'principal':       'principal',
     'dragon-duel':     'dragon-duel',
@@ -69,21 +70,30 @@ track.addEventListener('scroll', ()=>{
   document.querySelectorAll('.carousel .slide img').forEach(img => {
     const src  = img.getAttribute('src') || '';
     const file = src.split('/').pop().split('.')[0].toLowerCase(); // p.ej. "edison"
-    const slug = slugMap[file];
+    const id   = slugMap[file] || file;  // por si coincide exacto
 
-    if (!slug) return; // si el banner no corresponde a un evento, lo ignoramos
+    // arma la URL correcta para tu página dinámica
+    const target = `regional/evento.html?id=${encodeURIComponent(id)}`;
 
+    // si ya está envuelto en <a>, actualiza su href; si no, navega por JS
+    const wrapper = img.closest('a.slide');
+    if (wrapper) {
+      wrapper.href = target;
+      return;
+    }
+
+    // si no hay <a>, convierte la imagen en enlace clickable y accesible
     img.style.cursor = 'pointer';
     img.setAttribute('role', 'link');
     img.setAttribute('tabindex', '0');
 
-    const go = () => {
-      window.location.href = `regional/evento.html?e=${encodeURIComponent(slug)}`;
-    };
-
+    const go = () => window.location.href = target;
     img.addEventListener('click', go);
-    img.addEventListener('keydown', (e) => {
+    img.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
+    });
+  });
+})();
     });
   });
 })();
