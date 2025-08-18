@@ -41,6 +41,13 @@
   filter: drop-shadow(0 10px 24px rgba(0,0,0,.5)) drop-shadow(0 0 14px var(--hex-shadow));
 }
 
+/* Contenedor para centrar el botón Status */
+.status-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
 /* ---------- Grid de side events (6) ---------- */
 .grid-cards{
   display:grid;
@@ -76,8 +83,3 @@
 .img-card:hover img, .img-card:focus-within img{ filter: brightness(.78); }
 .img-card:hover::after, .img-card:focus-within::after{ opacity:1; }
 
-.status-btn {
-  display: block;
-  margin: 20px auto;   /* centra horizontalmente */
-  text-align: center;  /* asegura que el texto quede centrado */
-}
