@@ -46,5 +46,43 @@
 
   <!-- JS del menú -->
   <script type="module" src="./menu.js"></script>
+
+  <!-- Memoria de pestaña activa: Eventos -->
+  <script>
+    (function () {
+      const KEY = 'lcg-tab';
+      const VALUE = 'preregistro'; // clave del tab "Eventos"
+
+      function markActive() {
+        const nav = document.getElementById('bottomNav');
+        if (!nav) { setTimeout(markActive, 60); return; }
+        nav.querySelectorAll('.nav-item').forEach(a => {
+          a.classList.toggle('active', a.dataset.key === VALUE);
+        });
+      }
+
+      // Guarda memoria y marca activo al cargar
+      localStorage.setItem(KEY, VALUE);
+      markActive();
+
+      // Mantener memoria al navegar a páginas de evento
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest('a[href]');
+        if (!a) return;
+        const href = a.getAttribute('href') || '';
+        if (/regional\/evento\.html/i.test(href)) {
+          localStorage.setItem(KEY, VALUE);
+        }
+      });
+
+      // Defensa adicional en navegaciones del historial
+      window.addEventListener('pageshow', () => {
+        if (localStorage.getItem(KEY) !== VALUE) {
+          localStorage.setItem(KEY, VALUE);
+        }
+        markActive();
+      });
+    })();
+  </script>
 </body>
 </html>
