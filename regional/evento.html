@@ -208,7 +208,7 @@
       document.querySelector(".cta-center").style.display = "none";
     } else {
       // Configuramos el botón
-      const link = ev.preregistro || '../preregistro/index.html';
+      const link = ev.preregistro || '../preregistro/utilities/preregistro.html';
       evBtnPrereg.href = link + (link.includes('?') ? '&' : '?') + 'evento=' + encodeURIComponent(ev.id);
     }
   } else {
