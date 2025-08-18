@@ -6,41 +6,46 @@
   <title>Evento · Legend Card Game</title>
   <link rel="stylesheet" href="../styles.css">
   <style>
-    body {
-      background:#000;
-    }
+    /* ===== Base ===== */
+    body{ background:#000; }
     .ev-wrap{max-width:960px;margin:0 auto;padding:20px}
+
+    /* ===== Encabezado con gradiente rojo/azul ===== */
+    .ev-header{
+      margin:0 -12px 14px;
+      border-radius:16px;
+      padding:18px 12px;
+      background:
+        linear-gradient(90deg, rgba(231,75,75,.75) 0%, rgba(59,130,246,.75) 100%);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    .ev-title{
+      margin:0;
+      text-align:center;
+      font-size:clamp(22px,3.8vw,36px);
+      font-weight:900;
+      letter-spacing:.3px;
+    }
+
+    /* ===== Hero ===== */
     .ev-hero{position:relative;border-radius:18px;overflow:hidden;background:#111;box-shadow:0 10px 40px rgba(0,0,0,.4)}
     .ev-hero img{width:100%;height:auto;display:block}
 
-    /* Encabezado centrado */
-    .ev-head{display:flex;justify-content:center;margin:20px 4px 10px}
-    .ev-title{font-size:clamp(22px,3.6vw,34px);font-weight:800;letter-spacing:.3px;text-align:center}
-
-    .ev-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:16px 4px}
-    @media(min-width:860px){.ev-grid{grid-template-columns:1fr}} /* forzar solo una columna */
-
-    /* Cartas neutras */
+    /* ===== Cards neutrales ===== */
     .ev-card{
       background:#111;
       border:1px solid rgba(255,255,255,.08);
       border-radius:16px; padding:16px;
-      text-align:center; /* todo centrado */
+      box-shadow:none;
     }
-    .ev-card h3{margin:.2rem 0 .6rem;font-size:1rem;opacity:.9;text-align:center}
-    .ev-desc{line-height:1.6;opacity:.95;text-align:center}
+    .ev-card h3{margin:.2rem 0 .8rem;font-size:1.05rem;opacity:.95;text-align:center}
 
-    .muted{opacity:.65}
-    .ev-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;justify-items:center}
-    .ev-meta div{
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.1);
-      border-radius:12px; padding:10px; text-align:center;
-    }
-    .ev-price{font-size:1.15rem;font-weight:700}
+    /* Descripción centrada */
+    .ev-desc{line-height:1.65;opacity:.97;text-align:center}
 
-    /* Botón */
-    .cta-center{display:flex;justify-content:center;margin-top:12px}
+    /* CTA hex rojo centrado */
+    .cta-center{display:flex;justify-content:center;margin-top:14px}
     .btn-hex{
       --hex-bg1:#e00119; --hex-bg2:#a80012; --hex-shadow:#002f5a;
       position:relative; display:inline-flex; align-items:center; justify-content:center;
@@ -51,44 +56,101 @@
       clip-path:polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
     }
     .btn-hex:hover{transform:translateY(-2px); filter:drop-shadow(0 10px 24px rgba(0,0,0,.5)) drop-shadow(0 0 14px var(--hex-shadow));}
+
+    /* ===== Información: grid 2×2 simétrico y centrado ===== */
+    .ev-info{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;justify-items:center}
+    .info-cell{
+      width:100%;
+      max-width:420px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:14px;
+      padding:12px;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      min-height:110px;           /* misma altura */
+      text-align:center;
+    }
+    .muted{opacity:.68}
+    .ev-price{font-size:1.2rem;font-weight:800}
+
+    @media (max-width:700px){
+      .ev-info{grid-template-columns:1fr}
+      .info-cell{max-width:560px}
+    }
+
+    /* ===== Mapa de Sede centrado ===== */
+    .map-wrap{
+      position:relative; padding-bottom:56.25%; height:0; overflow:hidden;
+      border-radius:12px; border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 10px 30px rgba(0,0,0,.35);
+      max-width:920px; margin:0 auto;
+    }
+    .map-wrap iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+    .btn-open-maps-wrap{ display:flex; justify-content:center; margin:.9rem 0 0; }
+    .btn-open-maps{ min-width:unset; padding:.6rem 1rem; clip-path:none; border-radius:10px; }
   </style>
 </head>
 <body>
   <div class="ev-wrap">
-    <!-- Solo título centrado -->
-    <div class="ev-head">
-      <div class="ev-title" id="evTitle">Cargando…</div>
-    </div>
+    <!-- Encabezado con gradiente -->
+    <header class="ev-header">
+      <h1 class="ev-title" id="evTitle">Cargando…</h1>
+    </header>
 
-    <div class="ev-hero">
-      <img id="evBanner" alt="Banner del evento">
-    </div>
+    <!-- Banner -->
+    <div class="ev-hero"><img id="evBanner" alt="Banner del evento"></div>
 
-    <div class="ev-grid">
-      <section class="ev-card">
-        <h3>Descripción</h3>
-        <div class="ev-desc" id="evDesc">—</div>
+    <!-- Descripción + CTA -->
+    <section class="ev-card" style="margin-top:16px;">
+      <h3>Descripción</h3>
+      <div class="ev-desc" id="evDesc">—</div>
+      <div class="cta-center">
+        <a id="evBtnPrereg" class="btn-hex" href="#" target="_self"><span>Preregístrate ahora</span></a>
+      </div>
+    </section>
 
-        <!-- CTA centrado -->
-        <div class="cta-center">
-          <a id="evBtnPrereg" class="btn-hex" href="#" target="_self">
-            <span>Preregístrate ahora</span>
-          </a>
+    <!-- Información (simétrica y centrada) -->
+    <section class="ev-card" style="margin-top:16px;">
+      <h3>Información</h3>
+      <div class="ev-info">
+        <div class="info-cell">
+          <div class="muted">Costo</div>
+          <div class="ev-price" id="evCost">—</div>
         </div>
-      </section>
-
-      <section class="ev-card">
-        <h3>Información</h3>
-        <div class="ev-meta">
-          <div><div class="muted">Costo</div><div class="ev-price" id="evCost">—</div></div>
-          <div><div class="muted">Incluye</div><div id="evIncluye">—</div></div>
-          <div><div class="muted">Fecha</div><div id="evDate">—</div></div>
-          <div><div class="muted">Formato</div><div id="evFormato">—</div></div>
+        <div class="info-cell">
+          <div class="muted">Incluye</div>
+          <div id="evIncluye">—</div>
         </div>
-      </section>
-    </div>
+        <div class="info-cell">
+          <div class="muted">Fecha</div>
+          <div id="evDate">—</div>
+        </div>
+        <div class="info-cell">
+          <div class="muted">Formato</div>
+          <div id="evFormato">—</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sede (mapa centrado) -->
+    <section class="ev-card" style="margin-top:16px; text-align:center;">
+      <h3>Sede</h3>
+      <div class="map-wrap">
+        <!-- Hotel Plaza Poblana (coords fijas) -->
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.210823486798!2d-98.203949!3d19.073506!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc0aeb8a57c33%3A0x1c5679dd7b98c1d2!2sHotel%20Plaza%20Poblana!5e0!3m2!1ses-419!2smx!4v1734567890123"
+          loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="btn-open-maps-wrap">
+        <a class="btn-hex btn-open-maps" target="_blank" href="https://maps.app.goo.gl/9QF6yTtPtDuUg3MQA">
+          Abrir en Google Maps
+        </a>
+      </div>
+    </section>
   </div>
 
+  <!-- Catálogo de eventos -->
   <script src="./eventos.js"></script>
   <script>
     const params = new URLSearchParams(location.search);
@@ -97,21 +159,21 @@
 
     if (ev) {
       document.title = ev.nombre + ' · Legend Card Game';
-      document.getElementById('evTitle').textContent = ev.nombre;
-      document.getElementById('evDesc').textContent  = ev.descripcion;
-      document.getElementById('evBanner').src        = ev.banner;
-      document.getElementById('evBanner').alt        = 'Banner ' + ev.nombre;
-      document.getElementById('evCost').textContent  = ev.costo || '—';
-      document.getElementById('evDate').textContent  = ev.fecha || 'Por confirmar';
-      document.getElementById('evIncluye').textContent  = ev.incluye || '—';
-      document.getElementById('evFormato').textContent  = ev.formato || '—';
+      evTitle.textContent = ev.nombre;
+      evDesc.textContent  = ev.descripcion;
+      evBanner.src        = ev.banner;
+      evBanner.alt        = 'Banner ' + ev.nombre;
+
+      evCost.textContent     = ev.costo    || '—';
+      evDate.textContent     = ev.fecha    || 'Por confirmar';
+      evIncluye.textContent  = ev.incluye  || '—';
+      evFormato.textContent  = ev.formato  || '—';
 
       const link = ev.preregistro || '../preregistro/index.html';
-      document.getElementById('evBtnPrereg').href =
-        link + (link.includes('?') ? '&' : '?') + 'evento=' + encodeURIComponent(ev.id);
+      evBtnPrereg.href = link + (link.includes('?') ? '&' : '?') + 'evento=' + encodeURIComponent(ev.id);
     } else {
-      document.getElementById('evTitle').textContent = 'Evento no encontrado';
-      document.getElementById('evDesc').textContent  = 'Verifica el enlace o regresa al inicio.';
+      evTitle.textContent = 'Evento no encontrado';
+      evDesc.textContent  = 'Verifica el enlace o regresa al inicio.';
     }
   </script>
 </body>
