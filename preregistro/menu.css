@@ -150,3 +150,9 @@ body {
 /* 6) Si usas botones .qa-btn en esta página, manténlos sólidos también */
 .qa-btn.primary { background:#e53935 !important; color:#fff !important; opacity:1 !important; }
 .qa-btn.ghost   { background:#1b1b1e !important; color:#fff !important; border:1px solid #2a2a2f !important; opacity:1 !important; }
+
+/* Quitar gradiente rojo/azul del menú inferior */
+.bottom-nav {
+  background: #101114 !important; /* fondo sólido oscuro */
+  border-top: 1px solid #27282c;  /* línea sutil de separación */
+}
