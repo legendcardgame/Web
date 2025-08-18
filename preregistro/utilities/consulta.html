@@ -3,26 +3,36 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Consulta tu preregistro</title>
+  <title>Consulta tu preregistro · Legend Card Game</title>
 
-  <!-- Tus estilos base -->
-  <link rel="stylesheet" href="./styles.css">
+  <!-- Estilos locales del preregistro -->
+  <link rel="stylesheet" href="../styles.css">
 
-  <!-- Estilos específicos de esta vista (no rompen los existentes) -->
+  <!-- Estilos globales (encabezado, watermark, bottom-nav, etc.) -->
+  <link rel="stylesheet" href="/Web/main.css">
+  <link rel="stylesheet" href="/Web/styles.css?v=2">
+
   <style>
-    /* Cabecera */
+    /* ===== Ajustes propios de esta vista ===== */
+    .consulta-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 20px 16px;
+    }
+
     .hero-title{
       font-size: clamp(1.6rem, 3.8vw, 2.4rem);
       font-weight: 800;
       letter-spacing: .5px;
       margin: 8px 0 2px;
+      text-align: center;
     }
     .hero-sub{
       color:#bfbfbf;
       margin: 0 0 18px;
+      text-align: center;
     }
 
-    /* Card y layout */
     .card{
       background:#121212;
       border-radius:14px;
@@ -30,6 +40,7 @@
       box-shadow: 0 6px 28px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.02);
       border:1px solid rgba(255,255,255,.06);
     }
+
     .row{display:flex; gap:12px; flex-wrap:wrap;}
     .field{flex:1 1 100%;}
     .field label{display:block; font-size:.95rem; color:#cfcfcf; margin-bottom:6px;}
@@ -37,29 +48,51 @@
       width:100%; background:#1a1a1a; color:#eee; border:1px solid rgba(255,255,255,.08);
       border-radius:10px; padding:12px 14px; font-size:1rem; outline:none;
     }
-    .actions{display:flex; gap:12px; align-items:center; margin-top:14px;}
 
-    /* Botón con loader de puntos */
-    .btn-primary{
-      background:#e53935; color:#fff; border:none; border-radius:12px; padding:12px 18px;
-      font-weight:700; cursor:pointer; transition:transform .08s ease, filter .18s ease;
-      box-shadow: 0 10px 24px rgba(229,57,53,.25);
+    /* Centrar acciones y botón */
+    .actions{
+      display:flex; justify-content:center; align-items:center;
+      margin-top:14px;
     }
-    .btn-primary:active{ transform: translateY(1px) scale(.99); }
-    .btn-primary:disabled{ opacity:.7; cursor:not-allowed; filter:saturate(.7); }
 
+    /* ===== Botón HEX rojo (igual que Status de Registro) ===== */
+    .btn-hex {
+      --hex-bg1: #e00119;
+      --hex-bg2: #a80012;
+      --hex-shadow: #002f5a;
+
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 28px;
+      min-width: 200px;
+      color: #fff;
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: 0.2px;
+      background: linear-gradient(180deg, var(--hex-bg1), var(--hex-bg2));
+      filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 10px var(--hex-shadow));
+      transition: transform 0.15s ease, filter 0.25s ease;
+      clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
+      border: 0;
+      cursor: pointer;
+    }
+    .btn-hex:hover,
+    .btn-hex:focus { transform: translateY(-2px); filter: drop-shadow(0 10px 24px rgba(0,0,0,.5)) drop-shadow(0 0 14px var(--hex-shadow)); }
+    .btn-hex:disabled { opacity:.7; cursor:not-allowed; filter:saturate(.8); }
+
+    /* Loader con puntos en el texto del botón */
     .dots::after { content:''; animation:dots 1.4s steps(4,end) infinite; }
     @keyframes dots { 0%{content:''} 25%{content:'.'} 50%{content:'..'} 75%{content:'...'} 100%{content:'....'} }
 
-    /* Resultado elegante */
+    /* Resultado */
     .result-card{
       margin-top:16px; background:#0f0f0f; border:1px solid rgba(255,255,255,.06);
       border-radius:14px; padding:16px; color:#eee;
       box-shadow: 0 10px 26px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.03);
     }
-    .grid{
-      display:grid; gap:10px; grid-template-columns: 1fr; 
-    }
+    .grid{ display:grid; gap:10px; grid-template-columns:1fr; }
     @media (min-width:700px){ .grid{ grid-template-columns: 1fr 1fr; } }
 
     .kv{display:flex; flex-direction:column; gap:2px;}
@@ -80,14 +113,17 @@
     }
     .status-msg strong{ font-weight:900; }
 
-    /* Mensajito superior */
     .notice{margin-top:10px; color:#9ad0ff;}
     .notice.err{color:#ff9a9a;}
     .notice.ok{color:#99f5b2;}
   </style>
 </head>
 <body>
-  <div class="container">
+  <!-- Header reutilizable y watermark -->
+  <div id="site-header"></div>
+  <div class="watermark"></div>
+
+  <div class="consulta-wrap container">
     <h1 class="hero-title">Consulta tu preregistro</h1>
     <p class="hero-sub">Ingresa tu Konami ID para ver el estado de tu registro.</p>
 
@@ -101,24 +137,31 @@
         </div>
       </div>
 
+      <!-- Acciones: botón centrado y con estilo hex -->
       <div class="actions">
-        <button id="btnBuscar" class="btn-primary" type="submit">Buscar</button>
-        <a class="btn-link" href="./index.html">⬅ Volver al menú</a>
+        <button id="btnBuscar" class="btn-hex" type="submit">Buscar</button>
       </div>
 
       <div id="msg" class="notice"></div>
     </form>
 
-    <!-- Aquí se monta el resultado -->
+    <!-- Resultado -->
     <div id="resultado"></div>
   </div>
 
+  <!-- Footer reutilizable (bottom-nav) -->
+  <div id="site-footer"></div>
+
+  <!-- Loader de layout (inyecta header y footer) -->
+  <script src="/Web/assets/js/layout-loader.js"></script>
+
   <!-- Config global (API_BASE) -->
-  <script src="./js/config.js"></script>
+  <script src="../js/config.js"></script>
+
+  <!-- Lógica de consulta -->
   <script>
-    // Helpers
     const $ = s => document.querySelector(s);
-    const pad10 = s => String(s||'').replace(/\D/g,'').padStart(10,'0');
+    const pad10 = s => String(s||'').replace(/\D/g,'').padStart(10, '0');
 
     const form = $('#formConsulta');
     const btn  = $('#btnBuscar');
@@ -131,7 +174,7 @@
       out.innerHTML = '';
 
       const konami = pad10( $('#konamiId').value );
-      if (!/^\d{10}$/.test(konami)){
+      if (!/^\\d{10}$/.test(konami)){
         msg.textContent = 'Ingresa un Konami ID válido de 10 dígitos.';
         msg.className = 'notice err';
         return;
@@ -143,7 +186,7 @@
       btn.classList.add('dots');
 
       try{
-        const url = `${window.LCG.API_BASE}?konamiId=${encodeURIComponent(konami)}&_t=${Date.now()}`;
+        const url = \`\${window.LCG.API_BASE}?konamiId=\${encodeURIComponent(konami)}&_t=\${Date.now()}\`;
         const r = await fetch(url);
         const j = await r.json();
 
@@ -163,65 +206,65 @@
           est === 'rechazado' ? 'pill-rechazado' : 'pill-pendiente';
         const pillTxt = (d.status || 'Pendiente');
 
-        // Mensaje por estado (con negritas)
+        // Mensaje por estado
         let msgHtml = '';
         if (est === 'aceptado') {
-          msgHtml = `
+          msgHtml = \`
             <div class="status-msg">
               <strong>Solicitud Aceptada</strong><br><br>
               Tu solicitud para el <strong>Yu-Gi-Oh! Regional Qualifier</strong> en Puebla ha sido
               <strong>aprobada</strong>. Te esperamos el <strong>13 de septiembre</strong> en la sede del evento.
               <strong>Recuerda</strong>: Debes presentarte con tu <i>Decklist</i> ya elaborada y lista para entregar.
-            </div>`;
+            </div>\`;
         } else if (est === 'rechazado') {
-          msgHtml = `
+          msgHtml = \`
             <div class="status-msg">
               <strong>Solicitud Rechazada</strong><br><br>
               Lo sentimos, tu solicitud para el <strong>Yu-Gi-Oh! Regional Qualifier</strong> en Puebla
               <strong>no ha sido aprobada</strong>. Para cualquier aclaración o información adicional, por favor
               comunícate al número <strong>+52 222 541 5059</strong>.
-            </div>`;
+            </div>\`;
         } else {
-          msgHtml = `
+          msgHtml = \`
             <div class="status-msg">
               <strong>Solicitud Pendiente</strong><br><br>
               Tu solicitud para el <strong>Yu-Gi-Oh! Regional Qualifier</strong> en Puebla está
               <strong>en revisión</strong>. Te pedimos un poco de paciencia mientras confirmamos tu inscripción.
               Verifica más tarde.
-            </div>`;
+            </div>\`;
         }
 
-        out.innerHTML = `
+        out.innerHTML = \`
           <div class="result-card">
             <div class="grid">
               <div class="kv">
                 <div class="k">Konami ID</div>
-                <div class="v">${d.konamiId || konami}</div>
+                <div class="v">\${d.konamiId || konami}</div>
               </div>
               <div class="kv">
                 <div class="k">Nombre</div>
-                <div class="v">${[d.firstName, d.lastName].filter(Boolean).join(' ')}</div>
+                <div class="v">\${[d.firstName, d.lastName].filter(Boolean).join(' ')}</div>
               </div>
               <div class="kv">
                 <div class="k">Correo</div>
-                <div class="v">${d.email || '—'}</div>
+                <div class="v">\${d.email || '—'}</div>
               </div>
               <div class="kv">
                 <div class="k">Teléfono</div>
-                <div class="v">${d.phone || '—'}</div>
+                <div class="v">\${d.phone || '—'}</div>
               </div>
               <div class="kv">
                 <div class="k">Comprobante</div>
-                <div class="v">${d.paymentUrl ? `<a href="${d.paymentUrl}" target="_blank">Ver comprobante</a>` : '—'}</div>
+                <div class="v">\${d.paymentUrl ? \`<a href="\${d.paymentUrl}" target="_blank">Ver comprobante</a>\` : '—'}</div>
               </div>
               <div class="kv">
                 <div class="k">Estatus</div>
-                <div class="v"><span class="status-pill ${pillCls}">${pillTxt}</span></div>
+                <div class="v"><span class="status-pill \${pillCls}">\${pillTxt}</span></div>
               </div>
             </div>
-            ${msgHtml}
+            \${msgHtml}
           </div>
-        `;
+        \`;
 
         msg.textContent = 'Listo.';
         msg.className = 'notice ok';
