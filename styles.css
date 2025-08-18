@@ -202,3 +202,13 @@ header.topbar .brand img {
 body {
   padding-top: 60px;
 }
+
+/* Plan B: si por alguna razón no se logró remover, se oculta por CSS */
+.footer-gradient,
+.color-band,
+#footer-gradient,
+#color-band {
+  display: none !important;
+  height: 0 !important;
+  background: transparent !important;
+}
