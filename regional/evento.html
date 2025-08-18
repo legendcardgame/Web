@@ -6,28 +6,35 @@
   <title>Evento · Legend Card Game</title>
   <link rel="stylesheet" href="../styles.css">
   <style>
-    /* ===== Base ===== */
     :root{
-      --card-bg:#111;                 /* coincide con tarjetas de la home */
+      --card-bg:#111;
       --card-border:rgba(255,255,255,.08);
     }
     body{ background:#000; }
     .ev-wrap{max-width:960px;margin:0 auto;padding:20px}
 
-    /* ===== Encabezado limpio (sin color/gradiente) ===== */
+    /* ===== Encabezado con gradiente (título arriba, centrado) ===== */
+    .ev-header{
+      margin:0 -12px 14px;
+      border-radius:16px;
+      padding:18px 12px;
+      background:linear-gradient(90deg, rgba(231,75,75,.75) 0%, rgba(59,130,246,.75) 100%);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:0 10px 30px rgba(0,0,0,.35);
+      text-align:center;
+    }
     .ev-title{
-      margin:12px 0 14px;
-      text-align:left;                /* título sin centrar ni fondo */
-      font-size:clamp(22px,3.6vw,34px);
+      margin:0;
+      font-size:clamp(22px,3.8vw,36px);
       font-weight:900;
-      letter-spacing:.2px;
+      letter-spacing:.3px;
     }
 
-    /* ===== Hero ===== */
+    /* ===== Banner ===== */
     .ev-hero{position:relative;border-radius:18px;overflow:hidden;background:#111;box-shadow:0 10px 40px rgba(0,0,0,.4)}
     .ev-hero img{width:100%;height:auto;display:block}
 
-    /* ===== Cards estilo home (oscuro, sutil) ===== */
+    /* ===== Cards (neutras) ===== */
     .ev-card{
       background:var(--card-bg);
       border:1px solid var(--card-border);
@@ -35,14 +42,15 @@
       box-shadow:0 10px 30px rgba(0,0,0,.25);
       margin-top:16px;
     }
+    /* Títulos de secciones centrados */
     .ev-card h3{
       margin:.2rem 0 .7rem;
       font-size:1.05rem;
       opacity:.95;
-      text-align:left;               /* encabezados de sección alineados a la izq */
+      text-align:center;
     }
 
-    /* Descripción a la izquierda */
+    /* Descripción: texto a la izquierda */
     .ev-desc{line-height:1.65;opacity:.97;text-align:left}
 
     /* CTA hex rojo centrado */
@@ -58,7 +66,7 @@
     }
     .btn-hex:hover{transform:translateY(-2px); filter:drop-shadow(0 10px 24px rgba(0,0,0,.5)) drop-shadow(0 0 14px var(--hex-shadow));}
 
-    /* ===== Información: más compacto, simétrico y centrado ===== */
+    /* ===== Información: 2×2 simétrica, compacta ===== */
     .ev-info{
       display:grid;
       grid-template-columns:repeat(2,1fr);
@@ -67,13 +75,13 @@
     }
     .info-cell{
       width:100%;
-      max-width:360px;               /* más angosto */
+      max-width:360px;
       background:rgba(255,255,255,.05);
       border:1px solid rgba(255,255,255,.1);
       border-radius:12px;
-      padding:10px;                  /* menos padding */
+      padding:10px;
       display:flex; flex-direction:column; align-items:center; justify-content:center;
-      min-height:88px;               /* menor altura */
+      min-height:88px;
       text-align:center;
     }
     .muted{opacity:.68}
@@ -84,7 +92,7 @@
       .info-cell{max-width:560px}
     }
 
-    /* ===== Mapa de Sede centrado ===== */
+    /* ===== Mapa centrado (sin título “Sede”) ===== */
     .map-wrap{
       position:relative; padding-bottom:56.25%; height:0; overflow:hidden;
       border-radius:12px; border:1px solid rgba(255,255,255,.08);
@@ -99,12 +107,13 @@
 </head>
 <body>
   <div class="ev-wrap">
+    <!-- TÍTULO ARRIBA (con rojo/azul de fondo) -->
+    <header class="ev-header">
+      <h1 class="ev-title" id="evTitle">Cargando…</h1>
+    </header>
 
     <!-- Banner -->
     <div class="ev-hero"><img id="evBanner" alt="Banner del evento"></div>
-
-    <!-- Título limpio (sin color) -->
-    <h1 class="ev-title" id="evTitle">Cargando…</h1>
 
     <!-- Descripción + CTA -->
     <section class="ev-card">
@@ -115,7 +124,7 @@
       </div>
     </section>
 
-    <!-- Información (compacta) -->
+    <!-- Información (título centrado) -->
     <section class="ev-card">
       <h3>Información</h3>
       <div class="ev-info">
@@ -138,9 +147,8 @@
       </div>
     </section>
 
-    <!-- Sede (mapa centrado) -->
+    <!-- Mapa (sin título) -->
     <section class="ev-card" style="text-align:center;">
-      <h3>Sede</h3>
       <div class="map-wrap">
         <!-- Hotel Plaza Poblana (coords exactas) -->
         <iframe
