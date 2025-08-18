@@ -52,3 +52,38 @@ track.addEventListener('scroll', ()=>{
     [...dots.children].forEach((d,j)=>d.classList.toggle('active', j===idx));
   }
 }, {passive:true});
+
+// --- Accesos directos desde los banners del carrusel ---
+(function attachCarouselLinks() {
+  // Mapea nombres de archivo -> slug del evento
+  const slugMap = {
+    'principal':       'principal',
+    'dragon-duel':     'dragon-duel',
+    'edison':          'edison',
+    'win-a-mat':       'win-a-mat',
+    'master-duel':     'master-duel',
+    'structure-deck':  'structure-deck',
+    'speed-duel':      'speed-duel'
+  };
+
+  document.querySelectorAll('.carousel .slide img').forEach(img => {
+    const src  = img.getAttribute('src') || '';
+    const file = src.split('/').pop().split('.')[0].toLowerCase(); // p.ej. "edison"
+    const slug = slugMap[file];
+
+    if (!slug) return; // si el banner no corresponde a un evento, lo ignoramos
+
+    img.style.cursor = 'pointer';
+    img.setAttribute('role', 'link');
+    img.setAttribute('tabindex', '0');
+
+    const go = () => {
+      window.location.href = `regional/evento.html?e=${encodeURIComponent(slug)}`;
+    };
+
+    img.addEventListener('click', go);
+    img.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
+    });
+  });
+})();
