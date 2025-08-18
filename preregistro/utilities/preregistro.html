@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Preregistro · Registrar</title>
 
-  <!-- Estilos locales -->
-  <link rel="stylesheet" href="./styles.css">
+  <!-- Estilos locales (desde /preregistro/) -->
+  <link rel="stylesheet" href="../styles.css">
 
   <!-- Estilos globales (encabezado, watermark, bottom-nav, etc.) -->
   <link rel="stylesheet" href="/Web/main.css">
   <link rel="stylesheet" href="/Web/styles.css?v=2">
 
-  <script src="./js/config.js"></script>
+  <!-- Config global (API_BASE, etc.) -->
+  <script src="../js/config.js"></script>
 
   <style>
     /* ===== Titulares (centrados) ===== */
@@ -189,7 +190,7 @@
     <section class="costs">
       <h3>El costo de cada evento será:</h3>
 
-      <!-- input oculto para guardar selección (por si luego lo mandamos al backend) -->
+      <!-- input oculto para guardar selección -->
       <input type="hidden" id="eventType" name="eventType" value="">
 
       <div class="option-grid" id="eventOptions">
@@ -283,7 +284,7 @@
 
   <script>
   const $ = s => document.querySelector(s);
-  const pad10 = id => String(id || "").replace(/\D/g,'').padStart(10,'0');
+  const pad10 = id => String(id || "").replace(/\\D/g,'').padStart(10,'0');
 
   const form   = $('#preForm');
   const btn    = $('#submitBtn');
@@ -309,16 +310,21 @@
     if (!btn) return;
     const id = btn.dataset.id || '';
     optionGrid.querySelectorAll('.opt-btn').forEach(b => b.classList.toggle('active', b === btn));
-    eventHidden.value = id;               // guardamos selección (lo usaremos después)
+    eventHidden.value = id;               // guardamos selección
     localStorage.setItem('pre_event', id);
   });
 
-  // Restaura selección previa (si hubiera)
-  const prevSel = localStorage.getItem('pre_event');
-  if (prevSel) {
-    const selBtn = optionGrid.querySelector(`.opt-btn[data-id="${prevSel}"]`);
-    if (selBtn) selBtn.click();
-  }
+  // Restaura selección previa o por URL (?event= / ?e=)
+  (function restoreEventSelection(){
+    const params = new URLSearchParams(location.search);
+    const fromUrl = (params.get('event') || params.get('e') || '').toLowerCase();
+    const prevSel = localStorage.getItem('pre_event');
+    const target = fromUrl || prevSel || '';
+    if (target) {
+      const selBtn = optionGrid.querySelector(\`.opt-btn[data-id="\${target}"]\`);
+      if (selBtn) selBtn.click();
+    }
+  })();
 
   // Rellena desde localStorage
   Object.entries(fields).forEach(([k, el]) => {
@@ -361,7 +367,7 @@
       email:     fields.email.value.trim(),
       phone:     fields.phone.value.trim(),
       paymentBase64: await fileToBase64(file.files?.[0]),
-      eventType: eventHidden.value || ''   // por ahora solo informativo; luego definimos su uso
+      eventType: eventHidden.value || ''
     };
 
     // Validaciones
@@ -370,7 +376,7 @@
       showOverlay(overlayErr, 2200);
       return;
     }
-    if (!/^\d{10}$/.test(payload.konamiId)) {
+    if (!/^\\d{10}$/.test(payload.konamiId)) {
       msg.textContent = "Konami ID debe tener 10 dígitos.";
       showOverlay(overlayErr, 2200);
       return;
@@ -404,9 +410,9 @@
 
       localStorage.setItem('konamiId', payload.konamiId);
 
-      msg.innerHTML = `✅ ${j.mode === 'insert' ? 'Registro creado' : 'Datos actualizados'}.${
+      msg.innerHTML = \`✅ \${j.mode === 'insert' ? 'Registro creado' : 'Datos actualizados'}.\${
         j.paymentUrl ? '<br><span class="help">Comprobante subido correctamente.</span>' : ''
-      }`;
+      }\`;
 
       showOverlay(overlayOk, 2500);
 
@@ -428,7 +434,9 @@
         const nav = document.getElementById('bottomNav') || document.querySelector('#site-footer nav');
         if (!nav) return false;
         nav.querySelectorAll('.nav-item').forEach(a=>{
-          a.classList.toggle('active', (a.dataset?.key||'') === 'preregistro' || a.href.includes('/preregistro/'));
+          a.classList.toggle('active',
+            (a.dataset?.key||'') === 'preregistro' || (a.href||'').includes('/preregistro/')
+          );
         });
         return true;
       };
