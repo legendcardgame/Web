@@ -13,10 +13,15 @@
   <link rel="stylesheet" href="./styles.css">
 
   <style>
-    /* --- Que el header/bottom-nav no tapen el contenido --- */
-    .page-pad { padding-top: 64px; padding-bottom: 96px; }
+    /* Empuje extra para que header/nav no tapen contenido */
+    .page-pad{
+      padding-top: 92px;   /* header fijo */
+      padding-bottom: 120px; /* bottom-nav */
+    }
+    @media (max-width:480px){
+      .page-pad{ padding-top: 100px; padding-bottom: 128px; }
+    }
 
-    /* ===== Ajustes propios de esta vista ===== */
     .consulta-wrap{max-width:720px;margin:0 auto;padding:20px 16px}
     .hero-title{font-size:clamp(1.6rem,3.8vw,2.4rem);font-weight:800;letter-spacing:.5px;margin:8px 0 2px;text-align:center}
     .hero-sub{color:#bfbfbf;margin:0 0 18px;text-align:center}
@@ -46,10 +51,15 @@
     .status-pill{display:inline-block;padding:6px 10px;border-radius:999px;font-weight:800;letter-spacing:.3px;box-shadow:inset 0 -1px 0 rgba(255,255,255,.12)}
     .pill-aceptado{background:rgba(76,175,80,.16);color:#7ee28a;border:1px solid rgba(76,175,80,.35)}
     .pill-rechazado{background:rgba(244,67,54,.14);color:#ff9e99;border:1px solid rgba(244,67,54,.35)}
-    .pill-pendiente{background:rgba(255,193,7,.12);color:#ffd86b;border:1px solid rgba(255,193,7,.36)}
+    .pill-pendiente{background:rgba(255,193,7,.12);color:#ffd86b;border:1px solid rgba(255,255,255,.36)}
 
-    .row-msg td{padding:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px}
-    .row-msg strong{font-weight:900}
+    /* Tarjeta por evento */
+    .ev-card{margin-top:14px;padding:14px;border-radius:14px;background:#101114;border:1px solid rgba(255,255,255,.08);box-shadow:0 8px 22px rgba(0,0,0,.35)}
+    .ev-title{margin:0 0 8px;font-weight:900}
+    .ev-table{width:100%;border-collapse:separate;border-spacing:0 6px}
+    .ev-table th,.ev-table td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.10);text-align:left}
+    .ev-msg{margin-top:10px;padding:10px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);line-height:1.45}
+    .ev-msg strong{font-weight:900}
 
     .notice{margin-top:10px;color:#9ad0ff}
     .notice.err{color:#ff9a9a}
@@ -57,7 +67,7 @@
   </style>
 </head>
 <body>
-  <!-- Header + marca de agua -->
+  <!-- Header reutilizable y watermark -->
   <div id="site-header"></div>
   <div class="watermark"></div>
 
@@ -88,55 +98,40 @@
 
   <!-- Loader de layout -->
   <script src="/Web/assets/js/layout-loader.js"></script>
-  <!-- Config API -->
-  <script src="./js/config.js"></script>
+  <!-- Config API (ajusta la ruta si tu archivo está en otra carpeta) -->
+  <script src="../js/config.js"></script>
 
-  <!-- Lógica de consulta -->
   <script>
     const $ = s => document.querySelector(s);
     const pad10 = s => String(s||'').replace(/\D/g,'').padStart(10,'0');
 
-    // Mapa de slugs/variantes -> nombre real
+    /* Nombres bonitos por slug/variantes */
     const EVENT_NAME = {
-      'principal':'Evento Principal',
-      'evento-principal':'Evento Principal',
-      'edison':'Edison Format',
-      'edison format':'Edison Format',
-      'structure-deck':'Structure Deck',
-      'structure deck':'Structure Deck',
-      'speed-duel':'Speed Duel',
-      'speed duel':'Speed Duel',
-      'dragon-duel':'Dragon Duel',
-      'dragon duel':'Dragon Duel',
-      'win-a-mat':'Win a Mat',
-      'win a mat':'Win a Mat',
-      'master-duel':'Master Duel',
-      'master duel':'Master Duel'
+      'principal':'Evento Principal','evento-principal':'Evento Principal',
+      'edison':'Edison Format','edison format':'Edison Format',
+      'structure-deck':'Structure Deck','structure deck':'Structure Deck',
+      'speed-duel':'Speed Duel','speed duel':'Speed Duel',
+      'dragon-duel':'Dragon Duel','dragon duel':'Dragon Duel',
+      'win-a-mat':'Win a Mat','win a mat':'Win a Mat',
+      'master-duel':'Master Duel','master duel':'Master Duel'
     };
     const prettyEvent = v => EVENT_NAME[String(v||'').toLowerCase().trim()] || (v || 'Evento');
 
-    // Mensaje por estatus (por evento)
+    /* Mensaje por estatus y evento */
     function statusMessage(est, evName){
       est = String(est||'').toLowerCase();
       if (est === 'aceptado') {
-        return `
-          <strong>Solicitud Aceptada</strong><br>
-          Tu inscripción a <strong>${evName}</strong> ha sido <strong>aprobada</strong>.
-          ¡Te esperamos el 13 de septiembre en la sede del evento! No olvides llevar tu <em>Decklist</em>.
-        `;
+        return `<strong>Solicitud Aceptada</strong><br>
+        Tu inscripción a <strong>${evName}</strong> ha sido <strong>aprobada</strong>.
+        ¡Te esperamos el <strong>13 de septiembre</strong> en la sede. Lleva tu <em>Decklist</em>.`;
       }
       if (est === 'rechazado') {
-        return `
-          <strong>Solicitud Rechazada</strong><br>
-          Tu inscripción a <strong>${evName}</strong> <strong>no ha sido aprobada</strong>.
-          Para aclaraciones, comunícate al <strong>+52 222 541 5059</strong>.
-        `;
+        return `<strong>Solicitud Rechazada</strong><br>
+        Tu inscripción a <strong>${evName}</strong> <strong>no fue aprobada</strong>.
+        Para aclaraciones: <strong>+52 222 541 5059</strong>.`;
       }
-      return `
-        <strong>Solicitud Pendiente</strong><br>
-        Tu inscripción a <strong>${evName}</strong> está <strong>en revisión</strong>.
-        Por favor vuelve a consultar más tarde.
-      `;
+      return `<strong>Solicitud Pendiente</strong><br>
+      Tu inscripción a <strong>${evName}</strong> está <strong>en revisión</strong>. Revisa más tarde.`;
     }
 
     const form = $('#formConsulta');
@@ -149,7 +144,7 @@
       msg.textContent = '';
       out.innerHTML = '';
 
-      const konami = pad10($('#konamiId').value);
+      const konami = pad10( $('#konamiId').value );
       if (!/^\d{10}$/.test(konami)){
         msg.textContent = 'Ingresa un Konami ID válido de 10 dígitos.';
         msg.className = 'notice err';
@@ -163,7 +158,7 @@
       try{
         let filas = null;
 
-        // Intento Admin (lista completa)
+        /* Intento admin: obtener todas las filas y filtrar por Konami ID */
         try {
           const rAdmin = await fetch(window.LCG.API_BASE + '?_t=' + Date.now(), {
             headers: { 'X-Admin-Key': window.LCG.ADMIN_KEY || '' }
@@ -177,7 +172,7 @@
           }
         } catch(_) {}
 
-        // Fallback: consulta individual
+        /* Fallback: endpoint individual */
         if (!filas || !filas.length) {
           const r = await fetch(`${window.LCG.API_BASE}?konamiId=${encodeURIComponent(konami)}&_t=${Date.now()}`);
           const j = await r.json();
@@ -197,44 +192,25 @@
           return;
         }
 
+        /* Datos base (para encabezado) */
         const base = filas[0] || {};
         const fullName = [base.firstName, base.lastName].filter(Boolean).join(' ') || '—';
         const email    = base.email || '—';
         const phone    = base.phone || '—';
 
+        /* Agrupar por evento (por si hay duplicados) */
         const EVENT_KEYS = ['eventType','evento','tipo','tipoEvento'];
-        const getEventName = (row) => {
-          for (const k of EVENT_KEYS) if (row[k]) return prettyEvent(row[k]);
-          return 'Evento';
-        };
+        const byEvent = new Map();
+        for (const d of filas){
+          let raw = 'Evento';
+          for (const k of EVENT_KEYS) { if (d[k]) { raw = d[k]; break; } }
+          const evName = prettyEvent(raw);
+          if (!byEvent.has(evName)) byEvent.set(evName, []);
+          byEvent.get(evName).push(d);
+        }
 
-        const rowsHtml = filas.map(d => {
-          const est   = String(d.status||'').toLowerCase();
-          const pill  =
-            est === 'aceptado' ? 'pill-aceptado' :
-            est === 'rechazado' ? 'pill-rechazado' : 'pill-pendiente';
-          const pillTxt = d.status || 'Pendiente';
-          const evName  = getEventName(d);
-
-          const msgHtml = statusMessage(est, evName);
-
-          return `
-            <tr>
-              <td style="padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08)">${evName}</td>
-              <td style="padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08)">
-                <span class="status-pill ${pill}">${pillTxt}</span>
-              </td>
-              <td style="padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08)">
-                ${d.paymentUrl ? `<a href="${d.paymentUrl}" target="_blank">Ver</a>` : '—'}
-              </td>
-            </tr>
-            <tr class="row-msg">
-              <td colspan="3">${msgHtml}</td>
-            </tr>
-          `;
-        }).join('');
-
-        out.innerHTML = `
+        /* Render principal (datos del jugador) */
+        let html = `
           <div class="result-card">
             <div class="grid">
               <div class="kv"><div class="k">Konami ID</div><div class="v">${base.konamiId || konami}</div></div>
@@ -242,23 +218,42 @@
               <div class="kv"><div class="k">Correo</div><div class="v">${email}</div></div>
               <div class="kv"><div class="k">Teléfono</div><div class="v">${phone}</div></div>
             </div>
-
-            <h3 style="margin:16px 0 8px;text-align:center">Tus eventos</h3>
-            <div class="table-wrap">
-              <table class="table" style="width:100%;border-collapse:separate;border-spacing:0 6px">
-                <thead>
-                  <tr>
-                    <th style="text-align:left;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.12)">Evento</th>
-                    <th style="text-align:left;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.12)">Estatus</th>
-                    <th style="text-align:left;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.12)">Comprobante</th>
-                  </tr>
-                </thead>
-                <tbody>${rowsHtml}</tbody>
-              </table>
-            </div>
           </div>
         `;
 
+        /* Tarjeta por cada evento existente */
+        for (const [evName, rows] of byEvent.entries()){
+          // si hay varias filas del mismo evento, usamos la más reciente (última)
+          const d = rows[rows.length - 1];
+          const est = String(d.status||'').toLowerCase();
+          const pill =
+            est === 'aceptado' ? 'pill-aceptado' :
+            est === 'rechazado' ? 'pill-rechazado' : 'pill-pendiente';
+          const pillTxt = d.status || 'Pendiente';
+          const msgHtml = statusMessage(est, evName);
+          const comp = d.paymentUrl ? `<a href="${d.paymentUrl}" target="_blank">Ver comprobante</a>` : '—';
+
+          html += `
+            <div class="ev-card">
+              <h3 class="ev-title">${evName}</h3>
+              <table class="ev-table">
+                <tbody>
+                  <tr>
+                    <th>Estatus</th>
+                    <td><span class="status-pill ${pill}">${pillTxt}</span></td>
+                  </tr>
+                  <tr>
+                    <th>Comprobante</th>
+                    <td>${comp}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="ev-msg">${msgHtml}</div>
+            </div>
+          `;
+        }
+
+        out.innerHTML = html;
         msg.textContent = 'Listo.';
         msg.className = 'notice ok';
 
