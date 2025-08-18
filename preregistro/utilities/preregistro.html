@@ -8,28 +8,84 @@
   <!-- Estilos locales -->
   <link rel="stylesheet" href="./styles.css">
 
-  <!-- Estilos globales -->
+  <!-- Estilos globales (encabezado, watermark, bottom-nav, etc.) -->
   <link rel="stylesheet" href="/Web/main.css">
   <link rel="stylesheet" href="/Web/styles.css?v=2">
 
   <script src="./js/config.js"></script>
-  <style>
-    .hero-title{
-      font-size: clamp(1.6rem, 3.8vw, 2.4rem);
-      font-weight: 800;
-      letter-spacing: .5px;
-      margin: 8px 0 2px;
-      text-align: center;
-    }
-    .hero-sub{
-      color:#cfcfcf;
-      margin: 0 0 18px;
-      text-align: center;
-      line-height:1.45;
-    }
-    .hero-sub strong{color:#fff;}
 
-    /* Botón hex rojo igual al de Status */
+  <style>
+    /* ===== Titulares (centrados) ===== */
+    .hero-title{
+      font-size: clamp(1.8rem, 4.4vw, 2.6rem); /* Preregistro más grande */
+      font-weight: 900;
+      letter-spacing: .4px;
+      margin: 10px 0 4px;
+      text-align: center;
+    }
+    .hero-subtitle{
+      font-size: clamp(1.1rem, 2.8vw, 1.4rem); /* Completa tus datos más pequeño */
+      font-weight: 800;
+      margin: 0 0 10px;
+      text-align: center;
+      opacity: .95;
+    }
+
+    /* Texto de instrucciones (mejor legibilidad) */
+    .hero-help{
+      margin: 6px auto 16px;
+      max-width: 820px;
+      line-height: 1.5;
+      color:#cfcfcf;
+      text-align: center;
+    }
+    .hero-help strong{ color:#fff; }
+
+    /* Bloque de costos (alineado a la izquierda) */
+    .costs{
+      max-width: 820px;
+      margin: 8px auto 16px;
+      color:#e8e8ea;
+    }
+    .costs h3{
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+    .costs .cost-table{
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .costs .cost-table th,
+    .costs .cost-table td{
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      width: 50%;
+    }
+    .costs .cost-table tr:last-child td{ border-bottom: 0; }
+    .costs .event{ font-weight: 700; }
+    .costs .price{ text-align: right; font-weight: 800; }
+
+    /* Datos bancarios (alineados a la izquierda) */
+    .bank{
+      max-width: 820px;
+      margin: 10px auto 18px;
+      color:#e8e8ea;
+      line-height: 1.6;
+    }
+    .bank .bank-title{
+      font-weight: 800; margin-bottom: 6px;
+    }
+
+    /* Botón hex rojo (igual que Status) */
+    .actions{
+      display:flex; justify-content:center; align-items:center;
+      margin-top:14px;
+    }
     .btn-hex {
       --hex-bg1: #e00119;
       --hex-bg2: #a80012;
@@ -39,7 +95,7 @@
       align-items: center;
       justify-content: center;
       padding: 12px 28px;
-      min-width: 200px;
+      min-width: 220px;
       color: #fff;
       font-weight: 800;
       text-decoration: none;
@@ -54,25 +110,57 @@
     .btn-hex:hover,
     .btn-hex:focus { transform: translateY(-2px); filter: drop-shadow(0 10px 24px rgba(0,0,0,.5)) drop-shadow(0 0 14px var(--hex-shadow)); }
     .btn-hex:disabled { opacity:.7; cursor:not-allowed; filter:saturate(.8); }
+
     .dots::after { content:''; animation:dots 1.4s steps(4,end) infinite; }
     @keyframes dots { 0%{content:''} 25%{content:'.'} 50%{content:'..'} 75%{content:'...'} 100%{content:'....'} }
   </style>
 </head>
 <body>
-  <!-- Header reutilizable -->
+  <!-- Header reutilizable y watermark -->
   <div id="site-header"></div>
   <div class="watermark"></div>
 
   <div class="container">
     <h1 class="hero-title">Preregistro</h1>
-    <h2 class="hero-title">Completa tus datos</h2>
-    <p class="hero-sub">
-      El costo es de <strong>$330 MXN</strong> y deberán ser depositados a la siguiente cuenta:<br>
-      Banco: <strong>Azteca</strong><br>
-      Nombre: <strong>Luis Enrique Rodriguez Huerta</strong><br>
-      Clave Interbancaria: <strong>127670013727315857</strong>
+    <h2 class="hero-subtitle">Completa tus datos</h2>
+
+    <!-- Texto guía centrado -->
+    <p class="hero-help">
+      Sube tus datos y comprobante. Podrás consultar el estado de tu inscripción desde el menú.
     </p>
 
+    <!-- Costos (alineado a la izquierda) -->
+    <section class="costs">
+      <h3>El costo de cada evento será:</h3>
+      <table class="cost-table">
+        <tr>
+          <td class="event">Evento Principal</td>
+          <td class="price">$100</td>
+        </tr>
+        <tr>
+          <td class="event">Edison Format</td>
+          <td class="price">$100</td>
+        </tr>
+        <tr>
+          <td class="event">Structure Deck</td>
+          <td class="price">$100</td>
+        </tr>
+        <tr>
+          <td class="event">Speed Duel</td>
+          <td class="price">$100</td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- Datos bancarios (alineado a la izquierda) -->
+    <section class="bank">
+      <div class="bank-title">Datos bancarios:</div>
+      <div>Banco: <strong>Azteca</strong></div>
+      <div>Nombre: <strong>Luis Enrique Rodriguez Huerta</strong></div>
+      <div>Clave Interbancaria: <strong>127670013727315857</strong></div>
+    </section>
+
+    <!-- Formulario -->
     <form id="preForm" class="card">
       <div class="row">
         <div class="field">
@@ -115,137 +203,147 @@
       </div>
 
       <div id="msg" class="notice"></div>
+
+      <!-- Loader: 4 puntos -->
       <div id="loader" class="loader" style="display:none;">
         <span></span><span></span><span></span><span></span>
       </div>
     </form>
   </div>
 
+  <!-- Overlay centrado -->
   <div id="overlaySuccess" class="overlay" style="display:none;">
     <div class="overlay-content">
       <h1>✅ Registro enviado</h1>
     </div>
   </div>
 
-  <!-- Footer reutilizable -->
+  <!-- Footer reutilizable (bottom-nav) -->
   <div id="site-footer"></div>
 
-<script>
-const $ = s => document.querySelector(s);
-const pad10 = id => String(id || "").replace(/\D/g,'').padStart(10,'0');
+  <!-- Loader de layout (necesario para que aparezcan header y bottom-nav) -->
+  <script src="/Web/assets/js/layout-loader.js"></script>
 
-const form   = $('#preForm');
-const btn    = $('#submitBtn');
-const msg    = $('#msg');
-const file   = $('#payment');
-const overlay = $('#overlaySuccess');
+  <script>
+  const $ = s => document.querySelector(s);
+  const pad10 = id => String(id || "").replace(/\D/g,'').padStart(10,'0');
 
-const fields = {
-  konamiId:  $('#konamiId'),
-  firstName: $('#firstName'),
-  lastName:  $('#lastName'),
-  email:     $('#email'),
-  phone:     $('#phone'),
-};
+  const form   = $('#preForm');
+  const btn    = $('#submitBtn');
+  const msg    = $('#msg');
+  const file   = $('#payment');
+  const overlay = $('#overlaySuccess');
 
-// Rellena desde localStorage
-Object.entries(fields).forEach(([k, el]) => {
-  const v = localStorage.getItem('pre_' + k);
-  if (v) el.value = v;
-});
-
-form.addEventListener('submit', (e) => { e.preventDefault(); e.stopPropagation(); });
-btn.addEventListener('click', onSubmit);
-
-async function fileToBase64(f){
-  if (!f) return "";
-  const r = new FileReader();
-  return await new Promise((res, rej) => {
-    r.onload = () => res(r.result);
-    r.onerror = rej;
-    r.readAsDataURL(f);
-  });
-}
-
-async function onSubmit(e){
-  e?.preventDefault?.();
-  e?.stopPropagation?.();
-  msg.textContent = "";
-
-  Object.entries(fields).forEach(([k, el]) => {
-    localStorage.setItem('pre_' + k, el.value.trim());
-  });
-
-  const payload = {
-    konamiId:  pad10(fields.konamiId.value),
-    firstName: fields.firstName.value.trim(),
-    lastName:  fields.lastName.value.trim(),
-    email:     fields.email.value.trim(),
-    phone:     fields.phone.value.trim(),
-    paymentBase64: await fileToBase64(file.files?.[0])
+  const fields = {
+    konamiId:  $('#konamiId'),
+    firstName: $('#firstName'),
+    lastName:  $('#lastName'),
+    email:     $('#email'),
+    phone:     $('#phone'),
   };
 
-  if (!/^\d{10}$/.test(payload.konamiId)) {
-    msg.textContent = "Konami ID debe tener 10 dígitos.";
-    return;
-  }
-  if (!payload.firstName || !payload.lastName) {
-    msg.textContent = "Nombre y apellidos son obligatorios.";
-    return;
+  // Rellena desde localStorage
+  Object.entries(fields).forEach(([k, el]) => {
+    const v = localStorage.getItem('pre_' + k);
+    if (v) el.value = v;
+  });
+
+  form.addEventListener('submit', (e) => { e.preventDefault(); e.stopPropagation(); });
+  btn.addEventListener('click', onSubmit);
+
+  async function fileToBase64(f){
+    if (!f) return "";
+    const r = new FileReader();
+    return await new Promise((res, rej) => {
+      r.onload = () => res(r.result);
+      r.onerror = rej;
+      r.readAsDataURL(f);
+    });
   }
 
-  btn.disabled = true;
-  const oldBtn = btn.textContent;
-  btn.textContent = 'Enviando';
-  btn.classList.add('dots');
+  async function onSubmit(e){
+    e?.preventDefault?.();
+    e?.stopPropagation?.();
+    msg.textContent = "";
 
-  try {
-    const r = await fetch(window.LCG.API_BASE, {
-      method:'POST',
-      body: (() => {
-        const fd = new FormData();
-        Object.entries(payload).forEach(([k,v]) => v && fd.append(k, v));
-        return fd;
-      })(),
-      redirect: 'follow',
+    Object.entries(fields).forEach(([k, el]) => {
+      localStorage.setItem('pre_' + k, el.value.trim());
     });
 
-    const text = await r.text();
-    let j;
-    try { j = JSON.parse(text); } catch { throw new Error('Respuesta inválida del servidor'); }
+    const payload = {
+      konamiId:  pad10(fields.konamiId.value),
+      firstName: fields.firstName.value.trim(),
+      lastName:  fields.lastName.value.trim(),
+      email:     fields.email.value.trim(),
+      phone:     fields.phone.value.trim(),
+      paymentBase64: await fileToBase64(file.files?.[0])
+    };
 
-    if (!j.ok) throw new Error(j.message || "Error al enviar");
-
-    localStorage.setItem('konamiId', payload.konamiId);
-
-    msg.innerHTML = `✅ ${j.mode === 'insert' ? 'Registro creado' : 'Datos actualizados'}.${
-      j.paymentUrl ? '<br><span class="help">Comprobante subido correctamente.</span>' : ''
-    }`;
-
-    overlay.style.display = 'flex';
-    setTimeout(() => { overlay.style.display = 'none'; }, 2500);
-
-  } catch(err){
-    msg.textContent = '❌ ' + err.message;
-  } finally {
-    btn.disabled = false;
-    btn.textContent = oldBtn;
-    btn.classList.remove('dots');
-  }
-}
-
-// --- Marca activo el botón "Preregistro" en el bottom-nav ---
-window.addEventListener('DOMContentLoaded', () => {
-  const nav = document.querySelector('#site-footer nav');
-  if (!nav) return;
-  nav.querySelectorAll('a').forEach(a => {
-    if (a.href.includes('preregistro')) {
-      a.classList.add('active');
-    } else {
-      a.classList.remove('active');
+    if (!/^\d{10}$/.test(payload.konamiId)) {
+      msg.textContent = "Konami ID debe tener 10 dígitos.";
+      return;
     }
-  });
-});
-</script>
+    if (!payload.firstName || !payload.lastName) {
+      msg.textContent = "Nombre y apellidos son obligatorios.";
+      return;
+    }
+
+    btn.disabled = true;
+    const oldBtn = btn.textContent;
+    btn.textContent = 'Enviando';
+    btn.classList.add('dots');
+
+    try {
+      const r = await fetch(window.LCG.API_BASE, {
+        method:'POST',
+        body: (() => {
+          const fd = new FormData();
+          Object.entries(payload).forEach(([k,v]) => v && fd.append(k, v));
+          return fd;
+        })(),
+        redirect: 'follow',
+      });
+
+      const text = await r.text();
+      let j;
+      try { j = JSON.parse(text); } catch { throw new Error('Respuesta inválida del servidor'); }
+
+      if (!j.ok) throw new Error(j.message || "Error al enviar");
+
+      localStorage.setItem('konamiId', payload.konamiId);
+
+      msg.innerHTML = `✅ ${j.mode === 'insert' ? 'Registro creado' : 'Datos actualizados'}.${
+        j.paymentUrl ? '<br><span class="help">Comprobante subido correctamente.</span>' : ''
+      }`;
+
+      overlay.style.display = 'flex';
+      setTimeout(() => { overlay.style.display = 'none'; }, 2500);
+
+    } catch(err){
+      msg.textContent = '❌ ' + err.message;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = oldBtn;
+      btn.classList.remove('dots');
+    }
+  }
+
+  /* Marca “Preregistro” activo en el bottom-nav */
+  (function markPreregistroActive(){
+    try {
+      localStorage.setItem('lcg-tab','preregistro');
+      const tryMark = () => {
+        const nav = document.getElementById('bottomNav') || document.querySelector('#site-footer nav');
+        if (!nav) return false;
+        nav.querySelectorAll('.nav-item').forEach(a=>{
+          a.classList.toggle('active', (a.dataset?.key||'') === 'preregistro' || a.href.includes('/preregistro/'));
+        });
+        return true;
+      };
+      if (!tryMark()) setTimeout(tryMark, 80);
+      window.addEventListener('pageshow', tryMark);
+    } catch(_) {}
+  })();
+  </script>
 </body>
 </html>
