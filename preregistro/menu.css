@@ -156,3 +156,24 @@ body {
   background: #101114 !important; /* fondo sólido oscuro */
   border-top: 1px solid #27282c;  /* línea sutil de separación */
 }
+/* --- Quitar la franja rojo/azul sobre el nav inferior --- */
+/* Algunos layouts insertan una banda/gradiente encima del footer.
+   Tapamos cualquier variante habitual. */
+#site-footer { background: transparent !important; }
+#site-footer::before,
+#site-footer .footer-gradient,
+#site-footer .color-band,
+.footer-gradient,
+.color-band {
+  display: none !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+/* Forzamos el fondo del nav inferior a sólido oscuro */
+.bottom-nav {
+  background: #101114 !important;
+  border-top: 1px solid #27282c !important;
+  box-shadow: 0 -4px 12px rgba(0,0,0,.35);
+}
+
