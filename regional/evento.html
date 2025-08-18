@@ -181,28 +181,37 @@
   <script src="/Web/assets/js/layout-loader.js"></script>
 
   <script>
-    const params = new URLSearchParams(location.search);
-    const id = (params.get('id') || '').toLowerCase();
-    const ev = (window.LCG_EVENTS || []).find(e => e.id === id);
+  const params = new URLSearchParams(location.search);
+  const id = (params.get('id') || '').toLowerCase();
+  const ev = (window.LCG_EVENTS || []).find(e => e.id === id);
 
-    if (ev) {
-      document.title = ev.nombre + ' · Legend Card Game';
-      evTitle.textContent = ev.nombre;
-      evDesc.textContent  = ev.descripcion;
-      evBanner.src        = ev.banner;
-      evBanner.alt        = 'Banner ' + ev.nombre;
+  if (ev) {
+    document.title = ev.nombre + ' · Legend Card Game';
+    evTitle.textContent = ev.nombre;
+    evDesc.textContent  = ev.descripcion;
+    evBanner.src        = ev.banner;
+    evBanner.alt        = 'Banner ' + ev.nombre;
 
-      evCost.textContent     = ev.costo    || '—';
-      evDate.textContent     = ev.fecha    || 'Por confirmar';
-      evIncluye.textContent  = ev.incluye  || '—';
-      evFormato.textContent  = ev.formato  || '—';
+    evCost.textContent     = ev.costo    || '—';
+    evDate.textContent     = ev.fecha    || 'Por confirmar';
+    evIncluye.textContent  = ev.incluye  || '—';
+    evFormato.textContent  = ev.formato  || '—';
 
+    // Eventos que NO llevan preregistro
+    const NO_PREREG = ["dragon-duel", "win-a-mat", "master-duel"];
+
+    if (NO_PREREG.includes(ev.id)) {
+      // Ocultamos el botón rojo
+      document.querySelector(".cta-center").style.display = "none";
+    } else {
+      // Configuramos el botón
       const link = ev.preregistro || '../preregistro/index.html';
       evBtnPrereg.href = link + (link.includes('?') ? '&' : '?') + 'evento=' + encodeURIComponent(ev.id);
-    } else {
-      evTitle.textContent = 'Evento no encontrado';
-      evDesc.textContent  = 'Verifica el enlace o regresa al inicio.';
     }
-  </script>
+  } else {
+    evTitle.textContent = 'Evento no encontrado';
+    evDesc.textContent  = 'Verifica el enlace o regresa al inicio.';
+  }
+</script>
 </body>
 </html>
