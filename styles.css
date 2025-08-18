@@ -185,8 +185,8 @@ header.topbar {
   width: 100%;
   z-index: 1000;
   background:
-    radial-gradient(circle at top left, rgba(255, 0, 0, 0.45), transparent 30%),
-    radial-gradient(circle at top right, rgba(0, 0, 255, 0.45), transparent 30%),
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.45), transparent 30%),
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.45), transparent 30%),
     #0a0a0a;
   box-shadow: 0 4px 10px rgba(0,0,0,.4);
   padding: 6px 10px;
