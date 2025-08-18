@@ -6,25 +6,50 @@
   <title>Evento · Legend Card Game</title>
   <link rel="stylesheet" href="../styles.css">
   <style>
-    /* Estilos básicos del detalle de evento (puedes mover a tu CSS global si prefieres) */
+    /* ===== Estilos locales del detalle de evento ===== */
     .ev-wrap{max-width:960px;margin:0 auto;padding:20px}
     .ev-hero{position:relative;border-radius:18px;overflow:hidden;background:#111;box-shadow:0 10px 40px rgba(0,0,0,.4)}
     .ev-hero img{width:100%;height:auto;display:block}
     .ev-head{display:flex;align-items:center;gap:12px;margin:20px 4px 10px}
     .ev-title{font-size:clamp(22px,3.6vw,34px);font-weight:800;letter-spacing:.3px}
     .ev-chip{font-size:.8rem;background:rgba(255,255,255,.06);padding:.25rem .6rem;border-radius:999px;border:1px solid rgba(255,255,255,.08)}
+
     .ev-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:16px 4px}
     @media(min-width:860px){.ev-grid{grid-template-columns:2fr 1fr}}
-    .ev-card{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px}
-    .ev-card h3{margin:.2rem 0 0.6rem;font-size:1rem;opacity:.9}
+
+    /* Cartas neutras */
+    .ev-card{
+      background:rgba(255,255,255,.035) !important;
+      border:1px solid rgba(255,255,255,.08) !important;
+      border-radius:16px; padding:16px;
+      box-shadow:none;
+    }
+    .ev-card h3{margin:.2rem 0 .6rem;font-size:1rem;opacity:.9}
     .ev-desc{line-height:1.6;opacity:.95}
-    .ev-price{font-size:1.15rem;font-weight:700}
-    .ev-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-    .btnPrimary{background:#e94b4b;color:#fff;border:none;border-radius:12px;padding:.9rem 1.1rem;font-weight:800;box-shadow:0 12px 30px rgba(233,75,75,.25);cursor:pointer}
-    .btnGhost{background:transparent;border:1px solid rgba(255,255,255,.16);color:#fff;border-radius:12px;padding:.9rem 1.1rem;font-weight:700}
+
     .muted{opacity:.65}
     .ev-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .ev-meta div{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:10px}
+    .ev-meta div{
+      background:rgba(255,255,255,.03) !important;
+      border:1px solid rgba(255,255,255,.06) !important;
+      border-radius:12px; padding:10px;
+    }
+    .ev-price{font-size:1.15rem;font-weight:700}
+
+    /* ===== Botón HEX rojo (mismo del menú) ===== */
+    .cta-center{display:flex;justify-content:center;margin-top:12px}
+    .btn-hex{
+      --hex-bg1:#e00119;    /* rojo superior */
+      --hex-bg2:#a80012;    /* rojo inferior */
+      --hex-shadow:#002f5a; /* glow azul */
+      position:relative; display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 28px; min-width:220px; color:#fff; font-weight:800; text-decoration:none; letter-spacing:.2px;
+      background:linear-gradient(180deg,var(--hex-bg1),var(--hex-bg2));
+      filter:drop-shadow(0 6px 16px rgba(0,0,0,.35)) drop-shadow(0 0 10px var(--hex-shadow));
+      transition:transform .15s ease, filter .25s ease;
+      clip-path:polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
+    }
+    .btn-hex:hover,.btn-hex:focus{transform:translateY(-2px); filter:drop-shadow(0 10px 24px rgba(0,0,0,.5)) drop-shadow(0 0 14px var(--hex-shadow));}
 
     /* Mapa */
     .map-wrap{
@@ -32,14 +57,12 @@
       border-radius:12px; border:1px solid rgba(255,255,255,.08);
       box-shadow:0 10px 30px rgba(0,0,0,.35);
     }
-    .map-wrap iframe{
-      position:absolute; inset:0; width:100%; height:100%; border:0;
-    }
+    .map-wrap iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
   </style>
 </head>
 <body>
   <div class="ev-wrap">
-    <!-- Cabecera mínima (si ya tienes header global, puedes quitar esta fila) -->
+    <!-- Encabezado local -->
     <div class="ev-head">
       <span class="ev-chip" id="evChip">Evento</span>
       <div class="ev-title" id="evTitle">Cargando…</div>
@@ -53,10 +76,12 @@
       <section class="ev-card">
         <h3>Descripción</h3>
         <div class="ev-desc" id="evDesc">—</div>
-        <div class="ev-cta">
-          <a id="evBtnPrereg" class="btnPrimary" href="#" target="_self">Preregistrarme</a>
-          <a href="../index.html" class="btnGhost">Volver al inicio</a>
-          <a href="#sede" class="btnGhost">Sede</a><!-- nuevo botón -->
+
+        <!-- CTA centrado: botón HEX rojo -->
+        <div class="cta-center">
+          <a id="evBtnPrereg" class="btn-hex" href="#" target="_self" aria-label="Preregístrate ahora">
+            <span>Preregístrate ahora</span>
+          </a>
         </div>
       </section>
 
@@ -64,9 +89,9 @@
         <h3>Información</h3>
         <div class="ev-meta">
           <div><div class="muted">Costo</div><div class="ev-price" id="evCost">—</div></div>
-          <div><div class="muted">Incluye</div><div id="evIncluye">2 booster pack</div></div>
-          <div><div class="muted">Fecha</div><div id="evDate">13 de septiembre, 2025</div></div>
-          <div><div class="muted">Formato</div><div id="evFormato">Avanzado</div></div>
+          <div><div class="muted">Incluye</div><div id="evIncluye">—</div></div>
+          <div><div class="muted">Fecha</div><div id="evDate">—</div></div>
+          <div><div class="muted">Formato</div><div id="evFormato">—</div></div>
         </div>
       </aside>
     </div>
@@ -76,24 +101,26 @@
       <h3>Sede</h3>
       <div class="map-wrap">
         <iframe
-          src="https://www.google.com/maps?q=Puebla%20MX&output=embed"
+          src="https://www.google.com/maps?output=embed&q=https%3A%2F%2Fmaps.app.goo.gl%2F9QF6yTtPtDuUg3MQA"
           loading="lazy"
           allowfullscreen
           referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
       <p style="margin:.75rem 0 0;">
-        <a class="btnGhost" target="_blank" href="https://maps.app.goo.gl/9QF6yTtPtDuUg3MQA">Abrir en Google Maps</a>
+        <a class="btn-hex" style="min-width:unset; padding:.6rem 1rem; clip-path:none; border-radius:10px;"
+           target="_blank" href="https://maps.app.goo.gl/9QF6yTtPtDuUg3MQA">Abrir en Google Maps</a>
       </p>
     </section>
   </div>
 
+  <!-- Catálogo de eventos -->
   <script src="./eventos.js"></script>
   <script>
     // Lee ?id=slug
     const params = new URLSearchParams(location.search);
     const id = (params.get('id') || '').toLowerCase();
 
-    // Busca el evento
+    // Busca el evento en window.LCG_EVENTS
     const ev = (window.LCG_EVENTS || []).find(e => e.id === id);
 
     if (!ev) {
@@ -106,15 +133,17 @@
       document.getElementById('evDesc').textContent  = ev.descripcion;
       document.getElementById('evBanner').src        = ev.banner;
       document.getElementById('evBanner').alt        = 'Banner ' + ev.nombre;
-      document.getElementById('evCost').textContent  = ev.costo || '—';
-      document.getElementById('evDate').textContent  = ev.fecha || 'Por confirmar';
 
-      // Valores que pediste fijos por ahora:
-      document.getElementById('evIncluye').textContent = '2 booster pack';
-      document.getElementById('evFormato').textContent = 'Avanzado';
+      // Datos dinámicos desde eventos.js
+      document.getElementById('evCost').textContent     = ev.costo || '—';
+      document.getElementById('evDate').textContent     = ev.fecha || 'Por confirmar';
+      document.getElementById('evIncluye').textContent  = ev.incluye || '—';
+      document.getElementById('evFormato').textContent  = ev.formato || '—';
 
+      // CTA de preregistro
       const link = ev.preregistro || '../preregistro/index.html';
-      document.getElementById('evBtnPrereg').href = link + (link.includes('?') ? '&' : '?') + 'evento=' + encodeURIComponent(ev.id);
+      document.getElementById('evBtnPrereg').href =
+        link + (link.includes('?') ? '&' : '?') + 'evento=' + encodeURIComponent(ev.id);
     }
   </script>
 </body>
