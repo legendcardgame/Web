@@ -1,46 +1,101 @@
-// /preregistro/menu.js
-
-// Imágenes locales en /preregistro/images/ con los mismos nombres
-const IMG = (slug) => `./images/${slug}.png`; // usa .jpg si tus archivos son .jpg
-
-// Hero: Evento principal (linkea a la página de info)
-const HERO = {
-  slug: "principal",
-  img: IMG("principal"),
-  href: "../regional/evento.html?id=principal" // ← aquí el cambio
-};
-
-// Side events (6 botones)
-const SIDE_EVENTS = [
-  { slug: "edison",         img: IMG("edison") },
-  { slug: "win-a-mat",      img: IMG("win-a-mat") },
-  { slug: "master-duel",    img: IMG("master-duel") },
-  { slug: "speed-duel",     img: IMG("speed-duel") },
-  { slug: "structure-deck", img: IMG("structure-deck") },
-  { slug: "dragon-duel",    img: IMG("dragon-duel") },
-];
-
-function renderHero() {
-  const el = document.getElementById('heroSlot');
-  el.innerHTML = `
-    <article class="hero-card">
-      <a href="${HERO.href}">
-        <img class="hero-img" src="${HERO.img}" alt="Evento Principal">
-      </a>
-    </article>
-  `;
+/* ===== Estilos generales del menú de Preregistro ===== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
 }
 
-function renderGrid() {
-  const grid = document.getElementById('gridSlot');
-  grid.innerHTML = SIDE_EVENTS.map(ev => `
-    <article class="img-card">
-      <a href="../regional/evento.html?id=${encodeURIComponent(ev.slug)}" aria-label="${ev.slug}">
-        <img src="${ev.img}" alt="${ev.slug}">
-      </a>
-    </article>
-  `).join('');
+.menu-wrap {
+  width: 100%;
+  max-width: 900px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
-renderHero();
-renderGrid();
+/* ===== Evento principal (banner grande) ===== */
+#heroSlot img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+#heroSlot img:hover {
+  transform: scale(1.03);
+  filter: brightness(0.8);
+}
+
+/* ===== Botón HEX: "Status De Registro" ===== */
+.status-container {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-hex {
+  --hex-bg1: #e00119;   /* rojo superior */
+  --hex-bg2: #a80012;   /* rojo inferior */
+  --hex-shadow: #002f5a; /* sombra azul tenue */
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  min-width: 200px;
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: 0.2px;
+  background: linear-gradient(180deg, var(--hex-bg1), var(--hex-bg2));
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 10px var(--hex-shadow));
+  transition: transform 0.15s ease, filter 0.25s ease;
+  clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
+}
+
+.btn-hex:hover,
+.btn-hex:focus {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 14px var(--hex-shadow));
+}
+
+/* ===== Grid de side events (6 botones con imágenes) ===== */
+#gridSlot {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+.grid-cards img {
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.grid-cards img:hover {
+  transform: scale(1.05);
+  filter: brightness(0.8);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .btn-hex {
+    min-width: 160px;
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  #gridSlot {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+  }
+}
