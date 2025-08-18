@@ -99,3 +99,19 @@ body {
     gap: 15px;
   }
 }
+/* ===== Correcciones para el menú de preregistro ===== */
+
+/* Botón rojo sólido */
+.qa-btn.primary {
+  background: #e53935 !important;  /* rojo sólido */
+  color: #fff !important;
+  opacity: 1 !important;           /* asegura que no se vea transparente */
+}
+
+/* Botón oscuro sólido */
+.qa-btn.ghost {
+  background: #1b1b1e !important;  /* panel oscuro */
+  color: #fff !important;
+  border: 1px solid #2a2a2f !important;
+  opacity: 1 !important;
+}
