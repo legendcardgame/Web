@@ -4,20 +4,27 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Evento · Legend Card Game</title>
+
+  <!-- (Opcional) estilos locales de /regional si los usas -->
   <link rel="stylesheet" href="../styles.css">
+
+  <!-- Estilos GLOBALes (mismos del home) -->
+  <link rel="stylesheet" href="/Web/main.css">
+  <link rel="stylesheet" href="/Web/styles.css">
+
   <style>
     :root{
       --card-bg:#111;
       --card-border:rgba(255,255,255,.08);
     }
-    body{ background:#000; }
-    .ev-wrap{max-width:960px;margin:0 auto;padding:20px}
+
+    /* No forzar fondo aquí: hereda el global */
+    /* body{ background:#000; } */
+
+    .ev-wrap{max-width:960px;margin:0 auto;padding:20px 16px 100px}
 
     /* ===== Encabezado limpio ===== */
-    .ev-header{
-      margin-bottom:14px;
-      text-align:center;
-    }
+    .ev-header{margin:0 0 14px;text-align:center}
     .ev-title{
       margin:0;
       font-size:clamp(22px,3.8vw,36px);
@@ -48,7 +55,7 @@
     /* Descripción: texto a la izquierda */
     .ev-desc{line-height:1.65;opacity:.97;text-align:left}
 
-    /* CTA hex rojo centrado */
+    /* CTA hex rojo centrado (mismo look del menú) */
     .cta-center{display:flex;justify-content:center;margin-top:12px}
     .btn-hex{
       --hex-bg1:#e00119; --hex-bg2:#a80012; --hex-shadow:#002f5a;
@@ -101,7 +108,14 @@
   </style>
 </head>
 <body>
-  <div class="ev-wrap">
+
+  <!-- Header/Bottom-nav inyectables (mismos que el home) -->
+  <div id="site-header"></div>
+
+  <!-- Marca de agua global -->
+  <div class="watermark"></div>
+
+  <div class="ev-wrap container">
     <!-- TÍTULO ARRIBA, SIN FONDO -->
     <header class="ev-header">
       <h1 class="ev-title" id="evTitle">Cargando…</h1>
@@ -157,8 +171,15 @@
     </section>
   </div>
 
+  <!-- Footer (y bottom-nav) reutilizable -->
+  <div id="site-footer"></div>
+
   <!-- Catálogo de eventos -->
   <script src="./eventos.js"></script>
+
+  <!-- Loader que inyecta header + bottom-nav -->
+  <script src="/Web/assets/js/layout-loader.js"></script>
+
   <script>
     const params = new URLSearchParams(location.search);
     const id = (params.get('id') || '').toLowerCase();
