@@ -14,8 +14,8 @@ const HERO = {
 const SIDE_EVENTS = [
   { slug: "edison",         img: IMG("edison") },
   { slug: "structure-deck", img: IMG("structure-deck") },
-  { slug: "dragon-duel",    img: IMG("dragon-duel") },
   { slug: "speed-duel",     img: IMG("speed-duel") },
+  { slug: "dragon-duel",    img: IMG("dragon-duel") },
   { slug: "win-a-mat",      img: IMG("win-a-mat") },
   { slug: "master-duel",    img: IMG("master-duel") },
 ];
