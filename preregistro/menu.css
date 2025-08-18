@@ -1,16 +1,5 @@
 /* ===== Estilos generales del menú de Preregistro ===== */
-*{box-sizing:border-box}
-html,body{height:100%}
 body {
-  margin: 0;
-  background:
-    radial-gradient(circle at top left, rgba(255, 0, 0, 0.45), transparent 30%),
-    radial-gradient(circle at top right, rgba(0, 0, 255, 0.45), transparent 30%),
-    #0a0a0a;
-  color: var(--text);
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
-}
-
   margin: 0;
   font-family: Arial, sans-serif;
   background: #0a0a0a;
@@ -190,8 +179,8 @@ body {
 /* Quitar bandas de color en la parte inferior del body en esta página */
 body {
   background:
-    radial-gradient(1200px 600px at 10% -10%, rgba(0,0,0,.20), transparent 60%),
-    radial-gradient(1200px 600px at 90% -10%, rgba(0,0,0,.22), transparent 60%),
+    radial-gradient(circle at top left, rgba(255, 0, 0, 0.45), transparent 30%),
+    radial-gradient(circle at top right, rgba(0, 0, 255, 0.45), transparent 30%),
     var(--bg) !important;
 }
 
