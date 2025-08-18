@@ -9,49 +9,59 @@
   <link rel="stylesheet" href="/Web/main.css">
   <link rel="stylesheet" href="/Web/styles.css?v=2">
 
-  <!-- Estilos locales (al final para que ganen prioridad) -->
+  <!-- Estilos locales -->
   <link rel="stylesheet" href="./styles.css">
 
   <style>
+    /* --- Que el header/bottom-nav no tapen el contenido --- */
+    .page-pad { padding-top: 64px; padding-bottom: 96px; }
+
     /* ===== Ajustes propios de esta vista ===== */
     .consulta-wrap{max-width:720px;margin:0 auto;padding:20px 16px}
     .hero-title{font-size:clamp(1.6rem,3.8vw,2.4rem);font-weight:800;letter-spacing:.5px;margin:8px 0 2px;text-align:center}
     .hero-sub{color:#bfbfbf;margin:0 0 18px;text-align:center}
+
     .card{background:#121212;border-radius:14px;padding:16px;box-shadow:0 6px 28px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06)}
     .row{display:flex;gap:12px;flex-wrap:wrap}
     .field{flex:1 1 100%}
     .field label{display:block;font-size:.95rem;color:#cfcfcf;margin-bottom:6px}
     .field input{width:100%;background:#1a1a1a;color:#eee;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 14px;font-size:1rem;outline:none}
+
     .actions{display:flex;justify-content:center;align-items:center;margin-top:14px}
-    /* ===== Botón HEX rojo ===== */
+
+    /* Botón HEX rojo */
     .btn-hex{--hex-bg1:#e00119;--hex-bg2:#a80012;--hex-shadow:#002f5a;position:relative;display:inline-flex;align-items:center;justify-content:center;padding:12px 28px;min-width:200px;color:#fff;font-weight:800;text-decoration:none;letter-spacing:.2px;background:linear-gradient(180deg,var(--hex-bg1),var(--hex-bg2));filter:drop-shadow(0 6px 16px rgba(0,0,0,.35)) drop-shadow(0 0 10px var(--hex-shadow));transition:transform .15s ease,filter .25s ease;clip-path:polygon(10% 0,90% 0,100% 50%,90% 100%,10% 100%,0 50%);border:0;cursor:pointer}
     .btn-hex:hover,.btn-hex:focus{transform:translateY(-2px);filter:drop-shadow(0 10px 24px rgba(0,0,0,.5)) drop-shadow(0 0 14px var(--hex-shadow))}
     .btn-hex:disabled{opacity:.7;cursor:not-allowed;filter:saturate(.8)}
     .dots::after{content:'';animation:dots 1.4s steps(4,end) infinite}
     @keyframes dots{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}100%{content:'....'}}
+
     .result-card{margin-top:16px;background:#0f0f0f;border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:16px;color:#eee;box-shadow:0 10px 26px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.03)}
     .grid{display:grid;gap:10px;grid-template-columns:1fr}
     @media (min-width:700px){.grid{grid-template-columns:1fr 1fr}}
     .kv{display:flex;flex-direction:column;gap:2px}
     .kv .k{font-size:.85rem;color:#a6a6a6}
     .kv .v{font-weight:700}
+
     .status-pill{display:inline-block;padding:6px 10px;border-radius:999px;font-weight:800;letter-spacing:.3px;box-shadow:inset 0 -1px 0 rgba(255,255,255,.12)}
     .pill-aceptado{background:rgba(76,175,80,.16);color:#7ee28a;border:1px solid rgba(76,175,80,.35)}
     .pill-rechazado{background:rgba(244,67,54,.14);color:#ff9e99;border:1px solid rgba(244,67,54,.35)}
     .pill-pendiente{background:rgba(255,193,7,.12);color:#ffd86b;border:1px solid rgba(255,193,7,.36)}
-    .status-msg{margin-top:12px;padding:12px;border-radius:12px;line-height:1.45;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)}
-    .status-msg strong{font-weight:900}
+
+    .row-msg td{padding:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px}
+    .row-msg strong{font-weight:900}
+
     .notice{margin-top:10px;color:#9ad0ff}
     .notice.err{color:#ff9a9a}
     .notice.ok{color:#99f5b2}
   </style>
 </head>
 <body>
-  <!-- Header reutilizable y watermark -->
+  <!-- Header + marca de agua -->
   <div id="site-header"></div>
   <div class="watermark"></div>
 
-  <div class="consulta-wrap container">
+  <div class="consulta-wrap container page-pad">
     <h1 class="hero-title">Consulta tu preregistro</h1>
     <p class="hero-sub">Ingresa tu Konami ID para ver el estado de tu registro.</p>
 
@@ -63,11 +73,9 @@
           <input id="konamiId" name="konamiId" type="text" inputmode="numeric" placeholder="0400XXXXXX" maxlength="10" required>
         </div>
       </div>
-
       <div class="actions">
         <button id="btnBuscar" class="btn-hex" type="submit">Buscar</button>
       </div>
-
       <div id="msg" class="notice"></div>
     </form>
 
@@ -80,14 +88,56 @@
 
   <!-- Loader de layout -->
   <script src="/Web/assets/js/layout-loader.js"></script>
-
-  <!-- Config (ruta correcta dentro de /utilities/) -->
+  <!-- Config API -->
   <script src="./js/config.js"></script>
 
   <!-- Lógica de consulta -->
   <script>
     const $ = s => document.querySelector(s);
     const pad10 = s => String(s||'').replace(/\D/g,'').padStart(10,'0');
+
+    // Mapa de slugs/variantes -> nombre real
+    const EVENT_NAME = {
+      'principal':'Evento Principal',
+      'evento-principal':'Evento Principal',
+      'edison':'Edison Format',
+      'edison format':'Edison Format',
+      'structure-deck':'Structure Deck',
+      'structure deck':'Structure Deck',
+      'speed-duel':'Speed Duel',
+      'speed duel':'Speed Duel',
+      'dragon-duel':'Dragon Duel',
+      'dragon duel':'Dragon Duel',
+      'win-a-mat':'Win a Mat',
+      'win a mat':'Win a Mat',
+      'master-duel':'Master Duel',
+      'master duel':'Master Duel'
+    };
+    const prettyEvent = v => EVENT_NAME[String(v||'').toLowerCase().trim()] || (v || 'Evento');
+
+    // Mensaje por estatus (por evento)
+    function statusMessage(est, evName){
+      est = String(est||'').toLowerCase();
+      if (est === 'aceptado') {
+        return `
+          <strong>Solicitud Aceptada</strong><br>
+          Tu inscripción a <strong>${evName}</strong> ha sido <strong>aprobada</strong>.
+          ¡Te esperamos el 13 de septiembre en la sede del evento! No olvides llevar tu <em>Decklist</em>.
+        `;
+      }
+      if (est === 'rechazado') {
+        return `
+          <strong>Solicitud Rechazada</strong><br>
+          Tu inscripción a <strong>${evName}</strong> <strong>no ha sido aprobada</strong>.
+          Para aclaraciones, comunícate al <strong>+52 222 541 5059</strong>.
+        `;
+      }
+      return `
+        <strong>Solicitud Pendiente</strong><br>
+        Tu inscripción a <strong>${evName}</strong> está <strong>en revisión</strong>.
+        Por favor vuelve a consultar más tarde.
+      `;
+    }
 
     const form = $('#formConsulta');
     const btn  = $('#btnBuscar');
@@ -111,8 +161,9 @@
       btn.classList.add('dots');
 
       try{
-        // 1) Intento admin para traer múltiples filas (si hay clave)
         let filas = null;
+
+        // Intento Admin (lista completa)
         try {
           const rAdmin = await fetch(window.LCG.API_BASE + '?_t=' + Date.now(), {
             headers: { 'X-Admin-Key': window.LCG.ADMIN_KEY || '' }
@@ -126,7 +177,7 @@
           }
         } catch(_) {}
 
-        // 2) Fallback a consulta individual
+        // Fallback: consulta individual
         if (!filas || !filas.length) {
           const r = await fetch(`${window.LCG.API_BASE}?konamiId=${encodeURIComponent(konami)}&_t=${Date.now()}`);
           const j = await r.json();
@@ -153,23 +204,34 @@
 
         const EVENT_KEYS = ['eventType','evento','tipo','tipoEvento'];
         const getEventName = (row) => {
-          for (const k of EVENT_KEYS) if (row[k]) return String(row[k]);
+          for (const k of EVENT_KEYS) if (row[k]) return prettyEvent(row[k]);
           return 'Evento';
         };
 
         const rowsHtml = filas.map(d => {
-          const est = String(d.status||'').toLowerCase();
-          const pillCls =
+          const est   = String(d.status||'').toLowerCase();
+          const pill  =
             est === 'aceptado' ? 'pill-aceptado' :
             est === 'rechazado' ? 'pill-rechazado' : 'pill-pendiente';
           const pillTxt = d.status || 'Pendiente';
-          const evt     = getEventName(d);
+          const evName  = getEventName(d);
+
+          const msgHtml = statusMessage(est, evName);
+
           return `
             <tr>
-              <td style="padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08)">${evt}</td>
-              <td style="padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08)"><span class="status-pill ${pillCls}">${pillTxt}</span></td>
-              <td style="padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08)">${d.paymentUrl ? `<a href="${d.paymentUrl}" target="_blank">Ver</a>` : '—'}</td>
-            </tr>`;
+              <td style="padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08)">${evName}</td>
+              <td style="padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08)">
+                <span class="status-pill ${pill}">${pillTxt}</span>
+              </td>
+              <td style="padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08)">
+                ${d.paymentUrl ? `<a href="${d.paymentUrl}" target="_blank">Ver</a>` : '—'}
+              </td>
+            </tr>
+            <tr class="row-msg">
+              <td colspan="3">${msgHtml}</td>
+            </tr>
+          `;
         }).join('');
 
         out.innerHTML = `
@@ -180,14 +242,15 @@
               <div class="kv"><div class="k">Correo</div><div class="v">${email}</div></div>
               <div class="kv"><div class="k">Teléfono</div><div class="v">${phone}</div></div>
             </div>
+
             <h3 style="margin:16px 0 8px;text-align:center">Tus eventos</h3>
             <div class="table-wrap">
-              <table class="table" style="width:100%;border-collapse:collapse">
+              <table class="table" style="width:100%;border-collapse:separate;border-spacing:0 6px">
                 <thead>
                   <tr>
-                    <th style="text-align:left;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08)">Evento</th>
-                    <th style="text-align:left;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08)">Estatus</th>
-                    <th style="text-align:left;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08)">Comprobante</th>
+                    <th style="text-align:left;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.12)">Evento</th>
+                    <th style="text-align:left;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.12)">Estatus</th>
+                    <th style="text-align:left;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.12)">Comprobante</th>
                   </tr>
                 </thead>
                 <tbody>${rowsHtml}</tbody>
