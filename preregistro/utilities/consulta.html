@@ -180,97 +180,134 @@
       btn.textContent = 'Buscando';
       btn.classList.add('dots');
 
-      try{
-        const url = `${window.LCG.API_BASE}?konamiId=${encodeURIComponent(konami)}&_t=${Date.now()}`;
-        const r = await fetch(url);
-        const j = await r.json();
+try{
+  // 1) Intento rápido: listado admin (para obtener TODAS las filas y filtrar por Konami)
+  let filas = null;
 
-        if (!j.ok) {
-          msg.textContent = 'No encontrado';
-          msg.className = 'notice err';
-          out.innerHTML = '';
-          return;
-        }
+  try {
+    const rAdmin = await fetch(window.LCG.API_BASE + '?_t=' + Date.now(), {
+      headers: { 'X-Admin-Key': window.LCG.ADMIN_KEY || '' }
+    });
+    const jAdmin = await rAdmin.json();
+    if (jAdmin?.ok && Array.isArray(jAdmin.data)) {
+      // Normalizamos el ID y filtramos TODAS las filas del duelista
+      filas = jAdmin.data.filter(row => {
+        const kid = String(row.konamiId || '').replace(/\D/g,'').padStart(10,'0');
+        return kid === konami;
+      });
+    }
+  } catch(_) {
+    // Si falla admin (CORS / clave), seguimos con fallback
+  }
 
-        const d = j.data || {};
-        const est = String(d.status || '').toLowerCase();
+  // 2) Fallback: consulta individual (1 fila) si no tenemos arreglo
+  if (!filas || !filas.length) {
+    const r = await fetch(`${window.LCG.API_BASE}?konamiId=${encodeURIComponent(konami)}&_t=${Date.now()}`);
+    const j = await r.json();
+    if (!j.ok) {
+      msg.textContent = 'No encontrado';
+      msg.className = 'notice err';
+      out.innerHTML = '';
+      return;
+    }
+    // Si el backend devuelve un objeto, lo convertimos a arreglo
+    filas = Array.isArray(j.data) ? j.data : [j.data];
+  }
 
-        const pillCls =
-          est === 'aceptado' ? 'pill-aceptado' :
-          est === 'rechazado' ? 'pill-rechazado' : 'pill-pendiente';
-        const pillTxt = (d.status || 'Pendiente');
+  if (!filas.length){
+    msg.textContent = 'No encontrado';
+    msg.className = 'notice err';
+    out.innerHTML = '';
+    return;
+  }
 
-        let msgHtml = '';
-        if (est === 'aceptado') {
-          msgHtml = `
-            <div class="status-msg">
-              <strong>Solicitud Aceptada</strong><br><br>
-              Tu solicitud para el <strong>Yu-Gi-Oh! Regional Qualifier</strong> en Puebla ha sido
-              <strong>aprobada</strong>. Te esperamos el <strong>13 de septiembre</strong> en la sede del evento.
-              <strong>Recuerda</strong>: Debes presentarte con tu <i>Decklist</i> ya elaborada y lista para entregar.
-            </div>`;
-        } else if (est === 'rechazado') {
-          msgHtml = `
-            <div class="status-msg">
-              <strong>Solicitud Rechazada</strong><br><br>
-              Lo sentimos, tu solicitud para el <strong>Yu-Gi-Oh! Regional Qualifier</strong> en Puebla
-              <strong>no ha sido aprobada</strong>. Para cualquier aclaración o información adicional, por favor
-              comunícate al número <strong>+52 222 541 5059</strong>.
-            </div>`;
-        } else {
-          msgHtml = `
-            <div class="status-msg">
-              <strong>Solicitud Pendiente</strong><br><br>
-              Tu solicitud para el <strong>Yu-Gi-Oh! Regional Qualifier</strong> en Puebla está
-              <strong>en revisión</strong>. Te pedimos un poco de paciencia mientras confirmamos tu inscripción.
-              Verifica más tarde.
-            </div>`;
-        }
+  // 3) Render
+  const base = filas[0] || {};
+  const fullName = [base.firstName, base.lastName].filter(Boolean).join(' ') || '—';
+  const email    = base.email || '—';
+  const phone    = base.phone || '—';
 
-        out.innerHTML = `
-          <div class="result-card">
-            <div class="grid">
-              <div class="kv">
-                <div class="k">Konami ID</div>
-                <div class="v">${d.konamiId || konami}</div>
-              </div>
-              <div class="kv">
-                <div class="k">Nombre</div>
-                <div class="v">${[d.firstName, d.lastName].filter(Boolean).join(' ')}</div>
-              </div>
-              <div class="kv">
-                <div class="k">Correo</div>
-                <div class="v">${d.email || '—'}</div>
-              </div>
-              <div class="kv">
-                <div class="k">Teléfono</div>
-                <div class="v">${d.phone || '—'}</div>
-              </div>
-              <div class="kv">
-                <div class="k">Comprobante</div>
-                <div class="v">${d.paymentUrl ? `<a href="${d.paymentUrl}" target="_blank">Ver comprobante</a>` : '—'}</div>
-              </div>
-              <div class="kv">
-                <div class="k">Estatus</div>
-                <div class="v"><span class="status-pill ${pillCls}">${pillTxt}</span></div>
-              </div>
-            </div>
-            ${msgHtml}
-          </div>
-        `;
+  // Key del tipo de evento (por si tu encabezado se llama distinto)
+  const EVENT_KEYS = ['eventType','evento','tipo','tipoEvento'];
+  const getEventName = (row) => {
+    for (const k of EVENT_KEYS) {
+      if (row[k]) return String(row[k]);
+    }
+    return 'Evento';
+  };
 
-        msg.textContent = 'Listo.';
-        msg.className = 'notice ok';
+  const rowsHtml = filas.map(d => {
+    const est = String(d.status||'').toLowerCase();
+    const pillCls =
+      est === 'aceptado' ? 'pill-aceptado' :
+      est === 'rechazado' ? 'pill-rechazado' : 'pill-pendiente';
+    const pillTxt = d.status || 'Pendiente';
+    const evt     = getEventName(d);
 
-      }catch(err){
-        msg.textContent = 'Error: ' + err.message;
-        msg.className = 'notice err';
-        out.innerHTML = '';
-      }finally{
-        btn.disabled = false;
-        btn.textContent = 'Buscar';
-        btn.classList.remove('dots');
-      }
+    return `
+      <tr>
+        <td style="padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08)">${evt}</td>
+        <td style="padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08)">
+          <span class="status-pill ${pillCls}">${pillTxt}</span>
+        </td>
+        <td style="padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08)">
+          ${d.paymentUrl ? `<a href="${d.paymentUrl}" target="_blank">Ver</a>` : '—'}
+        </td>
+      </tr>
+    `;
+  }).join('');
+
+  out.innerHTML = `
+    <div class="result-card">
+      <div class="grid">
+        <div class="kv">
+          <div class="k">Konami ID</div>
+          <div class="v">${(base.konamiId || konami)}</div>
+        </div>
+        <div class="kv">
+          <div class="k">Nombre</div>
+          <div class="v">${fullName}</div>
+        </div>
+        <div class="kv">
+          <div class="k">Correo</div>
+          <div class="v">${email}</div>
+        </div>
+        <div class="kv">
+          <div class="k">Teléfono</div>
+          <div class="v">${phone}</div>
+        </div>
+      </div>
+
+      <h3 style="margin:16px 0 8px;text-align:center">Tus eventos</h3>
+      <div class="table-wrap">
+        <table class="table" style="width:100%;border-collapse:collapse">
+          <thead>
+            <tr>
+              <th style="text-align:left;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08)">Evento</th>
+              <th style="text-align:left;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08)">Estatus</th>
+              <th style="text-align:left;padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.08)">Comprobante</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rowsHtml}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+
+  msg.textContent = 'Listo.';
+  msg.className = 'notice ok';
+
+}catch(err){
+  msg.textContent = 'Error: ' + err.message;
+  msg.className = 'notice err';
+  out.innerHTML = '';
+}finally{
+  btn.disabled = false;
+  btn.textContent = 'Buscar';
+  btn.classList.remove('dots');
+}
     });
   </script>
 
@@ -301,4 +338,5 @@
   </script>
 </body>
 </html>
+
 
