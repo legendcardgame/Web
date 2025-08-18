@@ -176,3 +176,49 @@ body { padding-bottom: 76px; } /* ajusta según alto del nav */
   .bottom-nav .nav-item { font-size:12px; }
   .bottom-nav .icon{ width:26px; height:26px; }
 }
+/* ===== Header fijo en todas las páginas ===== */
+:root{
+  /* Alturas estándar (ajusta si tu header/nav miden distinto) */
+  --header-h: 72px;
+  --bottom-nav-h: 68px;
+}
+
+/* Fija el header arriba */
+header.topbar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* por encima del contenido y del watermark */
+  /* El gradient que ya tienes aplicado a .topbar se conserva;
+     no redefinimos background aquí para no pisarlo. */
+}
+
+/* Asegura alineación interna del header */
+header.topbar .brand{
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Da espacio al contenido para que no quede oculto detrás del header fijo */
+body{
+  padding-top: var(--header-h);
+}
+
+/* Si tu bottom-nav es fijo, evita que tape contenido al final */
+.bottom-nav{
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 1000;
+}
+body{
+  padding-bottom: var(--bottom-nav-h);
+}
+
+/* Asegura que la marca de agua quede detrás del header */
+.watermark, .logo-fondo{
+  z-index: 0;
+}
