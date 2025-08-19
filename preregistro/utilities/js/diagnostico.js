@@ -1,27 +1,88 @@
-import { API_BASE, ADMIN_KEY } from './config.js';
+(function(){
+  'use strict';
 
-const $  = s => document.querySelector(s);
-const logEl = $('#log');
-const log = msg => { logEl.textContent += msg + '\n'; logEl.scrollTop = logEl.scrollHeight; };
+  const $ = s => document.querySelector(s);
 
-$('#btnPing').addEventListener('click', async () => {
-  try{
-    const r = await fetch(`${API_BASE}?action=ping`);
-    const j = await r.json();
-    log('[PING] ' + JSON.stringify(j));
-  }catch(e){
-    log('[PING] Error: ' + e.message);
+  const btnPing = $('#btnPing');
+  const btnList = $('#btnList');
+  const status  = $('#status');
+  const output  = $('#output');
+
+  function setStatus(ok, msg){
+    status.className = 'status ' + (ok ? 'ok' : 'bad');
+    status.textContent = msg || (ok ? 'OK' : 'Error');
   }
-});
 
-$('#btnListAdmin').addEventListener('click', async () => {
-  log('[DIAG] Cargando lista…');
-  try{
-    const r = await fetch(`${API_BASE}?adminKey=${encodeURIComponent(ADMIN_KEY)}`);
-    const j = await r.json();
-    if(!j.ok) throw new Error(j.message || 'Error en listado');
-    log('[DIAG] OK · Registros: ' + (j.data?.length ?? 0));
-  }catch(e){
-    log('[DIAG] Error: ' + e.message);
+  function show(obj){
+    try{
+      output.textContent = typeof obj === 'string'
+        ? obj
+        : JSON.stringify(obj, null, 2);
+    }catch{
+      output.textContent = String(obj);
+    }
   }
-});
+
+  function requireConfig(){
+    if (!window.LCG || !window.LCG.API_BASE){
+      setStatus(false, 'Falta window.LCG.API_BASE');
+      show('Asegúrate de cargar config.js antes de diagnostico.js');
+      return false;
+    }
+    return true;
+  }
+
+  async function doPing(){
+    if(!requireConfig()) return;
+    const url = `${window.LCG.API_BASE}?action=ping&_t=${Date.now()}`;
+    try{
+      setStatus(true, 'Solicitando…');
+      const r   = await fetch(url);          // GET sin headers → sin preflight
+      const raw = await r.text();
+      let j;
+      try { j = JSON.parse(raw); } catch { j = { ok:false, raw }; }
+      setStatus(!!j.ok, j.ok ? 'OK' : 'Error');
+      show(j);
+    }catch(e){
+      setStatus(false, 'Error');
+      show({error: e.message});
+    }
+  }
+
+  async function doList(){
+    if(!requireConfig()) return;
+    if (!window.LCG.ADMIN_KEY){
+      setStatus(false, 'Falta ADMIN_KEY');
+      show('Define window.LCG.ADMIN_KEY en config.js');
+      return;
+    }
+    const url = `${window.LCG.API_BASE}?adminKey=${encodeURIComponent(window.LCG.ADMIN_KEY)}&_t=${Date.now()}`;
+    try{
+      setStatus(true, 'Solicitando…');
+      const r   = await fetch(url);          // GET sin headers → sin preflight
+      const raw = await r.text();
+      let j;
+      try { j = JSON.parse(raw); } catch { j = { ok:false, raw }; }
+      setStatus(!!j.ok, j.ok ? 'OK' : 'Error');
+      // Resumen útil
+      if (j.ok && Array.isArray(j.data)){
+        show({ ok: true, count: j.data.length, sample: j.data.slice(0, 3) });
+      } else {
+        show(j);
+      }
+    }catch(e){
+      setStatus(false, 'Error');
+      show({error: e.message});
+    }
+  }
+
+  if (btnPing) btnPing.addEventListener('click', doPing);
+  if (btnList) btnList.addEventListener('click', doList);
+
+  // Estado inicial
+  if (!window.LCG) {
+    setStatus(false, 'Falta config.js');
+  } else {
+    setStatus(true, 'Listo');
+  }
+})();
