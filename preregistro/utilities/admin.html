@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Preregistros · Admin</title>
   <link rel="stylesheet" href="./styles.css" />
-  <link rel="icon" href="../assets/favicon.png" />
+  <!-- favicon corregido (dos niveles arriba) -->
+  <link rel="icon" href="../../assets/favicon.png" />
   <style>
     /* ===== Login pantalla completa ===== */
     .login-screen{
@@ -31,10 +32,13 @@
 
     /* ===== App ===== */
     .app{ display:none; min-height:100dvh; background:#0c0c0f; color:#fff; }
-    .container{ max-width:1100px; margin:0 auto; padding:16px; }
+    .container{ max-width:1200px; margin:0 auto; padding:16px; }
     h1{ margin:16px 0 6px; }
     .toolbar{ display:flex; align-items:center; gap:10px; margin:12px 0 6px; }
     .toolbar .input{ flex:1 1 auto; }
+    .filter-wrap{ display:flex; gap:8px; align-items:center; }
+    .select{ background:#111216; border:1px solid #2a2a30; color:#fff; border-radius:10px; padding:.55rem .7rem; }
+
     .below-bar{ display:flex; justify-content:flex-start; margin-bottom:10px; }
     .kpi{ font-size:.95rem; opacity:.85; }
     .kpi b{ color:#fff; }
@@ -48,6 +52,10 @@
       background:#111; border:1px solid #333; border-radius:8px; padding:.35rem .5rem; color:#fff;
       transition: box-shadow .2s, border-color .2s, background .2s;
     }
+    .btn-del{
+      background:#2a1616; color:#ff9e9e; border:1px solid #512; border-radius:8px;
+      padding:.35rem .6rem; cursor:pointer;
+    }
 
     .table-wrapper{ position:relative; min-height:40dvh; }
     table{ width:100%; border-collapse:separate; border-spacing:0 8px; }
@@ -55,31 +63,25 @@
     tbody td{ background:#0e0e10; border:1px solid #1f1f24; padding:.65rem .75rem; }
     tbody tr.updating td{ opacity:.65; }
     .hide-sm{ display:none; }
-    @media (min-width:720px){ .hide-sm{ display:table-cell; } }
+    @media (min-width:900px){ .hide-sm{ display:table-cell; } }
 
     .notice{ margin:8px 0; min-height:1.2em; }
 
-    /* ===== Loader centrado ===== */
-    .center-loader{
-      position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-    }
-    .loader {
-      display:flex; flex-direction:column; align-items:center; gap:10px;
+    /* ===== Loader centrado (limpio: cuatro bolitas) ===== */
+    .center-loader{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+    .loader { display:flex; flex-direction:column; align-items:center; gap:10px;
       padding:12px 16px; background:rgba(16,16,20,.4); border:1px solid #26262c; border-radius:14px;
-      backdrop-filter: blur(4px);
-    }
-    .loader .dots{ display:flex; gap:6px; }
-    .loader .dots span{
-      width:8px; height:8px; border-radius:50%; background:#e6e6e6; opacity:.6;
-      animation: b 900ms infinite ease-in-out alternate;
-    }
-    .loader .dots span:nth-child(1){ animation-delay: 0ms; }
-    .loader .dots span:nth-child(2){ animation-delay: 120ms; }
-    .loader .dots span:nth-child(3){ animation-delay: 240ms; }
-    .loader .dots span:nth-child(4){ animation-delay: 360ms; }
-    @keyframes b { to{ transform: translateY(-6px); opacity:1; } }
+      backdrop-filter: blur(4px); }
+    .loader h3{ margin:0; font-weight:800; }
+    .dots{ display:flex; gap:8px; }
+    .dot{ width:10px; height:10px; border-radius:50%; background:#d9d9d9; opacity:.6;
+      animation: bounce 900ms infinite ease-in-out alternate; }
+    .dot:nth-child(2){ animation-delay:120ms }
+    .dot:nth-child(3){ animation-delay:240ms }
+    .dot:nth-child(4){ animation-delay:360ms }
+    @keyframes bounce{ to{ transform: translateY(-6px); opacity:1; } }
 
-    /* ===== Efecto de "iluminado" en el select de estatus ===== */
+    /* Efecto de “iluminado” en select de estatus */
     .status.loading{
       color:#fff;
       background:
@@ -88,18 +90,15 @@
       border-color:#555;
       box-shadow:0 0 0 2px rgba(232,69,60,.25);
       animation: shimmer 1.2s linear infinite;
-      pointer-events:none; /* evita click durante actualización */
+      pointer-events:none;
       opacity:.9;
     }
-    @keyframes shimmer {
-      0%   { background-position: 0% 0; }
-      100% { background-position: 200% 0; }
-    }
+    @keyframes shimmer { 0%{background-position:0 0} 100%{background-position:200% 0} }
   </style>
 </head>
 <body>
 
-  <!-- LOGIN pantalla completa -->
+  <!-- LOGIN -->
   <section id="loginScreen" class="login-screen">
     <div class="login-card">
       <h1>Panel de Preregistros</h1>
@@ -117,43 +116,55 @@
     <main class="container">
       <h1>Preregistros</h1>
 
-      <!-- Buscador -->
+      <!-- Buscador + filtro por evento -->
       <div class="toolbar">
-        <input id="search" class="input" placeholder="Filtrar por Konami ID, nombre, apellidos, correo o teléfono…" />
+        <input id="search" class="input" placeholder="Filtrar por Konami, nombre, correo, teléfono o evento…" />
+        <div class="filter-wrap">
+          <select id="evtFilter" class="select" aria-label="Filtrar por evento">
+            <option value="">Todos los eventos</option>
+            <option value="principal">Evento Principal</option>
+            <option value="edison">Edison</option>
+            <option value="dragon-duel">Dragon Duel</option>
+            <option value="speed-duel">Speed Duel</option>
+            <option value="structure-deck">Structure Deck</option>
+            <option value="master-duel">Master Duel</option>
+            <option value="win-a-mat">Win a Mat</option>
+          </select>
+        </div>
       </div>
 
-      <!-- KPI debajo (móvil friendly) -->
       <div class="below-bar">
         <div class="kpi">Jugadores: <b id="counter">0</b></div>
       </div>
 
-      <!-- Mensajes -->
       <div id="out" class="notice"></div>
 
-      <!-- Tabla + loader -->
       <div class="table-wrapper">
         <!-- Loader centrado -->
         <div id="centerLoader" class="center-loader" style="display:none;">
           <div class="loader" role="status" aria-live="polite">
-            <div> Cargando… </div>
-            <div class="dots" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            <h3>Cargando…</h3>
+            <div class="dots" aria-hidden="true">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
           </div>
         </div>
 
         <table>
-<thead>
-  <tr>
-    <th class="hide-sm">Fecha</th>
-    <th>Konami ID</th>
-    <th>Nombre</th>
-    <th>Apellidos</th>
-    <th class="hide-sm">Correo</th>
-    <th class="hide-sm">Teléfono</th>
-    <th>Comprobante</th>
-    <th>Evento</th> 
-    <th>Estatus</th>
-  </tr>
-</thead>
+          <thead>
+            <tr>
+              <th class="hide-sm">Fecha</th>
+              <th>Konami ID</th>
+              <th>Nombre</th>
+              <th>Apellidos</th>
+              <th class="hide-sm">Correo</th>
+              <th class="hide-sm">Teléfono</th>
+              <th>Comprobante</th>
+              <th>Evento</th>
+              <th>Estatus</th>
+              <th class="hide-sm">Acciones</th>
+            </tr>
+          </thead>
           <tbody id="tbody"></tbody>
         </table>
       </div>
