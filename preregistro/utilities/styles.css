@@ -455,3 +455,16 @@ body.consulta-page{
     padding-bottom: 136px;
   }
 }
+/* Pill de tipo de evento */
+.evt-pill{
+  display:inline-block;
+  padding:.28rem .5rem;
+  border-radius:999px;
+  font-weight:800;
+  letter-spacing:.2px;
+  font-size:.85rem;
+  color:#dfe7ff;
+  background:rgba(59,130,246,.12);
+  border:1px solid rgba(59,130,246,.35);
+  white-space:nowrap;
+}
