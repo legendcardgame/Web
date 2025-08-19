@@ -468,3 +468,28 @@ body.consulta-page{
   border:1px solid rgba(59,130,246,.35);
   white-space:nowrap;
 }
+/* Nunca ocultar la columna de acciones en móvil */
+th.actions-col,
+td.actions-col {
+  display: table-cell !important;
+}
+
+/* Ajustes de cabida en pantallas pequeñas */
+@media (max-width: 720px){
+  td.actions-col {
+    white-space: nowrap;
+  }
+  td.actions-col .row-actions {
+    display: inline-flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    vertical-align: middle;
+  }
+  td.actions-col select.status {
+    max-width: 140px;
+  }
+  td.actions-col button.btn-del {
+    padding: .35rem .6rem;
+    font-size: .9rem;
+  }
+}
