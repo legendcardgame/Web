@@ -2,35 +2,50 @@
 (function () {
   'use strict';
 
-  // DOM
+  // --- DOM ---
   const $ = s => document.querySelector(s);
-  const loginScreen = $('#loginScreen');
-  const appSection  = $('#app');
-  const keyInp      = $('#adminKeyInput');
-  const btnLog      = $('#btnLogin');
-  const loginMsg    = $('#loginMsg');
+  const loginScreen   = $('#loginScreen');
+  const appSection    = $('#app');
+  const keyInp        = $('#adminKeyInput');
+  const btnLog        = $('#btnLogin');
+  const loginMsg      = $('#loginMsg');
 
-  const out     = $('#out');
-  const tbody   = $('#tbody');
-  const search  = $('#search');
-  const counter = $('#counter');
-  const centerLoader = $('#centerLoader');
+  const out           = $('#out');
+  const tbody         = $('#tbody');
+  const search        = $('#search');
+  const counter       = $('#counter');
+  const centerLoader  = $('#centerLoader');
 
-  // Estado
+  // --- Estado ---
   let DATA = [];
 
-  // Utils
+  // --- Utils ---
   const stripLeadingApostrophe = s => String(s||'').replace(/^'/,'');
   const safe   = v => String(v ?? '').trim();
   const pad10  = s => stripLeadingApostrophe(s).replace(/\D/g,'').padStart(10,'0');
   const debounce = (fn, ms) => { let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); }; };
   const fullName = r => [r.firstName, r.lastName].filter(Boolean).join(' ').trim();
 
-  // Loader helpers (tabla)
+  // Mapa “bonito” para mostrar el evento
+  const EVENT_LABEL = {
+    'principal'      : 'Evento Principal',
+    'edison'         : 'Edison Format',
+    'dragon-duel'    : 'Dragon Duel',
+    'speed-duel'     : 'Speed Duel',
+    'structure-deck' : 'Structure Deck',
+    'master-duel'    : 'Master Duel',
+    'win-a-mat'      : 'Win a Mat'
+  };
+  const prettyEvent = raw => {
+    const k = String(raw||'').toLowerCase().trim();
+    return EVENT_LABEL[k] || (raw || '—');
+  };
+
+  // --- Loader tabla ---
   function showLoader(){ centerLoader.style.display = 'flex'; }
   function hideLoader(){ centerLoader.style.display = 'none'; }
 
-  // Login
+  // --- Login ---
   function showLogin(){
     loginScreen.style.display = 'flex';
     appSection.style.display = 'none';
@@ -57,13 +72,16 @@
     }
   }
 
-  // Tabla
+  // --- Render tabla ---
   function render(list){
     tbody.innerHTML = '';
     list.forEach(r => {
       const tr = document.createElement('tr');
+      const kon = pad10(r.konamiId);
+      const evtRaw = safe(r.eventType || r.evento || '');
+      const evtPretty = prettyEvent(evtRaw);
 
-      // Select de estatus
+      // Select de estatus (con valor actual)
       const statusSelect = document.createElement('select');
       statusSelect.className = 'status';
       ['Pendiente','Aceptado','Rechazado'].forEach(opt => {
@@ -73,18 +91,22 @@
         statusSelect.appendChild(o);
       });
       statusSelect.addEventListener('change', () => {
-        updateStatus(pad10(r.konamiId), statusSelect.value, tr);
+        updateStatus(kon, evtRaw, statusSelect.value, tr); // 👈 incluye eventType
       });
 
-      // Fila
+      // Fila (incluye nueva columna “Evento” ANTES de Estatus)
+      tr.setAttribute('data-konami', kon);
+      tr.setAttribute('data-event', evtRaw);
+
       tr.innerHTML = `
         <td class="hide-sm">${safe(r.timestamp)}</td>
-        <td><span class="tag">${safe(pad10(r.konamiId))}</span></td>
+        <td><span class="tag">${kon}</span></td>
         <td>${safe(r.firstName)}</td>
         <td>${safe(r.lastName)}</td>
         <td class="hide-sm">${safe(r.email)}</td>
         <td class="hide-sm">${safe(r.phone)}</td>
         <td>${r.paymentUrl ? `<a href="${r.paymentUrl}" target="_blank" rel="noopener">Ver</a>` : ''}</td>
+        <td><span class="evt-pill">${evtPretty}</span></td> <!-- 👈 NUEVA COLUMNA -->
         <td></td>
       `;
       tr.lastElementChild.appendChild(statusSelect);
@@ -93,7 +115,7 @@
     counter.textContent = String(list.length);
   }
 
-  // Filtro
+  // --- Filtro ---
   function applyFilter(){
     const q = search.value.toLowerCase().trim();
     if (!q){ render(DATA); return; }
@@ -106,7 +128,8 @@
         safe(r.email),
         safe(r.phone),
         safe(r.status),
-        safe(r.timestamp)
+        safe(r.timestamp),
+        prettyEvent(r.eventType || r.evento || '')
       ].join(' ').toLowerCase();
       return blob.includes(q);
     });
@@ -114,7 +137,7 @@
   }
   search.addEventListener('input', debounce(applyFilter, 120));
 
-  // Cargar todos
+  // --- Cargar todos ---
   async function loadAll(){
     out.textContent = '';
     showLoader();
@@ -126,7 +149,11 @@
       const j   = JSON.parse(raw);
       if (!j.ok) throw new Error(j.message || 'Error al listar');
 
-      DATA = (j.data || []).map(row => ({ ...row, konamiId: pad10(row.konamiId) }));
+      // normaliza konamiId a 10 dígitos y conserva eventType
+      DATA = (j.data || []).map(row => ({
+        ...row,
+        konamiId: pad10(row.konamiId)
+      }));
       render(DATA);
     }catch(e){
       console.error(e);
@@ -138,38 +165,50 @@
     }
   }
 
-  // Cambiar estatus (con loader en el select)
-  async function updateStatus(konamiId, newStatus, rowEl){
-    // Obtiene el select de esta fila
+  // --- Cambiar estatus (por Konami + eventType) ---
+  async function updateStatus(konamiId, eventType, newStatus, rowEl){
     const sel = rowEl.querySelector('select.status');
     try{
       if (!window.LCG) throw new Error('Config no cargó.');
       rowEl.classList.add('updating');
 
-      // Activa efecto de “iluminado”
+      // Efecto de “iluminado”
       if (sel){
         sel.classList.add('loading');
         sel.disabled = true;
       }
 
-      const fd = new FormData();
-      fd.append('konamiId', konamiId);
-      fd.append('status', newStatus);
-
-      const r = await fetch(window.LCG.API_BASE, { method:'POST', body: fd });
+      // Usamos JSON (Apps Script ya soporta konamiId + eventType)
+      const body = { konamiId, eventType, status: newStatus };
+      const r = await fetch(window.LCG.API_BASE, {
+        method: 'POST',
+        headers: { 'Content-Type':'application/json' },
+        body: JSON.stringify(body)
+      });
       const raw = await r.text();
-      const j = JSON.parse(raw);
+      const j   = JSON.parse(raw);
       if (!j.ok) throw new Error(j.message || 'No se pudo actualizar');
 
-      // Actualiza cache y re-render con el filtro aplicado
-      DATA = DATA.map(x => pad10(x.konamiId) === konamiId ? {...x, status:newStatus} : x);
-      applyFilter();
+      // Actualiza cache local
+      const i = DATA.findIndex(x =>
+        pad10(x.konamiId) === konamiId &&
+        String(x.eventType||x.evento||'').toLowerCase() === String(eventType||'').toLowerCase()
+      );
+      if (i >= 0) DATA[i].status = newStatus;
 
-      // feedback visual
+      applyFilter();
       flashRow(rowEl, newStatus);
+      out.textContent = `Actualizado: ${konamiId} (${prettyEvent(eventType)}) → ${newStatus}`;
     }catch(e){
       console.error(e);
       out.textContent = 'Error al cambiar estatus: ' + e.message;
+
+      // Revertir visual
+      const current = DATA.find(x =>
+        pad10(x.konamiId) === konamiId &&
+        String(x.eventType||x.evento||'').toLowerCase() === String(eventType||'').toLowerCase()
+      );
+      if (current && sel) sel.value = current.status || 'Pendiente';
     }finally{
       rowEl.classList.remove('updating');
       if (sel){
@@ -190,14 +229,12 @@
     setTimeout(()=>{ tag.remove(); rowEl.style.background='transparent'; }, 1300);
   }
 
-  // Boot
+  // --- Boot ---
   window.addEventListener('DOMContentLoaded', () => {
-    if (!window.LCG){ 
-      // Si no existe config, mostramos login igual para no dejar pantalla en blanco
+    if (!window.LCG){
       showLogin();
       return;
     }
-    // Autologin si la clave ya está guardada
     const saved = localStorage.getItem('adminAuthKey');
     if (saved && saved === window.LCG.ADMIN_KEY){
       enterApp();
