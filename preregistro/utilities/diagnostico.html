@@ -4,47 +4,134 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Diagnóstico · Preregistro</title>
-  <link rel="stylesheet" href="./styles.css">
+
+  <!-- Estilos globales del sitio (para header/nav/background) si los usas aquí -->
+  <link rel="stylesheet" href="/Web/styles.css">
+  <link rel="stylesheet" href="/Web/main.css">
+
+  <!-- Estilos locales mínimos para tarjetas y layout -->
   <style>
-    .status { display:inline-block; margin-left:10px; font-weight:600; }
-    .ok  { color:#7CFC8A; }
-    .bad { color:#ff7676; }
-    pre  { background:#1f1f1f; color:#fff; padding:12px; border-radius:10px; overflow:auto; }
-    .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin:10px 0; }
-    input, select { padding:8px 10px; border-radius:8px; border:1px solid #444; background:#111; color:#fff; }
-    button { padding:10px 14px; border:0; border-radius:10px; background:#e74c3c; color:#fff; font-weight:700; cursor:pointer; }
-    button.secondary { background:#333; }
-    fieldset { border:1px solid #333; border-radius:12px; padding:12px; }
-    legend { padding:0 6px; color:#ccc; }
+    :root{ --bg:#0c0f14; --card:rgba(255,255,255,.04); --card-b:rgba(255,255,255,.08); --txt:#e8e8ea; }
+    body{ margin:0; color:var(--txt); font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif; }
+    .wrap{ max-width:1100px; margin:0 auto; padding:14px 16px 120px; } /* fondo p/ bottom-nav fijo */
+
+    h1{ margin:8px 0 14px; text-align:center; font-size:clamp(1.2rem,2.8vw,1.8rem); }
+    .grid{ display:grid; gap:14px; grid-template-columns:1fr; }
+    @media (min-width:900px){ .grid{ grid-template-columns: 1fr 1fr; } }
+
+    .card{ background:var(--card); border:1px solid var(--card-b); border-radius:14px; box-shadow:0 10px 28px rgba(0,0,0,.35); padding:14px; }
+    .card h2{ margin:.2rem 0 .6rem; font-size:1.1rem; font-weight:800; }
+
+    .row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin:8px 0 12px; }
+    .btn{ background:#e74b4b; color:#fff; border:none; border-radius:10px; padding:.6rem .9rem; font-weight:800; cursor:pointer; }
+    .btn.secondary{ background:#2a2a30; }
+    .btn:disabled{ opacity:.6; cursor:not-allowed; }
+    .input{ background:#101114; border:1px solid #2a2a2f; color:#fff; border-radius:10px; padding:.55rem .7rem; }
+
+    .kv{ display:grid; grid-template-columns: 160px 1fr; gap:6px 12px; font-size:.95rem; }
+    .kv div:nth-child(odd){ opacity:.8; }
+
+    .log{ height:180px; overflow:auto; background:#0f0f12; border:1px solid #26262c; border-radius:12px; padding:10px; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:.9rem; }
+
+    .table{ width:100%; border-collapse:separate; border-spacing:0 6px; }
+    .table th,.table td{ text-align:left; padding:8px 10px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .muted{ opacity:.75; }
+
+    /* Loader “Cargando” con 4 puntos GRANDES debajo */
+    .center-loader{ display:none; align-items:center; justify-content:center; padding:10px 0; }
+    .loader{ display:flex; flex-direction:column; align-items:center; gap:10px; background:rgba(16,16,20,.35); border:1px solid #27272d; padding:12px 16px; border-radius:12px; }
+    .loader .title{ font-weight:900; letter-spacing:.3px; }
+    .loader .dots{ display:flex; gap:10px; }
+    .loader .dot{ width:12px; height:12px; border-radius:50%; background:#fff; opacity:.7; animation:b 900ms infinite ease-in-out alternate; }
+    .loader .dot:nth-child(2){ animation-delay:120ms; }
+    .loader .dot:nth-child(3){ animation-delay:240ms; }
+    .loader .dot:nth-child(4){ animation-delay:360ms; }
+    @keyframes b{ to{ transform: translateY(-6px); opacity:1; } }
+
+    .ok{ color:#89f3a2; font-weight:800; }
+    .bad{ color:#ff8a8a; font-weight:800; }
+    .pill{ display:inline-block; padding:4px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.06); font-size:.85rem; }
+    .mono{ font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
   </style>
 </head>
 <body>
-  <h1>Diagnóstico</h1>
+  <!-- Header reutilizable -->
+  <div id="site-header"></div>
 
-  <div class="row">
-    <button id="btnPing">Ping</button>
-    <button id="btnList">Listar (admin)</button>
-    <span id="status" class="status"></span>
+  <div class="wrap">
+    <h1>Diagnóstico</h1>
+
+    <div class="grid">
+      <!-- PING -->
+      <section class="card" id="cardPing">
+        <h2>Ping al API</h2>
+        <div class="row">
+          <button id="btnPing" class="btn">Probar ping</button>
+          <span id="pingStatus" class="pill">Listo</span>
+        </div>
+        <div class="kv">
+          <div>API_BASE</div><div class="mono" id="apiBaseText">—</div>
+          <div>Tiempo</div><div class="mono" id="pingTime">—</div>
+          <div>Respuesta</div><div class="mono" id="pingResp">—</div>
+        </div>
+      </section>
+
+      <!-- LISTAR -->
+      <section class="card" id="cardList">
+        <h2>Listar (admin)</h2>
+        <div class="row">
+          <button id="btnList" class="btn">Listar</button>
+          <span id="listStatus" class="pill">Listo</span>
+        </div>
+        <div class="kv">
+          <div>Total registros</div><div id="listCount">—</div>
+        </div>
+        <div class="log" id="listLog" aria-live="polite"></div>
+      </section>
+
+      <!-- STRESS TEST -->
+      <section class="card" id="cardStress" style="grid-column:1/-1">
+        <h2>Prueba de Carga (Pareos)</h2>
+        <div class="row">
+          <label>URL</label>
+          <input id="stressUrl" class="input" style="min-width:320px" placeholder="https://…/Web/OTS/index.html" />
+          <label>Total</label>
+          <input id="stressTotal" class="input" type="number" min="1" value="400" style="width:92px" />
+          <label>Conc.</label>
+          <input id="stressConc" class="input" type="number" min="1" value="25" style="width:92px" />
+          <label>Timeout (ms)</label>
+          <input id="stressTimeout" class="input" type="number" min="100" value="5000" style="width:110px" />
+          <button id="btnStress" class="btn">Ejecutar</button>
+          <span id="stressStatus" class="pill">Listo</span>
+        </div>
+
+        <div class="center-loader" id="stressLoader">
+          <div class="loader">
+            <div class="title">Cargando</div>
+            <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          </div>
+        </div>
+
+        <div class="kv" style="margin-top:8px">
+          <div>OK / Fail</div><div><span class="ok" id="okCount">0</span> / <span class="bad" id="failCount">0</span></div>
+          <div>Duración total</div><div class="mono" id="duracionMs">—</div>
+          <div>Latencia promedio</div><div class="mono" id="latProm">—</div>
+          <div>Latencia p95</div><div class="mono" id="latP95">—</div>
+        </div>
+
+        <div class="log" id="stressLog" style="margin-top:10px" aria-live="polite"></div>
+      </section>
+    </div>
   </div>
 
-  <fieldset>
-    <legend>Prueba de carga (Pareos)</legend>
-    <div class="row">
-      <label>Total solicitudes <input id="ltTotal" type="number" value="400" min="1" step="1"></label>
-      <label>Concurrencia <input id="ltConc"  type="number" value="25"  min="1" step="1"></label>
-      <label>Timeout (ms) <input id="ltTO"    type="number" value="5000" min="100" step="100"></label>
-      <button id="btnLoadTest">Ejecutar prueba</button>
-    </div>
-    <div class="row">
-      <small>Endpoint: <code id="ltUrlView">—</code></small>
-    </div>
-  </fieldset>
+  <!-- Footer / bottom-nav reutilizable -->
+  <div id="site-footer"></div>
 
-  <pre id="output">Listo.</pre>
-
-  <!-- Carga la configuración global -->
-  <script src="./js/config.js"></script>
-  <!-- Lógica del diagnóstico -->
-  <script src="./js/diagnostico.js?v=4"></script>
+  <!-- Loader de layout global -->
+  <script src="/Web/assets/js/layout-loader.js"></script>
+  <!-- Config global -->
+  <script src="../js/config.js"></script>
+  <!-- Lógica de diagnóstico -->
+  <script src="./js/diagnostico.js"></script>
 </body>
 </html>
