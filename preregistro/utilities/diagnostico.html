@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Diagnóstico · Preregistro</title>
 
-  <!-- Estilos globales del sitio (para header/nav/background) si los usas aquí -->
+  <!-- Estilos globales del sitio -->
   <link rel="stylesheet" href="/Web/styles.css">
   <link rel="stylesheet" href="/Web/main.css">
 
@@ -13,7 +13,7 @@
   <style>
     :root{ --bg:#0c0f14; --card:rgba(255,255,255,.04); --card-b:rgba(255,255,255,.08); --txt:#e8e8ea; }
     body{ margin:0; color:var(--txt); font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif; }
-    .wrap{ max-width:1100px; margin:0 auto; padding:14px 16px 120px; } /* fondo p/ bottom-nav fijo */
+    .wrap{ max-width:1100px; margin:0 auto; padding:14px 16px 120px; }
 
     h1{ margin:8px 0 14px; text-align:center; font-size:clamp(1.2rem,2.8vw,1.8rem); }
     .grid{ display:grid; gap:14px; grid-template-columns:1fr; }
@@ -129,8 +129,8 @@
 
   <!-- Loader de layout global -->
   <script src="/Web/assets/js/layout-loader.js"></script>
-  <!-- Config global -->
-  <script src="../js/config.js"></script>
+  <!-- Config global (RUTA CORRECTA) -->
+  <script src="./js/config.js"></script>
   <!-- Lógica de diagnóstico -->
   <script src="./js/diagnostico.js"></script>
 </body>
