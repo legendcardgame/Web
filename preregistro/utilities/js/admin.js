@@ -41,6 +41,14 @@
     return EVENT_LABEL[k] || (raw || '—');
   };
 
+  // Helpers de creación de celdas
+  function td(text, cls){
+    const el = document.createElement('td');
+    if (cls) el.className = cls;
+    if (text !== undefined) el.innerHTML = text;
+    return el;
+  }
+
   // --- Loader tabla ---
   function showLoader(){ centerLoader.style.display = 'flex'; }
   function hideLoader(){ centerLoader.style.display = 'none'; }
@@ -75,6 +83,7 @@
   // --- Render tabla ---
   function render(list){
     tbody.innerHTML = '';
+
     list.forEach(r => {
       const tr = document.createElement('tr');
       const kon = pad10(r.konamiId);
@@ -90,13 +99,16 @@
         if ((r.status||'').toLowerCase() === opt.toLowerCase()) o.selected = true;
         statusSelect.appendChild(o);
       });
+      // Guarda valor inicial por si hay que revertir
+      statusSelect.setAttribute('value', statusSelect.value);
+
       statusSelect.addEventListener('change', () => {
         updateStatus(kon, evtRaw, statusSelect.value, tr);
       });
 
-      // Botón borrar
+      // Botón borrar (visible también en móvil)
       const delBtn = document.createElement('button');
-      delBtn.className = 'btn-del hide-sm';
+      delBtn.className = 'btn-del';
       delBtn.textContent = 'Borrar';
       delBtn.addEventListener('click', () => {
         const nice = `${kon} · ${evtPretty}`;
@@ -104,22 +116,30 @@
         deleteRow(kon, evtRaw, tr);
       });
 
-      tr.innerHTML = `
-        <td class="hide-sm">${safe(r.timestamp)}</td>
-        <td><span class="tag">${kon}</span></td>
-        <td>${safe(r.firstName)}</td>
-        <td>${safe(r.lastName)}</td>
-        <td class="hide-sm">${safe(r.email)}</td>
-        <td class="hide-sm">${safe(r.phone)}</td>
-        <td>${r.paymentUrl ? `<a href="${r.paymentUrl}" target="_blank" rel="noopener">Ver</a>` : ''}</td>
-        <td><span class="evt-pill">${evtPretty}</span></td>
-        <td></td>
-        <td class="hide-sm"></td>
-      `;
-      tr.children[8].appendChild(statusSelect);
-      tr.children[9].appendChild(delBtn);
+      // Celdas
+      const tdFecha   = td(safe(r.timestamp), 'hide-sm');
+      const tdKon     = td(`<span class="tag">${kon}</span>`);
+      const tdNom     = td(safe(r.firstName));
+      const tdApe     = td(safe(r.lastName));
+      const tdMail    = td(safe(r.email), 'hide-sm');
+      const tdPhone   = td(safe(r.phone), 'hide-sm');
+      const tdComprob = td(r.paymentUrl ? `<a href="${r.paymentUrl}" target="_blank" rel="noopener">Ver</a>` : '');
+      const tdEvento  = td(`<span class="evt-pill">${evtPretty}</span>`);
+      const tdStatus  = td();               // aquí va el select
+      const tdAccion  = td();               // columna acciones SIEMPRE visible
+      tdAccion.className = 'actions-col';
+
+      tdStatus.appendChild(statusSelect);
+      // Contenedor opcional para acomodar mejor en móvil
+      const wrap = document.createElement('span');
+      wrap.className = 'row-actions';
+      wrap.appendChild(delBtn);
+      tdAccion.appendChild(wrap);
+
+      tr.append(tdFecha, tdKon, tdNom, tdApe, tdMail, tdPhone, tdComprob, tdEvento, tdStatus, tdAccion);
       tbody.appendChild(tr);
     });
+
     counter.textContent = String(list.length);
   }
 
@@ -190,7 +210,7 @@
       fd.append('konamiId', konamiId);
       fd.append('eventType', eventType);
       fd.append('status', newStatus);
-      fd.append('adminKey', window.LCG.ADMIN_KEY); // opcional, si lo validas en doPost
+      fd.append('adminKey', window.LCG.ADMIN_KEY); // opcional
 
       const r = await fetch(window.LCG.API_BASE, { method:'POST', body: fd });
       const raw = await r.text();
@@ -227,7 +247,7 @@
       fd.append('action', 'delete');
       fd.append('konamiId', konamiId);
       fd.append('eventType', eventType);
-      fd.append('adminKey', window.LCG.ADMIN_KEY); // opcional, si lo validas
+      fd.append('adminKey', window.LCG.ADMIN_KEY); // opcional
 
       const r = await fetch(window.LCG.API_BASE, { method:'POST', body: fd });
       const raw = await r.text();
@@ -256,7 +276,8 @@
     const tag = document.createElement('span');
     tag.className = `tag ${cls}`;
     tag.textContent = `Guardado: ${status}`;
-    rowEl.cells[rowEl.cells.length-2].appendChild(tag); // penúltima (col estatus)
+    // penúltima columna es estatus; última es acciones
+    rowEl.cells[rowEl.cells.length-2].appendChild(tag);
     setTimeout(()=>{ tag.remove(); rowEl.style.background='transparent'; }, 1300);
   }
 
@@ -275,3 +296,4 @@
   });
 
 })();
+```0
