@@ -437,3 +437,21 @@ form.preregistro button[type="submit"] {
     grid-column: 1 / -1;
   }
 }
+/* Compensación específica para esta vista */
+body.consulta-page{
+  /* margen para que no tape el header fijo ni el nav inferior */
+  padding-top: 100px;    /* header + respiro */
+  padding-bottom: 128px; /* bottom-nav + respiro */
+}
+
+/* Por si el wrapper también necesita margen extra en pantallas chicas */
+.consulta-wrap{
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+@media (max-width:480px){
+  body.consulta-page{
+    padding-top: 108px;
+    padding-bottom: 136px;
+  }
+}
