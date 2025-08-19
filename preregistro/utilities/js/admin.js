@@ -13,6 +13,7 @@
   const out           = $('#out');
   const tbody         = $('#tbody');
   const search        = $('#search');
+  const evtFilter     = $('#evtFilter');
   const counter       = $('#counter');
   const centerLoader  = $('#centerLoader');
 
@@ -26,7 +27,6 @@
   const debounce = (fn, ms) => { let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); }; };
   const fullName = r => [r.firstName, r.lastName].filter(Boolean).join(' ').trim();
 
-  // Mapa “bonito” para mostrar el evento
   const EVENT_LABEL = {
     'principal'      : 'Evento Principal',
     'edison'         : 'Edison Format',
@@ -81,7 +81,7 @@
       const evtRaw = safe(r.eventType || r.evento || '');
       const evtPretty = prettyEvent(evtRaw);
 
-      // Select de estatus (con valor actual)
+      // Select de estatus
       const statusSelect = document.createElement('select');
       statusSelect.className = 'status';
       ['Pendiente','Aceptado','Rechazado'].forEach(opt => {
@@ -91,12 +91,18 @@
         statusSelect.appendChild(o);
       });
       statusSelect.addEventListener('change', () => {
-        updateStatus(kon, evtRaw, statusSelect.value, tr); // 👈 incluye eventType
+        updateStatus(kon, evtRaw, statusSelect.value, tr);
       });
 
-      // Fila (incluye nueva columna “Evento” ANTES de Estatus)
-      tr.setAttribute('data-konami', kon);
-      tr.setAttribute('data-event', evtRaw);
+      // Botón borrar
+      const delBtn = document.createElement('button');
+      delBtn.className = 'btn-del hide-sm';
+      delBtn.textContent = 'Borrar';
+      delBtn.addEventListener('click', () => {
+        const nice = `${kon} · ${evtPretty}`;
+        if (!confirm(`¿Seguro que deseas borrar el registro?\n\n${nice}`)) return;
+        deleteRow(kon, evtRaw, tr);
+      });
 
       tr.innerHTML = `
         <td class="hide-sm">${safe(r.timestamp)}</td>
@@ -106,36 +112,47 @@
         <td class="hide-sm">${safe(r.email)}</td>
         <td class="hide-sm">${safe(r.phone)}</td>
         <td>${r.paymentUrl ? `<a href="${r.paymentUrl}" target="_blank" rel="noopener">Ver</a>` : ''}</td>
-        <td><span class="evt-pill">${evtPretty}</span></td> <!-- 👈 NUEVA COLUMNA -->
+        <td><span class="evt-pill">${evtPretty}</span></td>
         <td></td>
+        <td class="hide-sm"></td>
       `;
-      tr.lastElementChild.appendChild(statusSelect);
+      tr.children[8].appendChild(statusSelect);
+      tr.children[9].appendChild(delBtn);
       tbody.appendChild(tr);
     });
     counter.textContent = String(list.length);
   }
 
-  // --- Filtro ---
+  // --- Filtro (texto + evento) ---
   function applyFilter(){
     const q = search.value.toLowerCase().trim();
-    if (!q){ render(DATA); return; }
-    const filtered = DATA.filter(r => {
-      const blob = [
-        pad10(r.konamiId),
-        safe(r.firstName),
-        safe(r.lastName),
-        fullName(r),
-        safe(r.email),
-        safe(r.phone),
-        safe(r.status),
-        safe(r.timestamp),
-        prettyEvent(r.eventType || r.evento || '')
-      ].join(' ').toLowerCase();
-      return blob.includes(q);
-    });
-    render(filtered);
+    const ev = String(evtFilter.value || '').toLowerCase().trim();
+
+    let list = DATA;
+
+    if (ev){
+      list = list.filter(r => String(r.eventType||r.evento||'').toLowerCase() === ev);
+    }
+    if (q){
+      list = list.filter(r => {
+        const blob = [
+          pad10(r.konamiId),
+          safe(r.firstName),
+          safe(r.lastName),
+          fullName(r),
+          safe(r.email),
+          safe(r.phone),
+          safe(r.status),
+          safe(r.timestamp),
+          prettyEvent(r.eventType || r.evento || '')
+        ].join(' ').toLowerCase();
+        return blob.includes(q);
+      });
+    }
+    render(list);
   }
   search.addEventListener('input', debounce(applyFilter, 120));
+  evtFilter.addEventListener('change', applyFilter);
 
   // --- Cargar todos ---
   async function loadAll(){
@@ -145,16 +162,12 @@
       if (!window.LCG) throw new Error('Config no cargó (window.LCG).');
       const url = `${window.LCG.API_BASE}?adminKey=${encodeURIComponent(window.LCG.ADMIN_KEY)}&_t=${Date.now()}`;
       const r   = await fetch(url);
-      const raw = await r.text();           // tolerante a respuestas no-JSON limpias
+      const raw = await r.text();
       const j   = JSON.parse(raw);
       if (!j.ok) throw new Error(j.message || 'Error al listar');
 
-      // normaliza konamiId a 10 dígitos y conserva eventType
-      DATA = (j.data || []).map(row => ({
-        ...row,
-        konamiId: pad10(row.konamiId)
-      }));
-      render(DATA);
+      DATA = (j.data || []).map(row => ({ ...row, konamiId: pad10(row.konamiId) }));
+      applyFilter();
     }catch(e){
       console.error(e);
       out.textContent = 'Error: ' + e.message;
@@ -165,31 +178,26 @@
     }
   }
 
-  // --- Cambiar estatus (por Konami + eventType) ---
+  // --- Cambiar estatus (FormData → sin preflight/CORS) ---
   async function updateStatus(konamiId, eventType, newStatus, rowEl){
     const sel = rowEl.querySelector('select.status');
     try{
       if (!window.LCG) throw new Error('Config no cargó.');
       rowEl.classList.add('updating');
+      if (sel){ sel.classList.add('loading'); sel.disabled = true; }
 
-      // Efecto de “iluminado”
-      if (sel){
-        sel.classList.add('loading');
-        sel.disabled = true;
-      }
+      const fd = new FormData();
+      fd.append('konamiId', konamiId);
+      fd.append('eventType', eventType);
+      fd.append('status', newStatus);
+      fd.append('adminKey', window.LCG.ADMIN_KEY); // opcional, si lo validas en doPost
 
-      // Usamos JSON (Apps Script ya soporta konamiId + eventType)
-      const body = { konamiId, eventType, status: newStatus };
-      const r = await fetch(window.LCG.API_BASE, {
-        method: 'POST',
-        headers: { 'Content-Type':'application/json' },
-        body: JSON.stringify(body)
-      });
+      const r = await fetch(window.LCG.API_BASE, { method:'POST', body: fd });
       const raw = await r.text();
       const j   = JSON.parse(raw);
       if (!j.ok) throw new Error(j.message || 'No se pudo actualizar');
 
-      // Actualiza cache local
+      // Actualiza cache
       const i = DATA.findIndex(x =>
         pad10(x.konamiId) === konamiId &&
         String(x.eventType||x.evento||'').toLowerCase() === String(eventType||'').toLowerCase()
@@ -202,19 +210,42 @@
     }catch(e){
       console.error(e);
       out.textContent = 'Error al cambiar estatus: ' + e.message;
-
-      // Revertir visual
-      const current = DATA.find(x =>
-        pad10(x.konamiId) === konamiId &&
-        String(x.eventType||x.evento||'').toLowerCase() === String(eventType||'').toLowerCase()
-      );
-      if (current && sel) sel.value = current.status || 'Pendiente';
+      if (sel){ sel.value = sel.getAttribute('value') || sel.value; } // revert simple
     }finally{
       rowEl.classList.remove('updating');
-      if (sel){
-        sel.classList.remove('loading');
-        sel.disabled = false;
-      }
+      if (sel){ sel.classList.remove('loading'); sel.disabled = false; }
+    }
+  }
+
+  // --- Borrar registro ---
+  async function deleteRow(konamiId, eventType, rowEl){
+    try{
+      if (!window.LCG) throw new Error('Config no cargó.');
+      rowEl.classList.add('updating');
+
+      const fd = new FormData();
+      fd.append('action', 'delete');
+      fd.append('konamiId', konamiId);
+      fd.append('eventType', eventType);
+      fd.append('adminKey', window.LCG.ADMIN_KEY); // opcional, si lo validas
+
+      const r = await fetch(window.LCG.API_BASE, { method:'POST', body: fd });
+      const raw = await r.text();
+      const j   = JSON.parse(raw);
+      if (!j.ok) throw new Error(j.message || 'No se pudo borrar');
+
+      // Quitar de cache y re-render
+      DATA = DATA.filter(x =>
+        !(pad10(x.konamiId) === konamiId &&
+          String(x.eventType||x.evento||'').toLowerCase() === String(eventType||'').toLowerCase())
+      );
+      applyFilter();
+      out.textContent = `Eliminado: ${konamiId} (${prettyEvent(eventType)})`;
+    }catch(e){
+      console.error(e);
+      out.textContent = 'Error al borrar: ' + e.message;
+    }finally{
+      rowEl.classList.remove('updating');
     }
   }
 
@@ -225,7 +256,7 @@
     const tag = document.createElement('span');
     tag.className = `tag ${cls}`;
     tag.textContent = `Guardado: ${status}`;
-    rowEl.cells[rowEl.cells.length-1].appendChild(tag);
+    rowEl.cells[rowEl.cells.length-2].appendChild(tag); // penúltima (col estatus)
     setTimeout(()=>{ tag.remove(); rowEl.style.background='transparent'; }, 1300);
   }
 
