@@ -11,7 +11,21 @@
 
   <!-- Estilos locales -->
   <link rel="stylesheet" href="./styles.css">
+  
+<style>
+  /* Sólo en la página de consulta */
+  body[data-page="consulta"] .hero,
+  body[data-page="consulta"] .page-hero,
+  body[data-page="consulta"] .container > :first-child {
+    margin-top: 8px !important;      /* reduce el hueco bajo el header fijo */
+  }
 
+  /* Si tu contenedor tiene un margen superior grande, ajústalo aquí */
+  body[data-page="consulta"] .container {
+    margin-top: 10px !important;
+  }
+</style>
+  
   <style>
     /* Empuje extra para que header/nav no tapen contenido */
     .page-pad{
@@ -89,7 +103,7 @@ body.consulta-page{
 }
   </style>
 </head>
-<body class="consulta-page">
+<body data-page="consulta">
   <!-- Header reutilizable y watermark -->
   <div id="site-header"></div>
   <div class="top-spacer" aria-hidden="true"></div>
@@ -304,6 +318,37 @@ body.consulta-page{
       window.addEventListener('pageshow',()=>{ if(localStorage.getItem(KEY)!==VALUE) localStorage.setItem(KEY,VALUE); mark(); });
     })();
   </script>
+  <script>
+  (function(){
+    const params = new URLSearchParams(location.search);
+    const ev = (params.get('evento') || '').toLowerCase().trim();
+
+    // Mapa bonito de nombres
+    const NOMBRE_EVENTO = {
+      'principal':       'Evento Principal',
+      'edison':          'Edison Formato',
+      'dragon-duel':     'Dragon Duel',
+      'speed-duel':      'Speed Duel',
+      'structure-deck':  'Structure Deck',
+      'master-duel':     'Master Duel',
+      'win-a-mat':       'Win a Mat'
+    };
+
+    // Si tienes un título/etiqueta, lo actualizamos:
+    const titulo = document.querySelector('[data-consulta-titulo]');
+    if (titulo && ev && NOMBRE_EVENTO[ev]) {
+      titulo.textContent = 'Consulta tu preregistro · ' + NOMBRE_EVENTO[ev];
+    }
+
+    // Si tienes un chip/etiqueta debajo del título:
+    const chip = document.querySelector('[data-consulta-chip]');
+    if (chip && ev && NOMBRE_EVENTO[ev]) {
+      chip.textContent = NOMBRE_EVENTO[ev];
+      chip.style.display = 'inline-block';
+    }
+  })();
+</script>
 </body>
 </html>
+
 
