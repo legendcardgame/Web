@@ -1,165 +1,195 @@
 (function(){
   'use strict';
 
+  // ------- Helpers DOM -------
   const $ = s => document.querySelector(s);
+  const apiBaseText = $('#apiBaseText');
 
-  const btnPing   = $('#btnPing');
-  const btnList   = $('#btnList');
-  const statusEl  = $('#status');
-  const output    = $('#output');
+  // ------- Config -------
+  const API_BASE   = (window.LCG && window.LCG.API_BASE) || '';
+  const ADMIN_KEY  = (window.LCG && window.LCG.ADMIN_KEY) || '';
+  const PAREOS_URL = (window.LCG && window.LCG.PAREOS_URL) || 'https://legendcardgame.github.io/Web/OTS/index.html';
 
-  // Load test UI
-  const btnLoad   = $('#btnLoadTest');
-  const inpTotal  = $('#ltTotal');
-  const inpConc   = $('#ltConc');
-  const inpTO     = $('#ltTO');
-  const urlView   = $('#ltUrlView');
+  if (apiBaseText) apiBaseText.textContent = API_BASE || '(no definido)';
 
-  function setStatus(ok, msg){
-    statusEl.className = 'status ' + (ok ? 'ok' : 'bad');
-    statusEl.textContent = msg || (ok ? 'OK' : 'Error');
-  }
-  function show(obj){
+  // ------- Ping -------
+  const btnPing    = $('#btnPing');
+  const pingStatus = $('#pingStatus');
+  const pingTime   = $('#pingTime');
+  const pingResp   = $('#pingResp');
+
+  btnPing.addEventListener('click', async () => {
+    pingStatus.textContent = 'Probando…';
+    pingStatus.className = 'pill';
+    pingTime.textContent = '—';
+    pingResp.textContent = '—';
+    const t0 = performance.now();
     try{
-      output.textContent = typeof obj === 'string'
-        ? obj
-        : JSON.stringify(obj, null, 2);
-    }catch{
-      output.textContent = String(obj);
-    }
-  }
-  function requireConfig(){
-    if (!window.LCG || !window.LCG.API_BASE){
-      setStatus(false, 'Falta window.LCG.API_BASE');
-      show('Asegúrate de cargar config.js antes de diagnostico.js');
-      return false;
-    }
-    return true;
-  }
-
-  async function doPing(){
-    if(!requireConfig()) return;
-    const url = `${window.LCG.API_BASE}?action=ping&_t=${Date.now()}`;
-    try{
-      setStatus(true, 'Solicitando…');
-      const r   = await fetch(url);
-      const raw = await r.text();
-      let j; try{ j = JSON.parse(raw); }catch{ j = { ok:false, raw }; }
-      setStatus(!!j.ok, j.ok ? 'OK' : 'Error');
-      show(j);
+      const r = await fetch(`${API_BASE}?action=ping&_t=${Date.now()}`, { cache: 'no-store' });
+      const j = await r.json();
+      const t1 = performance.now();
+      pingTime.textContent = `${Math.round(t1 - t0)} ms`;
+      pingResp.textContent = JSON.stringify(j);
+      pingStatus.textContent = 'OK';
+      pingStatus.className = 'pill ok';
     }catch(e){
-      setStatus(false, 'Error');
-      show({error: e.message});
+      const t1 = performance.now();
+      pingTime.textContent = `${Math.round(t1 - t0)} ms`;
+      pingResp.textContent = 'Error: ' + e.message;
+      pingStatus.textContent = 'Error';
+      pingStatus.className = 'pill bad';
     }
-  }
+  });
 
-  async function doList(){
-    if(!requireConfig()) return;
-    if (!window.LCG.ADMIN_KEY){
-      setStatus(false, 'Falta ADMIN_KEY');
-      show('Define window.LCG.ADMIN_KEY en config.js');
-      return;
-    }
-    const url = `${window.LCG.API_BASE}?adminKey=${encodeURIComponent(window.LCG.ADMIN_KEY)}&_t=${Date.now()}`;
+  // ------- Listar (admin) -------
+  const btnList    = $('#btnList');
+  const listStatus = $('#listStatus');
+  const listCount  = $('#listCount');
+  const listLog    = $('#listLog');
+
+  const logList = msg => { listLog.textContent += msg + '\n'; listLog.scrollTop = listLog.scrollHeight; };
+
+  btnList.addEventListener('click', async () => {
+    listStatus.textContent = 'Cargando…';
+    listStatus.className = 'pill';
+    listCount.textContent = '—';
+    listLog.textContent = '';
     try{
-      setStatus(true, 'Solicitando…');
-      const r   = await fetch(url);
+      const url = `${API_BASE}?adminKey=${encodeURIComponent(ADMIN_KEY)}&_t=${Date.now()}`;
+      const r   = await fetch(url, { cache:'no-store' });
       const raw = await r.text();
-      let j; try{ j = JSON.parse(raw); }catch{ j = { ok:false, raw }; }
-      setStatus(!!j.ok, j.ok ? 'OK' : 'Error');
-      if (j.ok && Array.isArray(j.data)){
-        show({ ok: true, count: j.data.length, sample: j.data.slice(0,3) });
-      } else {
-        show(j);
-      }
+      const j   = JSON.parse(raw);
+      if (!j.ok) throw new Error(j.message || 'Error al listar');
+
+      const data = Array.isArray(j.data) ? j.data : [];
+      listCount.textContent = String(data.length);
+      listStatus.textContent = 'OK';
+      listStatus.className = 'pill ok';
+
+      const preview = data.slice(0, 5).map((row, i) => {
+        const id  = String(row.konamiId || '').replace(/^'/,'');
+        const evt = String(row.eventType || row.evento || '');
+        const st  = String(row.status || '');
+        return `${i+1}. ${id} · ${evt} · ${st}`;
+      }).join('\n');
+      logList(preview || '(sin datos)');
     }catch(e){
-      setStatus(false, 'Error');
-      show({error: e.message});
+      listStatus.textContent = 'Error';
+      listStatus.className = 'pill bad';
+      logList('Error: ' + e.message);
     }
-  }
+  });
 
-  // -------- Mini stress test (Pareos) ----------
-  async function runLoadTestPareos(){
-    const URL = (window.LCG && window.LCG.PAREOS_URL) || '';
-    urlView.textContent = URL || 'No definido (window.LCG.PAREOS_URL)';
+  // ------- Stress test (Pareos) -------
+  const stressUrl     = $('#stressUrl');
+  const stressTotal   = $('#stressTotal');
+  const stressConc    = $('#stressConc');
+  const stressTimeout = $('#stressTimeout');
+  const btnStress     = $('#btnStress');
+  const stressStatus  = $('#stressStatus');
+  const stressLoader  = $('#stressLoader');
 
-    if (!URL){
-      setStatus(false, 'Falta PAREOS_URL');
-      show('Define window.LCG.PAREOS_URL en config.js');
-      return;
-    }
+  const okCountEl   = $('#okCount');
+  const failCountEl = $('#failCount');
+  const duracionEl  = $('#duracionMs');
+  const latPromEl   = $('#latProm');
+  const latP95El    = $('#latP95');
+  const stressLog   = $('#stressLog');
 
-    const total = Math.max(1, Number(inpTotal.value || 400));
-    const conc  = Math.max(1, Number(inpConc.value  || 25));
-    const toMs  = Math.max(100, Number(inpTO.value  || 5000));
+  const logStress = msg => { stressLog.textContent += msg + '\n'; stressLog.scrollTop = stressLog.scrollHeight; };
 
-    setStatus(true, `Ejecutando… total=${total} conc=${conc}`);
-    show('Iniciando prueba…');
+  // Valores por defecto visibles
+  if (stressUrl) stressUrl.value = PAREOS_URL;
 
-    // Métricas
-    const lat = []; // ms
+  async function stressTest({ target, total=400, concurrencia=25, timeoutMs=5000 }){
+    const results = [];
     let ok = 0, fail = 0;
 
-    function p95(arr){
-      if (!arr.length) return 0;
-      const a = [...arr].sort((x,y)=>x-y);
-      const i = Math.ceil(0.95 * a.length) - 1;
-      return a[Math.max(0,i)];
+    function oneFetch(i){
+      const start = performance.now();
+      const ctl = new AbortController();
+      const to  = setTimeout(() => ctl.abort('timeout'), timeoutMs);
+
+      const urlBust = target + (target.includes('?') ? '&' : '?') + '_ts=' + (Date.now() + i);
+      return fetch(urlBust, { cache:'no-store', signal: ctl.signal })
+        .then(r => {
+          clearTimeout(to);
+          const t = performance.now() - start;
+          if (r.ok){
+            ok++; results.push(t);
+          } else {
+            fail++; results.push(t);
+          }
+        })
+        .catch(_err => {
+          clearTimeout(to);
+          fail++; results.push(timeoutMs);
+        });
     }
 
-    // Cliente con timeout
-    async function timedFetch(u, timeout){
-      const ctl = new AbortController();
-      const id  = setTimeout(()=>ctl.abort('timeout'), timeout);
-      const t0  = performance.now();
-      try{
-        // GET sin headers para evitar preflight/CORS extra
-        const r = await fetch(u, { signal: ctl.signal, cache: 'no-store' });
-        const t1 = performance.now();
-        lat.push(t1 - t0);
-        if (!r.ok) throw new Error('HTTP '+r.status);
-        ok++;
-      }catch(e){
-        fail++;
-      }finally{
-        clearTimeout(id);
+    const t0 = performance.now();
+    let inFlight = [];
+    for (let i=0;i<total;i++){
+      inFlight.push(oneFetch(i));
+      if (inFlight.length >= concurrencia){
+        await Promise.all(inFlight);
+        inFlight = [];
       }
     }
+    if (inFlight.length) await Promise.all(inFlight);
+    const t1 = performance.now();
 
-    // Ejecuta en lotes de 'conc' concurrentes
-    const tasks = Array.from({length: total}, (_,i)=> ()=> timedFetch(URL + (URL.includes('?') ? '&' : '?') + '_t=' + (Date.now()+i), toMs));
+    // Métricas
+    const duracion_ms = Math.round(t1 - t0);
+    const lat_prom_ms = results.length ? Math.round(results.reduce((a,b)=>a+b,0)/results.length) : 0;
+    const lat_p95_ms  = results.length ? Math.round(results.slice().sort((a,b)=>a-b)[Math.floor(results.length*0.95)-1] || 0) : 0;
 
-    const start = performance.now();
-    for (let i=0; i<tasks.length; i += conc){
-      await Promise.all( tasks.slice(i, i+conc).map(fn => fn()) );
-      // Feedback parcial
-      setStatus(true, `Progreso: ${Math.min(i+conc,total)}/${total}`);
-    }
-    const end = performance.now();
-
-    const result = {
-      target: URL,
-      total, concurrencia: conc, timeoutMs: toMs,
-      ok, fail,
-      duracion_ms: Math.round(end - start),
-      lat_prom_ms: lat.length ? Math.round(lat.reduce((a,b)=>a+b,0)/lat.length) : 0,
-      lat_p95_ms:  Math.round(p95(lat)),
-      muestras_lat: lat.length
+    return {
+      target, total, concurrencia, timeoutMs,
+      ok, fail, duracion_ms, lat_prom_ms, lat_p95_ms,
+      muestras_lat: results.length
     };
-    setStatus(true, 'Completado');
-    show(result);
   }
 
-  // Eventos
-  if (btnPing)   btnPing.addEventListener('click', doPing);
-  if (btnList)   btnList.addEventListener('click', doList);
-  if (btnLoad)   btnLoad.addEventListener('click', runLoadTestPareos);
+  btnStress.addEventListener('click', async () => {
+    stressStatus.textContent = 'Ejecutando…';
+    stressStatus.className = 'pill';
+    okCountEl.textContent   = '0';
+    failCountEl.textContent = '0';
+    duracionEl.textContent  = '—';
+    latPromEl.textContent   = '—';
+    latP95El.textContent    = '—';
+    stressLog.textContent   = '';
+    stressLoader.style.display = 'flex';
+    btnStress.disabled = true;
 
-  // Estado inicial
-  if (!window.LCG) {
-    setStatus(false, 'Falta config.js');
-  } else {
-    setStatus(true, 'Listo');
-    urlView.textContent = (window.LCG.PAREOS_URL || '—');
-  }
+    const target       = (stressUrl.value || '').trim();
+    const total        = Math.max(1, parseInt(stressTotal.value || '400', 10));
+    const concurrencia = Math.max(1, parseInt(stressConc.value || '25', 10));
+    const timeoutMs    = Math.max(100, parseInt(stressTimeout.value || '5000', 10));
+
+    try{
+      logStress(`Iniciando test → ${target} · total=${total} · conc=${concurrencia} · timeout=${timeoutMs}ms`);
+      const res = await stressTest({ target, total, concurrencia, timeoutMs });
+
+      okCountEl.textContent   = String(res.ok);
+      failCountEl.textContent = String(res.fail);
+      duracionEl.textContent  = `${res.duracion_ms} ms`;
+      latPromEl.textContent   = `${res.lat_prom_ms} ms`;
+      latP95El.textContent    = `${res.lat_p95_ms} ms`;
+
+      stressStatus.textContent = res.fail === 0 ? 'OK' : 'OK con fallas';
+      stressStatus.className = 'pill ' + (res.fail === 0 ? 'ok' : 'bad');
+
+      logStress(JSON.stringify(res, null, 2));
+    }catch(e){
+      stressStatus.textContent = 'Error';
+      stressStatus.className = 'pill bad';
+      logStress('Error: ' + e.message);
+    }finally{
+      stressLoader.style.display = 'none';
+      btnStress.disabled = false;
+    }
+  });
+
 })();
