@@ -1,50 +1,165 @@
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Diagnóstico · Preregistro</title>
-  <link rel="stylesheet" href="./styles.css">
-  <style>
-    .status { display:inline-block; margin-left:10px; font-weight:600; }
-    .ok  { color:#7CFC8A; }
-    .bad { color:#ff7676; }
-    pre  { background:#1f1f1f; color:#fff; padding:12px; border-radius:10px; overflow:auto; }
-    .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin:10px 0; }
-    input, select { padding:8px 10px; border-radius:8px; border:1px solid #444; background:#111; color:#fff; }
-    button { padding:10px 14px; border:0; border-radius:10px; background:#e74c3c; color:#fff; font-weight:700; cursor:pointer; }
-    button.secondary { background:#333; }
-    fieldset { border:1px solid #333; border-radius:12px; padding:12px; }
-    legend { padding:0 6px; color:#ccc; }
-  </style>
-</head>
-<body>
-  <h1>Diagnóstico</h1>
+(function(){
+  'use strict';
 
-  <div class="row">
-    <button id="btnPing">Ping</button>
-    <button id="btnList">Listar (admin)</button>
-    <span id="status" class="status"></span>
-  </div>
+  const $ = s => document.querySelector(s);
 
-  <fieldset>
-    <legend>Prueba de carga (Pareos)</legend>
-    <div class="row">
-      <label>Total solicitudes <input id="ltTotal" type="number" value="400" min="1" step="1"></label>
-      <label>Concurrencia <input id="ltConc"  type="number" value="25"  min="1" step="1"></label>
-      <label>Timeout (ms) <input id="ltTO"    type="number" value="5000" min="100" step="100"></label>
-      <button id="btnLoadTest">Ejecutar prueba</button>
-    </div>
-    <div class="row">
-      <small>Endpoint: <code id="ltUrlView">—</code></small>
-    </div>
-  </fieldset>
+  const btnPing   = $('#btnPing');
+  const btnList   = $('#btnList');
+  const statusEl  = $('#status');
+  const output    = $('#output');
 
-  <pre id="output">Listo.</pre>
+  // Load test UI
+  const btnLoad   = $('#btnLoadTest');
+  const inpTotal  = $('#ltTotal');
+  const inpConc   = $('#ltConc');
+  const inpTO     = $('#ltTO');
+  const urlView   = $('#ltUrlView');
 
-  <!-- Carga la configuración global -->
-  <script src="./js/config.js"></script>
-  <!-- Lógica del diagnóstico -->
-  <script src="./js/diagnostico.js?v=4"></script>
-</body>
-</html>
+  function setStatus(ok, msg){
+    statusEl.className = 'status ' + (ok ? 'ok' : 'bad');
+    statusEl.textContent = msg || (ok ? 'OK' : 'Error');
+  }
+  function show(obj){
+    try{
+      output.textContent = typeof obj === 'string'
+        ? obj
+        : JSON.stringify(obj, null, 2);
+    }catch{
+      output.textContent = String(obj);
+    }
+  }
+  function requireConfig(){
+    if (!window.LCG || !window.LCG.API_BASE){
+      setStatus(false, 'Falta window.LCG.API_BASE');
+      show('Asegúrate de cargar config.js antes de diagnostico.js');
+      return false;
+    }
+    return true;
+  }
+
+  async function doPing(){
+    if(!requireConfig()) return;
+    const url = `${window.LCG.API_BASE}?action=ping&_t=${Date.now()}`;
+    try{
+      setStatus(true, 'Solicitando…');
+      const r   = await fetch(url);
+      const raw = await r.text();
+      let j; try{ j = JSON.parse(raw); }catch{ j = { ok:false, raw }; }
+      setStatus(!!j.ok, j.ok ? 'OK' : 'Error');
+      show(j);
+    }catch(e){
+      setStatus(false, 'Error');
+      show({error: e.message});
+    }
+  }
+
+  async function doList(){
+    if(!requireConfig()) return;
+    if (!window.LCG.ADMIN_KEY){
+      setStatus(false, 'Falta ADMIN_KEY');
+      show('Define window.LCG.ADMIN_KEY en config.js');
+      return;
+    }
+    const url = `${window.LCG.API_BASE}?adminKey=${encodeURIComponent(window.LCG.ADMIN_KEY)}&_t=${Date.now()}`;
+    try{
+      setStatus(true, 'Solicitando…');
+      const r   = await fetch(url);
+      const raw = await r.text();
+      let j; try{ j = JSON.parse(raw); }catch{ j = { ok:false, raw }; }
+      setStatus(!!j.ok, j.ok ? 'OK' : 'Error');
+      if (j.ok && Array.isArray(j.data)){
+        show({ ok: true, count: j.data.length, sample: j.data.slice(0,3) });
+      } else {
+        show(j);
+      }
+    }catch(e){
+      setStatus(false, 'Error');
+      show({error: e.message});
+    }
+  }
+
+  // -------- Mini stress test (Pareos) ----------
+  async function runLoadTestPareos(){
+    const URL = (window.LCG && window.LCG.PAREOS_URL) || '';
+    urlView.textContent = URL || 'No definido (window.LCG.PAREOS_URL)';
+
+    if (!URL){
+      setStatus(false, 'Falta PAREOS_URL');
+      show('Define window.LCG.PAREOS_URL en config.js');
+      return;
+    }
+
+    const total = Math.max(1, Number(inpTotal.value || 400));
+    const conc  = Math.max(1, Number(inpConc.value  || 25));
+    const toMs  = Math.max(100, Number(inpTO.value  || 5000));
+
+    setStatus(true, `Ejecutando… total=${total} conc=${conc}`);
+    show('Iniciando prueba…');
+
+    // Métricas
+    const lat = []; // ms
+    let ok = 0, fail = 0;
+
+    function p95(arr){
+      if (!arr.length) return 0;
+      const a = [...arr].sort((x,y)=>x-y);
+      const i = Math.ceil(0.95 * a.length) - 1;
+      return a[Math.max(0,i)];
+    }
+
+    // Cliente con timeout
+    async function timedFetch(u, timeout){
+      const ctl = new AbortController();
+      const id  = setTimeout(()=>ctl.abort('timeout'), timeout);
+      const t0  = performance.now();
+      try{
+        // GET sin headers para evitar preflight/CORS extra
+        const r = await fetch(u, { signal: ctl.signal, cache: 'no-store' });
+        const t1 = performance.now();
+        lat.push(t1 - t0);
+        if (!r.ok) throw new Error('HTTP '+r.status);
+        ok++;
+      }catch(e){
+        fail++;
+      }finally{
+        clearTimeout(id);
+      }
+    }
+
+    // Ejecuta en lotes de 'conc' concurrentes
+    const tasks = Array.from({length: total}, (_,i)=> ()=> timedFetch(URL + (URL.includes('?') ? '&' : '?') + '_t=' + (Date.now()+i), toMs));
+
+    const start = performance.now();
+    for (let i=0; i<tasks.length; i += conc){
+      await Promise.all( tasks.slice(i, i+conc).map(fn => fn()) );
+      // Feedback parcial
+      setStatus(true, `Progreso: ${Math.min(i+conc,total)}/${total}`);
+    }
+    const end = performance.now();
+
+    const result = {
+      target: URL,
+      total, concurrencia: conc, timeoutMs: toMs,
+      ok, fail,
+      duracion_ms: Math.round(end - start),
+      lat_prom_ms: lat.length ? Math.round(lat.reduce((a,b)=>a+b,0)/lat.length) : 0,
+      lat_p95_ms:  Math.round(p95(lat)),
+      muestras_lat: lat.length
+    };
+    setStatus(true, 'Completado');
+    show(result);
+  }
+
+  // Eventos
+  if (btnPing)   btnPing.addEventListener('click', doPing);
+  if (btnList)   btnList.addEventListener('click', doList);
+  if (btnLoad)   btnLoad.addEventListener('click', runLoadTestPareos);
+
+  // Estado inicial
+  if (!window.LCG) {
+    setStatus(false, 'Falta config.js');
+  } else {
+    setStatus(true, 'Listo');
+    urlView.textContent = (window.LCG.PAREOS_URL || '—');
+  }
+})();
