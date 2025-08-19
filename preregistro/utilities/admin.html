@@ -67,19 +67,21 @@
 
     .notice{ margin:8px 0; min-height:1.2em; }
 
-    /* ===== Loader centrado (limpio: cuatro bolitas) ===== */
-    .center-loader{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
-    .loader { display:flex; flex-direction:column; align-items:center; gap:10px;
-      padding:12px 16px; background:rgba(16,16,20,.4); border:1px solid #26262c; border-radius:14px;
-      backdrop-filter: blur(4px); }
-    .loader h3{ margin:0; font-weight:800; }
-    .dots{ display:flex; gap:8px; }
-    .dot{ width:10px; height:10px; border-radius:50%; background:#d9d9d9; opacity:.6;
-      animation: bounce 900ms infinite ease-in-out alternate; }
-    .dot:nth-child(2){ animation-delay:120ms }
-    .dot:nth-child(3){ animation-delay:240ms }
-    .dot:nth-child(4){ animation-delay:360ms }
-    @keyframes bounce{ to{ transform: translateY(-6px); opacity:1; } }
+       /* Loader “Cargando” con 4 puntos GRANDES debajo */
+    .center-loader{ display:none; align-items:center; justify-content:center; padding:10px 0; }
+    .loader{ display:flex; flex-direction:column; align-items:center; gap:10px; background:rgba(16,16,20,.35); border:1px solid #27272d; padding:12px 16px; border-radius:12px; }
+    .loader .title{ font-weight:900; letter-spacing:.3px; }
+    .loader .dots{ display:flex; gap:10px; }
+    .loader .dot{ width:12px; height:12px; border-radius:50%; background:#fff; opacity:.7; animation:b 900ms infinite ease-in-out alternate; }
+    .loader .dot:nth-child(2){ animation-delay:120ms; }
+    .loader .dot:nth-child(3){ animation-delay:240ms; }
+    .loader .dot:nth-child(4){ animation-delay:360ms; }
+    @keyframes b{ to{ transform: translateY(-6px); opacity:1; } }
+
+    .ok{ color:#89f3a2; font-weight:800; }
+    .bad{ color:#ff8a8a; font-weight:800; }
+    .pill{ display:inline-block; padding:4px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.06); font-size:.85rem; }
+    .mono{ font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 
     /* Efecto de “iluminado” en select de estatus */
     .status.loading{
