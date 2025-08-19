@@ -21,7 +21,7 @@ window.LCG_EVENTS = [
     descripcion:
       "}El horario puede variar. Como premio adicional se agregara al primer lugar una copia de Gorz the Emissary of Darkness en rareza Ghost Gold.",
     costo: "$330",
-    fecha: "Suizo con corte a top",
+    fecha: "Suizo Con Corte a Top",
     incluye: "3 booster pack",
     formato: "Edison",
     sede: "Puebla, MX",
@@ -63,7 +63,7 @@ window.LCG_EVENTS = [
     descripcion:
       "Cupo limitado a 8 jugadores. El horario puede variar. Torneo especial donde sólo se permite jugar con solo un Structure Deck.",
     costo: "$250",
-    fecha: "Eliminacion Directa",
+    fecha: "Eliminación Directa",
     incluye: "1 structure deck",
     formato: "Estructurado",
     sede: "Puebla, MX",
@@ -77,7 +77,7 @@ window.LCG_EVENTS = [
     descripcion:
       "Cupo limitado a 8 jugadores, deberas de asistir con tu propio dispositivo que sea capaz de correr Master Duel y contar con su propia red.",
     costo: "$220",
-    fecha: "Avanzado",
+    fecha: "Eliminación Directa",
     incluye: "2 booster pack",
     formato: "Avanzado",
     sede: "Puebla, MX",
@@ -91,7 +91,7 @@ window.LCG_EVENTS = [
     descripcion:
       "Cupo limitado a 8 jugadores. El horario puede variar",
     costo: "$220",
-    fecha: "13 de septiembre, 2025",
+    fecha: "Eliminación Directa",
     incluye: "2 booster pack",
     formato: "Avanzado",
     sede: "Puebla, MX",
