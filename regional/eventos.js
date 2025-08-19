@@ -19,7 +19,7 @@ window.LCG_EVENTS = [
     corto: "Edison",
     banner: "../assets/banners/events/edison.png",
     descripcion:
-      "Cupo limitado a 32 jugadores. El horario puede variar. Este evento sera jugado conforme al las reglas vigentes al formato,",
+      "}El horario puede variar. Como premio adicional se agregara al primer lugar una copia de Gorz the Emissary of Darkness en rareza Ghost Gold.",
     costo: "$330",
     fecha: "Suizo con corte a top",
     incluye: "3 booster pack",
