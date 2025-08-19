@@ -64,11 +64,35 @@
     .notice{margin-top:10px;color:#9ad0ff}
     .notice.err{color:#ff9a9a}
     .notice.ok{color:#99f5b2}
+    /* Compensación específica para esta vista */
+body.consulta-page{
+  /* por si otra hoja pisa padding, hacemos lo mínimo con los spacers */
+}
+
+/* Alturas de seguridad (ajústalas si cambiaste tamaños del header/nav) */
+.top-spacer{
+  height: 108px;        /* header fijo + respiro */
+}
+.bottom-spacer{
+  height: 136px;        /* bottom-nav + respiro */
+}
+
+/* Por si el contenedor también requiere margen extra en móviles */
+.consulta-wrap{
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+@media (min-width:600px){
+  .top-spacer{ height: 96px; }
+  .bottom-spacer{ height: 120px; }
+}
   </style>
 </head>
 <body class="consulta-page">
   <!-- Header reutilizable y watermark -->
   <div id="site-header"></div>
+  <div class="top-spacer" aria-hidden="true"></div>
   <div class="watermark"></div>
 
   <div class="consulta-wrap container page-pad">
@@ -94,6 +118,7 @@
   </div>
 
   <!-- Footer reutilizable (bottom-nav) -->
+ <div class="bottom-spacer" aria-hidden="true"></div>
   <div id="site-footer"></div>
 
   <!-- Loader de layout -->
@@ -101,173 +126,171 @@
   <!-- Config API (ajusta la ruta si tu archivo está en otra carpeta) -->
  <script src="./js/config.js"></script>
 
-  <script>
-    const $ = s => document.querySelector(s);
-    const pad10 = s => String(s||'').replace(/\D/g,'').padStart(10,'0');
+ <!-- Lógica de consulta (solo GET por konamiId; sin headers → sin CORS) -->
+<script>
+  const $ = s => document.querySelector(s);
+  const pad10 = s => String(s||'').replace(/\D/g,'').padStart(10, '0');
 
-    /* Nombres bonitos por slug/variantes */
-    const EVENT_NAME = {
-      'principal':'Evento Principal','evento-principal':'Evento Principal',
-      'edison':'Edison Format','edison format':'Edison Format',
-      'structure-deck':'Structure Deck','structure deck':'Structure Deck',
-      'speed-duel':'Speed Duel','speed duel':'Speed Duel',
-      'dragon-duel':'Dragon Duel','dragon duel':'Dragon Duel',
-      'win-a-mat':'Win a Mat','win a mat':'Win a Mat',
-      'master-duel':'Master Duel','master duel':'Master Duel'
-    };
-    const prettyEvent = v => EVENT_NAME[String(v||'').toLowerCase().trim()] || (v || 'Evento');
+  const form = $('#formConsulta');
+  const btn  = $('#btnBuscar');
+  const msg  = $('#msg');
+  const out  = $('#resultado');
 
-    /* Mensaje por estatus y evento */
-    function statusMessage(est, evName){
-      est = String(est||'').toLowerCase();
-      if (est === 'aceptado') {
-        return `<strong>Solicitud Aceptada</strong><br>
-        Tu inscripción a <strong>${evName}</strong> ha sido <strong>aprobada</strong>.
-        ¡Te esperamos el <strong>13 de septiembre</strong> en la sede. Lleva tu <em>Decklist</em>.`;
-      }
-      if (est === 'rechazado') {
-        return `<strong>Solicitud Rechazada</strong><br>
-        Tu inscripción a <strong>${evName}</strong> <strong>no fue aprobada</strong>.
-        Para aclaraciones: <strong>+52 222 541 5059</strong>.`;
-      }
-      return `<strong>Solicitud Pendiente</strong><br>
-      Tu inscripción a <strong>${evName}</strong> está <strong>en revisión</strong>. Revisa más tarde.`;
+  // nombres “bonitos” por tipo de evento almacenado en la hoja
+  const EVENT_LABEL = {
+    'principal'       : 'Evento Principal',
+    'edison'          : 'Edison Format',
+    'structure-deck'  : 'Structure Deck',
+    'speed-duel'      : 'Speed Duel',
+    'win-a-mat'       : 'Win a Mat',
+    'dragon-duel'     : 'Dragon Duel',
+    'master-duel'     : 'Master Duel'
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    msg.textContent = '';
+    out.innerHTML = '';
+
+    const konami = pad10( $('#konamiId').value );
+    if (!/^\d{10}$/.test(konami)){
+      msg.textContent = 'Ingresa un Konami ID válido de 10 dígitos.';
+      msg.className = 'notice err';
+      return;
     }
 
-    const form = $('#formConsulta');
-    const btn  = $('#btnBuscar');
-    const msg  = $('#msg');
-    const out  = $('#resultado');
+    btn.disabled = true;
+    btn.textContent = 'Buscando';
+    btn.classList.add('dots');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      msg.textContent = '';
-      out.innerHTML = '';
+    try{
+      // ÚNICO fetch (sin headers → sin preflight)
+      const url = `${window.LCG.API_BASE}?konamiId=${encodeURIComponent(konami)}&_t=${Date.now()}`;
+      const r   = await fetch(url);
+      const j   = await r.json();
 
-      const konami = pad10( $('#konamiId').value );
-      if (!/^\d{10}$/.test(konami)){
-        msg.textContent = 'Ingresa un Konami ID válido de 10 dígitos.';
+      if (!j.ok) {
+        msg.textContent = 'No encontrado';
         msg.className = 'notice err';
+        out.innerHTML = '';
         return;
       }
 
-      btn.disabled = true;
-      btn.textContent = 'Buscando';
-      btn.classList.add('dots');
-
-      try{
-        let filas = null;
-
-        /* Intento admin: obtener todas las filas y filtrar por Konami ID */
-        try {
-          const rAdmin = await fetch(window.LCG.API_BASE + '?_t=' + Date.now(), {
-            headers: { 'X-Admin-Key': window.LCG.ADMIN_KEY || '' }
-          });
-          const jAdmin = await rAdmin.json();
-          if (jAdmin?.ok && Array.isArray(jAdmin.data)) {
-            filas = jAdmin.data.filter(row => {
-              const kid = String(row.konamiId || '').replace(/\D/g,'').padStart(10,'0');
-              return kid === konami;
-            });
-          }
-        } catch(_) {}
-
-        /* Fallback: endpoint individual */
-        if (!filas || !filas.length) {
-          const r = await fetch(`${window.LCG.API_BASE}?konamiId=${encodeURIComponent(konami)}&_t=${Date.now()}`);
-          const j = await r.json();
-          if (!j.ok) {
-            msg.textContent = 'No encontrado';
-            msg.className = 'notice err';
-            out.innerHTML = '';
-            return;
-          }
-          filas = Array.isArray(j.data) ? j.data : [j.data];
-        }
-
-        if (!filas.length){
-          msg.textContent = 'No encontrado';
-          msg.className = 'notice err';
-          out.innerHTML = '';
-          return;
-        }
-
-        /* Datos base (para encabezado) */
-        const base = filas[0] || {};
-        const fullName = [base.firstName, base.lastName].filter(Boolean).join(' ') || '—';
-        const email    = base.email || '—';
-        const phone    = base.phone || '—';
-
-        /* Agrupar por evento (por si hay duplicados) */
-        const EVENT_KEYS = ['eventType','evento','tipo','tipoEvento'];
-        const byEvent = new Map();
-        for (const d of filas){
-          let raw = 'Evento';
-          for (const k of EVENT_KEYS) { if (d[k]) { raw = d[k]; break; } }
-          const evName = prettyEvent(raw);
-          if (!byEvent.has(evName)) byEvent.set(evName, []);
-          byEvent.get(evName).push(d);
-        }
-
-        /* Render principal (datos del jugador) */
-        let html = `
-          <div class="result-card">
-            <div class="grid">
-              <div class="kv"><div class="k">Konami ID</div><div class="v">${base.konamiId || konami}</div></div>
-              <div class="kv"><div class="k">Nombre</div><div class="v">${fullName}</div></div>
-              <div class="kv"><div class="k">Correo</div><div class="v">${email}</div></div>
-              <div class="kv"><div class="k">Teléfono</div><div class="v">${phone}</div></div>
-            </div>
-          </div>
-        `;
-
-        /* Tarjeta por cada evento existente */
-        for (const [evName, rows] of byEvent.entries()){
-          // si hay varias filas del mismo evento, usamos la más reciente (última)
-          const d = rows[rows.length - 1];
-          const est = String(d.status||'').toLowerCase();
-          const pill =
-            est === 'aceptado' ? 'pill-aceptado' :
-            est === 'rechazado' ? 'pill-rechazado' : 'pill-pendiente';
-          const pillTxt = d.status || 'Pendiente';
-          const msgHtml = statusMessage(est, evName);
-          const comp = d.paymentUrl ? `<a href="${d.paymentUrl}" target="_blank">Ver comprobante</a>` : '—';
-
-          html += `
-            <div class="ev-card">
-              <h3 class="ev-title">${evName}</h3>
-              <table class="ev-table">
-                <tbody>
-                  <tr>
-                    <th>Estatus</th>
-                    <td><span class="status-pill ${pill}">${pillTxt}</span></td>
-                  </tr>
-                  <tr>
-                    <th>Comprobante</th>
-                    <td>${comp}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="ev-msg">${msgHtml}</div>
-            </div>
-          `;
-        }
-
-        out.innerHTML = html;
-        msg.textContent = 'Listo.';
-        msg.className = 'notice ok';
-
-      }catch(err){
-        msg.textContent = 'Error: ' + err.message;
+      // Normaliza: arreglo de filas
+      const filas = Array.isArray(j.data) ? j.data : [j.data];
+      if (!filas.length){
+        msg.textContent = 'No encontrado';
         msg.className = 'notice err';
         out.innerHTML = '';
-      }finally{
-        btn.disabled = false;
-        btn.textContent = 'Buscar';
-        btn.classList.remove('dots');
+        return;
       }
-    });
-  </script>
+
+      // Datos generales (de la primera fila)
+      const base = filas[0] || {};
+      const fullName = [base.firstName, base.lastName].filter(Boolean).join(' ') || '—';
+      const email    = base.email || '—';
+      const phone    = base.phone || '—';
+
+      // Header de resultados
+      const headHtml = `
+        <div class="result-card" style="margin-bottom:10px">
+          <div class="grid">
+            <div class="kv">
+              <div class="k">Konami ID</div>
+              <div class="v">${(base.konamiId || konami)}</div>
+            </div>
+            <div class="kv">
+              <div class="k">Nombre</div>
+              <div class="v">${fullName}</div>
+            </div>
+            <div class="kv">
+              <div class="k">Correo</div>
+              <div class="v">${email}</div>
+            </div>
+            <div class="kv">
+              <div class="k">Teléfono</div>
+              <div class="v">${phone}</div>
+            </div>
+          </div>
+        </div>`;
+
+      // Una tarjeta por evento
+      const eventosHtml = filas.map(d => {
+        const est = String(d.status||'').toLowerCase();
+        const pillCls =
+          est === 'aceptado' ? 'pill-aceptado' :
+          est === 'rechazado' ? 'pill-rechazado' : 'pill-pendiente';
+        const pillTxt = d.status || 'Pendiente';
+
+        // nombre real del evento
+        const rawEvt = String(d.eventType || d.evento || d.tipo || d.tipoEvento || '').toLowerCase();
+        const evt    = EVENT_LABEL[rawEvt] || (d.eventType || d.evento || 'Evento');
+
+        // mensaje bajo el estatus
+        let msgHtml = '';
+        if (est === 'aceptado') {
+          msgHtml = `
+            <div class="status-msg">
+              <strong>Solicitud Aceptada</strong><br><br>
+              Tu preregistro para <strong>${evt}</strong> ha sido <strong>aprobado</strong>.
+              Te esperamos el <strong>13 de septiembre</strong> en la sede del evento.
+              <strong>Recuerda</strong> llevar tu <i>Decklist</i> impresa.
+            </div>`;
+        } else if (est === 'rechazado') {
+          msgHtml = `
+            <div class="status-msg">
+              <strong>Solicitud Rechazada</strong><br><br>
+              Lo sentimos, tu preregistro para <strong>${evt}</strong> <strong>no fue aprobado</strong>.
+              Para aclaraciones, contáctanos al <strong>+52 222 541 5059</strong>.
+            </div>`;
+        } else {
+          msgHtml = `
+            <div class="status-msg">
+              <strong>Solicitud Pendiente</strong><br><br>
+              Tu preregistro para <strong>${evt}</strong> está <strong>en revisión</strong>.
+              Vuelve a consultar más tarde.
+            </div>`;
+        }
+
+        return `
+          <div class="result-card">
+            <div class="grid">
+              <div class="kv">
+                <div class="k">Evento</div>
+                <div class="v">${evt}</div>
+              </div>
+              <div class="kv">
+                <div class="k">Estatus</div>
+                <div class="v"><span class="status-pill ${pillCls}">${pillTxt}</span></div>
+              </div>
+              <div class="kv">
+                <div class="k">Comprobante</div>
+                <div class="v">
+                  ${d.paymentUrl ? `<a href="${d.paymentUrl}" target="_blank">Ver comprobante</a>` : '—'}
+                </div>
+              </div>
+            </div>
+            ${msgHtml}
+          </div>
+        `;
+      }).join('');
+
+      out.innerHTML = headHtml + eventosHtml;
+
+      msg.textContent = 'Listo.';
+      msg.className = 'notice ok';
+
+    }catch(err){
+      msg.textContent = 'Error: ' + err.message;
+      msg.className = 'notice err';
+      out.innerHTML = '';
+    }finally{
+      btn.disabled = false;
+      btn.textContent = 'Buscar';
+      btn.classList.remove('dots');
+    }
+  });
+</script>
 
   <!-- Memoria de pestaña activa: Tu Status -->
   <script>
@@ -283,3 +306,4 @@
   </script>
 </body>
 </html>
+
