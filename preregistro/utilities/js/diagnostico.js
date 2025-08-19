@@ -1,88 +1,50 @@
-(function(){
-  'use strict';
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Diagnóstico · Preregistro</title>
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    .status { display:inline-block; margin-left:10px; font-weight:600; }
+    .ok  { color:#7CFC8A; }
+    .bad { color:#ff7676; }
+    pre  { background:#1f1f1f; color:#fff; padding:12px; border-radius:10px; overflow:auto; }
+    .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin:10px 0; }
+    input, select { padding:8px 10px; border-radius:8px; border:1px solid #444; background:#111; color:#fff; }
+    button { padding:10px 14px; border:0; border-radius:10px; background:#e74c3c; color:#fff; font-weight:700; cursor:pointer; }
+    button.secondary { background:#333; }
+    fieldset { border:1px solid #333; border-radius:12px; padding:12px; }
+    legend { padding:0 6px; color:#ccc; }
+  </style>
+</head>
+<body>
+  <h1>Diagnóstico</h1>
 
-  const $ = s => document.querySelector(s);
+  <div class="row">
+    <button id="btnPing">Ping</button>
+    <button id="btnList">Listar (admin)</button>
+    <span id="status" class="status"></span>
+  </div>
 
-  const btnPing = $('#btnPing');
-  const btnList = $('#btnList');
-  const status  = $('#status');
-  const output  = $('#output');
+  <fieldset>
+    <legend>Prueba de carga (Pareos)</legend>
+    <div class="row">
+      <label>Total solicitudes <input id="ltTotal" type="number" value="400" min="1" step="1"></label>
+      <label>Concurrencia <input id="ltConc"  type="number" value="25"  min="1" step="1"></label>
+      <label>Timeout (ms) <input id="ltTO"    type="number" value="5000" min="100" step="100"></label>
+      <button id="btnLoadTest">Ejecutar prueba</button>
+    </div>
+    <div class="row">
+      <small>Endpoint: <code id="ltUrlView">—</code></small>
+    </div>
+  </fieldset>
 
-  function setStatus(ok, msg){
-    status.className = 'status ' + (ok ? 'ok' : 'bad');
-    status.textContent = msg || (ok ? 'OK' : 'Error');
-  }
+  <pre id="output">Listo.</pre>
 
-  function show(obj){
-    try{
-      output.textContent = typeof obj === 'string'
-        ? obj
-        : JSON.stringify(obj, null, 2);
-    }catch{
-      output.textContent = String(obj);
-    }
-  }
-
-  function requireConfig(){
-    if (!window.LCG || !window.LCG.API_BASE){
-      setStatus(false, 'Falta window.LCG.API_BASE');
-      show('Asegúrate de cargar config.js antes de diagnostico.js');
-      return false;
-    }
-    return true;
-  }
-
-  async function doPing(){
-    if(!requireConfig()) return;
-    const url = `${window.LCG.API_BASE}?action=ping&_t=${Date.now()}`;
-    try{
-      setStatus(true, 'Solicitando…');
-      const r   = await fetch(url);          // GET sin headers → sin preflight
-      const raw = await r.text();
-      let j;
-      try { j = JSON.parse(raw); } catch { j = { ok:false, raw }; }
-      setStatus(!!j.ok, j.ok ? 'OK' : 'Error');
-      show(j);
-    }catch(e){
-      setStatus(false, 'Error');
-      show({error: e.message});
-    }
-  }
-
-  async function doList(){
-    if(!requireConfig()) return;
-    if (!window.LCG.ADMIN_KEY){
-      setStatus(false, 'Falta ADMIN_KEY');
-      show('Define window.LCG.ADMIN_KEY en config.js');
-      return;
-    }
-    const url = `${window.LCG.API_BASE}?adminKey=${encodeURIComponent(window.LCG.ADMIN_KEY)}&_t=${Date.now()}`;
-    try{
-      setStatus(true, 'Solicitando…');
-      const r   = await fetch(url);          // GET sin headers → sin preflight
-      const raw = await r.text();
-      let j;
-      try { j = JSON.parse(raw); } catch { j = { ok:false, raw }; }
-      setStatus(!!j.ok, j.ok ? 'OK' : 'Error');
-      // Resumen útil
-      if (j.ok && Array.isArray(j.data)){
-        show({ ok: true, count: j.data.length, sample: j.data.slice(0, 3) });
-      } else {
-        show(j);
-      }
-    }catch(e){
-      setStatus(false, 'Error');
-      show({error: e.message});
-    }
-  }
-
-  if (btnPing) btnPing.addEventListener('click', doPing);
-  if (btnList) btnList.addEventListener('click', doList);
-
-  // Estado inicial
-  if (!window.LCG) {
-    setStatus(false, 'Falta config.js');
-  } else {
-    setStatus(true, 'Listo');
-  }
-})();
+  <!-- Carga la configuración global -->
+  <script src="./js/config.js"></script>
+  <!-- Lógica del diagnóstico -->
+  <script src="./js/diagnostico.js?v=4"></script>
+</body>
+</html>
