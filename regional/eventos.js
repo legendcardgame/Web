@@ -18,8 +18,7 @@ window.LCG_EVENTS = [
     nombre: "Edison Format",
     corto: "Edison",
     banner: "../assets/banners/events/edison.png",
-    descripcion:
-      "}El horario puede variar. Como premio adicional se agregara al primer lugar una copia de Gorz the Emissary of Darkness en rareza Ghost Gold.",
+    descripcion: "El horario puede variar. Como premio adicional se agregara al primer lugar una copia de Gorz the Emissary of Darkness en rareza Ghost Gold.",
     costo: "$330",
     fecha: "Suizo Con Corte a Top",
     incluye: "3 booster pack",
@@ -32,8 +31,7 @@ window.LCG_EVENTS = [
     nombre: "Dragon Duel",
     corto: "Dragon Duel",
     banner: "../assets/banners/events/dragon-duel.png",
-    descripcion:
-      "El horario puede variarPara nacidos del 2012 o posterior, debera de haber un padre o tutor con cada participante, premiacion para el top 4",
+    descripcion: "El horario puede variar. Para nacidos del 2012 o posterior, debera de haber un padre o tutor con cada participante, premiación para el top 4",
     costo: "Gratis",
     fecha: "Suizo por Standing",
     incluye: "N/A",
