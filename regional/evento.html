@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Evento · Legend Card Game</title>
 
-  <!-- (Opcional) estilos locales de /regional si los usas -->
+  <!-- Estilos locales/globales existentes -->
   <link rel="stylesheet" href="../styles.css">
-
-  <!-- Estilos GLOBALes (mismos del home) -->
   <link rel="stylesheet" href="/Web/main.css">
   <link rel="stylesheet" href="/Web/styles.css">
 
@@ -17,27 +15,13 @@
       --card-bg:#111;
       --card-border:rgba(255,255,255,.08);
     }
-
-    /* No forzar fondo aquí: hereda el global */
-    /* body{ background:#000; } */
-
     .ev-wrap{max-width:960px;margin:0 auto;padding:20px 16px 100px}
 
-    /* ===== Encabezado limpio ===== */
-    .ev-header{margin:0 0 14px;text-align:center}
-    .ev-title{
-      margin:0;
-      font-size:clamp(22px,3.8vw,36px);
-      font-weight:900;
-      letter-spacing:.3px;
-      color:#fff;
-    }
-
-    /* ===== Banner ===== */
+    /* Banner */
     .ev-hero{position:relative;border-radius:18px;overflow:hidden;background:#111;box-shadow:0 10px 40px rgba(0,0,0,.4)}
     .ev-hero img{width:100%;height:auto;display:block}
 
-    /* ===== Cards (neutras) ===== */
+    /* Cards */
     .ev-card{
       background:var(--card-bg);
       border:1px solid var(--card-border);
@@ -45,17 +29,11 @@
       box-shadow:0 10px 30px rgba(0,0,0,.25);
       margin-top:16px;
     }
-    .ev-card h3{
-      margin:.2rem 0 .7rem;
-      font-size:1.05rem;
-      opacity:.95;
-      text-align:center;
-    }
+    .ev-card h3{margin:.2rem 0 .7rem;font-size:1.05rem;opacity:.95;text-align:center}
 
-    /* Descripción: texto a la izquierda */
     .ev-desc{line-height:1.65;opacity:.97;text-align:left}
 
-    /* CTA hex rojo centrado (mismo look del menú) */
+    /* CTA hex rojo */
     .cta-center{display:flex;justify-content:center;margin-top:12px}
     .btn-hex{
       --hex-bg1:#e00119; --hex-bg2:#a80012; --hex-shadow:#002f5a;
@@ -68,33 +46,18 @@
     }
     .btn-hex:hover{transform:translateY(-2px); filter:drop-shadow(0 10px 24px rgba(0,0,0,.5)) drop-shadow(0 0 14px var(--hex-shadow));}
 
-    /* ===== Información: 2×2 simétrica ===== */
-    .ev-info{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:12px;
-      justify-items:center;
-    }
+    /* Info 2x2 */
+    .ev-info{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;justify-items:center}
     .info-cell{
-      width:100%;
-      max-width:360px;
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.1);
-      border-radius:12px;
-      padding:10px;
-      display:flex; flex-direction:column; align-items:center; justify-content:center;
-      min-height:88px;
-      text-align:center;
+      width:100%;max-width:360px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+      border-radius:12px;padding:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+      min-height:88px;text-align:center;
     }
     .muted{opacity:.68}
     .ev-price{font-size:1.15rem;font-weight:800}
+    @media (max-width:700px){ .ev-info{grid-template-columns:1fr} .info-cell{max-width:560px} }
 
-    @media (max-width:700px){
-      .ev-info{grid-template-columns:1fr}
-      .info-cell{max-width:560px}
-    }
-
-    /* ===== Mapa centrado ===== */
+    /* Mapa */
     .map-wrap{
       position:relative; padding-bottom:56.25%; height:0; overflow:hidden;
       border-radius:12px; border:1px solid rgba(255,255,255,.08);
@@ -105,32 +68,36 @@
 
     .btn-open-maps-wrap{ display:flex; justify-content:center; margin:.9rem 0 0; }
     .btn-open-maps{ min-width:unset; padding:.6rem 1rem; clip-path:none; border-radius:10px; }
+
+    /* Imagen de premios (1920×1080, responsiva) */
+    .ev-prize{margin-top:16px;border-radius:14px;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.4)}
+    .ev-prize img{width:100%;max-width:1920px;height:auto;display:block;margin:0 auto}
   </style>
 </head>
 <body>
 
-  <!-- Header/Bottom-nav inyectables (mismos que el home) -->
+  <!-- Header/Bottom-nav reutilizables -->
   <div id="site-header"></div>
+  <script src="/Web/assets/js/nav-active.js"></script>
 
-  <!-- Inclúyelo DESPUÉS del HTML del bottom-nav, en todas las páginas -->
-<script src="/Web/assets/js/nav-active.js"></script>
-
-  <!-- Marca de agua global -->
   <div class="watermark"></div>
 
   <div class="ev-wrap container">
-    <!-- TÍTULO ARRIBA, SIN FONDO -->
-    <header class="ev-header">
-      <h1 class="ev-title" id="evTitle">Cargando…</h1>
-    </header>
+    <!-- 🔻 Se eliminó el título superior -->
 
     <!-- Banner -->
     <div class="ev-hero"><img id="evBanner" alt="Banner del evento"></div>
 
-    <!-- Descripción + CTA -->
+    <!-- Descripción + CTA + Imagen de premios -->
     <section class="ev-card">
       <h3>Descripción</h3>
       <div class="ev-desc" id="evDesc">—</div>
+
+      <!-- Imagen de premios (debajo de la descripción) -->
+      <div class="ev-prize">
+        <img id="evPrize" alt="Premios del evento" loading="lazy">
+      </div>
+
       <div class="cta-center">
         <a id="evBtnPrereg" class="btn-hex" href="#" target="_self"><span>Preregístrate ahora</span></a>
       </div>
@@ -174,47 +141,64 @@
     </section>
   </div>
 
-  <!-- Footer (y bottom-nav) reutilizable -->
+  <!-- Footer -->
   <div id="site-footer"></div>
 
   <!-- Catálogo de eventos -->
   <script src="./eventos.js"></script>
-
-  <!-- Loader que inyecta header + bottom-nav -->
+  <!-- Loader header/footer -->
   <script src="/Web/assets/js/layout-loader.js"></script>
 
   <script>
-  const params = new URLSearchParams(location.search);
-  const id = (params.get('id') || '').toLowerCase();
-  const ev = (window.LCG_EVENTS || []).find(e => e.id === id);
+    (function(){
+      const params = new URLSearchParams(location.search);
+      const id = (params.get('id') || '').toLowerCase();
+      const ev = (window.LCG_EVENTS || []).find(e => e.id === id);
 
-  if (ev) {
-    document.title = ev.nombre + ' · Legend Card Game';
-    evTitle.textContent = ev.nombre;
-    evDesc.textContent  = ev.descripcion;
-    evBanner.src        = ev.banner;
-    evBanner.alt        = 'Banner ' + ev.nombre;
+      const evBanner = document.getElementById('evBanner');
+      const evDesc   = document.getElementById('evDesc');
+      const evCost   = document.getElementById('evCost');
+      const evDate   = document.getElementById('evDate');
+      const evIncl   = document.getElementById('evIncluye');
+      const evFmt    = document.getElementById('evFormato');
+      const evPrize  = document.getElementById('evPrize');
+      const evBtn    = document.getElementById('evBtnPrereg');
 
-    evCost.textContent     = ev.costo    || '—';
-    evDate.textContent     = ev.fecha    || 'Por confirmar';
-    evIncluye.textContent  = ev.incluye  || '—';
-    evFormato.textContent  = ev.formato  || '—';
+      if (ev) {
+        document.title = ev.nombre + ' · Legend Card Game';
+        evDesc.textContent  = ev.descripcion || '—';
+        evBanner.src        = ev.banner;
+        evBanner.alt        = 'Banner ' + ev.nombre;
 
-// Eventos que NO llevan preregistro
-const NO_PREREG = ["dragon-duel", "win-a-mat", "master-duel"];
+        evCost.textContent = ev.costo   || '—';
+        evDate.textContent = ev.fecha   || 'Por confirmar';
+        evIncl.textContent = ev.incluye || '—';
+        evFmt.textContent  = ev.formato || '—';
 
-if (NO_PREREG.includes(ev.id)) {
-  // Ocultamos el botón rojo
-  document.querySelector(".cta-center").style.display = "none";
-} else {
-  // Siempre manda al preregistro fijo
-  evBtnPrereg.href = '/Web/preregistro/utilities/preregistro.html';
-      evBtnPrereg.href = link + (link.includes('?') ? '&' : '?') + 'evento=' + encodeURIComponent(ev.id);
-    }
-  } else {
-    evTitle.textContent = 'Evento no encontrado';
-    evDesc.textContent  = 'Verifica el enlace o regresa al inicio.';
-  }
-</script>
+        // Imagen de premios: Web/regional/premios/p-<id>.(jpg|png|webp), con fallback
+        const base = `/Web/regional/premios/p-${id}`;
+        const exts = ['.jpg','.png','.webp'];
+        let i = 0;
+        const tryNext = () => {
+          if (i >= exts.length) { evPrize.style.display = 'none'; return; }
+          evPrize.src = base + exts[i++];
+        };
+        evPrize.addEventListener('error', tryNext);
+        tryNext(); // primer intento
+
+        // Botón de preregistro (se oculta para algunos eventos)
+        const NO_PREREG = ["dragon-duel", "win-a-mat", "master-duel"];
+        if (NO_PREREG.includes(ev.id)) {
+          document.querySelector(".cta-center").style.display = "none";
+        } else {
+          evBtn.href = '/Web/preregistro/utilities/preregistro.html?evento=' + encodeURIComponent(ev.id);
+        }
+      } else {
+        evDesc.textContent = 'Evento no encontrado. Verifica el enlace o regresa al inicio.';
+        document.querySelector(".cta-center").style.display = "none";
+        document.querySelector(".ev-hero").style.display = "none";
+      }
+    })();
+  </script>
 </body>
 </html>
