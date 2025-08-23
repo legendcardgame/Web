@@ -10,43 +10,66 @@
   const dots    = document.getElementById('carouselDots') || carousel.querySelector('.dots');
   if (!track) return;
 
+  // Slides reales antes de clonar (para dots y mapeo)
+  const realSlides = Array.from(track.querySelectorAll('.slide'));
+  if (!realSlides.length) return;
+
+  // --- Loop infinito: clonar extremos ---
+  const firstClone = realSlides[0].cloneNode(true);
+  const lastClone  = realSlides[realSlides.length - 1].cloneNode(true);
+  track.appendChild(firstClone);
+  track.insertBefore(lastClone, track.firstChild);
+
+  // Slides totales (incluyendo clones)
   const slides = Array.from(track.querySelectorAll('.slide'));
-  if (!slides.length) return;
 
   // gap definido en CSS (fallback a 10)
   const cs  = getComputedStyle(track);
   const gap = parseFloat(cs.gap || cs.columnGap || 10);
 
-  let idx = 0;
-  let timer = null;
-
   const slideWidth = () => slides[0].getBoundingClientRect().width + (Number.isFinite(gap) ? gap : 0);
 
-  function setActiveDot(i) {
+  // Índice inicial en 1 (porque 0 es el clon del último)
+  let idx = 1;
+  let timer = null;
+  let raf = null;
+  let isJumping = false; // evita parpadeos al “teletransportar” tras clones
+
+  function setActiveDot(iReal) {
     if (!dots) return;
-    Array.from(dots.children).forEach((d, j) => d.classList.toggle('active', j === i));
+    Array.from(dots.children).forEach((d, j) => d.classList.toggle('active', j === iReal));
+  }
+
+  function realIndexFromIdx(i) {
+    // Mapea idx (con clones) a índice real [0..realSlides.length-1]
+    // idx=1 -> real 0; idx=2 -> real 1; ... idx=realSlides.length -> real realSlides.length-1
+    const n = realSlides.length;
+    return (i - 1 + n) % n;
   }
 
   function goTo(i, smooth = true) {
-    idx = (i + slides.length) % slides.length;
+    idx = i;
     track.scrollTo({ left: idx * slideWidth(), behavior: smooth ? 'smooth' : 'auto' });
-    setActiveDot(idx);
+    setActiveDot(realIndexFromIdx(idx));
     restart();
   }
 
-  const next = () => goTo(idx + 1);
-  const prev = () => goTo(idx - 1);
+  function next() { goTo(idx + 1); }
+  function prev() { goTo(idx - 1); }
+
+  // Posicionar en el primer slide real al cargar
+  goTo(1, false);
 
   // Flechas
   nextBtn && nextBtn.addEventListener('click', next);
   prevBtn && prevBtn.addEventListener('click', prev);
 
-  // Dots
+  // Dots (basados en slides reales, no en clones)
   if (dots && !dots.children.length) {
-    slides.forEach((_, i) => {
+    realSlides.forEach((_, i) => {
       const b = document.createElement('button');
       if (i === 0) b.classList.add('active');
-      b.addEventListener('click', () => goTo(i));
+      b.addEventListener('click', () => goTo(i + 1)); // i+1 porque 0 es el clon
       dots.appendChild(b);
     });
   }
@@ -70,18 +93,36 @@
     sx = dx = 0;
   }, { passive: true });
 
-  // Sincroniza índice al hacer scroll manual
-  let raf = null;
+  // Sincroniza índice al hacer scroll manual + manejo de clones
   track.addEventListener('scroll', () => {
     if (raf) return;
     raf = requestAnimationFrame(() => {
       const n = Math.round(track.scrollLeft / slideWidth());
-      if (n !== idx) { idx = n; setActiveDot(idx); }
+      if (n !== idx) {
+        idx = n;
+        setActiveDot(realIndexFromIdx(idx));
+      }
+
+      // Si caemos en los clones, saltamos sin animación al real correspondiente
+      if (!isJumping) {
+        if (idx === slides.length - 1) { // último es clon del primero real
+          isJumping = true;
+          goTo(1, false); // ir al primer real sin smooth
+          isJumping = false;
+        } else if (idx === 0) { // primero es clon del último real
+          isJumping = true;
+          goTo(slides.length - 2, false); // ir al último real sin smooth
+          isJumping = false;
+        }
+      }
+
       raf = null;
     });
   }, { passive: true });
 
-  // Enlaces desde banners a /regional/evento.html?id=...
+  // ==== Enlaces desde banners ====
+  // Si el slide ya es <a href="...">, RESPEtamos ese href.
+  // Solo autogeneramos enlace a /regional/evento.html?id=... cuando no hay href o es '#'.
   const slugMap = {
     'principal':      'principal',
     'dragon-duel':    'dragon-duel',
@@ -96,7 +137,6 @@
     const img = slide.querySelector('img');
     if (!img) return;
 
-    // Si ya es <a class="slide">, solo aseguramos el href; si es <div>, lo hacemos clickable
     let linkEl = slide.tagName.toLowerCase() === 'a' ? slide : slide.querySelector('a');
 
     const src  = img.getAttribute('src') || '';
@@ -105,11 +145,13 @@
     const href = `regional/evento.html?id=${encodeURIComponent(id)}`;
 
     if (linkEl) {
-      // No pisamos si ya está correcto
-      if (!/regional\/evento\.html/i.test(linkEl.getAttribute('href') || '')) {
+      // ---- CAMBIO: respeta enlaces existentes ----
+      const current = linkEl.getAttribute('href') || '';
+      if (!current || current === '#') {
         linkEl.href = href;
       }
     } else {
+      // Si no hay <a>, hacemos clickable el slide con la url generada
       slide.style.cursor = 'pointer';
       slide.setAttribute('role', 'link');
       slide.setAttribute('tabindex', '0');
