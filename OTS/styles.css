@@ -241,3 +241,79 @@ h1 {
   .card { padding: 0;}
   .ronda-resultado { font-size: 1rem;}
 }
+
+/* =========================================================
+   ESTILO HEX ROJO (como “Preregístrate ahora”) para:
+   #buscarBtn, #btnRonda, #btnHistorial
+   ========================================================= */
+.botones-tabs{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+/* Botones con forma HEX y gradiente rojo */
+#buscarBtn,
+#btnRonda,
+#btnHistorial{
+  --hex-bg1:#e00119;   /* rojo superior */
+  --hex-bg2:#a80012;   /* rojo inferior */
+  --hex-shadow:#002f5a;/* halo azul tenue */
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 22px;
+  min-width: 180px;
+
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: .2px;
+  text-decoration: none;
+
+  background: linear-gradient(180deg, var(--hex-bg1), var(--hex-bg2)) !important;
+  filter: drop-shadow(0 6px 16px rgba(0,0,0,.35)) drop-shadow(0 0 10px var(--hex-shadow));
+  transition: transform .15s ease, filter .25s ease, opacity .2s ease;
+
+  /* HEX */
+  clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
+  border-radius: 0 !important;
+
+  border: 0 !important;
+  cursor: pointer;
+}
+
+/* Hover/focus */
+#buscarBtn:hover, #buscarBtn:focus,
+#btnRonda:hover, #btnRonda:focus,
+#btnHistorial:hover, #btnHistorial:focus{
+  transform: translateY(-2px);
+  filter: drop-shadow(0 10px 24px rgba(0,0,0,.5)) drop-shadow(0 0 14px var(--hex-shadow));
+  outline: none;
+}
+
+/* Tabs inactivas un poco más tenues */
+#btnRonda:not(.active),
+#btnHistorial:not(.active){
+  opacity: .9;
+  filter: saturate(.95) brightness(.98) drop-shadow(0 4px 12px rgba(0,0,0,.3));
+}
+
+/* Tab activa más “viva” */
+#btnRonda.active,
+#btnHistorial.active{
+  opacity: 1;
+  box-shadow: 0 0 0 2px rgba(255,255,255,.08) inset;
+}
+
+/* Ajuste responsive para los HEX */
+@media (max-width:480px){
+  #buscarBtn, #btnRonda, #btnHistorial{
+    min-width: 150px;
+    padding: 9px 16px;
+    font-size: 14px;
+  }
+}
