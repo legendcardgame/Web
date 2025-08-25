@@ -249,10 +249,69 @@ document.getElementById('konamiId').addEventListener('keydown', async (e) => {
     mostrarRonda();
   }
 });
-
 // Al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
   cargarTorneo();
   const lastId = localStorage.getItem('konamiId');
   if (lastId) document.getElementById('konamiId').value = lastId;
 });
+
+// ===== Aviso “¡Nueva ronda!” en el botón Buscar cuando cambie 1.txt =====
+(function rondaBadge(){
+  // Ajusta si tu 1.txt vive en otra ruta
+  const ONE_TXT_URL = '/Web/OTS/1.txt';
+
+  const btn = document.getElementById('buscarBtn');
+  if (!btn) return;
+
+  const LS_KEY = 'ots-1txt-etag'; // dónde guardamos la versión vista
+  let lastSeen = localStorage.getItem(LS_KEY) || '';
+
+  async function fetchMarker(){
+    try {
+      // HEAD evita descargar el archivo entero y salta caches
+      const r = await fetch(ONE_TXT_URL, { method: 'HEAD', cache: 'no-store' });
+      // Tomamos ETag o Last-Modified, lo que exista
+      const etag = r.headers.get('etag') || r.headers.get('last-modified') || '';
+      return etag;
+    } catch (e) {
+      // Si falla, no rompemos el flujo
+      return '';
+    }
+  }
+
+  async function checkUpdate(){
+    const current = await fetchMarker();
+    if (!current) {
+      // Si no pudimos leer headers, no alteramos el estado
+      return;
+    }
+    // Si es la primera vez que entran y no hay lastSeen, inicializamos sin mostrar alerta
+    if (!lastSeen) {
+      lastSeen = current;
+      localStorage.setItem(LS_KEY, current);
+      btn.classList.remove('has-update');
+      return;
+    }
+    // Si cambió respecto a lo último visto → mostrar badge
+    if (current !== lastSeen) {
+      btn.classList.add('has-update');
+    } else {
+      btn.classList.remove('has-update');
+    }
+  }
+
+  // Marca como "visto" al buscar (y oculta la chapita)
+  btn.addEventListener('click', async () => {
+    const current = await fetchMarker();
+    if (current) {
+      lastSeen = current;
+      localStorage.setItem(LS_KEY, current);
+    }
+    btn.classList.remove('has-update');
+  });
+
+  // Primera verificación y luego cada 30s (ajusta si quieres)
+  checkUpdate();
+  setInterval(checkUpdate, 30000);
+})();
