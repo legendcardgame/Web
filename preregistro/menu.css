@@ -1,292 +1,79 @@
-/* ===== Estilos generales del menú de Preregistro ===== */
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0a0a0a;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
+/* ===== Variables locales ===== */
+:root{
+  --navH-estimada: 84px; /* respaldo si el JS aún no calcula altura real */
 }
 
-.menu-wrap {
-  width: 100%;
-  max-width: 900px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
+/* ===== Layout base de esta página ===== */
+.menu-wrap{
+  width:100%;
+  max-width:900px;
+  margin:16px auto;            /* menos respiro arriba */
+  padding:8px 16px;            /* y padding lateral uniforme */
+  padding-bottom: calc(var(--navH, var(--navH-estimada)) + 24px) !important; /* espacio real para el bottom-nav */
+  display:flex;
+  flex-direction:column;
+  gap:24px;
 }
 
-/* ===== Evento principal (banner grande) ===== */
-#heroSlot img {
-  width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
-  transition: transform 0.3s ease, filter 0.3s ease;
+/* ===== Hero (evento principal) ===== */
+#heroSlot img{
+  width:100%;
+  border-radius:12px;
+  box-shadow:0 6px 20px rgba(0,0,0,.6);
+  display:block;
+  transition:transform .3s ease, filter .3s ease;
 }
+#heroSlot img:hover{ transform:scale(1.03); filter:brightness(.85); }
 
-#heroSlot img:hover {
-  transform: scale(1.03);
-  filter: brightness(0.8);
+/* ===== Botón HEX ===== */
+.status-container{ display:flex; justify-content:center; }
+.btn-hex{
+  --hex-bg1:#e00119; --hex-bg2:#a80012; --hex-shadow:#002f5a;
+  position:relative; display:inline-flex; align-items:center; justify-content:center;
+  padding:12px 28px; min-width:200px; color:#fff; font-weight:800; text-decoration:none; letter-spacing:.2px;
+  background:linear-gradient(180deg,var(--hex-bg1),var(--hex-bg2));
+  filter:drop-shadow(0 6px 16px rgba(0,0,0,.35)) drop-shadow(0 0 10px var(--hex-shadow));
+  transition:transform .15s ease, filter .25s ease;
+  clip-path:polygon(10% 0,90% 0,100% 50%,90% 100%,10% 100%,0 50%);
 }
+.btn-hex:hover,.btn-hex:focus{ transform:translateY(-2px); filter:drop-shadow(0 10px 24px rgba(0,0,0,.5)) drop-shadow(0 0 14px var(--hex-shadow)); }
 
-/* ===== Botón HEX: "Status De Registro" ===== */
-.status-container {
-  display: flex;
-  justify-content: center;
+/* ===== Grid de side events ===== */
+#gridSlot{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+  gap:20px;
 }
-
-.btn-hex {
-  --hex-bg1: #e00119;   /* rojo superior */
-  --hex-bg2: #a80012;   /* rojo inferior */
-  --hex-shadow: #002f5a; /* sombra azul tenue */
-
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 28px;
-  min-width: 200px;
-  color: #fff;
-  font-weight: 800;
-  text-decoration: none;
-  letter-spacing: 0.2px;
-  background: linear-gradient(180deg, var(--hex-bg1), var(--hex-bg2));
-  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 10px var(--hex-shadow));
-  transition: transform 0.15s ease, filter 0.25s ease;
-  clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
+.grid-cards img{
+  width:100%; border-radius:10px; cursor:pointer;
+  box-shadow:0 6px 15px rgba(0,0,0,.5);
+  transition:transform .3s ease, filter .3s ease;
+  display:block;
 }
-
-.btn-hex:hover,
-.btn-hex:focus {
-  transform: translateY(-2px);
-  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 14px var(--hex-shadow));
-}
-
-/* ===== Grid de side events (6 botones con imágenes) ===== */
-#gridSlot {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
-  justify-items: center;
-}
-
-.grid-cards img {
-  width: 100%;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s ease, filter 0.3s ease;
-}
-
-.grid-cards img:hover {
-  transform: scale(1.05);
-  filter: brightness(0.8);
-}
+.grid-cards img:hover{ transform:scale(1.05); filter:brightness(.85); }
 
 /* ===== Responsive ===== */
-@media (max-width: 600px) {
-  .btn-hex {
-    min-width: 160px;
-    padding: 10px 20px;
-    font-size: 14px;
-  }
-
-  #gridSlot {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px;
-  }
-}
-/* ===== Correcciones para el menú de preregistro ===== */
-
-/* Botón rojo sólido */
-.qa-btn.primary {
-  background: #e53935 !important;  /* rojo sólido */
-  color: #fff !important;
-  opacity: 1 !important;           /* asegura que no se vea transparente */
+@media (max-width:600px){
+  .btn-hex{ min-width:160px; padding:10px 20px; font-size:14px; }
+  #gridSlot{ grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:15px; }
 }
 
-/* Botón oscuro sólido */
-.qa-btn.ghost {
-  background: #1b1b1e !important;  /* panel oscuro */
-  color: #fff !important;
-  border: 1px solid #2a2a2f !important;
-  opacity: 1 !important;
+/* ===== Apariencia consistente del bottom-nav en esta página ===== */
+.bottom-nav{
+  background:#101114 !important;
+  border-top:1px solid #27282c !important;
+  bottom:env(safe-area-inset-bottom, 0);
 }
 
-/* ====== Fix de espaciados para el menú de preregistro ====== */
-
-/* 1) Reduce el respiro superior (el header fijo ya empuja 60px) */
-.menu-wrap {
-  padding-top: 8px !important;     /* antes 20+ / elimina hueco grande */
-  margin-top: 0 !important;
-  padding-bottom: calc(76px + 24px) !important; /* 76px bottom-nav + extra */
-}
-
-/* 2) Asegura que el banner principal quede pegado sin huecos raros */
-#heroSlot img {
-  display: block;
-  margin: 0 !important;
-}
-
-/* 3) Un poco menos de respiro entre el botón y el banner */
-.status-container { 
-  margin-top: 12px !important;
-}
-
-/* 4) Que el grid no quede oculto bajo la barra inferior */
-#gridSlot {
-  margin-bottom: 24px !important;
-}
-
-/* 5) Botón rojo sólido (por si alguna regla global le baja opacidad) */
-.btn-hex {
-  opacity: 1 !important;
-  filter: none; /* se mantiene hover en tu regla :hover */
-}
-
-/* 6) Si usas botones .qa-btn en esta página, manténlos sólidos también */
-.qa-btn.primary { background:#e53935 !important; color:#fff !important; opacity:1 !important; }
-.qa-btn.ghost   { background:#1b1b1e !important; color:#fff !important; border:1px solid #2a2a2f !important; opacity:1 !important; }
-
-/* Quitar gradiente rojo/azul del menú inferior */
-.bottom-nav {
-  background: #101114 !important; /* fondo sólido oscuro */
-  border-top: 1px solid #27282c;  /* línea sutil de separación */
-}
-/* --- Quitar la franja rojo/azul sobre el nav inferior --- */
-/* Algunos layouts insertan una banda/gradiente encima del footer.
-   Tapamos cualquier variante habitual. */
-#site-footer { background: transparent !important; }
+/* ===== Kill bandas de color del footer si existieran ===== */
 #site-footer::before,
 #site-footer .footer-gradient,
 #site-footer .color-band,
 .footer-gradient,
-.color-band {
-  display: none !important;
-  height: 0 !important;
-  background: transparent !important;
-}
-/* === TAPA la franja rojo/azul sobre el nav fijo === */
-.bottom-nav {
-  position: fixed;           /* aseguramos que sea fixed aquí también */
-  left: 0; right: 0; bottom: 0;
-  z-index: 1000;
-  background: #101114 !important;           /* fondo sólido oscuro del nav */
-  border-top: 1px solid #27282c !important; /* línea sutil */
-  box-shadow: 0 -4px 12px rgba(0,0,0,.35);
-}
-
-/* “Tapón” sólido por si algún gradiente se asoma encima del nav */
-.bottom-nav::before {
-  content: "";
-  position: absolute;
-  left: 0; right: 0;
-  top: -16px;               /* altura del tapón */
-  height: 16px;
-  background: var(--bg, #0c0f14);  /* mismo fondo de la página */
-  pointer-events: none;
-}
-
-/* ===== FIX FINAL MENÚ PREREGISTRO ===== */
-
-/* 1) Asegura un fondo uniforme (sin gradientes en la parte baja) */
-body {
-  background:
-radial-gradient(circle at top left, rgba(255, 0, 0, 0.45), transparent 30%),
-    radial-gradient(circle at top right, rgba(0, 0, 255, 0.45), transparent 30%),
-    var(--bg, #0c0f14) !important;
-}
-
-/* 2) Forzar que el bottom-nav exista y tape cualquier banda */
-.bottom-nav {
-  position: fixed !important;
-  left: 0; right: 0; bottom: 0;
-  z-index: 1000;
-  background: #101114 !important;
-  border-top: 1px solid #27282c !important;
-  box-shadow: 0 -4px 12px rgba(0,0,0,.35);
-}
-
-/* 3) “Tapón” sólido por si algo se asoma encima del nav */
-.bottom-nav::before {
-  content: "";
-  position: absolute;
-  left: 0; right: 0;
-  top: -18px;
-  height: 18px;
-  background: var(--bg, #0c0f14);
-  pointer-events: none;
-}
-
-/* 4) Desactiva cualquier footer/gradiente inyectado */
-#site-footer, .site-footer, .footer, .footer-gradient, .color-band {
-  display: block !important;  /* el #site-footer queda como contenedor del nav */
-  background: transparent !important;
-  height: auto !important;
-  padding: 0 !important;
-  border: 0 !important;
-}
-#site-footer::before,
-#site-footer::after,
-.footer-gradient::before,
-.footer-gradient::after,
-.color-band::before,
-.color-band::after,
-body::after {
-  content: none !important;
-  display: none !important;
-  background: transparent !important;
-}
-
-/* 5) Deja margen al final para que los botones no queden bajo el nav */
-.menu-wrap {
-  padding-bottom: calc(76px + 24px) !important;
-}
-}
-
-/* ===== KILL-BAR: tapa y elimina la franja rojo/azul sobre el nav ===== */
-
-/* 1) Si el loader inyecta algo además del <nav>, lo ocultamos */
-#site-footer > *:not(nav) {
-  display: none !important;
-}
-
-/* 2) Asegura que el nav quede por encima de cualquier banda */
-.bottom-nav {
-  position: fixed !important;
-  left: 0; right: 0; bottom: 0;
-  z-index: 2147483647 !important; /* por si la banda usa z-index alto */
-  background: #101114 !important;
-  border-top: 1px solid #27282c !important;
-  box-shadow: 0 -4px 12px rgba(0,0,0,.35);
-}
-
-/* 3) “Tapón” sólido por si la banda ya está pintada en el DOM */
-.bottom-nav::before {
-  content: "";
-  position: absolute;
-  left: 0; right: 0;
-  top: -40px;             /* cubre bien por encima del nav */
-  height: 40px;
-  background: #101114;    /* mismo color del nav */
-  pointer-events: none;
-}
-
-/* 4) Por si algún nombre de clase distinto pinta la banda en el footer */
-#site-footer::before,
-#site-footer::after,
-#site-footer .footer-gradient,
-#site-footer .color-band,
-#site-footer .brandline,
-.footer-gradient,
-.color-band,
-.brandline {
-  display: none !important;
-  background: transparent !important;
-  height: 0 !important;
-  padding: 0 !important;
-  border: 0 !important;
+.color-band{
+  display:none !important;
+  background:transparent !important;
+  height:0 !important;
+  padding:0 !important;
+  border:0 !important;
 }
