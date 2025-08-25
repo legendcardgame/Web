@@ -4,83 +4,57 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>LCG · Inicio</title>
-  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Estilos globales -->
+  <link rel="stylesheet" href="/Web/styles.css" />
+  <link rel="stylesheet" href="/Web/main.css" />
 </head>
 <body>
+  <!-- Header reutilizable -->
+  <div id="site-header"></div>
+
   <!-- Marca de agua -->
   <div class="watermark"></div>
 
-<header class="topbar">
-  <div class="brand">
-    <!-- Logo a la izquierda -->
-    <a href="index.html">
-      <img
-        src="assets/logo-lcg.png"
-        alt="LCG"
-        class="brand-lcg"
-        loading="eager"
-        decoding="async"
-      />
-    </a>
+  <!-- SLIDESHOW -->
+  <section class="slideshow" aria-label="Anuncios">
+    <button class="ss-nav prev" aria-label="Anterior">‹</button>
 
-    <!-- Wordmark centrado -->
-    <a href="index.html">
-      <img
-        src="assets/brand/legend-card-game-wordmark.png"
-        alt="Legend Card Game"
-        class="brand-wordmark"
-        loading="eager"
-        decoding="async"
-      />
-    </a>
-  </div>
-</header>
-  
-<!-- SLIDESHOW -->
-<section class="slideshow" aria-label="Anuncios">
-  <button class="ss-nav prev" aria-label="Anterior">‹</button>
+    <div class="ss-viewport" id="slideshowViewport">
+      <!-- Banners internos (se navega dentro del sitio) -->
+      <a class="ss-slide active" href="regional/evento.html?id=principal" aria-label="Evento Principal">
+        <img src="assets/banners/principal.png" alt="Evento Principal" loading="lazy">
+      </a>
+      <a class="ss-slide" href="regional/evento.html?id=dragon-duel" aria-label="Dragon Duel">
+        <img src="assets/banners/dragon-duel.png" alt="Dragon Duel" loading="lazy">
+      </a>
+      <a class="ss-slide" href="regional/evento.html?id=edison" aria-label="Edison Formato">
+        <img src="assets/banners/edison.png" alt="Edison Formato" loading="lazy">
+      </a>
+      <a class="ss-slide" href="regional/evento.html?id=win-a-mat" aria-label="Win a Mat">
+        <img src="assets/banners/win-a-mat.png" alt="Win a Mat" loading="lazy">
+      </a>
+      <a class="ss-slide" href="regional/evento.html?id=master-duel" aria-label="Master Duel">
+        <img src="assets/banners/master-duel.png" alt="Master Duel" loading="lazy">
+      </a>
+      <a class="ss-slide" href="regional/evento.html?id=structure-deck" aria-label="Structure Deck">
+        <img src="assets/banners/structure-deck.png" alt="Structure Deck" loading="lazy">
+      </a>
+      <a class="ss-slide" href="regional/evento.html?id=speed-duel" aria-label="Speed Duel">
+        <img src="assets/banners/speed-duel.png" alt="Speed Duel" loading="lazy">
+      </a>
 
-  <div class="ss-viewport" id="slideshowViewport">
-    <!-- Cada slide puede ser <a> con href o un simple <div>. 1920×1080 recomendado -->
-    <a class="ss-slide active" href="regional/evento.html?id=principal" aria-label="Evento Principal">
-      <img src="assets/banners/principal.png" alt="Evento Principal" loading="lazy">
-    </a>
+      <!-- Banner externo (respeta el href tal cual) -->
+      <a class="ss-slide" href="https://www.facebook.com/LCGLegend" target="_blank" rel="noopener" aria-label="Facebook">
+        <img src="assets/banners/facebook.png" alt="Facebook" loading="lazy">
+      </a>
+    </div>
 
-    <a class="ss-slide" href="regional/evento.html?id=dragon-duel" aria-label="Dragon Duel">
-      <img src="assets/banners/dragon-duel.png" alt="Dragon Duel" loading="lazy">
-    </a>
+    <button class="ss-nav next" aria-label="Siguiente">›</button>
 
-    <a class="ss-slide" href="regional/evento.html?id=edison" aria-label="Edison Formato">
-      <img src="assets/banners/edison.png" alt="Edison Formato" loading="lazy">
-    </a>
-
-    <a class="ss-slide" href="regional/evento.html?id=win-a-mat" aria-label="Win a Mat">
-      <img src="assets/banners/win-a-mat.png" alt="Win a Mat" loading="lazy">
-    </a>
-
-    <a class="ss-slide" href="regional/evento.html?id=master-duel" aria-label="Master Duel">
-      <img src="assets/banners/master-duel.png" alt="Master Duel" loading="lazy">
-    </a>
-
-    <a class="ss-slide" href="regional/evento.html?id=structure-deck" aria-label="Structure Deck">
-      <img src="assets/banners/structure-deck.png" alt="Structure Deck" loading="lazy">
-    </a>
-
-    <a class="ss-slide" href="regional/evento.html?id=speed-duel" aria-label="Speed Duel">
-      <img src="assets/banners/speed-duel.png" alt="Speed Duel" loading="lazy">
-    </a>
-
-    <!-- Ejemplo: banner externo (Facebook) — se respeta el href -->
-    <a class="ss-slide" href="https://www.facebook.com/LCGLegend" target="_blank" rel="noopener" aria-label="Facebook">
-      <img src="assets/banners/facebook.png" alt="Facebook" loading="lazy">
-    </a>
-  </div>
-
-  <button class="ss-nav next" aria-label="Siguiente">›</button>
-
-  <!-- Dots -->
-  <div class="ss-dots" id="slideshowDots" role="tablist" aria-label="Paginación"></div>
-</section>
+    <!-- Dots -->
+    <div class="ss-dots" id="slideshowDots" role="tablist" aria-label="Paginación"></div>
+  </section>
 
   <!-- ACCESOS RÁPIDOS -->
   <section class="quick-actions">
@@ -92,91 +66,13 @@
     </a>
   </section>
 
-  <script src="main.js"></script>
-  
-<nav class="bottom-nav" id="bottomNav">
-  <a href="index.html" class="nav-item" data-key="home">
-    <span class="icon" style="--src: url('assets/icons/home.svg')"></span>
-    <span class="label">Inicio</span>
-  </a>
-  <a href="preregistro/index.html" class="nav-item" data-key="preregistro">
-    <span class="icon" style="--src: url('assets/icons/preregistro.svg')"></span>
-    <span class="label">Eventos</span>
-  </a>
-  <a href="OTS/index.html" class="nav-item" data-key="pareos">
-    <span class="icon" style="--src: url('assets/icons/pareos.svg')"></span>
-    <span class="label">Pareos</span>
-  </a>
-  <a href="preregistro/utilities/consulta.html" class="nav-item" data-key="consulta">
-    <span class="icon" style="--src: url('assets/icons/consulta.svg')"></span>
-    <span class="label"> Tu Status</span>
-  </a>
-  <a href="novedades/index.html" class="nav-item" data-key="novedades">
-    <span class="icon" style="--src: url('assets/icons/novedades.svg')"></span>
-    <span class="label">Novedades</span>
-  </a>
-</nav>
+  <!-- Footer reutilizable (bottom-nav) -->
+  <div id="site-footer"></div>
 
-  <script>
-  (function(){
-    const nav   = document.getElementById('bottomNav');
-    if(!nav) return;
+  <!-- Inyección de header/footer y activación de pestaña -->
+  <script src="/Web/assets/js/layout-loader.js"></script>
 
-    // 1) Definir la clave activa por URL (simple heurística)
-    const path = location.pathname.toLowerCase();
-    let current = 'home';
-    if (path.includes('/preregistro/consulta')) current = 'consulta';
-    else if (path.includes('/preregistro/'))   current = 'preregistro';
-    else if (path.includes('/regional/'))      current = 'pareos';
-    else if (path.includes('/novedades/'))     current = 'novedades';
-
-    // Si guardamos una última selección, úsala si coincide con la página actual
-    const saved = localStorage.getItem('lcg-tab');
-    if (saved && [...nav.querySelectorAll('[data-key]')].some(a => a.dataset.key===saved)) {
-      current = saved;
-    }
-
-    // 2) Marcar activo
-    setActive(current);
-
-    // 3) Al hacer clic, guardar y marcar activo
-    nav.addEventListener('click', (e)=>{
-      const a = e.target.closest('a[data-key]');
-      if(!a) return;
-      localStorage.setItem('lcg-tab', a.dataset.key);
-      setActive(a.dataset.key);
-      // no prevenimos navegación: el href se seguirá
-    });
-
-    function setActive(key){
-      nav.querySelectorAll('.nav-item').forEach(a=>{
-        a.classList.toggle('active', a.dataset.key === key);
-      });
-    }
-  })();
-</script>
-  <script>
-  // Elimina cualquier banda/gradiente que algún layout pudiera inyectar
-  (function cleanupColorBands() {
-    const killers = [
-      '.footer-gradient', '.color-band', '#footer-gradient', '#color-band',
-      '.site-footer .gradient', '.gradient-band', '.nav-gradient'
-    ];
-    killers.forEach(sel => {
-      document.querySelectorAll(sel).forEach(n => n.remove());
-    });
-
-    // Si algo llegara tarde (p. ej., layout-loader), reintenta una vez
-    setTimeout(() => {
-      killers.forEach(sel => {
-        document.querySelectorAll(sel).forEach(n => n.remove());
-      });
-    }, 250);
-  })();
-</script>
-
-  <!-- ★ NUEVO: función para fijar correctamente el tab activo en cualquier retorno/navegación -->
-  <script src="/Web/assets/js/nav-active.js"></script>
-  <!-- ★ FIN de la adición -->
+  <!-- Lógica del slideshow -->
+  <script src="/Web/main.js"></script>
 </body>
 </html>
