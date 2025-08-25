@@ -20,8 +20,8 @@ window.LCG_EVENTS = [
     banner: "../assets/banners/events/edison.png",
     descripcion: "El horario puede variar. Como premio adicional se agregara al primer lugar una copia de Gorz the Emissary of Darkness en rareza Ghost Gold.",
     costo: "$330",
-    fecha: "Suizo Con Corte a Top",
-    incluye: "3 booster pack",
+    fecha: "Suizo Con Corte a Top 4",
+    incluye: "3 Booster Pack",
     formato: "Edison",
     sede: "Puebla, MX",
     preregistro: "../preregistro/index.html"
@@ -48,7 +48,7 @@ window.LCG_EVENTS = [
       "Cupo limitado a 8 jugadores. El horario puede variar. Partidas rápidas con reglas de Speed Duel.",
     costo: "$220",
     fecha: "Eliminacion Directa",
-    incluye: "2 booster pack",
+    incluye: "2 Booster Pack",
     formato: "Avanzado",
     sede: "Puebla, MX",
     preregistro: "../preregistro/index.html"
@@ -62,8 +62,8 @@ window.LCG_EVENTS = [
       "Cupo limitado a 8 jugadores. El horario puede variar. Torneo especial donde sólo se permite jugar con solo un Structure Deck.",
     costo: "$250",
     fecha: "Eliminación Directa",
-    incluye: "1 structure deck",
-    formato: "Estructurado",
+    incluye: "1 Structure Deck",
+    formato: "Sellado",
     sede: "Puebla, MX",
     preregistro: "../preregistro/index.html"
   },
@@ -90,7 +90,7 @@ window.LCG_EVENTS = [
       "Cupo limitado a 8 jugadores. El horario puede variar",
     costo: "$220",
     fecha: "Eliminación Directa",
-    incluye: "2 booster pack",
+    incluye: "2 Booster Pack",
     formato: "Avanzado",
     sede: "Puebla, MX",
     preregistro: "../preregistro/index.html"
