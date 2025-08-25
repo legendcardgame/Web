@@ -1,28 +1,29 @@
 let tournamentData = null;
 let currentRound = null;
 
-// Utilidades
+// ---------- Utilidades ----------
 function padId(id) {
   return String(id).padStart(10, '0');
 }
+function qText(sel, ctx) {
+  return (ctx.querySelector(sel)?.textContent || '').trim();
+}
+function findPlayerById(kid) {
+  return Array.from(tournamentData.querySelectorAll('TournPlayer'))
+    .find(tp => padId(qText('Player > ID', tp)) === kid) || null;
+}
 function buscarJugador(kid) {
-  // Busca el jugador en el xml
-  const player = Array.from(tournamentData.querySelectorAll('TournPlayer')).find(tp => padId(tp.querySelector('ID')?.textContent) === kid);
+  const player = findPlayerById(kid);
   if (!player) return null;
-  let standing = player.querySelector('Rank') ? parseInt(player.querySelector('Rank').textContent, 10) : '-';
-  let drop = false;
-  // Verifica si es drop, si hay un campo <DropReason> o similar y es diferente de 'Active'
-  if (player.querySelector('DropReason') && player.querySelector('DropReason').textContent.trim().toLowerCase() !== 'active') drop = true;
-  return {
-    nombre: `${player.querySelector('FirstName')?.textContent || ''} ${player.querySelector('LastName')?.textContent || ''}`.trim(),
-    standing,
-    drop
-  };
+  const standing = player.querySelector('Rank') ? parseInt(qText('Rank', player), 10) : '-';
+  const drop = (qText('DropReason', player).toLowerCase() || 'active') !== 'active';
+  const nombre = `${qText('Player > FirstName', player)} ${qText('Player > LastName', player)}`.trim();
+  return { nombre, standing, drop };
 }
 function buscarNombre(kid) {
-  const player = Array.from(tournamentData.querySelectorAll('TournPlayer')).find(tp => padId(tp.querySelector('ID')?.textContent) === kid);
-  if (!player) return 'Oponente desconocido';
-  return `${player.querySelector('FirstName')?.textContent || ''} ${player.querySelector('LastName')?.textContent || ''}`.trim();
+  const player = findPlayerById(kid);
+  return player ? `${qText('Player > FirstName', player)} ${qText('Player > LastName', player)}`.trim()
+                : 'Oponente desconocido';
 }
 
 function activarBoton(id) {
@@ -31,138 +32,166 @@ function activarBoton(id) {
   document.getElementById(id).classList.add('active');
 }
 
-// Mostrar ronda actual
+// ---------- Tarjeta “Ya inscrito” ----------
+function tarjetaInscritoHTML(nombre, konamiId, ronda) {
+  return `
+    <div class="card">
+      <div class="linea-roja"></div>
+      <div class="jugador" style="margin-top:18px">${nombre}</div>
+      <div class="konami">${konamiId}</div>
+      <div class="vs-label" style="margin:10px 0 6px 0">
+        <span class="status registered">Ya inscrito</span>
+      </div>
+      <div class="konami-opo" style="margin-bottom:16px">Ronda ${ronda}</div>
+      <div class="linea-azul"></div>
+    </div>
+    <div class="hint">Actualiza cuando publiquemos emparejamientos; si tienes mesa, aparecerá aquí.</div>
+  `;
+}
+
+// ---------- Mostrar ronda actual ----------
 function mostrarRonda() {
   activarBoton('btnRonda');
   document.getElementById('historyContainer').style.display = "none";
   document.getElementById('tableContainer').style.display = "block";
+
   const inputRaw = document.getElementById('searchID').value.trim();
-  if (!inputRaw || !tournamentData) {
-    document.getElementById('tableContainer').innerHTML = '';
-    return;
-  }
-  localStorage.setItem('konamiId', inputRaw);
-  const input = padId(inputRaw);
-  const matches = Array.from(tournamentData.querySelectorAll('TournMatch'));
-  let match = null;
-  let mesa = '';
-  let p1 = '', p2 = '', id1 = '', id2 = '';
-  matches.forEach(m => {
-    const mp1 = padId(m.querySelectorAll('Player')[0]?.textContent || "");
-    const mp2 = padId(m.querySelectorAll('Player')[1]?.textContent || "");
-    const round = parseInt(m.querySelector('Round')?.textContent || "0", 10);
-    if (round === currentRound && (input === mp1 || input === mp2)) {
-      match = m;
-      mesa = m.querySelector('Table')?.textContent || '';
-      id1 = mp1; id2 = mp2;
-    }
-  });
   const ctn = document.getElementById('tableContainer');
-  if (!match) {
-    ctn.innerHTML = `<div class='card-mesa'>No se encontró el Konami ID en la ronda.</div>`;
+
+  if (!inputRaw || !tournamentData) {
+    ctn.innerHTML = '';
     return;
   }
-  // Nombres y IDs
+
+  const input = padId(inputRaw);
+  localStorage.setItem('konamiId', input);
+
+  // ¿Existe jugador?
+  const jugador = buscarJugador(input);
+  if (!jugador) {
+    ctn.innerHTML = `<div class='card-mesa'>Konami ID no encontrado en la lista de inscritos.</div>`;
+    return;
+  }
+
+  // Ronda actual
+  const matches = Array.from(tournamentData.querySelectorAll('TournMatch'));
+  let match = null, mesa = '', id1 = '', id2 = '';
+
+  for (const m of matches) {
+    const mp1 = padId(qText('Player', m.querySelectorAll('Player')[0] || m));
+    const mp2 = padId(qText('Player', m.querySelectorAll('Player')[1] || m));
+    const round = parseInt(qText('Round', m) || '0', 10);
+    if (round === currentRound && (input === mp1 || input === mp2)) {
+      match = m; mesa = qText('Table', m);
+      id1 = mp1; id2 = mp2;
+      break;
+    }
+  }
+
+  // Sin rondas o sin match aún → “Ya inscrito”
+  if (!currentRound || currentRound === 0 || !match) {
+    ctn.innerHTML = tarjetaInscritoHTML(jugador.nombre, input, currentRound || 0);
+    return;
+  }
+
+  // Con emparejamiento → render mesa VS
   const nombre1 = buscarNombre(id1);
   const nombre2 = buscarNombre(id2);
-  // Render
   ctn.innerHTML = `
-    <div class="card-mesa">
-      <div class="mesa-label">Mesa: ${mesa}</div>
-      <div class="nombre-carta">${nombre1}<span class="konami-id">${id1}</span></div>
-      <div class="vs-label">VS</div>
-      <div class="nombre-carta abajo">${nombre2}<span class="konami-id">${id2}</span></div>
+    <div class="mesa">MESA ${mesa}</div>
+    <div class="card">
+      <div class="linea-roja"></div>
+        <div class="jugador">${nombre1}</div>
+        <div class="konami">${id1}</div>
+        <div class="vs-label">VS</div>
+        <div class="oponente">${nombre2 || "BYE"}</div>
+        <div class="konami-opo">${id2 || ""}</div>
+      <div class="linea-azul"></div>
     </div>
   `;
 }
 
-// Mostrar historial
+// ---------- Mostrar historial ----------
 function mostrarHistorial() {
   activarBoton('btnHistorial');
   document.getElementById('tableContainer').style.display = "none";
   document.getElementById('historyContainer').style.display = "block";
+
   const inputRaw = document.getElementById('searchID').value.trim();
+  const container = document.getElementById('historyContainer');
+
   if (!inputRaw || !tournamentData) {
-    document.getElementById('historyContainer').innerHTML = '';
+    container.innerHTML = '';
     return;
   }
-  localStorage.setItem('konamiId', inputRaw);
   const input = padId(inputRaw);
+  localStorage.setItem('konamiId', input);
 
   const player = buscarJugador(input);
-  // Standing actual
   let standingHtml = '';
   if (player && player.standing > 0) {
-    let medal = "";
-    if (player.standing === 1) medal = "🥇 ";
-    else if (player.standing === 2) medal = "🥈 ";
-    else if (player.standing === 3) medal = "🥉 ";
+    let medal = player.standing === 1 ? '🥇 ' : player.standing === 2 ? '🥈 ' : player.standing === 3 ? '🥉 ' : '';
     standingHtml = `<div class="standing-container">Standing: ${medal}${player.standing}º${player.drop ? " - Drop" : ""}</div>`;
   }
 
-  // Historial
+  // Arma historial
   const matches = Array.from(tournamentData.querySelectorAll('TournMatch'));
   let historial = [];
-  matches.forEach(m => {
-    const p1 = padId(m.querySelectorAll('Player')[0]?.textContent || "");
-    const p2 = padId(m.querySelectorAll('Player')[1]?.textContent || "");
-    const round = parseInt(m.querySelector('Round')?.textContent || "0", 10);
-    const winner = padId(m.querySelector('Winner')?.textContent || "");
-    if (input === p1 || input === p2) {
-      const oponenteId = input === p1 ? p2 : p1;
-      const nombreOponente = buscarNombre(oponenteId);
-      let resultado = "Empate";
-      if (winner === input) resultado = "Victoria";
-      else if (winner === oponenteId) resultado = "Derrota";
-      let color = resultado === "Victoria" ? "win" : resultado === "Derrota" ? "loss" : "draw";
-      historial.push({ ronda: round, resultado, nombreOponente, color });
-    }
-  });
-  historial.sort((a, b) => b.ronda - a.ronda);
+  for (const m of matches) {
+    const p1 = padId(qText('Player', m.querySelectorAll('Player')[0] || m));
+    const p2 = padId(qText('Player', m.querySelectorAll('Player')[1] || m));
+    const round = parseInt(qText('Round', m) || '0', 10);
+    const winner = padId(qText('Winner', m) || '');
 
-  // Render historial
-  const container = document.getElementById('historyContainer');
+    if (input === p1 || input === p2) {
+      const oponente = input === p1 ? p2 : p1;
+      const nombreOponente = buscarNombre(oponente);
+      let resultado = 'Empate';
+      if (!qText('Winner', m) || qText('Winner', m) === '0') {
+        resultado = (round === currentRound) ? 'En curso' : 'Empate';
+      } else if (winner === input) {
+        resultado = 'Victoria';
+      } else if (winner === oponente) {
+        resultado = 'Derrota';
+      }
+      historial.push({ ronda: round, resultado, nombreOponente });
+    }
+  }
+  historial.sort((a,b) => b.ronda - a.ronda);
+
   container.innerHTML = '';
   if (standingHtml) container.innerHTML += standingHtml;
+
   if (!historial.length) {
-    container.innerHTML += "<div class='card-mesa'>No se encontró el Konami ID.</div>";
+    // Si no hay historial pero el jugador existe → “Ya inscrito”
+    if (player) {
+      container.innerHTML += tarjetaInscritoHTML(player.nombre, input, currentRound || 0);
+    } else {
+      container.innerHTML += "<div class='card-mesa'>No se encontró el Konami ID.</div>";
+    }
     return;
   }
-  historial.forEach(({ ronda, resultado, nombreOponente, color }) => {
-    const card = document.createElement("div");
+
+  for (const { ronda, resultado, nombreOponente } of historial) {
+    const color = resultado === 'Victoria' ? 'win' : resultado === 'Derrota' ? 'loss' : 'draw';
+    const card = document.createElement('div');
     card.className = `historial-card ${color}`;
-    const bar = document.createElement("div");
-    bar.className = "historial-bar";
-    card.appendChild(bar);
-
-    // Primera línea
-    const titulo = document.createElement("div");
-    titulo.className = `historial-title ${color}`;
-    titulo.innerHTML = `Ronda ${ronda} - ${resultado}`;
-    card.appendChild(titulo);
-
-    // Segunda línea
-    const vs = document.createElement("div");
-    vs.className = "historial-vs";
-    vs.innerHTML = `VS ${nombreOponente}`;
-    card.appendChild(vs);
-
-    container.appendChild(card);
-  });
+    card.innerHTML = `
+      <div class="historial-bar"></div>
+      <div class="historial-title ${color}">Ronda ${ronda} - ${resultado}</div>
+      <div class="historial-vs">VS ${nombreOponente}</div>
+    `;
+    document.getElementById('historyContainer').appendChild(card);
+  }
 }
 
-// ====== INICIALIZACION ======
-
+// ---------- Init ----------
 fetch('1.txt')
-  .then(response => response.text())
+  .then(r => r.text())
   .then(str => {
     const parser = new DOMParser();
-    const xml = parser.parseFromString(str, 'text/xml');
-    tournamentData = xml;
-
-    const currentRoundNode = tournamentData.querySelector('CurrentRound');
-    currentRound = parseInt(currentRoundNode?.textContent || "0", 10);
-
+    tournamentData = parser.parseFromString(str, 'text/xml');
+    currentRound = parseInt(qText('CurrentRound', tournamentData) || '0', 10);
     const label = document.getElementById('rondaInfo');
     if (label) label.textContent = `Ronda: ${currentRound}`;
   })
@@ -172,17 +201,15 @@ fetch('1.txt')
   });
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Navegación de pestañas
   document.getElementById('btnRonda').onclick = mostrarRonda;
   document.getElementById('btnHistorial').onclick = mostrarHistorial;
 
-  // Buscar automático si hay ID
   const lastId = localStorage.getItem('konamiId');
   if (lastId) {
     document.getElementById('searchID').value = lastId;
     setTimeout(mostrarRonda, 300);
   }
-  document.getElementById('searchID').addEventListener('input', e => {
+  document.getElementById('searchID').addEventListener('input', () => {
     setTimeout(mostrarRonda, 200);
   });
 });
