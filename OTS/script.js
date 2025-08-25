@@ -6,6 +6,7 @@ function padId(id) {
 }
 
 function getPlayerNodeById(id) {
+  if (!tournamentData) return null;
   const players = Array.from(tournamentData.querySelectorAll('TournPlayer'));
   return players.find(p => padId(p.querySelector('ID')?.textContent) === id) || null;
 }
@@ -23,7 +24,7 @@ function getPlayerInfo(id) {
 }
 
 function hayRondas() {
-  return tournamentData && tournamentData.querySelectorAll('TournMatch').length > 0;
+  return tournamentData && tournamentData.querySelectorAll('TournMatch').length > 0 && currentRound > 0;
 }
 
 function renderYaInscrito(nombreJugador, idJugador) {
@@ -31,10 +32,21 @@ function renderYaInscrito(nombreJugador, idJugador) {
   tableContainer.innerHTML = `
     <div class="card">
       <div class="linea-roja"></div>
-      <div class="jugador">${nombreJugador || ''}</div>
+      ${nombreJugador ? `<div class="jugador">${nombreJugador}</div>` : ''}
       <div class="konami">${idJugador || ''}</div>
       <div class="vs-label">Ya inscrito</div>
       <div class="konami-opo">Ronda ${currentRound}</div>
+      <div class="linea-azul"></div>
+    </div>
+  `;
+}
+
+function renderNoEncontrado() {
+  const tableContainer = document.getElementById('tableContainer');
+  tableContainer.innerHTML = `
+    <div class="card">
+      <div class="linea-roja"></div>
+      <div class="vs-label">No se encontró el Konami ID.</div>
       <div class="linea-azul"></div>
     </div>
   `;
@@ -56,7 +68,7 @@ async function cargarTorneo() {
     const msg = document.getElementById('mensajePersonalizado');
     if (msg) msg.style.display = 'none';
 
-    // 🔧 Antes se llamaba a mostrarRonda(); (ya no existe). Ahora:
+    // Asegura que tras cargar se dibuje la vista activa
     mostrarRondaTab();
 
   } else {
@@ -85,16 +97,28 @@ function buscarEmparejamientos() {
   const tableContainer = document.getElementById('tableContainer');
   tableContainer.innerHTML = '';
 
+  // Info del jugador (si existe)
   const infoJugador = getPlayerInfo(input);
-  const nombreJugador = infoJugador?.nombre || '';
-  const standingJugador = infoJugador?.standing ?? '-';
 
+  // Si NO existe ese KID en el XML, avisa y termina
+  if (!infoJugador) {
+    renderNoEncontrado();
+    document.getElementById('historyContainer').innerHTML = '';
+    return;
+  }
+
+  const nombreJugador = infoJugador.nombre;
+  const standingJugador = infoJugador.standing;
+
+  // Si no hay rondas emparejadas todavía → “Ya inscrito”
   if (!hayRondas()) {
     renderYaInscrito(nombreJugador, input);
+    // Historial vacío (sin rondas)
     mostrarHistorial(input, standingJugador, nombreJugador, /*forzarSinRondas*/ true);
     return;
   }
 
+  // Buscar emparejamiento en la ronda actual
   const matches = Array.from(tournamentData.querySelectorAll('TournMatch'));
   let encontrado = false;
   let mesa = '';
@@ -132,6 +156,7 @@ function buscarEmparejamientos() {
       </div>
     `;
   } else {
+    // Está inscrito (existe), pero aún no tiene mesa en la ronda actual
     renderYaInscrito(nombreJugador, input);
   }
 
@@ -144,7 +169,12 @@ function mostrarHistorial(input, standing, nombreJugador, forzarSinRondas = fals
   historyContainer.innerHTML = '';
 
   if (!tournamentData || forzarSinRondas || !hayRondas()) {
-    historyContainer.innerHTML = `<div class="card"><div class="linea-roja"></div><div class="vs-label">Sin historial aún</div><div class="linea-azul"></div></div>`;
+    historyContainer.innerHTML = `
+      <div class="card">
+        <div class="linea-roja"></div>
+        <div class="vs-label">Sin historial aún</div>
+        <div class="linea-azul"></div>
+      </div>`;
     return;
   }
 
@@ -185,7 +215,12 @@ function mostrarHistorial(input, standing, nombreJugador, forzarSinRondas = fals
   historial.sort((a, b) => b.ronda - a.ronda);
 
   if (historial.length === 0) {
-    historyContainer.innerHTML = `<div class="card"><div class="linea-roja"></div><div class="vs-label">Sin historial aún</div><div class="linea-azul"></div></div>`;
+    historyContainer.innerHTML = `
+      <div class="card">
+        <div class="linea-roja"></div>
+        <div class="vs-label">Sin historial aún</div>
+        <div class="linea-azul"></div>
+      </div>`;
     return;
   }
 
