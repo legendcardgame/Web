@@ -253,13 +253,11 @@ h1 {
   flex-wrap:wrap;
 }
 
-/* Botones con forma HEX y gradiente rojo */
-#buscarBtn,
-#btnRonda,
-#btnHistorial{
-  --hex-bg1:#e00119;   /* rojo superior */
-  --hex-bg2:#a80012;   /* rojo inferior */
-  --hex-shadow:#002f5a;/* halo azul tenue */
+/* Botón de buscar (un poco más ancho) */
+#buscarBtn{
+  --hex-bg1:#e00119;
+  --hex-bg2:#a80012;
+  --hex-shadow:#002f5a;
 
   position: relative;
   display: inline-flex;
@@ -278,10 +276,37 @@ h1 {
   filter: drop-shadow(0 6px 16px rgba(0,0,0,.35)) drop-shadow(0 0 10px var(--hex-shadow));
   transition: transform .15s ease, filter .25s ease, opacity .2s ease;
 
-  /* HEX */
   clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
-  border-radius: 0 !important;
+  border: 0 !important;
+  cursor: pointer;
+}
 
+/* Botones de pestañas (más angostos, caben dos en fila) */
+#btnRonda,
+#btnHistorial{
+  --hex-bg1:#e00119;
+  --hex-bg2:#a80012;
+  --hex-shadow:#002f5a;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 18px;
+  min-width: 140px;   /* 🔹 más angostos */
+  flex: 1 1 140px;    /* 🔹 se adaptan al espacio disponible */
+
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: .2px;
+  text-decoration: none;
+
+  background: linear-gradient(180deg, var(--hex-bg1), var(--hex-bg2)) !important;
+  filter: drop-shadow(0 6px 16px rgba(0,0,0,.35)) drop-shadow(0 0 10px var(--hex-shadow));
+  transition: transform .15s ease, filter .25s ease, opacity .2s ease;
+
+  clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
   border: 0 !important;
   cursor: pointer;
 }
@@ -295,25 +320,24 @@ h1 {
   outline: none;
 }
 
-/* Tabs inactivas un poco más tenues */
+/* Tabs inactivas */
 #btnRonda:not(.active),
 #btnHistorial:not(.active){
   opacity: .9;
   filter: saturate(.95) brightness(.98) drop-shadow(0 4px 12px rgba(0,0,0,.3));
 }
 
-/* Tab activa más “viva” */
+/* Tab activa */
 #btnRonda.active,
 #btnHistorial.active{
   opacity: 1;
   box-shadow: 0 0 0 2px rgba(255,255,255,.08) inset;
 }
 
-/* Ajuste responsive para los HEX */
+/* Responsive */
 @media (max-width:480px){
-  #buscarBtn, #btnRonda, #btnHistorial{
-    min-width: 150px;
-    padding: 9px 16px;
-    font-size: 14px;
+  #buscarBtn{ min-width: 150px; padding: 9px 16px; font-size: 14px; }
+  #btnRonda, #btnHistorial{
+    min-width: 120px; padding: 9px 14px; font-size: 13px;
   }
 }
