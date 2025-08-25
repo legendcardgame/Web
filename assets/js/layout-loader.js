@@ -22,7 +22,7 @@
     if (path.includes("/preregistro/utilities/consulta")) current = "consulta";
     else if (path.includes("/preregistro/")) current = "preregistro";
     else if (path.includes("/ots/")) current = "pareos";
-    else if (path.includes("/novedades/")) current = "novedades";
+    else if (path.includes("/productos/")) current = "productos";
     else current = "home";
 
     // Respeta selección almacenada si aplica y si existe ese tab
@@ -48,4 +48,5 @@
       .then(function () { return inject("site-footer", base + "/partials/footer.html"); })
       .then(setActiveBottomNav);
   });
+
 })();
