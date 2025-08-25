@@ -32,20 +32,17 @@ function activarBoton(id) {
   document.getElementById(id).classList.add('active');
 }
 
-// ---------- Tarjeta “Ya inscrito” ----------
+// ---------- Tarjeta “Ya inscrito” (sin clases nuevas) ----------
 function tarjetaInscritoHTML(nombre, konamiId, ronda) {
   return `
     <div class="card">
       <div class="linea-roja"></div>
-      <div class="jugador" style="margin-top:18px">${nombre}</div>
-      <div class="konami">${konamiId}</div>
-      <div class="vs-label" style="margin:10px 0 6px 0">
-        <span class="status registered">Ya inscrito</span>
-      </div>
-      <div class="konami-opo" style="margin-bottom:16px">Ronda ${ronda}</div>
+        <div class="jugador" style="margin-top:18px">${nombre}</div>
+        <div class="konami">${konamiId}</div>
+        <div class="vs-label" style="margin:10px 0 6px 0">Ya inscrito</div>
+        <div class="konami-opo" style="margin-bottom:16px">Ronda ${ronda}</div>
       <div class="linea-azul"></div>
     </div>
-    <div class="hint">Actualiza cuando publiquemos emparejamientos; si tienes mesa, aparecerá aquí.</div>
   `;
 }
 
@@ -69,7 +66,7 @@ function mostrarRonda() {
   // ¿Existe jugador?
   const jugador = buscarJugador(input);
   if (!jugador) {
-    ctn.innerHTML = `<div class='card-mesa'>Konami ID no encontrado en la lista de inscritos.</div>`;
+    ctn.innerHTML = `<div class='card' style="padding:16px 10px"><div class='vs-label'>Konami ID no encontrado</div></div>`;
     return;
   }
 
@@ -78,8 +75,9 @@ function mostrarRonda() {
   let match = null, mesa = '', id1 = '', id2 = '';
 
   for (const m of matches) {
-    const mp1 = padId(qText('Player', m.querySelectorAll('Player')[0] || m));
-    const mp2 = padId(qText('Player', m.querySelectorAll('Player')[1] || m));
+    const ps = m.querySelectorAll('Player');
+    const mp1 = padId(qText('Player', ps[0] || m));
+    const mp2 = padId(qText('Player', ps[1] || m));
     const round = parseInt(qText('Round', m) || '0', 10);
     if (round === currentRound && (input === mp1 || input === mp2)) {
       match = m; mesa = qText('Table', m);
@@ -131,23 +129,25 @@ function mostrarHistorial() {
   let standingHtml = '';
   if (player && player.standing > 0) {
     let medal = player.standing === 1 ? '🥇 ' : player.standing === 2 ? '🥈 ' : player.standing === 3 ? '🥉 ' : '';
-    standingHtml = `<div class="standing-container">Standing: ${medal}${player.standing}º${player.drop ? " - Drop" : ""}</div>`;
+    standingHtml = `<div class="standing-box">Standing:<br>${medal}${player.standing}</div>`;
   }
 
   // Arma historial
   const matches = Array.from(tournamentData.querySelectorAll('TournMatch'));
   let historial = [];
   for (const m of matches) {
-    const p1 = padId(qText('Player', m.querySelectorAll('Player')[0] || m));
-    const p2 = padId(qText('Player', m.querySelectorAll('Player')[1] || m));
+    const ps = m.querySelectorAll('Player');
+    const p1 = padId(qText('Player', ps[0] || m));
+    const p2 = padId(qText('Player', ps[1] || m));
     const round = parseInt(qText('Round', m) || '0', 10);
-    const winner = padId(qText('Winner', m) || '');
+    const winnerTxt = qText('Winner', m);
+    const winner = winnerTxt ? padId(winnerTxt) : '';
 
     if (input === p1 || input === p2) {
       const oponente = input === p1 ? p2 : p1;
       const nombreOponente = buscarNombre(oponente);
       let resultado = 'Empate';
-      if (!qText('Winner', m) || qText('Winner', m) === '0') {
+      if (!winnerTxt || winnerTxt === '0') {
         resultado = (round === currentRound) ? 'En curso' : 'Empate';
       } else if (winner === input) {
         resultado = 'Victoria';
@@ -163,25 +163,29 @@ function mostrarHistorial() {
   if (standingHtml) container.innerHTML += standingHtml;
 
   if (!historial.length) {
-    // Si no hay historial pero el jugador existe → “Ya inscrito”
     if (player) {
       container.innerHTML += tarjetaInscritoHTML(player.nombre, input, currentRound || 0);
     } else {
-      container.innerHTML += "<div class='card-mesa'>No se encontró el Konami ID.</div>";
+      container.innerHTML += `<div class='card' style="padding:16px 10px"><div class='vs-label'>Konami ID no encontrado</div></div>`;
     }
     return;
   }
 
   for (const { ronda, resultado, nombreOponente } of historial) {
-    const color = resultado === 'Victoria' ? 'win' : resultado === 'Derrota' ? 'loss' : 'draw';
+    const color =
+      resultado === 'Victoria' ? 'result-win' :
+      resultado === 'Derrota' ? 'result-loss' : 'result-draw';
+
     const card = document.createElement('div');
-    card.className = `historial-card ${color}`;
+    card.className = 'historial-caja';
     card.innerHTML = `
-      <div class="historial-bar"></div>
-      <div class="historial-title ${color}">Ronda ${ronda} - ${resultado}</div>
-      <div class="historial-vs">VS ${nombreOponente}</div>
+      <div class="historial-barra ${color}"></div>
+      <div class="contenido-historial">
+        <div class="ronda-resultado">${`Ronda ${ronda} - ${resultado}`}</div>
+        <div class="vs-nombre">VS ${nombreOponente}</div>
+      </div>
     `;
-    document.getElementById('historyContainer').appendChild(card);
+    container.appendChild(card);
   }
 }
 
