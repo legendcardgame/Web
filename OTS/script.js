@@ -15,6 +15,7 @@ function findPlayerById(kid) {
 function ensureBuscarBtnBadge() {
   const btn = document.getElementById('buscarBtn');
   if (!btn) return;
+  // Inserta estructura esperada por tu CSS (sin cambiar estilos.css)
   if (!btn.querySelector('.btn-label')) {
     const txt = btn.textContent.trim();
     btn.textContent = '';
@@ -78,20 +79,17 @@ function getPlayerInfo(id) {
   return { nombre, standing, isDrop };
 }
 
-// Tarjeta “Ya inscrito”
+// Tarjeta “Ya inscrito” (sin clases nuevas)
 function tarjetaInscrito(nombre, konamiId, ronda) {
   return `
     <div class="card">
       <div class="linea-roja"></div>
         <div class="jugador" style="margin-top:18px">${nombre}</div>
         <div class="konami">${konamiId}</div>
-        <div class="vs-label" style="margin:10px 0 6px 0">
-          <span class="status registered">Ya inscrito</span>
-        </div>
+        <div class="vs-label" style="margin:10px 0 6px 0">Ya inscrito</div>
         <div class="konami-opo" style="margin-bottom:16px">Ronda ${ronda}</div>
       <div class="linea-azul"></div>
     </div>
-    <div class="hint">Cuando publiquemos emparejamientos aparecerá tu mesa aquí. Vuelve a consultar.</div>
   `;
 }
 
@@ -112,7 +110,7 @@ function buscarEmparejamientos() {
   // ¿Jugador existe?
   const infoJugador = getPlayerInfo(input);
   if (!infoJugador) {
-    tableContainer.innerHTML = `<div style="text-align:center;font-size:1.1rem;font-weight:bold;margin-top:32px;">Konami ID no encontrado en la lista de inscritos.</div>`;
+    tableContainer.innerHTML = `<div class="card" style="padding:16px 10px"><div class="vs-label">Konami ID no encontrado</div></div>`;
     historyContainer.innerHTML = '';
     return;
   }
@@ -122,10 +120,11 @@ function buscarEmparejamientos() {
   let encontrado = false, idOponente = '', mesa = '';
 
   for (const match of matches) {
+    const ps = match.querySelectorAll('Player');
     const round = parseInt(qText('Round', match) || "0", 10);
     if (round !== currentRound) continue;
-    const p1 = padId(qText('Player', match.querySelectorAll('Player')[0] || match));
-    const p2 = padId(qText('Player', match.querySelectorAll('Player')[1] || match));
+    const p1 = padId(qText('Player', ps[0] || match));
+    const p2 = padId(qText('Player', ps[1] || match));
     if (input === p1 || input === p2) {
       encontrado = true;
       mesa = qText('Table', match) || '';
@@ -186,8 +185,9 @@ function mostrarHistorial(input, standing, nombreJugador) {
   const matches = Array.from(tournamentData.querySelectorAll('TournMatch'));
   let historial = [];
   for (const match of matches) {
-    const p1 = padId(qText('Player', match.querySelectorAll('Player')[0] || match));
-    const p2 = padId(qText('Player', match.querySelectorAll('Player')[1] || match));
+    const ps = match.querySelectorAll('Player');
+    const p1 = padId(qText('Player', ps[0] || match));
+    const p2 = padId(qText('Player', ps[1] || match));
     const round = parseInt(qText('Round', match) || "0", 10);
     const winnerRaw = qText('Winner', match);
     const winner = winnerRaw ? padId(winnerRaw) : "";
@@ -221,7 +221,6 @@ function mostrarHistorial(input, standing, nombreJugador) {
   let content = standingHTML;
 
   if (!historial.length) {
-    // Si no hay historial aún, recuerda el estado de “Ya inscrito”
     content += tarjetaInscrito(nombreJugador, input, currentRound || 0);
     historyContainer.innerHTML = content;
     return;
@@ -230,12 +229,11 @@ function mostrarHistorial(input, standing, nombreJugador) {
   for (const { ronda, resultado, nombreOponente } of historial) {
     let colorBarra = (resultado === 'Victoria') ? 'result-win' :
                      (resultado === 'Derrota') ? 'result-loss' : 'result-draw';
-    let colorTexto = colorBarra;
     content += `
       <div class="historial-caja">
         <div class="historial-barra ${colorBarra}"></div>
         <div class="contenido-historial">
-          <div class="ronda-resultado ${colorTexto}">Ronda ${ronda} - ${resultado}</div>
+          <div class="ronda-resultado">Ronda ${ronda} - ${resultado}</div>
           <div class="vs-nombre">VS ${nombreOponente}</div>
         </div>
       </div>
