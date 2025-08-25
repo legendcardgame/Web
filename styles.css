@@ -1,4 +1,5 @@
 :root{
+  /* Colores y tokens */
   --bg:#0f0f10;
   --panel:#1b1b1e;
   --panel-2:#232327;
@@ -7,228 +8,93 @@
   --accent:#e53935;
   --radius:18px;
   --shadow:0 10px 24px rgba(0,0,0,.35);
+
+  /* Layout global */
+  --header-h:56px;        /* altura header fijo */
+  --bottom-nav-h:76px;    /* altura aprox del nav inferior */
+  --container-max:900px;
+  --gap:10px;
 }
 
-*{box-sizing:border-box}
-html,body{height:100%}
-body {
-  margin: 0;
+*{ box-sizing:border-box }
+html,body{ height:100% }
+
+body{
+  margin:0;
+  color:var(--text);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+  /* Fondo global rojo/azul + base */
   background:
-    radial-gradient(circle at top left, rgba(255, 0, 0, 0.45), transparent 30%),
-    radial-gradient(circle at top right, rgba(0, 0, 255, 0.45), transparent 30%),
+    radial-gradient(circle at top left, rgba(255,0,0,.45), transparent 30%),
+    radial-gradient(circle at top right, rgba(0,0,255,.45), transparent 30%),
     #0a0a0a;
-  color: var(--text);
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+
+  /* Empuje para header y bottom-nav fijos */
+  padding-top: var(--header-h);
+  padding-bottom: var(--bottom-nav-h);
 }
 
-/* Marca de agua */
+/* Marca de agua (mantengo tu div.watermark para no tocar HTML) */
 .watermark{
   position:fixed; inset:0;
   background:url("assets/logo-lcg.png") center/80vmin no-repeat;
   opacity:.08; pointer-events:none; z-index:0;
 }
 
-/* Topbar */
-.topbar{
-  position:sticky; top:0; z-index:5;
-  background:linear-gradient(180deg, #121214 0%, rgba(18,18,20,0.7) 100%);
+/* ===== Header fijo (1 sola definición) ===== */
+header.topbar{
+  position:fixed; top:0; left:0; right:0;
+  z-index:1000;
+  height:var(--header-h);
+  display:flex; align-items:center;
+  padding:6px 10px;
+  background:
+    radial-gradient(circle at top left, rgba(0,0,0,.45), transparent 30%),
+    radial-gradient(circle at top right, rgba(0,0,0,.45), transparent 30%),
+    #0a0a0a;
+  box-shadow:0 4px 10px rgba(0,0,0,.4);
   backdrop-filter: blur(6px);
-  padding:12px 16px;
   border-bottom:1px solid #26262c;
 }
-.brand{display:flex; align-items:center; gap:10px}
-.brand-logo{width:28px; height:28px; object-fit:contain; filter:drop-shadow(0 2px 2px rgba(0,0,0,.3))}
-.topbar h1{margin:0; font-size:22px; letter-spacing:.5px; color:var(--accent)}
 
-/* Carousel */
-.carousel{
-  position:relative; margin:12px auto 8px; width:100%;
-  max-width:900px; padding:0 10px; z-index:1;
-}
-.carousel .track{
-  display:flex; gap:10px; scroll-snap-type:x mandatory;
-  overflow:auto; -webkit-overflow-scrolling:touch;
-  scrollbar-width:none; scroll-behavior:smooth;
-}
-.carousel .track::-webkit-scrollbar{display:none}
-.carousel .slide{
-  flex:0 0 88%;
-  scroll-snap-align:center;
-  border-radius:16px; overflow:hidden; background:#000;
-  box-shadow: var(--shadow);
-}
-.carousel img{
-  width:100%; display:block; aspect-ratio:16/9; object-fit:cover;
-}
-.carousel .nav{
-  position:absolute; top:50%; transform:translateY(-50%);
-  width:36px; height:36px; border-radius:50%;
-  border:none; background:rgba(0,0,0,.45); color:#fff;
-  font-size:24px; line-height:36px; text-align:center;
-  cursor:pointer; z-index:2;
-}
-.carousel .prev{left:14px}
-.carousel .next{right:14px}
-.carousel .dots{
-  display:flex; gap:8px; justify-content:center; margin:10px 0 0;
-}
-.carousel .dots button{
-  width:9px; height:9px; border-radius:50%;
-  border:none; background:#686871; opacity:.6; cursor:pointer;
-}
-.carousel .dots button.active{background:#fff; opacity:1}
-
-/* Quick actions (botones grandes) */
-.quick-actions{
-  max-width:900px; margin:8px auto 24px; padding:0 14px;
-  display:grid; gap:12px; grid-template-columns:1fr; z-index:1; position:relative;
-}
-.qa-btn{
-  text-decoration:none; text-align:center; font-weight:800;
-  padding:14px 16px; border-radius:14px; display:block;
-  box-shadow: var(--shadow); letter-spacing:.3px;
-}
-.qa-btn.primary{background:var(--accent); color:#fff}
-.qa-btn.ghost{background:var(--panel); color:#fff; border:1px solid #2a2a2f}
-.qa-btn:active{transform:translateY(1px)}
-/* Topbar */
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: linear-gradient(180deg, #161616 0%, #111 100%);
-  padding: 10px 14px;
-  border-bottom: 1px solid rgba(255,255,255,.06);
+.topbar .brand{
+  display:flex; align-items:center; justify-content:center;
+  gap:12px; width:100%;
 }
 
-.topbar .brand {
-  display: flex;
-  align-items: center;
-  justify-content: center; /* centra el bloque completo */
-  gap: 12px; /* espacio entre logo y nombre */
-  width: 100%;
-  position: relative;
+.brand-lcg{
+  height: clamp(34px, 7vw, 50px);
+  width:auto; flex-shrink:0;
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,.35));
 }
 
-/* Logo LCG a la izquierda */
-.brand-lcg {
-  height: clamp(34px, 7vw, 50px); /* más grande que antes */
-  width: auto;
-  flex-shrink: 0;
-  filter: drop-shadow(0 1px 0 rgba(0,0,0,.35));
-}
-
-/* Wordmark centrado */
-.brand-wordmark {
+.brand-wordmark{
   height: clamp(28px, 6vw, 44px);
-  max-width: 70%;
-  object-fit: contain;
-  filter: drop-shadow(0 1px 0 rgba(0,0,0,.35));
+  max-width:70%; object-fit:contain;
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,.35));
 }
 
-/* Ajuste visual en pantallas pequeñas */
-@media (max-width: 480px) {
-  .brand-lcg {
-    height: clamp(30px, 8vw, 42px);
-  }
-  .brand-wordmark {
-    max-width: 65%;
-  }
-}
-/* Evitar que el nav tape contenido */
-body { padding-bottom: 76px; } /* ajusta según alto del nav */
-
-/* Barra inferior */
-.bottom-nav{
-  position: fixed; left:0; right:0; bottom:0;
-  display:flex; justify-content:space-around; gap:4px;
-  background:#101114; border-top:1px solid #27282c;
-  padding:8px 6px; z-index:1000;
+@media (max-width:480px){
+  .brand-lcg{ height: clamp(30px, 8vw, 42px); }
+  .brand-wordmark{ max-width:65%; }
 }
 
-.bottom-nav .nav-item{
-  flex:1; display:flex; flex-direction:column; align-items:center; gap:4px;
-  text-decoration:none; user-select:none;
-  color:#e63946;                 /* INACTIVO = ROJO */
-  font-size:11px; line-height:1.1;
-  padding:6px 0; border-radius:10px; transition:color .2s, background .2s, transform .1s;
-}
-
-.bottom-nav .nav-item:active{ transform:scale(.98); }
-
-/* Icono usando tu SVG como máscara, así se pinta con currentColor */
-.bottom-nav .icon{
-  width:24px; height:24px;
-  background-color: currentColor;               /* color del icono */
-  -webkit-mask: var(--src) no-repeat center / contain;
-  mask: var(--src) no-repeat center / contain;
-  display:block;
-}
-
-/* ACTIVO = GRIS */
-.bottom-nav .nav-item.active{
-  color:#cfcfcf;                                /* texto + icono pasan a gris */
-  background: rgba(255,255,255,0.04);
-}
-
-/* Mejor legibilidad en pantallas chicas */
-@media (min-width:420px){
-  .bottom-nav .nav-item { font-size:12px; }
-  .bottom-nav .icon{ width:26px; height:26px; }
-}
-/* ===== Header fijo en todas las páginas ===== */
-/* Header fijo */
-header.topbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  background:
-    radial-gradient(circle at top left, rgba(0, 0, 0, 0.45), transparent 30%),
-    radial-gradient(circle at top right, rgba(0, 0, 0, 0.45), transparent 30%),
-    #0a0a0a;
-  box-shadow: 0 4px 10px rgba(0,0,0,.4);
-  padding: 6px 10px;
-  height: 56px; /* controla la altura total */
-}
-
-header.topbar .brand img {
-  height: 36px;
-  max-height: 100%;
-}
-
-/* Empujar el contenido hacia abajo */
-body {
-  padding-top: 60px;
-}
-
-/* Plan B: si por alguna razón no se logró remover, se oculta por CSS */
-.footer-gradient,
-.color-band,
-#footer-gradient,
-#color-band {
-  display: none !important;
-  height: 0 !important;
-  background: transparent !important;
-}
 /* ===== Slideshow (fade) ===== */
 .slideshow{
-  position:relative; margin:12px auto 8px; width:100%;
-  max-width:900px; padding:0 10px; z-index:1;
+  position:relative; margin:12px auto 8px;
+  width:100%; max-width:var(--container-max);
+  padding:0 var(--gap); z-index:1;
 }
 .ss-viewport{
   position:relative; width:100%; aspect-ratio:16/9;
-  border-radius:16px; overflow:hidden; box-shadow:0 10px 24px rgba(0,0,0,.35);
-  background:#000;
+  border-radius:16px; overflow:hidden;
+  box-shadow:var(--shadow); background:#000;
 }
 .ss-slide{
-  position:absolute; inset:0; opacity:0; pointer-events:none; transition:opacity .6s ease;
-  display:block;
+  position:absolute; inset:0; display:block;
+  opacity:0; pointer-events:none; transition:opacity .6s ease;
 }
-.ss-slide.active{
-  opacity:1; pointer-events:auto;
-}
+.ss-slide.active{ opacity:1; pointer-events:auto; }
 .ss-slide img{ width:100%; height:100%; object-fit:cover; display:block; }
 
 /* Flechas */
@@ -248,7 +114,64 @@ body {
   font-size:20px; line-height:1;
 }
 .ss-dots button{
-  width:auto; height:auto; padding:0; border:none; background:transparent; color:#777;
-  cursor:pointer; letter-spacing:2px;
+  border:none; background:transparent; color:#777; cursor:pointer;
+  letter-spacing:2px; padding:0;
 }
 .ss-dots button.active{ color:#fff; }
+
+/* ===== Quick actions ===== */
+.quick-actions{
+  max-width:var(--container-max);
+  margin:8px auto 24px; padding:0 14px;
+  display:grid; gap:12px; grid-template-columns:1fr;
+  z-index:1; position:relative;
+}
+.qa-btn{
+  text-decoration:none; text-align:center; font-weight:800;
+  padding:14px 16px; border-radius:14px; display:block;
+  box-shadow:var(--shadow); letter-spacing:.3px;
+}
+.qa-btn.primary{ background:var(--accent); color:#fff; }
+.qa-btn.ghost{ background:var(--panel); color:#fff; border:1px solid #2a2a2f; }
+.qa-btn:active{ transform:translateY(1px); }
+
+/* ===== Bottom nav ===== */
+.bottom-nav{
+  position:fixed; left:0; right:0; bottom:0;
+  display:flex; justify-content:space-around; gap:4px;
+  background:#101114; border-top:1px solid #27282c;
+  padding:8px 6px; z-index:1000;
+}
+.bottom-nav .nav-item{
+  flex:1; display:flex; flex-direction:column; align-items:center; gap:4px;
+  text-decoration:none; user-select:none;
+  color:#e63946;         /* Inactivo = rojo */
+  font-size:11px; line-height:1.1;
+  padding:6px 0; border-radius:10px;
+  transition:color .2s, background .2s, transform .1s;
+}
+.bottom-nav .nav-item:active{ transform:scale(.98); }
+.bottom-nav .icon{
+  width:24px; height:24px; background-color:currentColor;
+  -webkit-mask: var(--src) no-repeat center / contain;
+  mask: var(--src) no-repeat center / contain;
+  display:block;
+}
+.bottom-nav .nav-item.active{
+  color:#cfcfcf; background:rgba(255,255,255,0.04); /* Activo = gris */
+}
+@media (min-width:420px){
+  .bottom-nav .nav-item{ font-size:12px; }
+  .bottom-nav .icon{ width:26px; height:26px; }
+}
+
+/* Quitar cualquier banda/gradiente “suelto” que se inyecte */
+.footer-gradient, .color-band, #footer-gradient, #color-band{
+  display:none !important; height:0 !important; background:transparent !important;
+}
+
+/* Accesibilidad: reducir animaciones si el usuario lo pide */
+@media (prefers-reduced-motion: reduce){
+  .ss-slide{ transition:none; }
+  .qa-btn:active{ transform:none; }
+}
