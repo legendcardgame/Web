@@ -16,7 +16,6 @@ function getPlayerInfo(id) {
   const nombre = `${node.querySelector('FirstName')?.textContent || ''} ${node.querySelector('LastName')?.textContent || ''}`.trim();
   const rank = node.querySelector('Rank')?.textContent;
   const standing = rank ? parseInt(rank, 10) : '-';
-  // drop si DropReason != Active o DropRound > 0
   const dropReason = (node.querySelector('DropReason')?.textContent || '').trim().toLowerCase();
   const dropRound = parseInt(node.querySelector('DropRound')?.textContent || '0', 10);
   const isDrop = (dropReason && dropReason !== 'active') || dropRound > 0;
@@ -46,7 +45,6 @@ async function cargarTorneo() {
   const response = await fetch('1.txt?v=' + Date.now());
   const text = await response.text();
 
-  // XML válido
   if (text.trim().startsWith('<?xml')) {
     const parser = new DOMParser();
     tournamentData = parser.parseFromString(text, 'text/xml');
@@ -55,14 +53,13 @@ async function cargarTorneo() {
     currentRound = parseInt(currentRoundNode?.textContent || '0', 10);
     document.getElementById('rondaInfo').textContent = `Ronda: ${currentRound}`;
 
-    // limpiar posible mensaje libre
     const msg = document.getElementById('mensajePersonalizado');
     if (msg) msg.style.display = 'none';
 
-    // intenta mostrar ronda por defecto
-    mostrarRonda();
+    // 🔧 Antes se llamaba a mostrarRonda(); (ya no existe). Ahora:
+    mostrarRondaTab();
+
   } else {
-    // Texto libre (anuncio)
     document.getElementById('rondaInfo').textContent = '';
     let msg = document.getElementById('mensajePersonalizado');
     if (!msg) {
@@ -88,20 +85,16 @@ function buscarEmparejamientos() {
   const tableContainer = document.getElementById('tableContainer');
   tableContainer.innerHTML = '';
 
-  // Info del jugador (para mostrar nombre aun si no hay match)
   const infoJugador = getPlayerInfo(input);
   const nombreJugador = infoJugador?.nombre || '';
   const standingJugador = infoJugador?.standing ?? '-';
 
   if (!hayRondas()) {
-    // No existen TournMatch en el XML → todavía no hay pairings
     renderYaInscrito(nombreJugador, input);
-    // También refrescamos historial (vacío)
     mostrarHistorial(input, standingJugador, nombreJugador, /*forzarSinRondas*/ true);
     return;
   }
 
-  // Buscar match de la ronda actual
   const matches = Array.from(tournamentData.querySelectorAll('TournMatch'));
   let encontrado = false;
   let mesa = '';
@@ -115,7 +108,6 @@ function buscarEmparejamientos() {
     const plist = match.querySelectorAll('Player');
     const p1 = padId(plist[0]?.textContent || '');
     const p2 = padId(plist[1]?.textContent || '');
-
     if (input === p1 || input === p2) {
       encontrado = true;
       mesa = match.querySelector('Table')?.textContent || '';
@@ -140,11 +132,9 @@ function buscarEmparejamientos() {
       </div>
     `;
   } else {
-    // Está inscrito pero aún no le aparece emparejamiento esta ronda
     renderYaInscrito(nombreJugador, input);
   }
 
-  // Actualiza historial debajo
   mostrarHistorial(input, standingJugador, nombreJugador);
 }
 
@@ -169,15 +159,18 @@ function mostrarHistorial(input, standing, nombreJugador, forzarSinRondas = fals
     const winnerRaw = (match.querySelector('Winner')?.textContent || '').trim();
     const winner = winnerRaw ? padId(winnerRaw) : '';
 
-    if (input === p1 || input === p2) {
-      const idOponente = (input === p1) ? p2 : p1;
+    const inputRaw = document.getElementById('konamiId').value.trim();
+    const inputId = padId(inputRaw || input);
+
+    if (inputId === p1 || inputId === p2) {
+      const idOponente = (inputId === p1) ? p2 : p1;
       const infoOpo = getPlayerInfo(idOponente);
       const nombreOponente = infoOpo?.nombre || '';
 
       let resultado = '';
       if (!winnerRaw || winnerRaw === '0') {
         resultado = (round === currentRound) ? 'En curso' : 'Empate';
-      } else if (winner === input) {
+      } else if (winner === inputId) {
         resultado = 'Victoria';
       } else if (winner === idOponente) {
         resultado = 'Derrota';
@@ -196,7 +189,6 @@ function mostrarHistorial(input, standing, nombreJugador, forzarSinRondas = fals
     return;
   }
 
-  // Encabezado con standing solo si hay historial
   let medal = '';
   if (standing === 1) medal = '<span class="medal">🥇</span>';
   else if (standing === 2) medal = '<span class="medal">🥈</span>';
