@@ -352,39 +352,74 @@ document.addEventListener('DOMContentLoaded', () => {
   if (lastId) document.getElementById('konamiId').value = lastId;
 });
 
-/* ------- Aviso “¡Nueva ronda!” en el botón Buscar ------- */
-(function rondaBadge(){
-  const ONE_TXT_URL = '/Web/OTS/1.txt';
+/* ------- Aviso “¡Nueva ronda!” en el botón Buscar (por cambio de CurrentRound) ------- */
+(function rondaBadgeByRound() {
   const btn = document.getElementById('buscarBtn');
   if (!btn) return;
-  const LS_KEY = 'ots-1txt-etag';
-  let lastSeen = localStorage.getItem(LS_KEY) || '';
 
-  async function fetchMarker(){
+  const LS_KEY = 'ots-last-round-seen';
+
+  // Usa los mismos helpers ya definidos arriba:
+  // isUrl, looksLikeXml, getSrcFromQuery, fetchText
+
+  async function getCurrentRoundFromSource() {
+    let source = getSrcFromQuery();
+
+    if (!source) {
+      const saved = (localStorage.getItem('ots_remote_src') || '').trim();
+      if (isUrl(saved)) source = saved;
+    }
+
+    let text;
+    if (!source) {
+      // 1.txt puede contener XML o una URL
+      const localTxt = await fetchText('1.txt?v=' + Date.now());
+      if (isUrl(localTxt.trim())) {
+        source = localTxt.trim();
+      } else {
+        text = localTxt;
+      }
+    }
+
+    if (source) {
+      text = await fetchText(source + (source.includes('?') ? '&' : '?') + '_t=' + Date.now());
+    }
+
+    if (!looksLikeXml(text)) return null;
+
+    const doc = new DOMParser().parseFromString(text, 'text/xml');
+    const r = parseInt(doc.querySelector('CurrentRound')?.textContent || '0', 10);
+    return Number.isFinite(r) ? r : 0;
+  }
+
+  async function checkUpdate() {
     try {
-      const r = await fetch(ONE_TXT_URL, { method: 'HEAD', cache: 'no-store' });
-      return r.headers.get('etag') || r.headers.get('last-modified') || '';
-    } catch { return ''; }
-  }
-  async function checkUpdate(){
-    const current = await fetchMarker();
-    if (!current) return;
-    if (!lastSeen) {
-      lastSeen = current;
-      localStorage.setItem(LS_KEY, current);
+      const current = await getCurrentRoundFromSource();
+      if (current == null) {
+        btn.classList.remove('has-update');
+        return;
+      }
+      const last = parseInt(localStorage.getItem(LS_KEY) || '0', 10);
+      btn.classList.toggle('has-update', current > last);
+    } catch {
+      // si falla la carga, no marcamos update
       btn.classList.remove('has-update');
-      return;
     }
-    btn.classList.toggle('has-update', current !== lastSeen);
   }
+
+  // Cuando el usuario pulsa “Buscar”, asumimos que ya vio la nueva ronda
   btn.addEventListener('click', async () => {
-    const current = await fetchMarker();
-    if (current) {
-      lastSeen = current;
-      localStorage.setItem(LS_KEY, current);
+    try {
+      const current = await getCurrentRoundFromSource();
+      if (current != null) {
+        localStorage.setItem(LS_KEY, String(current));
+      }
+    } finally {
+      btn.classList.remove('has-update');
     }
-    btn.classList.remove('has-update');
   });
+
+  // Chequeo inicial + cada 30s
   checkUpdate();
   setInterval(checkUpdate, 30000);
 })();
