@@ -52,38 +52,81 @@ function renderNoEncontrado() {
   `;
 }
 
+/* ------------------- helpers de carga ------------------- */
+async function fetchTextNoCache(url) {
+  const sep = url.includes('?') ? '&' : '?';
+  const res = await fetch(`${url}${sep}v=${Date.now()}`, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.text();
+}
+
+function parseXmlString(xmlString) {
+  const parser = new DOMParser();
+  return parser.parseFromString(xmlString, 'text/xml');
+}
+
+function extractCurrentRoundFromXml(xmlDoc) {
+  const n = xmlDoc.querySelector('CurrentRound');
+  const r = parseInt(n?.textContent || '0', 10);
+  return Number.isFinite(r) ? r : 0;
+}
+
 /* ------------------- CARGA DEL TORNEO ------------------- */
 async function cargarTorneo() {
-  const response = await fetch('1.txt?v=' + Date.now());
+  const response = await fetch('1.txt?v=' + Date.now(), { cache: 'no-store' });
   const text = await response.text();
+  const trimmed = text.trim();
 
-  if (text.trim().startsWith('<?xml')) {
-    const parser = new DOMParser();
-    tournamentData = parser.parseFromString(text, 'text/xml');
+  // Caso 1: 1.txt contiene una URL remota
+  if (trimmed.toUpperCase().startsWith('URL:')) {
+    const url = trimmed.slice(4).trim();
+    try {
+      const xml = await fetchTextNoCache(url);
+      tournamentData = parseXmlString(xml);
+      currentRound = extractCurrentRoundFromXml(tournamentData);
+      document.getElementById('rondaInfo').textContent = `Ronda: ${currentRound}`;
+      const msg = document.getElementById('mensajePersonalizado');
+      if (msg) msg.style.display = 'none';
+      mostrarRondaTab();
+      return;
+    } catch (e) {
+      document.getElementById('rondaInfo').textContent = '';
+      const tableContainer = document.getElementById('tableContainer');
+      tableContainer.innerHTML = `
+        <div class="card">
+          <div class="linea-roja"></div>
+          <div class="vs-label">⚠️ Error al cargar la URL: ${e.message}</div>
+          <div class="linea-azul"></div>
+        </div>
+      `;
+      document.getElementById('historyContainer').style.display = 'none';
+      return;
+    }
+  }
 
-    const currentRoundNode = tournamentData.querySelector('CurrentRound');
-    currentRound = parseInt(currentRoundNode?.textContent || '0', 10);
+  // Caso 2: 1.txt trae XML directo de KTS
+  if (trimmed.startsWith('<?xml')) {
+    tournamentData = parseXmlString(trimmed);
+    currentRound = extractCurrentRoundFromXml(tournamentData);
     document.getElementById('rondaInfo').textContent = `Ronda: ${currentRound}`;
-
     const msg = document.getElementById('mensajePersonalizado');
     if (msg) msg.style.display = 'none';
-
-    // Asegura que tras cargar se dibuje la vista activa
     mostrarRondaTab();
-
-  } else {
-    document.getElementById('rondaInfo').textContent = '';
-    let msg = document.getElementById('mensajePersonalizado');
-    if (!msg) {
-      msg = document.createElement('div');
-      msg.id = 'mensajePersonalizado';
-      document.querySelector('.container').appendChild(msg);
-    }
-    msg.innerText = text;
-    msg.style.display = '';
-    document.getElementById('tableContainer').style.display = 'none';
-    document.getElementById('historyContainer').style.display = 'none';
+    return;
   }
+
+  // Caso 3: 1.txt es texto plano (mensaje)
+  document.getElementById('rondaInfo').textContent = '';
+  let msg = document.getElementById('mensajePersonalizado');
+  if (!msg) {
+    msg = document.createElement('div');
+    msg.id = 'mensajePersonalizado';
+    document.querySelector('.container').appendChild(msg);
+  }
+  msg.innerText = trimmed;
+  msg.style.display = '';
+  document.getElementById('tableContainer').style.display = 'none';
+  document.getElementById('historyContainer').style.display = 'none';
 }
 
 /* ------------------- BÚSQUEDA / RONDA ACTUAL ------------------- */
@@ -294,39 +337,61 @@ document.addEventListener('DOMContentLoaded', () => {
   if (lastId) document.getElementById('konamiId').value = lastId;
 });
 
-/* ------- Aviso “¡Nueva ronda!” en el botón Buscar ------- */
+/* ------- Aviso “¡Nueva ronda!” basado en número de ronda ------- */
 (function rondaBadge(){
   const ONE_TXT_URL = '/Web/OTS/1.txt';
   const btn = document.getElementById('buscarBtn');
   if (!btn) return;
-  const LS_KEY = 'ots-1txt-etag';
-  let lastSeen = localStorage.getItem(LS_KEY) || '';
 
-  async function fetchMarker(){
+  const LS_KEY_ROUND = 'ots-last-round';
+  let lastRoundSeen = parseInt(localStorage.getItem(LS_KEY_ROUND) || '0', 10);
+
+  async function getRoundFromSource() {
     try {
-      const r = await fetch(ONE_TXT_URL, { method: 'HEAD', cache: 'no-store' });
-      return r.headers.get('etag') || r.headers.get('last-modified') || '';
-    } catch { return ''; }
-  }
-  async function checkUpdate(){
-    const current = await fetchMarker();
-    if (!current) return;
-    if (!lastSeen) {
-      lastSeen = current;
-      localStorage.setItem(LS_KEY, current);
-      btn.classList.remove('has-update');
-      return;
+      const txt = await fetchTextNoCache(ONE_TXT_URL);
+      const t = txt.trim();
+
+      // Si es URL:… descargar el XML remoto y leer CurrentRound
+      if (t.toUpperCase().startsWith('URL:')) {
+        const url = t.slice(4).trim();
+        const xml = await fetchTextNoCache(url);
+        const doc = parseXmlString(xml);
+        return extractCurrentRoundFromXml(doc);
+      }
+
+      // Si es XML directo
+      if (t.startsWith('<?xml')) {
+        const doc = parseXmlString(t);
+        return extractCurrentRoundFromXml(doc);
+      }
+
+      // Texto plano: no se puede determinar ronda
+      return 0;
+    } catch {
+      return 0;
     }
-    btn.classList.toggle('has-update', current !== lastSeen);
   }
+
+  async function checkUpdate(){
+    const round = await getRoundFromSource();
+    if (round > 0 && lastRoundSeen > 0 && round !== lastRoundSeen) {
+      btn.classList.add('has-update');
+    } else {
+      btn.classList.remove('has-update');
+    }
+  }
+
+  // Al hacer click en Buscar, “consumimos” la novedad y guardamos la ronda actual
   btn.addEventListener('click', async () => {
-    const current = await fetchMarker();
-    if (current) {
-      lastSeen = current;
-      localStorage.setItem(LS_KEY, current);
+    const round = await getRoundFromSource();
+    if (round > 0) {
+      lastRoundSeen = round;
+      localStorage.setItem(LS_KEY_ROUND, String(round));
     }
     btn.classList.remove('has-update');
   });
+
+  // Primera comprobación y luego cada 30s
   checkUpdate();
   setInterval(checkUpdate, 30000);
 })();
