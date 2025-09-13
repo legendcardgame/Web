@@ -19,28 +19,24 @@
 
   <div class="row">
     <label>Minutos: <input id="minutes" type="number" value="50" min="0"></label>
-    <button onclick="send({ type:'setTime', minutes: document.getElementById('minutes').value })">Aplicar</button>
+    <button id="btnApply">Aplicar</button>
   </div>
 
   <div class="row">
-    <button onclick="send({ type:'start' })">▶️ Iniciar</button>
-    <button onclick="send({ type:'pause' })">⏸️ Pausar</button>
-    <button onclick="send({ type:'reset' })">🔄 Reiniciar</button>
+    <button id="btnStart">▶️ Iniciar</button>
+    <button id="btnPause">⏸️ Pausar</button>
+    <button id="btnReset">🔄 Reiniciar</button>
   </div>
 
   <div class="row">
     <label>Ronda: <input id="rondaInput" type="text" placeholder="Número"></label>
-    <button onclick="send({ type:'setRonda', text: 'Ronda ' + document.getElementById('rondaInput').value })">Guardar Ronda</button>
+    <button id="btnRonda">Guardar Ronda</button>
   </div>
 
-  <div class="row">
-    <label>Subir fondo: <input id="bgFile" type="file" accept="image/*"></label>
-  </div>
-
-  <p class="muted">Funciona desde cualquier red porque usa Firestore en la nube.</p>
+  <p class="muted">El fondo se toma del archivo <code>fondo.png</code> en el HTML de proyección.</p>
 
   <script>
-    // 🔑 Pega la misma configuración Firebase de index.html
+    // 🔑 Misma configuración que en index.html
     const firebaseConfig = {
       apiKey: "TU_API_KEY",
       authDomain: "TU_AUTH_DOMAIN",
@@ -53,16 +49,21 @@
     const ref = db.collection('timers').doc(ROOM_ID);
 
     function send(obj) {
-      ref.set(obj);
+      ref.set(obj).then(()=>console.log('OK', obj)).catch(err=>{
+        alert('Error Firestore: ' + err.message);
+        console.error(err);
+      });
     }
 
-    document.getElementById('bgFile').addEventListener('change', async (e) => {
-      const file = e.target.files?.[0]; if(!file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        send({ type:"setBackground", dataUrl: reader.result });
-      };
-      reader.readAsDataURL(file);
+    // Botones
+    document.getElementById('btnApply').addEventListener('click', ()=>{
+      send({ type:'setTime', minutes: document.getElementById('minutes').value });
+    });
+    document.getElementById('btnStart').addEventListener('click', ()=> send({ type:'start' }));
+    document.getElementById('btnPause').addEventListener('click', ()=> send({ type:'pause' }));
+    document.getElementById('btnReset').addEventListener('click', ()=> send({ type:'reset' }));
+    document.getElementById('btnRonda').addEventListener('click', ()=>{
+      send({ type:'setRonda', text: 'Ronda ' + document.getElementById('rondaInput').value });
     });
   </script>
 </body>
