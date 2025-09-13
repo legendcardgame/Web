@@ -5,68 +5,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Control remoto</title>
   <style>
-    body { font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial; background:#111; color:#fff; padding:1rem; }
+    body { font-family: system-ui, sans-serif; background:#111; color:#fff; padding:1rem; }
     button, input { font-size:1.2rem; margin:.3rem; padding:.5rem 1rem; }
-    .row { margin:.6rem 0; }
-    .box { background:#1b1b1b; border:1px solid #2a2a2a; border-radius:10px; padding:.8rem; max-width:600px; }
+    .row { margin:.5rem 0; }
     .muted { color:#9aa0a6; font-size:.9rem; }
   </style>
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-database-compat.js"></script>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
   <h1>Control del Temporizador</h1>
-  <div class="box">
-    <div class="row">
-      <label>Minutos: <input id="minutes" type="number" value="50" min="0" style="width:6rem"></label>
-      <button onclick="send('setTime')">Aplicar</button>
-    </div>
-    <div class="row">
-      <button onclick="send('start')">▶️ Iniciar</button>
-      <button onclick="send('pause')">⏸️ Pausar</button>
-      <button onclick="send('reset')">🔄 Reiniciar</button>
-    </div>
-    <div class="row">
-      <label>Ronda: <input id="rondaInput" type="text" placeholder="Número" style="width:6rem"></label>
-      <button onclick="send('setRonda')">Guardar Ronda</button>
-    </div>
-    <div class="row">
-      <label>URL de fondo: <input id="bgUrl" type="text" placeholder="https://..." style="width:18rem"></label>
-      <button onclick="send('setBackground')">Aplicar fondo</button>
-    </div>
-    <p class="muted">Abre <b>index.html</b> en el proyector y esta página en tu celular. Ambos deben usar la misma sala: <b>lcg</b>.</p>
+
+  <div class="row">
+    <label>Minutos: <input id="minutes" type="number" value="50" min="0"></label>
+    <button onclick="send({ type:'setTime', minutes: document.getElementById('minutes').value })">Aplicar</button>
   </div>
 
+  <div class="row">
+    <button onclick="send({ type:'start' })">▶️ Iniciar</button>
+    <button onclick="send({ type:'pause' })">⏸️ Pausar</button>
+    <button onclick="send({ type:'reset' })">🔄 Reiniciar</button>
+  </div>
+
+  <div class="row">
+    <label>Ronda: <input id="rondaInput" type="text" placeholder="Número"></label>
+    <button onclick="send({ type:'setRonda', text: 'Ronda ' + document.getElementById('rondaInput').value })">Guardar Ronda</button>
+  </div>
+
+  <div class="row">
+    <label>Subir fondo: <input id="bgFile" type="file" accept="image/*"></label>
+  </div>
+
+  <p class="muted">Funciona desde cualquier red porque usa Firestore en la nube.</p>
+
   <script>
-    // Tu configuración de Firebase
+    // 🔑 Pega la misma configuración Firebase de index.html
     const firebaseConfig = {
-      apiKey: "AIzaSyAviDdNkdny9zOVKnehbs0UEWIZX2iCQSk",
-      authDomain: "lcg-reloj.firebaseapp.com",
-      databaseURL: "https://lcg-reloj-default-rtdb.firebaseio.com",
-      projectId: "lcg-reloj",
-      storageBucket: "lcg-reloj.appspot.com",
-      messagingSenderId: "803193828085",
-      appId: "1:803193828085:web:4d2728ab95f30c26298bbc",
-      measurementId: "G-JSLN1B8SML"
+      apiKey: "TU_API_KEY",
+      authDomain: "TU_AUTH_DOMAIN",
+      projectId: "TU_PROJECT_ID",
     };
-
     firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-    const roomId = "lcg";
-    const refCmd = db.ref(`rooms/${roomId}/command`);
+    const db = firebase.firestore();
 
-    function send(type) {
-      if (type === 'setTime') {
-        refCmd.set({ type:'setTime', minutes: Number(document.getElementById('minutes').value||0), ts: Date.now() });
-      } else if (type === 'setRonda') {
-        refCmd.set({ type:'setRonda', text:'Ronda ' + (document.getElementById('rondaInput').value||'?'), ts: Date.now() });
-      } else if (type === 'setBackground') {
-        refCmd.set({ type:'setBackground', url:document.getElementById('bgUrl').value.trim(), ts: Date.now() });
-      } else {
-        refCmd.set({ type, ts: Date.now() }); // start, pause, reset
-      }
+    const ROOM_ID = "default";
+    const ref = db.collection('timers').doc(ROOM_ID);
+
+    function send(obj) {
+      ref.set(obj);
     }
+
+    document.getElementById('bgFile').addEventListener('change', async (e) => {
+      const file = e.target.files?.[0]; if(!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        send({ type:"setBackground", dataUrl: reader.result });
+      };
+      reader.readAsDataURL(file);
+    });
   </script>
 </body>
 </html>
