@@ -9,7 +9,7 @@
 	<ReferenceDateTime>2003-01-02</ReferenceDateTime>
 	<Date>2025-09-13</Date>
 	<Time>08:33</Time>
-	<CurrentRound>5</CurrentRound>
+	<CurrentRound>6</CurrentRound>
 	<TableOffset>0</TableOffset>
 	<PlayoffRound>0</PlayoffRound>
 	<SoftwareVersion>3.0.0.0</SoftwareVersion>
@@ -172,6 +172,15 @@
 			<Round>3</Round>
 			<Notes>Tenia una carta extra en el deck sin marcar el la decklist</Notes>
 		</PlayerPenalty>
+		<PlayerPenalty>
+			<Infraction>ProceduralErrorMinor</Infraction>
+			<InfractionCode>01</InfractionCode>
+			<PenaltyCode>01</PenaltyCode>
+			<Player>0412932215</Player>
+			<Judge>0404900205</Judge>
+			<Round>4</Round>
+			<Notes>Acticación ilegal</Notes>
+		</PlayerPenalty>
 	</PenaltyList>
 	<Location>
 		<Id>4a473dd7-f823-4b2b-8900-47f7164781d5</Id>
@@ -194,10 +203,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>249</Rank>
+			<Rank>252</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>375359</Points>
+			<Points>360368</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -211,10 +220,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>245</Rank>
+			<Rank>221</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>0</Wins>
-			<Points>437343</Points>
+			<Wins>3</Wins>
+			<Points>3400379</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -228,10 +237,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>204</Rank>
+			<Rank>176</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3375484</Points>
+			<Wins>6</Wins>
+			<Points>6360464</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -247,8 +256,8 @@
 			<DropRound>0</DropRound>
 			<Rank>22</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9625515</Points>
+			<Wins>12</Wins>
+			<Points>12560548</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -262,10 +271,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>34</Rank>
+			<Rank>19</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9562539</Points>
+			<Wins>12</Wins>
+			<Points>12600536</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -279,10 +288,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>60</Rank>
+			<Rank>29</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9400583</Points>
+			<Wins>12</Wins>
+			<Points>12521566</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -295,13 +304,13 @@
 				<LastName>Huerta Sanchez</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>176</Rank>
+			<DropRound>5</DropRound>
+			<Rank>197</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3500458</Points>
+			<Points>3550420</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -313,10 +322,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>51</Rank>
+			<Rank>28</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9500500</Points>
+			<Wins>12</Wins>
+			<Points>12560488</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -329,13 +338,13 @@
 				<LastName>Contreras Estrella</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>127</Rank>
+			<DropRound>5</DropRound>
+			<Rank>131</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6466500</Points>
+			<Points>6521495</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -347,10 +356,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>47</Rank>
+			<Rank>67</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9500532</Points>
+			<Points>9520516</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -364,10 +373,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>167</Rank>
+			<Rank>158</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3562500</Points>
+			<Wins>6</Wins>
+			<Points>6440472</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -381,10 +390,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>9</Rank>
+			<Rank>20</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>12</Wins>
-			<Points>12500546</Points>
+			<Points>12600520</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -398,10 +407,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>68</Rank>
+			<Rank>39</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9312562</Points>
+			<Wins>12</Wins>
+			<Points>12400520</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -415,10 +424,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>44</Rank>
+			<Rank>21</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9500566</Points>
+			<Wins>12</Wins>
+			<Points>12560550</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -432,10 +441,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>4</Rank>
+			<Rank>12</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>12</Wins>
-			<Points>12625562</Points>
+			<Points>12640584</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -449,10 +458,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>67</Rank>
+			<Rank>100</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9375468</Points>
+			<Points>9400496</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -466,10 +475,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>141</Rank>
+			<Rank>99</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6375546</Points>
+			<Wins>9</Wins>
+			<Points>9400504</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -483,10 +492,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>15</Rank>
+			<Rank>14</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9687523</Points>
+			<Wins>12</Wins>
+			<Points>12640552</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -499,13 +508,13 @@
 				<LastName>ZAMORA ZEMPOALTECA</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>186</Rank>
+			<DropRound>5</DropRound>
+			<Rank>225</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3466400</Points>
+			<Points>3391434</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -517,10 +526,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>91</Rank>
+			<Rank>56</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6562483</Points>
+			<Wins>9</Wins>
+			<Points>9560500</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -534,10 +543,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>4</DropRound>
-			<Rank>116</Rank>
+			<Rank>143</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6500468</Points>
+			<Points>6500500</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -551,10 +560,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>39</Rank>
+			<Rank>44</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9562500</Points>
+			<Points>9640472</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -568,10 +577,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>101</Rank>
+			<Rank>126</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6562406</Points>
+			<Points>6560456</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -585,10 +594,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>174</Rank>
+			<Rank>200</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3500515</Points>
+			<Points>3520456</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -602,10 +611,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>145</Rank>
+			<Rank>92</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6375515</Points>
+			<Wins>9</Wins>
+			<Points>9440472</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -619,10 +628,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>29</Rank>
+			<Rank>62</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9562593</Points>
+			<Points>9520568</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -636,10 +645,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>70</Rank>
+			<Rank>105</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9250484</Points>
+			<Points>9400400</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -653,10 +662,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>155</Rank>
+			<Rank>173</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6312437</Points>
+			<Points>6400376</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -670,10 +679,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>216</Rank>
+			<Rank>187</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3375359</Points>
+			<Wins>6</Wins>
+			<Points>6320400</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -687,10 +696,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>42</Rank>
+			<Rank>23</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9500578</Points>
+			<Wins>12</Wins>
+			<Points>12560536</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -704,10 +713,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>16</Rank>
+			<Rank>9</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9687507</Points>
+			<Wins>12</Wins>
+			<Points>12680516</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -720,13 +729,13 @@
 				<LastName>Zavaleta</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>219</Rank>
+			<DropRound>5</DropRound>
+			<Rank>224</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3333363</Points>
+			<Points>3400326</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -738,10 +747,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>251</Rank>
+			<Rank>237</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>0</Wins>
-			<Points>357392</Points>
+			<Wins>3</Wins>
+			<Points>3272400</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -755,10 +764,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>13</Rank>
+			<Rank>5</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>12</Wins>
-			<Points>12437578</Points>
+			<Wins>15</Wins>
+			<Points>15480576</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -772,10 +781,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>94</Rank>
+			<Rank>85</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6562459</Points>
+			<Wins>9</Wins>
+			<Points>9440541</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -789,10 +798,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>85</Rank>
+			<Rank>145</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6571410</Points>
+			<Points>6500472</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -806,10 +815,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>62</Rank>
+			<Rank>141</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9375562</Points>
+			<Wins>6</Wins>
+			<Points>6520432</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -823,10 +832,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>41</Rank>
+			<Rank>60</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9562437</Points>
+			<Points>9560456</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -840,10 +849,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>122</Rank>
+			<Rank>60</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6500437</Points>
+			<Wins>9</Wins>
+			<Points>9560456</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -857,10 +866,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>123</Rank>
+			<Rank>154</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6500421</Points>
+			<Points>6480408</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -874,10 +883,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>109</Rank>
+			<Rank>90</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6500500</Points>
+			<Wins>9</Wins>
+			<Points>9440504</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -891,10 +900,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>22</Rank>
+			<Rank>47</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9625515</Points>
+			<Points>9600536</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -908,10 +917,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>150</Rank>
+			<Rank>111</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6375301</Points>
+			<Wins>9</Wins>
+			<Points>9360382</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -925,10 +934,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>248</Rank>
+			<Rank>257</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>375375</Points>
+			<Points>320360</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -942,10 +951,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>135</Rank>
+			<Rank>82</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6437460</Points>
+			<Wins>9</Wins>
+			<Points>9480495</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -959,10 +968,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>217</Rank>
+			<Rank>184</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3333483</Points>
+			<Wins>6</Wins>
+			<Points>6347486</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -978,8 +987,8 @@
 			<DropRound>0</DropRound>
 			<Rank>26</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9625484</Points>
+			<Wins>12</Wins>
+			<Points>12560496</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -993,10 +1002,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>55</Rank>
+			<Rank>34</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9437531</Points>
+			<Wins>12</Wins>
+			<Points>12480520</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1010,10 +1019,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>51</Rank>
+			<Rank>31</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9500500</Points>
+			<Wins>12</Wins>
+			<Points>12520520</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1027,10 +1036,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>130</Rank>
+			<Rank>86</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6437546</Points>
+			<Wins>9</Wins>
+			<Points>9440536</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1044,10 +1053,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>81</Rank>
+			<Rank>118</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6625421</Points>
+			<Points>6640440</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1061,10 +1070,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>64</Rank>
+			<Rank>81</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9375515</Points>
+			<Points>9480504</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1078,10 +1087,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>8</Rank>
+			<Rank>24</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>12</Wins>
-			<Points>12500562</Points>
+			<Points>12560528</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1095,10 +1104,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>1</DropRound>
-			<Rank>237</Rank>
+			<Rank>245</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>500461</Points>
+			<Points>600428</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1112,10 +1121,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>102</Rank>
+			<Rank>73</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6562396</Points>
+			<Wins>9</Wins>
+			<Points>9520487</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1129,10 +1138,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>180</Rank>
+			<Rank>159</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3500412</Points>
+			<Wins>6</Wins>
+			<Points>6440471</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1146,10 +1155,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>7</Rank>
+			<Rank>3</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>12</Wins>
-			<Points>12500593</Points>
+			<Wins>15</Wins>
+			<Points>15520620</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1163,10 +1172,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>63</Rank>
+			<Rank>88</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9375531</Points>
+			<Points>9440520</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1180,10 +1189,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>20</Rank>
+			<Rank>17</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9625540</Points>
+			<Wins>12</Wins>
+			<Points>12600553</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1197,10 +1206,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>98</Rank>
+			<Rank>72</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6562437</Points>
+			<Wins>9</Wins>
+			<Points>9520496</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1214,10 +1223,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>86</Rank>
+			<Rank>132</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6562546</Points>
+			<Points>6520512</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1231,10 +1240,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>152</Rank>
+			<Rank>112</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6312500</Points>
+			<Wins>9</Wins>
+			<Points>9320504</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1248,10 +1257,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>45</Rank>
+			<Rank>37</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9500546</Points>
+			<Wins>12</Wins>
+			<Points>12440536</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1265,10 +1274,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>87</Rank>
+			<Rank>63</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6562531</Points>
+			<Wins>9</Wins>
+			<Points>9520552</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1282,10 +1291,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>37</Rank>
+			<Rank>71</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9562516</Points>
+			<Points>9520508</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1299,10 +1308,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>189</Rank>
+			<Rank>227</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3437483</Points>
+			<Points>3360425</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1316,10 +1325,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>190</Rank>
+			<Rank>209</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3437468</Points>
+			<Points>3440472</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1333,10 +1342,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>220</Rank>
+			<Rank>193</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3312421</Points>
+			<Wins>6</Wins>
+			<Points>6280432</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1350,10 +1359,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>116</Rank>
+			<Rank>88</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6500468</Points>
+			<Wins>9</Wins>
+			<Points>9440520</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1367,10 +1376,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>3</DropRound>
-			<Rank>239</Rank>
+			<Rank>246</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>500400</Points>
+			<Points>533449</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1384,10 +1393,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>138</Rank>
+			<Rank>163</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6428517</Points>
+			<Points>6409472</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1401,10 +1410,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>116</Rank>
+			<Rank>133</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6500468</Points>
+			<Points>6520496</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1418,10 +1427,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>230</Rank>
+			<Rank>192</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3250390</Points>
+			<Wins>6</Wins>
+			<Points>6280450</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1435,10 +1444,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>61</Rank>
+			<Rank>64</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9375593</Points>
+			<Points>9520520</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1452,10 +1461,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>125</Rank>
+			<Rank>104</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6500375</Points>
+			<Wins>9</Wins>
+			<Points>9400440</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1469,10 +1478,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>136</Rank>
+			<Rank>93</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6437453</Points>
+			<Wins>9</Wins>
+			<Points>9440463</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1486,10 +1495,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>142</Rank>
+			<Rank>106</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6375531</Points>
+			<Wins>9</Wins>
+			<Points>9360528</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1505,8 +1514,8 @@
 			<DropRound>0</DropRound>
 			<Rank>30</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9562555</Points>
+			<Wins>12</Wins>
+			<Points>12520601</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1520,10 +1529,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>104</Rank>
+			<Rank>64</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6500546</Points>
+			<Wins>9</Wins>
+			<Points>9520520</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1537,10 +1546,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>93</Rank>
+			<Rank>76</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6562468</Points>
+			<Wins>9</Wins>
+			<Points>9520464</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1554,10 +1563,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>209</Rank>
+			<Rank>228</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3375421</Points>
+			<Points>3360408</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1571,10 +1580,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>121</Rank>
+			<Rank>152</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6500453</Points>
+			<Points>6480424</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1588,10 +1597,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>258</Rank>
+			<Rank>241</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>0</Wins>
-			<Points>250375</Points>
+			<Wins>3</Wins>
+			<Points>3160432</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1605,10 +1614,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>107</Rank>
+			<Rank>97</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6500507</Points>
+			<Wins>9</Wins>
+			<Points>9400552</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1622,10 +1631,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>35</Rank>
+			<Rank>49</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9562531</Points>
+			<Points>9600520</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1639,10 +1648,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>227</Rank>
+			<Rank>191</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3266383</Points>
+			<Wins>6</Wins>
+			<Points>6304373</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1655,13 +1664,13 @@
 				<LastName>Romero robledo</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>163</Rank>
+			<DropRound>5</DropRound>
+			<Rank>198</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3687484</Points>
+			<Points>3520480</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -1673,10 +1682,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>161</Rank>
+			<Rank>110</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6250365</Points>
+			<Wins>9</Wins>
+			<Points>9360414</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1690,10 +1699,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>24</Rank>
+			<Rank>18</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9625500</Points>
+			<Wins>12</Wins>
+			<Points>12600552</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1707,10 +1716,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>59</Rank>
+			<Rank>77</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9437437</Points>
+			<Points>9520456</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1724,10 +1733,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>134</Rank>
+			<Rank>107</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6437468</Points>
+			<Wins>9</Wins>
+			<Points>9360488</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1741,10 +1750,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>3</DropRound>
-			<Rank>235</Rank>
+			<Rank>243</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>666511</Points>
+			<Points>666550</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1758,10 +1767,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>10</Rank>
+			<Rank>27</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>12</Wins>
-			<Points>12500500</Points>
+			<Points>12560491</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1775,10 +1784,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>27</Rank>
+			<Rank>15</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9625468</Points>
+			<Wins>12</Wins>
+			<Points>12640536</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1792,10 +1801,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>253</Rank>
+			<Rank>259</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>312379</Points>
+			<Points>240341</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1809,10 +1818,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>210</Rank>
+			<Rank>177</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3375406</Points>
+			<Wins>6</Wins>
+			<Points>6360440</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1826,10 +1835,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>75</Rank>
+			<Rank>41</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6625484</Points>
+			<Wins>9</Wins>
+			<Points>9640524</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1843,10 +1852,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>1</Rank>
+			<Rank>8</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>12</Wins>
-			<Points>12687587</Points>
+			<Points>12680536</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1860,10 +1869,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>156</Rank>
+			<Rank>180</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6312412</Points>
+			<Points>6360422</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1877,10 +1886,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>14</Rank>
+			<Rank>11</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9750531</Points>
+			<Wins>12</Wins>
+			<Points>12640600</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1894,10 +1903,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>71</Rank>
+			<Rank>117</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6687406</Points>
+			<Points>6640448</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1910,13 +1919,13 @@
 				<LastName>GONZALES PEREZ</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>195</Rank>
+			<DropRound>5</DropRound>
+			<Rank>203</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3437419</Points>
+			<Points>3480438</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -1928,10 +1937,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>38</Rank>
+			<Rank>56</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9562508</Points>
+			<Points>9560500</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1945,10 +1954,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>137</Rank>
+			<Rank>91</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6437437</Points>
+			<Wins>9</Wins>
+			<Points>9440488</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1962,10 +1971,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>164</Rank>
+			<Rank>196</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3666416</Points>
+			<Points>3600400</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1979,10 +1988,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>69</Rank>
+			<Rank>40</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9266542</Points>
+			<Wins>12</Wins>
+			<Points>12304539</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -1996,10 +2005,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>162</Rank>
+			<Rank>113</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6187468</Points>
+			<Wins>9</Wins>
+			<Points>9200442</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2013,10 +2022,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>32</Rank>
+			<Rank>48</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9562546</Points>
+			<Points>9600528</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2030,10 +2039,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>140</Rank>
+			<Rank>94</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6400550</Points>
+			<Wins>9</Wins>
+			<Points>9434545</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2047,10 +2056,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>259</Rank>
+			<Rank>260</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>250328</Points>
+			<Points>240304</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2063,13 +2072,13 @@
 				<LastName>Dorantes Ordoña</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>215</Rank>
+			<DropRound>5</DropRound>
+			<Rank>230</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3375380</Points>
+			<Points>3360380</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -2081,10 +2090,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>158</Rank>
+			<Rank>175</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6285571</Points>
+			<Points>6363472</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2098,10 +2107,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>154</Rank>
+			<Rank>96</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6312453</Points>
+			<Wins>9</Wins>
+			<Points>9416466</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2115,10 +2124,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>179</Rank>
+			<Rank>153</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3500419</Points>
+			<Wins>6</Wins>
+			<Points>6480409</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2132,10 +2141,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>190</Rank>
+			<Rank>164</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3437468</Points>
+			<Wins>6</Wins>
+			<Points>6400480</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2149,10 +2158,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>88</Rank>
+			<Rank>137</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6562516</Points>
+			<Points>6520453</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2169,7 +2178,7 @@
 			<Rank>262</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>187359</Points>
+			<Points>200336</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2183,10 +2192,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>50</Rank>
+			<Rank>75</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9500515</Points>
+			<Points>9520472</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2200,10 +2209,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>194</Rank>
+			<Rank>206</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3437421</Points>
+			<Points>3480384</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2217,10 +2226,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>202</Rank>
+			<Rank>169</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3416416</Points>
+			<Wins>6</Wins>
+			<Points>6400420</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2234,10 +2243,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>3</DropRound>
-			<Rank>240</Rank>
+			<Rank>247</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>500355</Points>
+			<Points>466376</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2251,10 +2260,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>19</Rank>
+			<Rank>13</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9625555</Points>
+			<Wins>12</Wins>
+			<Points>12640573</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2268,10 +2277,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>181</Rank>
+			<Rank>185</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3500390</Points>
+			<Wins>6</Wins>
+			<Points>6320472</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2285,10 +2294,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>18</Rank>
+			<Rank>16</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9666650</Points>
+			<Wins>12</Wins>
+			<Points>12608626</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2302,10 +2311,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>54</Rank>
+			<Rank>53</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9466533</Points>
+			<Points>9565495</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2318,13 +2327,13 @@
 				<LastName>Garcia Flores</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>197</Rank>
+			<DropRound>5</DropRound>
+			<Rank>228</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3437390</Points>
+			<Points>3360408</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -2336,10 +2345,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>144</Rank>
+			<Rank>98</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6375517</Points>
+			<Wins>9</Wins>
+			<Points>9400521</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2353,10 +2362,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>48</Rank>
+			<Rank>33</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9500531</Points>
+			<Wins>12</Wins>
+			<Points>12480568</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2370,10 +2379,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>260</Rank>
+			<Rank>240</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>0</Wins>
-			<Points>250312</Points>
+			<Wins>3</Wins>
+			<Points>3200352</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2387,10 +2396,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>208</Rank>
+			<Rank>204</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3375437</Points>
+			<Points>3480400</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2404,10 +2413,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>171</Rank>
+			<Rank>140</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3562412</Points>
+			<Wins>6</Wins>
+			<Points>6520439</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2421,10 +2430,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>106</Rank>
+			<Rank>151</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6500515</Points>
+			<Points>6480466</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>1001</AssignedSeat>
@@ -2438,10 +2447,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>75</Rank>
+			<Rank>126</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6625484</Points>
+			<Points>6560456</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2455,10 +2464,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>212</Rank>
+			<Rank>222</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3375403</Points>
+			<Points>3400360</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2475,7 +2484,7 @@
 			<Rank>261</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>250238</Points>
+			<Points>240252</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2489,10 +2498,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>3</Rank>
+			<Rank>6</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>12</Wins>
-			<Points>12625578</Points>
+			<Points>12720528</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2506,10 +2515,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>64</Rank>
+			<Rank>35</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9375515</Points>
+			<Wins>12</Wins>
+			<Points>12480512</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2523,10 +2532,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>6</Rank>
+			<Rank>2</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>12</Wins>
-			<Points>12562562</Points>
+			<Wins>15</Wins>
+			<Points>15600568</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2540,10 +2549,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>218</Rank>
+			<Rank>190</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3333423</Points>
+			<Wins>6</Wins>
+			<Points>6304415</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2557,10 +2566,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>173</Rank>
+			<Rank>202</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3562344</Points>
+			<Points>3520375</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2574,10 +2583,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>81</Rank>
+			<Rank>45</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6625421</Points>
+			<Wins>9</Wins>
+			<Points>9640450</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2591,10 +2600,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>98</Rank>
+			<Rank>121</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6562437</Points>
+			<Points>6600472</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2608,10 +2617,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>205</Rank>
+			<Rank>219</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3375453</Points>
+			<Points>3400416</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2625,10 +2634,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>81</Rank>
+			<Rank>125</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6625421</Points>
+			<Points>6560464</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2642,10 +2651,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>132</Rank>
+			<Rank>156</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6437500</Points>
+			<Points>6440504</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2659,10 +2668,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>55</Rank>
+			<Rank>36</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9437531</Points>
+			<Wins>12</Wins>
+			<Points>12458525</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2676,10 +2685,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>53</Rank>
+			<Rank>51</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9500492</Points>
+			<Points>9600466</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2693,10 +2702,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>79</Rank>
+			<Rank>118</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6625453</Points>
+			<Points>6640440</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2710,10 +2719,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>78</Rank>
+			<Rank>116</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6625467</Points>
+			<Points>6640467</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2727,10 +2736,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>184</Rank>
+			<Rank>207</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3500365</Points>
+			<Points>3480357</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2744,10 +2753,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>57</Rank>
+			<Rank>83</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9437507</Points>
+			<Points>9480471</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2761,10 +2770,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>193</Rank>
+			<Rank>167</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3437437</Points>
+			<Wins>6</Wins>
+			<Points>6400456</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2778,10 +2787,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>31</Rank>
+			<Rank>46</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9562548</Points>
+			<Points>9600553</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2795,10 +2804,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>200</Rank>
+			<Rank>181</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3437296</Points>
+			<Wins>6</Wins>
+			<Points>6360400</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2812,10 +2821,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>77</Rank>
+			<Rank>135</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6625476</Points>
+			<Points>6520487</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2829,10 +2838,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>152</Rank>
+			<Rank>102</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6312500</Points>
+			<Wins>9</Wins>
+			<Points>9400487</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2846,10 +2855,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>125</Rank>
+			<Rank>142</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6500375</Points>
+			<Points>6520384</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2863,10 +2872,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>231</Rank>
+			<Rank>236</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3250375</Points>
+			<Points>3280360</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2880,10 +2889,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>132</Rank>
+			<Rank>160</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6437500</Points>
+			<Points>6440464</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2896,13 +2905,13 @@
 				<LastName>VEGA SANCHEZ</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>252</Rank>
+			<DropRound>5</DropRound>
+			<Rank>256</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>312421</Points>
+			<Points>320376</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -2914,10 +2923,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>192</Rank>
+			<Rank>226</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3437453</Points>
+			<Points>3360427</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2931,10 +2940,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>223</Rank>
+			<Rank>234</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3312375</Points>
+			<Points>3320349</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2948,10 +2957,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>250</Rank>
+			<Rank>252</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>375343</Points>
+			<Points>360368</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2965,10 +2974,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>12</Rank>
+			<Rank>4</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>12</Wins>
-			<Points>12437593</Points>
+			<Wins>15</Wins>
+			<Points>15480584</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2982,10 +2991,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>72</Rank>
+			<Rank>115</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6625562</Points>
+			<Points>6640504</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -2999,10 +3008,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>224</Rank>
+			<Rank>188</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3312359</Points>
+			<Wins>6</Wins>
+			<Points>6320352</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3016,10 +3025,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>95</Rank>
+			<Rank>138</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6562453</Points>
+			<Points>6520451</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3033,10 +3042,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>149</Rank>
+			<Rank>154</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6375453</Points>
+			<Points>6480408</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3050,10 +3059,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>109</Rank>
+			<Rank>79</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6500500</Points>
+			<Wins>9</Wins>
+			<Points>9480554</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3067,10 +3076,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>105</Rank>
+			<Rank>87</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6500531</Points>
+			<Wins>9</Wins>
+			<Points>9440528</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3084,10 +3093,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>196</Rank>
+			<Rank>204</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3437416</Points>
+			<Points>3480400</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3101,10 +3110,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>2</DropRound>
-			<Rank>229</Rank>
+			<Rank>235</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3250464</Points>
+			<Points>3300386</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3118,10 +3127,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>96</Rank>
+			<Rank>55</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6562444</Points>
+			<Wins>9</Wins>
+			<Points>9560512</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3135,10 +3144,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>228</Rank>
+			<Rank>185</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3250468</Points>
+			<Wins>6</Wins>
+			<Points>6320472</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3152,10 +3161,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>3</DropRound>
-			<Rank>201</Rank>
+			<Rank>217</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3416418</Points>
+			<Points>3400439</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3169,10 +3178,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>66</Rank>
+			<Rank>109</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9375500</Points>
+			<Points>9360475</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3186,10 +3195,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>2</Rank>
+			<Rank>10</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>12</Wins>
-			<Points>12625593</Points>
+			<Points>12680512</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3202,13 +3211,13 @@
 				<LastName>Ramírez Sánchez</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>147</Rank>
+			<DropRound>5</DropRound>
+			<Rank>164</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6375484</Points>
+			<Points>6400480</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -3220,10 +3229,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>244</Rank>
+			<Rank>250</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>437359</Points>
+			<Points>400384</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3237,10 +3246,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>40</Rank>
+			<Rank>52</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9562483</Points>
+			<Points>9600457</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3254,10 +3263,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>199</Rank>
+			<Rank>214</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3437375</Points>
+			<Points>3440365</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3271,10 +3280,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>96</Rank>
+			<Rank>139</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6562444</Points>
+			<Points>6520447</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3288,10 +3297,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>205</Rank>
+			<Rank>166</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3375453</Points>
+			<Wins>6</Wins>
+			<Points>6400464</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3305,10 +3314,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>21</Rank>
+			<Rank>50</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9625531</Points>
+			<Points>9600504</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3322,10 +3331,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>58</Rank>
+			<Rank>38</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9437474</Points>
+			<Wins>12</Wins>
+			<Points>12400525</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3342,7 +3351,7 @@
 			<Rank>213</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3375390</Points>
+			<Points>3440400</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3356,10 +3365,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>11</Rank>
+			<Rank>1</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>12</Wins>
-			<Points>12437609</Points>
+			<Wins>15</Wins>
+			<Points>15600576</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3373,10 +3382,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>233</Rank>
+			<Rank>194</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3250296</Points>
+			<Wins>6</Wins>
+			<Points>6280327</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3390,10 +3399,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>80</Rank>
+			<Rank>58</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6625428</Points>
+			<Wins>9</Wins>
+			<Points>9560495</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3407,10 +3416,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>256</Rank>
+			<Rank>238</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>0</Wins>
-			<Points>250421</Points>
+			<Wins>3</Wins>
+			<Points>3240384</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3424,10 +3433,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>28</Rank>
+			<Rank>32</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9571607</Points>
+			<Wins>12</Wins>
+			<Points>12500618</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3441,10 +3450,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>115</Rank>
+			<Rank>68</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6500483</Points>
+			<Wins>9</Wins>
+			<Points>9520512</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3458,10 +3467,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>185</Rank>
+			<Rank>216</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3466406</Points>
+			<Points>3434415</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3475,10 +3484,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>225</Rank>
+			<Rank>183</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3312343</Points>
+			<Wins>6</Wins>
+			<Points>6360376</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3492,10 +3501,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>128</Rank>
+			<Rank>95</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6461557</Points>
+			<Wins>9</Wins>
+			<Points>9428580</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3509,10 +3518,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>45</Rank>
+			<Rank>80</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9500546</Points>
+			<Points>9480536</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3526,10 +3535,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>157</Rank>
+			<Rank>182</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6312396</Points>
+			<Points>6360382</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3543,10 +3552,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>197</Rank>
+			<Rank>172</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3437390</Points>
+			<Wins>6</Wins>
+			<Points>6400411</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3560,10 +3569,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>90</Rank>
+			<Rank>147</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6562484</Points>
+			<Points>6480528</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3577,10 +3586,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>103</Rank>
+			<Rank>130</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6533508</Points>
+			<Points>6521504</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3594,10 +3603,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>139</Rank>
+			<Rank>101</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6416500</Points>
+			<Wins>9</Wins>
+			<Points>9400494</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3614,7 +3623,7 @@
 			<Rank>220</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3312421</Points>
+			<Points>3400384</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3628,10 +3637,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>187</Rank>
+			<Rank>218</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3437500</Points>
+			<Points>3400432</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3645,10 +3654,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>169</Rank>
+			<Rank>148</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3562466</Points>
+			<Wins>6</Wins>
+			<Points>6480495</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3662,10 +3671,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>188</Rank>
+			<Rank>210</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3437484</Points>
+			<Points>3440448</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3679,10 +3688,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>17</Rank>
+			<Rank>42</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9687468</Points>
+			<Points>9640504</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3696,10 +3705,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>241</Rank>
+			<Rank>211</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>0</Wins>
-			<Points>500343</Points>
+			<Wins>3</Wins>
+			<Points>3440424</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3713,10 +3722,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>73</Rank>
+			<Rank>114</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6625515</Points>
+			<Points>6666516</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3730,10 +3739,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>207</Rank>
+			<Rank>178</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3375451</Points>
+			<Wins>6</Wins>
+			<Points>6360433</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3747,10 +3756,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>112</Rank>
+			<Rank>84</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6500484</Points>
+			<Wins>9</Wins>
+			<Points>9480464</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3764,10 +3773,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>24</Rank>
+			<Rank>43</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9625500</Points>
+			<Points>9640475</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3781,10 +3790,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>129</Rank>
+			<Rank>146</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6461519</Points>
+			<Points>6500459</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3798,10 +3807,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>177</Rank>
+			<Rank>144</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3500437</Points>
+			<Wins>6</Wins>
+			<Points>6500490</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3815,10 +3824,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>247</Rank>
+			<Rank>258</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>375390</Points>
+			<Points>240384</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3832,10 +3841,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>246</Rank>
+			<Rank>251</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>437296</Points>
+			<Points>400311</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3849,10 +3858,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>116</Rank>
+			<Rank>73</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6500468</Points>
+			<Wins>9</Wins>
+			<Points>9520487</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3866,10 +3875,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>232</Rank>
+			<Rank>195</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3250359</Points>
+			<Wins>6</Wins>
+			<Points>6240408</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3883,10 +3892,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>165</Rank>
+			<Rank>124</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3625437</Points>
+			<Wins>6</Wins>
+			<Points>6560488</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3900,10 +3909,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>92</Rank>
+			<Rank>78</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6562476</Points>
+			<Wins>9</Wins>
+			<Points>9480560</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3917,10 +3926,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>73</Rank>
+			<Rank>123</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6625515</Points>
+			<Points>6560504</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3937,7 +3946,7 @@
 			<Rank>254</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>312343</Points>
+			<Points>360272</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3951,10 +3960,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>172</Rank>
+			<Rank>170</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3562400</Points>
+			<Wins>6</Wins>
+			<Points>6400416</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3968,10 +3977,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>32</Rank>
+			<Rank>25</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>9</Wins>
-			<Points>9562546</Points>
+			<Wins>12</Wins>
+			<Points>12560520</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -3985,10 +3994,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>213</Rank>
+			<Rank>231</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3375390</Points>
+			<Points>3360352</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4002,10 +4011,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>107</Rank>
+			<Rank>149</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6500507</Points>
+			<Points>6480487</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4019,10 +4028,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>234</Rank>
+			<Rank>242</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3125328</Points>
+			<Points>3160352</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4036,10 +4045,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>181</Rank>
+			<Rank>170</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3500390</Points>
+			<Wins>6</Wins>
+			<Points>6400416</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4053,10 +4062,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>177</Rank>
+			<Rank>212</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3500437</Points>
+			<Points>3440411</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4070,10 +4079,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>167</Rank>
+			<Rank>157</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3562500</Points>
+			<Wins>6</Wins>
+			<Points>6440495</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4087,10 +4096,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>120</Rank>
+			<Rank>122</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6500460</Points>
+			<Points>6600455</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4104,10 +4113,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>89</Rank>
+			<Rank>135</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6562507</Points>
+			<Points>6520487</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4121,10 +4130,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>170</Rank>
+			<Rank>201</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3562442</Points>
+			<Points>3520388</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4138,10 +4147,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>43</Rank>
+			<Rank>64</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9500571</Points>
+			<Points>9520520</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4155,10 +4164,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>98</Rank>
+			<Rank>68</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6562437</Points>
+			<Wins>9</Wins>
+			<Points>9520512</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4172,10 +4181,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>159</Rank>
+			<Rank>108</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6250500</Points>
+			<Wins>9</Wins>
+			<Points>9360483</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4189,10 +4198,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>112</Rank>
+			<Rank>68</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6500484</Points>
+			<Wins>9</Wins>
+			<Points>9520512</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4206,10 +4215,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>242</Rank>
+			<Rank>222</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>0</Wins>
-			<Points>500296</Points>
+			<Wins>3</Wins>
+			<Points>3400360</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4223,10 +4232,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>48</Rank>
+			<Rank>59</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9500531</Points>
+			<Points>9560488</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4240,10 +4249,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>183</Rank>
+			<Rank>208</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3500380</Points>
+			<Points>3458389</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4257,10 +4266,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>109</Rank>
+			<Rank>150</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6500500</Points>
+			<Points>6480467</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4274,10 +4283,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>254</Rank>
+			<Rank>239</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>0</Wins>
-			<Points>312343</Points>
+			<Wins>3</Wins>
+			<Points>3240360</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4291,10 +4300,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>124</Rank>
+			<Rank>129</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6500393</Points>
+			<Points>6560388</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4308,10 +4317,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>84</Rank>
+			<Rank>120</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6625377</Points>
+			<Points>6640391</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4325,10 +4334,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>226</Rank>
+			<Rank>215</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3312312</Points>
+			<Points>3440320</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4342,10 +4351,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>148</Rank>
+			<Rank>103</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>6</Wins>
-			<Points>6375483</Points>
+			<Wins>9</Wins>
+			<Points>9400483</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4359,10 +4368,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>160</Rank>
+			<Rank>179</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6250484</Points>
+			<Points>6360424</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4376,10 +4385,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>5</Rank>
+			<Rank>7</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>12</Wins>
-			<Points>12625532</Points>
+			<Points>12720516</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4392,13 +4401,13 @@
 				<LastName>Islas Barrientos</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>175</Rank>
+			<DropRound>5</DropRound>
+			<Rank>199</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3500468</Points>
+			<Points>3520475</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -4410,10 +4419,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>151</Rank>
+			<Rank>174</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6333533</Points>
+			<Points>6391473</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4427,10 +4436,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>145</Rank>
+			<Rank>162</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6375515</Points>
+			<Points>6440456</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4444,10 +4453,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>2</DropRound>
-			<Rank>236</Rank>
+			<Rank>244</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>625428</Points>
+			<Points>600431</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4461,10 +4470,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>203</Rank>
+			<Rank>189</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3400433</Points>
+			<Wins>6</Wins>
+			<Points>6304443</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4477,13 +4486,13 @@
 				<LastName>Beristain Rosas</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>112</Rank>
+			<DropRound>5</DropRound>
+			<Rank>133</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6500484</Points>
+			<Points>6520496</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -4495,10 +4504,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>222</Rank>
+			<Rank>233</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3312406</Points>
+			<Points>3320383</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4512,10 +4521,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>166</Rank>
+			<Rank>128</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
-			<Wins>3</Wins>
-			<Points>3625380</Points>
+			<Wins>6</Wins>
+			<Points>6560455</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4529,10 +4538,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>35</Rank>
+			<Rank>54</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>9</Wins>
-			<Points>9562531</Points>
+			<Points>9560536</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4546,10 +4555,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>264</Rank>
+			<Rank>263</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>125406</Points>
+			<Points>160304</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4563,10 +4572,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>131</Rank>
+			<Rank>160</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6437515</Points>
+			<Points>6440464</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4580,10 +4589,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>210</Rank>
+			<Rank>232</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>3</Wins>
-			<Points>3375406</Points>
+			<Points>3320408</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4597,10 +4606,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>142</Rank>
+			<Rank>168</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>6</Wins>
-			<Points>6375531</Points>
+			<Points>6400424</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4613,13 +4622,13 @@
 				<LastName>Castellano Cardona</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
-			<DropRound>0</DropRound>
-			<Rank>243</Rank>
+			<DropRound>5</DropRound>
+			<Rank>248</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>437390</Points>
+			<Points>440352</Points>
 			<OpenDueling>0</OpenDueling>
-			<DropReason>Active</DropReason>
+			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
 			<Notes />
 		</TournPlayer>
@@ -4631,10 +4640,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
-			<Rank>262</Rank>
+			<Rank>264</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>187359</Points>
+			<Points>160298</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4648,10 +4657,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>2</DropRound>
-			<Rank>238</Rank>
+			<Rank>249</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>500444</Points>
+			<Points>400452</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -4665,10 +4674,10 @@
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>3</DropRound>
-			<Rank>257</Rank>
+			<Rank>255</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
-			<Points>250400</Points>
+			<Points>333333</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Drop</DropReason>
 			<AssignedSeat>-1</AssignedSeat>
@@ -8759,7 +8768,7 @@
 			<Round>4</Round>
 			<Status>Winner</Status>
 			<Table>58</Table>
-			<Winner>401263032</Winner>
+			<Winner>401714108</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
@@ -9396,16 +9405,16 @@
 			<Player>400213111</Player>
 			<Player>411355201</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>1</Table>
-			<Winner>0</Winner>
+			<Winner>411355201</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>400274018</Player>
 			<Player>413532829</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>DoubleLoss</Status>
 			<Table>2</Table>
 			<Winner>0</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
@@ -9414,79 +9423,79 @@
 			<Player>404653275</Player>
 			<Player>410140177</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>3</Table>
-			<Winner>0</Winner>
+			<Winner>410140177</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401199432</Player>
 			<Player>410978131</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>4</Table>
-			<Winner>0</Winner>
+			<Winner>401199432</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402448385</Player>
 			<Player>408492086</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>5</Table>
-			<Winner>0</Winner>
+			<Winner>408492086</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401903655</Player>
 			<Player>408476010</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>6</Table>
-			<Winner>0</Winner>
+			<Winner>401903655</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401697154</Player>
 			<Player>404529078</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>7</Table>
-			<Winner>0</Winner>
+			<Winner>404529078</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>400116129</Player>
 			<Player>400347542</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>8</Table>
-			<Winner>0</Winner>
+			<Winner>400116129</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401265306</Player>
 			<Player>411321153</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>9</Table>
-			<Winner>0</Winner>
+			<Winner>411321153</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>404850433</Player>
 			<Player>407444524</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>10</Table>
-			<Winner>0</Winner>
+			<Winner>407444524</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401029896</Player>
 			<Player>410976368</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>DoubleLoss</Status>
 			<Table>11</Table>
 			<Winner>0</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
@@ -9495,88 +9504,88 @@
 			<Player>406974196</Player>
 			<Player>413119055</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>12</Table>
-			<Winner>0</Winner>
+			<Winner>406974196</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>400400663</Player>
 			<Player>402147454</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>13</Table>
-			<Winner>0</Winner>
+			<Winner>402147454</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>404703047</Player>
 			<Player>404932869</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>14</Table>
-			<Winner>0</Winner>
+			<Winner>404703047</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401904811</Player>
 			<Player>412677101</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>15</Table>
-			<Winner>0</Winner>
+			<Winner>412677101</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>400223741</Player>
 			<Player>401263032</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>16</Table>
-			<Winner>0</Winner>
+			<Winner>400223741</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>400019272</Player>
 			<Player>401004361</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>17</Table>
-			<Winner>0</Winner>
+			<Winner>400019272</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>400056068</Player>
 			<Player>407207630</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>18</Table>
-			<Winner>0</Winner>
+			<Winner>400056068</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402284870</Player>
 			<Player>411410901</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>19</Table>
-			<Winner>0</Winner>
+			<Winner>402284870</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>409208477</Player>
 			<Player>411378792</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>20</Table>
-			<Winner>0</Winner>
+			<Winner>411378792</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402081779</Player>
 			<Player>411310761</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>DoubleLoss</Status>
 			<Table>21</Table>
 			<Winner>0</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
@@ -9585,214 +9594,214 @@
 			<Player>409207896</Player>
 			<Player>412195015</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>22</Table>
-			<Winner>0</Winner>
+			<Winner>409207896</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>400255183</Player>
 			<Player>402145069</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>23</Table>
-			<Winner>0</Winner>
+			<Winner>400255183</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401537186</Player>
 			<Player>401695150</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>24</Table>
-			<Winner>0</Winner>
+			<Winner>401537186</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402077837</Player>
 			<Player>406309771</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>25</Table>
-			<Winner>0</Winner>
+			<Winner>402077837</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>400366206</Player>
 			<Player>402410022</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>26</Table>
-			<Winner>0</Winner>
+			<Winner>400366206</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401063678</Player>
 			<Player>409258811</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>27</Table>
-			<Winner>0</Winner>
+			<Winner>401063678</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>406883091</Player>
 			<Player>409454042</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>28</Table>
-			<Winner>0</Winner>
+			<Winner>406883091</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401572906</Player>
 			<Player>413275551</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>29</Table>
-			<Winner>0</Winner>
+			<Winner>401572906</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402243437</Player>
 			<Player>408483588</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>30</Table>
-			<Winner>0</Winner>
+			<Winner>408483588</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401115383</Player>
 			<Player>414078790</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>31</Table>
-			<Winner>0</Winner>
+			<Winner>401115383</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>400017041</Player>
 			<Player>400207883</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>32</Table>
-			<Winner>0</Winner>
+			<Winner>400017041</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>404913386</Player>
 			<Player>411237647</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>33</Table>
-			<Winner>0</Winner>
+			<Winner>404913386</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401442387</Player>
 			<Player>401613070</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>34</Table>
-			<Winner>0</Winner>
+			<Winner>401613070</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401906792</Player>
 			<Player>411548855</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>35</Table>
-			<Winner>0</Winner>
+			<Winner>401906792</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402145546</Player>
 			<Player>413569695</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>36</Table>
-			<Winner>0</Winner>
+			<Winner>402145546</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>409211594</Player>
 			<Player>412548641</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>37</Table>
-			<Winner>0</Winner>
+			<Winner>412548641</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>400400736</Player>
 			<Player>413167467</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>38</Table>
-			<Winner>0</Winner>
+			<Winner>413167467</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>404916217</Player>
 			<Player>405381242</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>39</Table>
-			<Winner>0</Winner>
+			<Winner>404916217</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401212071</Player>
 			<Player>409074018</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>40</Table>
-			<Winner>0</Winner>
+			<Winner>409074018</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402145340</Player>
 			<Player>413566071</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>41</Table>
-			<Winner>0</Winner>
+			<Winner>402145340</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401267067</Player>
 			<Player>401994381</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>42</Table>
-			<Winner>0</Winner>
+			<Winner>401994381</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>410674074</Player>
 			<Player>413006038</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>43</Table>
-			<Winner>0</Winner>
+			<Winner>410674074</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401416852</Player>
 			<Player>411281486</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>44</Table>
-			<Winner>0</Winner>
+			<Winner>401416852</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>409535251</Player>
 			<Player>411488745</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>DoubleLoss</Status>
 			<Table>45</Table>
 			<Winner>0</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
@@ -9801,241 +9810,241 @@
 			<Player>405443932</Player>
 			<Player>410417554</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>46</Table>
-			<Winner>0</Winner>
+			<Winner>405443932</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401924021</Player>
 			<Player>407384353</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>47</Table>
-			<Winner>0</Winner>
+			<Winner>407384353</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>410175172</Player>
 			<Player>411410839</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>48</Table>
-			<Winner>0</Winner>
+			<Winner>411410839</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401476886</Player>
 			<Player>414084125</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>49</Table>
-			<Winner>0</Winner>
+			<Winner>401476886</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402243376</Player>
 			<Player>412991033</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>50</Table>
-			<Winner>0</Winner>
+			<Winner>402243376</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>412129291</Player>
 			<Player>413518195</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>51</Table>
-			<Winner>0</Winner>
+			<Winner>412129291</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402443611</Player>
 			<Player>410479288</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>52</Table>
-			<Winner>0</Winner>
+			<Winner>402443611</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>404951412</Player>
 			<Player>412332089</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>53</Table>
-			<Winner>0</Winner>
+			<Winner>404951412</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>404749798</Player>
 			<Player>413139498</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>54</Table>
-			<Winner>0</Winner>
+			<Winner>413139498</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402081401</Player>
 			<Player>409074593</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>55</Table>
-			<Winner>0</Winner>
+			<Winner>402081401</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>409158986</Player>
 			<Player>411363434</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>56</Table>
-			<Winner>0</Winner>
+			<Winner>411363434</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>410595984</Player>
 			<Player>412059233</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>57</Table>
-			<Winner>0</Winner>
+			<Winner>410595984</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402284819</Player>
 			<Player>413403209</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>58</Table>
-			<Winner>0</Winner>
+			<Winner>402284819</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402087381</Player>
 			<Player>409208760</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>59</Table>
-			<Winner>0</Winner>
+			<Winner>402087381</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>400400261</Player>
 			<Player>411046278</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>60</Table>
-			<Winner>0</Winner>
+			<Winner>400400261</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401266559</Player>
 			<Player>411444202</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>61</Table>
-			<Winner>0</Winner>
+			<Winner>401266559</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401628218</Player>
 			<Player>413333741</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>62</Table>
-			<Winner>0</Winner>
+			<Winner>401628218</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401045766</Player>
 			<Player>402145228</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>63</Table>
-			<Winner>0</Winner>
+			<Winner>402145228</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402119632</Player>
 			<Player>411384898</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>64</Table>
-			<Winner>0</Winner>
+			<Winner>411384898</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401201566</Player>
 			<Player>401629411</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>65</Table>
-			<Winner>0</Winner>
+			<Winner>401201566</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401003841</Player>
 			<Player>411415297</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>66</Table>
-			<Winner>0</Winner>
+			<Winner>401003841</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401714108</Player>
 			<Player>401914708</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>67</Table>
-			<Winner>0</Winner>
+			<Winner>401914708</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>400148672</Player>
 			<Player>412466546</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>68</Table>
-			<Winner>0</Winner>
+			<Winner>412466546</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402204710</Player>
 			<Player>409207580</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>69</Table>
-			<Winner>0</Winner>
+			<Winner>402204710</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402122701</Player>
 			<Player>410858951</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>70</Table>
-			<Winner>0</Winner>
+			<Winner>410858951</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>409617918</Player>
 			<Player>413145617</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>71</Table>
-			<Winner>0</Winner>
+			<Winner>413145617</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>404669240</Player>
 			<Player>408258229</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>DoubleLoss</Status>
 			<Table>72</Table>
 			<Winner>0</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
@@ -10044,259 +10053,259 @@
 			<Player>406037132</Player>
 			<Player>409562148</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>73</Table>
-			<Winner>0</Winner>
+			<Winner>409562148</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>409609881</Player>
 			<Player>413473142</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>74</Table>
-			<Winner>0</Winner>
+			<Winner>413473142</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402192729</Player>
 			<Player>412807669</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>75</Table>
-			<Winner>0</Winner>
+			<Winner>402192729</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>404634329</Player>
 			<Player>413575741</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>76</Table>
-			<Winner>0</Winner>
+			<Winner>404634329</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>404882657</Player>
 			<Player>413397860</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>77</Table>
-			<Winner>0</Winner>
+			<Winner>404882657</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>400357183</Player>
 			<Player>414109566</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>78</Table>
-			<Winner>0</Winner>
+			<Winner>400357183</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401492512</Player>
 			<Player>412572305</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>79</Table>
-			<Winner>0</Winner>
+			<Winner>401492512</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402242381</Player>
 			<Player>410873983</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>80</Table>
-			<Winner>0</Winner>
+			<Winner>410873983</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>400010876</Player>
 			<Player>413409739</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>81</Table>
-			<Winner>0</Winner>
+			<Winner>400010876</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>407375831</Player>
 			<Player>412932215</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>82</Table>
-			<Winner>0</Winner>
+			<Winner>412932215</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>405283890</Player>
 			<Player>413574561</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>83</Table>
-			<Winner>0</Winner>
+			<Winner>413574561</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>409010009</Player>
 			<Player>409474375</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>84</Table>
-			<Winner>0</Winner>
+			<Winner>409474375</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402128997</Player>
 			<Player>404910726</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>85</Table>
-			<Winner>0</Winner>
+			<Winner>402128997</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>411286616</Player>
 			<Player>411543028</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>86</Table>
-			<Winner>0</Winner>
+			<Winner>411286616</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>406819982</Player>
 			<Player>413576407</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>87</Table>
-			<Winner>0</Winner>
+			<Winner>406819982</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>412337244</Player>
 			<Player>413540135</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>88</Table>
-			<Winner>0</Winner>
+			<Winner>412337244</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402244691</Player>
 			<Player>406027637</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>89</Table>
-			<Winner>0</Winner>
+			<Winner>406027637</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>404599475</Player>
 			<Player>410753875</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>90</Table>
-			<Winner>0</Winner>
+			<Winner>404599475</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402084146</Player>
 			<Player>414077999</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>91</Table>
-			<Winner>0</Winner>
+			<Winner>414077999</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401160964</Player>
 			<Player>411359198</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>92</Table>
-			<Winner>0</Winner>
+			<Winner>411359198</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>411402691</Player>
 			<Player>412094219</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>93</Table>
-			<Winner>0</Winner>
+			<Winner>412094219</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401524873</Player>
 			<Player>411267817</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>94</Table>
-			<Winner>0</Winner>
+			<Winner>401524873</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>400211825</Player>
 			<Player>402204769</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>95</Table>
-			<Winner>0</Winner>
+			<Winner>400211825</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401063411</Player>
 			<Player>412684912</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>96</Table>
-			<Winner>0</Winner>
+			<Winner>401063411</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>404761981</Player>
 			<Player>412543315</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>97</Table>
-			<Winner>0</Winner>
+			<Winner>412543315</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>411419247</Player>
 			<Player>413330163</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>98</Table>
-			<Winner>0</Winner>
+			<Winner>411419247</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402081877</Player>
 			<Player>408712851</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>99</Table>
-			<Winner>0</Winner>
+			<Winner>408712851</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402084317</Player>
 			<Player>408318060</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>100</Table>
-			<Winner>0</Winner>
+			<Winner>402084317</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>409074996</Player>
 			<Player>409613516</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>DoubleLoss</Status>
 			<Table>101</Table>
 			<Winner>0</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
@@ -10305,88 +10314,88 @@
 			<Player>409222782</Player>
 			<Player>411410082</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>102</Table>
-			<Winner>0</Winner>
+			<Winner>411410082</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>406329418</Player>
 			<Player>412513047</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>103</Table>
-			<Winner>0</Winner>
+			<Winner>412513047</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>407837131</Player>
 			<Player>409291864</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>104</Table>
-			<Winner>0</Winner>
+			<Winner>409291864</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>410415171</Player>
 			<Player>412962790</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>105</Table>
-			<Winner>0</Winner>
+			<Winner>410415171</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>400439338</Player>
 			<Player>406890585</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>106</Table>
-			<Winner>0</Winner>
+			<Winner>406890585</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>400396144</Player>
 			<Player>412970069</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>107</Table>
-			<Winner>0</Winner>
+			<Winner>412970069</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>402244130</Player>
 			<Player>409846801</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>108</Table>
-			<Winner>0</Winner>
+			<Winner>402244130</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401860731</Player>
 			<Player>411547921</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>109</Table>
-			<Winner>0</Winner>
+			<Winner>401860731</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>400106221</Player>
 			<Player>411547907</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>110</Table>
-			<Winner>0</Winner>
+			<Winner>411547907</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>413086773</Player>
 			<Player>414109531</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>DoubleLoss</Status>
 			<Table>111</Table>
 			<Winner>0</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
@@ -10395,34 +10404,34 @@
 			<Player>405722988</Player>
 			<Player>411533120</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>112</Table>
-			<Winner>0</Winner>
+			<Winner>405722988</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>407850060</Player>
 			<Player>411355199</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>113</Table>
-			<Winner>0</Winner>
+			<Winner>407850060</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>412663851</Player>
 			<Player>412895746</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>114</Table>
-			<Winner>0</Winner>
+			<Winner>412663851</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>409736541</Player>
 			<Player>409884581</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>DoubleLoss</Status>
 			<Table>115</Table>
 			<Winner>0</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
@@ -10431,7 +10440,7 @@
 			<Player>414082058</Player>
 			<Player>416210218</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>DoubleLoss</Status>
 			<Table>116</Table>
 			<Winner>0</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
@@ -10440,16 +10449,16 @@
 			<Player>114178345</Player>
 			<Player>317702021</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>117</Table>
-			<Winner>0</Winner>
+			<Winner>317702021</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>404545645</Player>
 			<Player>406218346</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>DoubleLoss</Status>
 			<Table>118</Table>
 			<Winner>0</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
@@ -10458,52 +10467,52 @@
 			<Player>404952531</Player>
 			<Player>411377819</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>119</Table>
-			<Winner>0</Winner>
+			<Winner>411377819</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>411107947</Player>
 			<Player>411550671</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>120</Table>
-			<Winner>0</Winner>
+			<Winner>411550671</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401167867</Player>
 			<Player>412461416</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>121</Table>
-			<Winner>0</Winner>
+			<Winner>401167867</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>409620008</Player>
 			<Player>413235885</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>122</Table>
-			<Winner>0</Winner>
+			<Winner>413235885</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>408445416</Player>
 			<Player>413391927</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>123</Table>
-			<Winner>0</Winner>
+			<Winner>413391927</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>401487145</Player>
 			<Player>412425726</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>DoubleLoss</Status>
 			<Table>124</Table>
 			<Winner>0</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
@@ -10512,24 +10521,1113 @@
 			<Player>402243364</Player>
 			<Player>412641072</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>125</Table>
-			<Winner>0</Winner>
+			<Winner>402243364</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>407544897</Player>
 			<Player>416198211</Player>
 			<Round>5</Round>
-			<Status>Incomplete</Status>
+			<Status>Winner</Status>
 			<Table>126</Table>
-			<Winner>0</Winner>
+			<Winner>407544897</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
 			<Player>408020321</Player>
 			<Player>411495641</Player>
 			<Round>5</Round>
+			<Status>Winner</Status>
+			<Table>1001</Table>
+			<Winner>411495641</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401199432</Player>
+			<Player>408492086</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>1</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401903655</Player>
+			<Player>410140177</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>2</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401063678</Player>
+			<Player>411355201</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>3</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400274018</Player>
+			<Player>401572906</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>4</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>404703047</Player>
+			<Player>404913386</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>5</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400255183</Player>
+			<Player>409207896</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>6</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400017041</Player>
+			<Player>410978131</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>7</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400366206</Player>
+			<Player>402077837</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>8</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400223741</Player>
+			<Player>413532829</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>9</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401697154</Player>
+			<Player>412677101</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>10</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400019272</Player>
+			<Player>404529078</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>11</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>406883091</Player>
+			<Player>411321153</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>12</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400116129</Player>
+			<Player>402284870</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>13</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>406974196</Player>
+			<Player>408476010</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>14</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402448385</Player>
+			<Player>407444524</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>15</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402147454</Player>
+			<Player>404653275</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>16</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401115383</Player>
+			<Player>401613070</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>17</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401537186</Player>
+			<Player>411378792</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>18</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400213111</Player>
+			<Player>408483588</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>19</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400056068</Player>
+			<Player>401906792</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>20</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>404850433</Player>
+			<Player>411363434</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>21</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401904811</Player>
+			<Player>413119055</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>22</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402145069</Player>
+			<Player>402145546</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>23</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>407207630</Player>
+			<Player>411548855</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>24</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401628218</Player>
+			<Player>409074018</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>25</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401416852</Player>
+			<Player>412466546</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>26</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>407384353</Player>
+			<Player>411310761</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>27</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402243437</Player>
+			<Player>404916217</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>28</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>404932869</Player>
+			<Player>411410901</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>29</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402192729</Player>
+			<Player>405443932</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>30</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400400261</Player>
+			<Player>402243376</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>31</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>404882657</Player>
+			<Player>410858951</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>32</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402145340</Player>
+			<Player>412129291</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>33</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401492512</Player>
+			<Player>414078790</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>34</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401265306</Player>
+			<Player>411237647</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>35</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400400663</Player>
+			<Player>411495641</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>36</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402284819</Player>
+			<Player>409454042</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>37</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>411384898</Player>
+			<Player>411410839</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>38</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>409208477</Player>
+			<Player>409562148</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>39</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401994381</Player>
+			<Player>402443611</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>40</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402081401</Player>
+			<Player>404951412</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>41</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401442387</Player>
+			<Player>410595984</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>42</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402081779</Player>
+			<Player>402087381</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>43</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400347542</Player>
+			<Player>409258811</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>44</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401003841</Player>
+			<Player>412548641</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>45</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401714108</Player>
+			<Player>413139498</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>46</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400207883</Player>
+			<Player>401695150</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>47</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401914708</Player>
+			<Player>410976368</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>48</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402145228</Player>
+			<Player>402204710</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>49</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401476886</Player>
+			<Player>413167467</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>50</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401029896</Player>
+			<Player>413275551</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>51</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>406309771</Player>
+			<Player>410674074</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>52</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401266559</Player>
+			<Player>413145617</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>53</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>412195015</Player>
+			<Player>413473142</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>54</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401004361</Player>
+			<Player>404634329</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>55</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400357183</Player>
+			<Player>402410022</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>56</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401201566</Player>
+			<Player>406890585</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>57</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401524873</Player>
+			<Player>412094219</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>58</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>411488745</Player>
+			<Player>412332089</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>59</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402128997</Player>
+			<Player>413569695</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>60</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400010876</Player>
+			<Player>401629411</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>61</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401860731</Player>
+			<Player>413566071</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>62</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400211825</Player>
+			<Player>412513047</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>63</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401212071</Player>
+			<Player>411359198</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>64</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>409211594</Player>
+			<Player>409609881</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>65</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>409158986</Player>
+			<Player>412337244</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>66</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>409474375</Player>
+			<Player>412572305</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>67</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402122701</Player>
+			<Player>412059233</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>68</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>409207580</Player>
+			<Player>411547907</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>69</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>406037132</Player>
+			<Player>411281486</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>70</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402119632</Player>
+			<Player>408712851</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>71</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400400736</Player>
+			<Player>409291864</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>72</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>405381242</Player>
+			<Player>409208760</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>73</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>410873983</Player>
+			<Player>411444202</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>74</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>412932215</Player>
+			<Player>414084125</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>75</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>409074593</Player>
+			<Player>409535251</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>76</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>405722988</Player>
+			<Player>406819982</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>77</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>408258229</Player>
+			<Player>412991033</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>78</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402244130</Player>
+			<Player>407850060</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>79</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>413333741</Player>
+			<Player>413574561</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>80</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401063411</Player>
+			<Player>412970069</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>81</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>412543315</Player>
+			<Player>414077999</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>82</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>413006038</Player>
+			<Player>413403209</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>83</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>410417554</Player>
+			<Player>411419247</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>84</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402242381</Player>
+			<Player>409617918</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>85</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401267067</Player>
+			<Player>404749798</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>86</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402084317</Player>
+			<Player>410479288</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>87</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>411415297</Player>
+			<Player>414109566</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>88</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401045766</Player>
+			<Player>410415171</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>89</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>406027637</Player>
+			<Player>413518195</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>90</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>412663851</Player>
+			<Player>413397860</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>91</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401263032</Player>
+			<Player>404599475</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>92</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>404669240</Player>
+			<Player>412807669</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>93</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>410175172</Player>
+			<Player>411286616</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>94</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>411355199</Player>
+			<Player>411410082</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>95</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>408318060</Player>
+			<Player>413330163</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>96</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>412895746</Player>
+			<Player>414109531</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>97</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>411377819</Player>
+			<Player>413086773</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>98</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401167867</Player>
+			<Player>409846801</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>99</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>406329418</Player>
+			<Player>411547921</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>100</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402204769</Player>
+			<Player>411543028</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>101</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>411267817</Player>
+			<Player>412962790</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>102</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400439338</Player>
+			<Player>413235885</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>103</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402084146</Player>
+			<Player>404910726</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>104</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>409074996</Player>
+			<Player>411550671</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>105</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>409613516</Player>
+			<Player>411402691</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>106</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>409222782</Player>
+			<Player>413409739</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>107</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402243364</Player>
+			<Player>409010009</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>108</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>410753875</Player>
+			<Player>411533120</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>109</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>407837131</Player>
+			<Player>409736541</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>110</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>317702021</Player>
+			<Player>412684912</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>111</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>407544897</Player>
+			<Player>413391927</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>112</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>402081877</Player>
+			<Player>413576407</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>113</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>411107947</Player>
+			<Player>414082058</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>114</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>408445416</Player>
+			<Player>412425726</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>115</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>114178345</Player>
+			<Player>412461416</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>116</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>404545645</Player>
+			<Player>412641072</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>117</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>404952531</Player>
+			<Player>406218346</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>118</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401487145</Player>
+			<Player>409884581</Player>
+			<Round>6</Round>
+			<Status>Incomplete</Status>
+			<Table>119</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>416210218</Player>
+			<Player>0</Player>
+			<Round>6</Round>
+			<Status>Winner</Status>
+			<Table>120</Table>
+			<Winner>416210218</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401924021</Player>
+			<Player>408020321</Player>
+			<Round>6</Round>
 			<Status>Incomplete</Status>
 			<Table>1001</Table>
 			<Winner>0</Winner>
