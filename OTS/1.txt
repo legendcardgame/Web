@@ -560,6 +560,23 @@
 		</TournPlayer>
 		<TournPlayer>
 			<Player>
+				<ID>0401160964</ID>
+				<FirstName>Carlos</FirstName>
+				<LastName>Zavaleta</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
 				<ID>0401167867</ID>
 				<FirstName>Arsenio</FirstName>
 				<LastName>Hernandez Ocampo</LastName>
@@ -5615,20 +5632,20 @@
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
+			<Player>400211825</Player>
 			<Player>404932869</Player>
-			<Player>0</Player>
 			<Round>1</Round>
-			<Status>Winner</Status>
+			<Status>Incomplete</Status>
 			<Table>130</Table>
 			<Winner>0</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
-			<Player>400211825</Player>
+			<Player>401160964</Player>
 			<Player>0</Player>
 			<Round>1</Round>
 			<Status>Winner</Status>
-			<Table>131</Table>
+			<Table>132</Table>
 			<Winner>0</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
