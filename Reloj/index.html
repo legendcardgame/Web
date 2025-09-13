@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Temporizador</title>
+  <title>Temporizador (Proyección)</title>
   <link rel="stylesheet" href="styles.css" />
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-database-compat.js"></script>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
   <main class="stage">
     <div class="bg-wrap">
-      <img id="bg" class="bg-img" src="./fondo.png" alt="Fondo" />
+      <img id="bg" class="bg-img" alt="Fondo" />
       <div class="bg-overlay"></div>
     </div>
 
@@ -30,30 +30,27 @@
   </main>
 
   <audio id="alarmSound" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" preload="auto"></audio>
+  <div id="status" class="status">Desconectado</div>
 
   <script>
-    // Tu configuración de Firebase
+    // 🔑 Configuración Firebase (pega aquí la tuya de consola Firebase)
     const firebaseConfig = {
-      apiKey: "AIzaSyAviDdNkdny9zOVKnehbs0UEWIZX2iCQSk",
-      authDomain: "lcg-reloj.firebaseapp.com",
-      databaseURL: "https://lcg-reloj-default-rtdb.firebaseio.com",
-      projectId: "lcg-reloj",
-      storageBucket: "lcg-reloj.appspot.com",
-      messagingSenderId: "803193828085",
-      appId: "1:803193828085:web:4d2728ab95f30c26298bbc",
-      measurementId: "G-JSLN1B8SML"
+      apiKey: "TU_API_KEY",
+      authDomain: "TU_AUTH_DOMAIN",
+      projectId: "TU_PROJECT_ID",
     };
-
     firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-    const roomId = "lcg"; // sala única
-    const refCmd = db.ref(`rooms/${roomId}/command`);
+    const db = firebase.firestore();
 
-    // --- Lógica del temporizador ---
+    // Sala (puedes cambiarla si quieres varios timers)
+    const ROOM_ID = "default";
+
+    // ===== Lógica del temporizador =====
     const timerText = document.getElementById('timerText');
     const alarm = document.getElementById('alarmSound');
     const rondaText = document.getElementById('rondaText');
     const bg = document.getElementById('bg');
+    const statusEl = document.getElementById('status');
 
     let totalMs = 50 * 60 * 1000;
     let currentMs = totalMs;
@@ -61,47 +58,48 @@
     let iv = null;
     let lastTick = 0;
 
-    const fmt = ms => {
+    function fmt(ms) {
       const m = Math.floor(ms / 60000);
       const s = Math.floor((ms % 60000) / 1000);
-      return m + ":" + s.toString().padStart(2,'0');
-    };
-    const updateText = () => { timerText.textContent = fmt(currentMs); };
-    const setTime = min => { const x=Number(min); if(!Number.isFinite(x)||x<0)return; totalMs=x*60000; currentMs=totalMs; updateText(); };
-    const start = () => { if(running)return; running=true; lastTick=performance.now(); iv=requestAnimationFrame(tick); };
-    const stop = () => { running=false; if(iv)cancelAnimationFrame(iv); };
-    const reset = () => { stop(); currentMs=totalMs; updateText(); };
-
-    function tick(ts){
-      const delta=ts-lastTick; lastTick=ts;
-      currentMs-=delta;
-      if(currentMs<=0){ currentMs=0; updateText(); stop(); alarm.play(); }
-      else { updateText(); iv=requestAnimationFrame(tick); }
+      return m + ":" + s.toString().padStart(2, '0');
     }
+    function updateText() { timerText.textContent = fmt(currentMs); }
+    function setTime(min) {
+      const x = Number(min);
+      if (!Number.isFinite(x) || x < 0) return;
+      totalMs = x * 60000; currentMs = totalMs; updateText();
+    }
+    function tick(ts) {
+      const delta = ts - lastTick; lastTick = ts; currentMs -= delta;
+      if (currentMs <= 0) {
+        currentMs = 0; updateText(); stop(); alarm.play();
+      } else { updateText(); iv = requestAnimationFrame(tick); }
+    }
+    function start() { if (running) return; running = true; lastTick = performance.now(); iv = requestAnimationFrame(tick); }
+    function stop() { running = false; if (iv) cancelAnimationFrame(iv); }
+    function reset() { stop(); currentMs = totalMs; updateText(); }
 
-    // Tecla F para pantalla completa en la PC del proyector
-    addEventListener('keydown', e=>{
-      if(e.key==='f'||e.key==='F'){
-        if(!document.fullscreenElement) document.documentElement.requestFullscreen();
-        else document.exitFullscreen();
+    // ===== Firestore Sync =====
+    const ref = db.collection('timers').doc(ROOM_ID);
+    ref.onSnapshot((snap) => {
+      statusEl.textContent = 'Conectado'; statusEl.classList.add('ok');
+      if (!snap.exists) return;
+      const cmd = snap.data();
+      if (!cmd || !cmd.type) return;
+
+      switch (cmd.type) {
+        case "start": start(); break;
+        case "pause": stop(); break;
+        case "reset": reset(); break;
+        case "setTime": setTime(cmd.minutes); break;
+        case "setRonda": rondaText.textContent = cmd.text; break;
+        case "setBackground": bg.src = cmd.dataUrl; break;
       }
+    }, (err) => {
+      statusEl.textContent = 'Error'; statusEl.classList.remove('ok'); console.error(err);
     });
 
-    // ---- Escucha de comandos vía Firebase ----
-    refCmd.on('value', snap=>{
-      const cmd = snap.val();
-      if(!cmd || !cmd.type) return;
-      switch(cmd.type){
-        case 'start': start(); break;
-        case 'pause': stop(); break;
-        case 'reset': reset(); break;
-        case 'setTime': setTime(cmd.minutes); break;
-        case 'setRonda': rondaText.textContent = cmd.text; break;
-        case 'setBackground': if(cmd.url) bg.src = cmd.url; break;
-      }
-    });
-
-    // Inicializar
+    // Inicializa
     updateText();
   </script>
 </body>
