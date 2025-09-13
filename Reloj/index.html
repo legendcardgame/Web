@@ -12,7 +12,8 @@
 <body>
   <main class="stage">
     <div class="bg-wrap">
-      <img id="bg" class="bg-img" alt="Fondo" />
+      <!-- Fondo fijo tomado del HTML -->
+      <img id="bg" class="bg-img" src="fondo.png" alt="Fondo" />
       <div class="bg-overlay"></div>
     </div>
 
@@ -33,7 +34,7 @@
   <div id="status" class="status">Desconectado</div>
 
   <script>
-    // 🔑 Configuración Firebase (pega aquí la tuya de consola Firebase)
+    // 🔑 Configuración Firebase (pega la tuya)
     const firebaseConfig = {
       apiKey: "TU_API_KEY",
       authDomain: "TU_AUTH_DOMAIN",
@@ -42,14 +43,13 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // Sala (puedes cambiarla si quieres varios timers)
+    // Sala
     const ROOM_ID = "default";
 
     // ===== Lógica del temporizador =====
     const timerText = document.getElementById('timerText');
     const alarm = document.getElementById('alarmSound');
     const rondaText = document.getElementById('rondaText');
-    const bg = document.getElementById('bg');
     const statusEl = document.getElementById('status');
 
     let totalMs = 50 * 60 * 1000;
@@ -79,7 +79,7 @@
     function stop() { running = false; if (iv) cancelAnimationFrame(iv); }
     function reset() { stop(); currentMs = totalMs; updateText(); }
 
-    // ===== Firestore Sync =====
+    // ===== Firestore Sync (sin setBackground) =====
     const ref = db.collection('timers').doc(ROOM_ID);
     ref.onSnapshot((snap) => {
       statusEl.textContent = 'Conectado'; statusEl.classList.add('ok');
@@ -93,10 +93,9 @@
         case "reset": reset(); break;
         case "setTime": setTime(cmd.minutes); break;
         case "setRonda": rondaText.textContent = cmd.text; break;
-        case "setBackground": bg.src = cmd.dataUrl; break;
       }
     }, (err) => {
-      statusEl.textContent = 'Error'; statusEl.classList.remove('ok'); console.error(err);
+      statusEl.textContent = 'Error: ' + err.message; statusEl.classList.remove('ok'); console.error(err);
     });
 
     // Inicializa
