@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Control remoto</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#111; color:#fff; padding:1rem; }
+    button, input { font-size:1.2rem; margin:.3rem; padding:.5rem 1rem; }
+    .row { margin:.5rem 0; }
+    .muted { color:#9aa0a6; font-size:.9rem; }
+  </style>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <h1>Control del Temporizador</h1>
+
+  <div class="row">
+    <label>Minutos: <input id="minutes" type="number" value="50" min="0"></label>
+    <button onclick="send('setTime')">Aplicar</button>
+  </div>
+
+  <div class="row">
+    <button onclick="send('start')">▶️ Iniciar</button>
+    <button onclick="send('pause')">⏸️ Pausar</button>
+    <button onclick="send('reset')">🔄 Reiniciar</button>
+  </div>
+
+  <div class="row">
+    <label>Ronda: <input id="rondaInput" type="text" placeholder="Número"></label>
+    <button onclick="send('setRonda')">Guardar Ronda</button>
+  </div>
+
+  <div class="row">
+    <label>Subir fondo: <input id="bgFile" type="file" accept="image/*"></label>
+  </div>
+
+  <p class="muted">Abre <strong>/index.html</strong> en la PC del proyector y esta página <strong>/control.html</strong> en tu celular (misma red).</p>
+
+  <script>
+    const socket = io();
+
+    function send(cmd) {
+      if (cmd === "setTime") {
+        socket.emit("command", { type:"setTime", minutes: document.getElementById("minutes").value });
+      } else if (cmd === "setRonda") {
+        socket.emit("command", { type:"setRonda", text: "Ronda " + document.getElementById("rondaInput").value });
+      } else {
+        socket.emit("command", { type:cmd });
+      }
+    }
+
+    // Enviar imagen como dataURL (simple). Útil en LAN; evitar imágenes muy grandes.
+    document.getElementById('bgFile').addEventListener('change', async (e) => {
+      const file = e.target.files?.[0]; if(!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        socket.emit("command", { type:"setBackground", dataUrl: reader.result });
+      };
+      reader.readAsDataURL(file);
+    });
+  </script>
+</body>
+</html>
