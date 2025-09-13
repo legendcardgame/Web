@@ -203,6 +203,23 @@
 		</TournPlayer>
 		<TournPlayer>
 			<Player>
+				<ID>0400211825</ID>
+				<FirstName>Eduardo</FirstName>
+				<LastName>Galvan Lopez</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
 				<ID>0400213111</ID>
 				<FirstName>Cesar</FirstName>
 				<LastName>Contreras Castillo</LastName>
@@ -782,8 +799,8 @@
 		<TournPlayer>
 			<Player>
 				<ID>0401537186</ID>
-				<FirstName>Jonathan Arturo</FirstName>
-				<LastName>Tellez Rosas</LastName>
+				<FirstName>Eythtl</FirstName>
+				<LastName>Campos Piña</LastName>
 				<TeamPosition>0</TeamPosition>
 			</Player>
 			<DropRound>0</DropRound>
@@ -1808,6 +1825,23 @@
 			</Player>
 			<DropRound>0</DropRound>
 			<Rank>1</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
+				<ID>0404932869</ID>
+				<FirstName>Ricardo Santiago</FirstName>
+				<LastName>Ramirez Bixano</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
 			<Points>0</Points>
@@ -5577,6 +5611,24 @@
 			<Round>1</Round>
 			<Status>Incomplete</Status>
 			<Table>129</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>404932869</Player>
+			<Player>0</Player>
+			<Round>1</Round>
+			<Status>Winner</Status>
+			<Table>130</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>400211825</Player>
+			<Player>0</Player>
+			<Round>1</Round>
+			<Status>Winner</Status>
+			<Table>131</Table>
 			<Winner>0</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
