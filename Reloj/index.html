@@ -87,7 +87,7 @@
       }
     });
 
-    // --- Escucha de comandos vía Firebase ---
+    // ---- Escucha de comandos vía Firebase ----
     refCmd.on('value', snap=>{
       const cmd = snap.val();
       if(!cmd || !cmd.type) return;
