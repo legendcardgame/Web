@@ -509,6 +509,23 @@
 		</TournPlayer>
 		<TournPlayer>
 			<Player>
+				<ID>0401063678</ID>
+				<FirstName>Juan Carlos</FirstName>
+				<LastName>Cruz Dorantes</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
 				<ID>0401115383</ID>
 				<FirstName>DIEGO</FirstName>
 				<LastName>SEMETAL CARRO</LastName>
@@ -2187,7 +2204,7 @@
 			<Points>0</Points>
 			<OpenDueling>0</OpenDueling>
 			<DropReason>Active</DropReason>
-			<AssignedSeat>-1</AssignedSeat>
+			<AssignedSeat>1001</AssignedSeat>
 			<Notes />
 		</TournPlayer>
 		<TournPlayer>
@@ -2787,6 +2804,23 @@
 		</TournPlayer>
 		<TournPlayer>
 			<Player>
+				<ID>0410479288</ID>
+				<FirstName>Ruben Alejandro</FirstName>
+				<LastName>Tello Vinzend</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
 				<ID>0410595984</ID>
 				<FirstName>Luis Alverto</FirstName>
 				<LastName>Salgado Lopez</LastName>
@@ -2845,6 +2879,23 @@
 			</Player>
 			<DropRound>0</DropRound>
 			<Rank>1</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
+				<ID>0410858951</ID>
+				<FirstName>Javier Salvador</FirstName>
+				<LastName>SJuarez Santamaria</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
 			<Points>0</Points>
@@ -3746,6 +3797,23 @@
 			</Player>
 			<DropRound>0</DropRound>
 			<Rank>1</Rank>
+			<PlayoffPoints>0</PlayoffPoints>
+			<Wins>0</Wins>
+			<Points>0</Points>
+			<OpenDueling>0</OpenDueling>
+			<DropReason>Active</DropReason>
+			<AssignedSeat>-1</AssignedSeat>
+			<Notes />
+		</TournPlayer>
+		<TournPlayer>
+			<Player>
+				<ID>0412970069</ID>
+				<FirstName>Jonatan Arturo</FirstName>
+				<LastName>Tellez Rosas</LastName>
+				<TeamPosition>0</TeamPosition>
+			</Player>
+			<DropRound>0</DropRound>
+			<Rank>0</Rank>
 			<PlayoffPoints>0</PlayoffPoints>
 			<Wins>0</Wins>
 			<Points>0</Points>
@@ -5491,6 +5559,24 @@
 			<Round>1</Round>
 			<Status>Incomplete</Status>
 			<Table>127</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>401063678</Player>
+			<Player>410858951</Player>
+			<Round>1</Round>
+			<Status>Incomplete</Status>
+			<Table>128</Table>
+			<Winner>0</Winner>
+			<PlayoffMatch>False</PlayoffMatch>
+		</TournMatch>
+		<TournMatch>
+			<Player>410479288</Player>
+			<Player>412970069</Player>
+			<Round>1</Round>
+			<Status>Incomplete</Status>
+			<Table>129</Table>
 			<Winner>0</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
