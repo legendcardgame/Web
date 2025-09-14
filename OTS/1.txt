@@ -11873,7 +11873,7 @@
 			<Round>7</Round>
 			<Status>Winner</Status>
 			<Table>25</Table>
-			<Winner>400223741</Winner>
+			<Winner>409454042</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
@@ -11907,9 +11907,9 @@
 			<Player>401537186</Player>
 			<Player>401613070</Player>
 			<Round>7</Round>
-			<Status>Draw</Status>
+			<Status>Winner</Status>
 			<Table>29</Table>
-			<Winner>0</Winner>
+			<Winner>401613070</Winner>
 			<PlayoffMatch>False</PlayoffMatch>
 		</TournMatch>
 		<TournMatch>
